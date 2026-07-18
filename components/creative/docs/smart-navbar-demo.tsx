@@ -12,7 +12,7 @@ export function SmartNavbarDemo({ threshold = 50, glass = true }: any) {
       className="relative w-full h-[400px] rounded-xl overflow-y-auto border border-white/10 bg-zinc-950"
     >
       <SmartNavbar 
-        container={containerRef} 
+        container={containerRef as any} 
         threshold={threshold} 
         glass={glass}
         className="sticky top-0 left-0 right-0 z-50 px-6 py-4"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StickyStackingCards } from '@/components/creative/sticky-stacking-cards';
+import { StickyStackingCard } from '@/components/creative/sticky-stacking-cards';
 
 export function StickyStackingCardsDemo() {
   const cards = [
@@ -10,7 +10,11 @@ export function StickyStackingCardsDemo() {
   return (
     <div className="w-full h-[600px] overflow-y-auto bg-black rounded-xl border border-white/10 relative">
       <div className="py-[10vh] max-w-2xl mx-auto">
-        <StickyStackingCards cards={cards} cardHeight="400px" />
+        {cards.map((card, index) => (
+          <StickyStackingCard key={card.id} index={index} totalCards={cards.length}>
+            {card.content}
+          </StickyStackingCard>
+        ))}
       </div>
     </div>
   );

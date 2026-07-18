@@ -58,7 +58,7 @@ export function RadialMenu({
   };
 
   return (
-    <div className={cn("relative flex items-center justify-center", className)} {...props}>
+    <motion.div className={cn("relative flex items-center justify-center", className)} {...props}>
       <AnimatePresence>
         {isOpen && (
           <>
@@ -159,6 +159,6 @@ export function RadialMenu({
           )}
         </motion.div>
       </motion.button>
-    </div>
+    </motion.div>
   );
 }

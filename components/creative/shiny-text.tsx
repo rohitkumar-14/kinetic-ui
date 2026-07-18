@@ -17,7 +17,7 @@ interface ShinyTextProps {
   variant?: ShinyVariant;
 }
 
-const VARIANTS: Record<ShinyVariant, { duration: number; ease: string | number[] }> = {
+const VARIANTS: Record<ShinyVariant, { duration: number; ease: "linear" | "easeInOut" }> = {
   standard: { duration: 3, ease: "linear" },
   slow: { duration: 6, ease: "linear" },
   fast: { duration: 1.5, ease: "linear" },

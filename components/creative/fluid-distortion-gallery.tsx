@@ -87,7 +87,6 @@ function FluidScene({ images, currentIndex }: { images: string[], currentIndex: 
   });
 
   // Calculate plane dimensions to cover viewport
-  const { viewport } = state => state;
   // Use a large plane to cover screen
   return (
     <mesh>

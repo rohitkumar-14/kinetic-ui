@@ -91,9 +91,7 @@ function Particles({ count = 2000, color = "#6366f1" }: { count: number; color: 
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={count}
-          array={positions}
-          itemSize={3}
+          args={[positions, 3]}
         />
       </bufferGeometry>
       <pointsMaterial

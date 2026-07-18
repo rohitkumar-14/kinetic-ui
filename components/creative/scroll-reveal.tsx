@@ -74,7 +74,7 @@ export function ScrollReveal({
         ...(staggerChildren ? { staggerChildren } : {}),
       }}
       className={cn(className)}
-      {...props}
+      {...(props as any)}
     >
       {children}
     </motion.div>

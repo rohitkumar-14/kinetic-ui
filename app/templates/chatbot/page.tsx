@@ -7,6 +7,7 @@ import { ThinkingVisualizer } from "@/components/creative/thinking-visualizer";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, User, Menu, Plus, Settings } from "lucide-react";
 import { FilmGrain } from "@/components/creative/film-grain";
+import { cn } from "@/lib/utils";
 
 // Dummy conversation data
 const INITIAL_CHAT = [

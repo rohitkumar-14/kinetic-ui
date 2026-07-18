@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, HTMLMotionProps } from "framer-motion";
 import { Send, Paperclip, Mic, ArrowUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export interface AnimatedPromptInputProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onSubmit"> {
+export interface AnimatedPromptInputProps extends Omit<HTMLMotionProps<"div">, "onSubmit"> {
   onSubmit?: (value: string) => void;
   placeholder?: string;
   isGenerating?: boolean;

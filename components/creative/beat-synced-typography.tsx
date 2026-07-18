@@ -92,7 +92,7 @@ export function BeatSyncedTypography({
 
     if (analyserRef.current && dataArrayRef.current) {
       // Real Audio Data
-      analyserRef.current.getByteFrequencyData(dataArrayRef.current);
+      analyserRef.current.getByteFrequencyData(dataArrayRef.current as any);
       // Sample lowest frequencies for "bass" beat
       let sum = 0;
       for (let i = 0; i < 5; i++) {

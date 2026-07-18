@@ -163,6 +163,7 @@ function ShaderPlane({ image1, image2, effect, isHovered, intensity = 0.5 }: Sha
     <mesh ref={meshRef}>
       <planeGeometry args={[2, 2]} />
       {effect === "liquid" ? (
+        // @ts-ignore
         <liquidRippleMaterial 
           ref={materialRef} 
           uTex1={tex1} 
@@ -171,6 +172,7 @@ function ShaderPlane({ image1, image2, effect, isHovered, intensity = 0.5 }: Sha
           transparent={true}
         />
       ) : (
+        // @ts-ignore
         <noiseDissolveMaterial 
           ref={materialRef} 
           uTex1={tex1} 

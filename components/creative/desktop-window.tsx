@@ -28,7 +28,7 @@ export function DesktopEnvironment({ children, className, backgroundUrl }: Deskt
   };
 
   return (
-    <DesktopContext.Provider value={{ highestZ, bringToFront, containerRef }}>
+    <DesktopContext.Provider value={{ highestZ, bringToFront, containerRef: containerRef as any }}>
       <div 
         ref={containerRef}
         className={cn("relative w-full h-full overflow-hidden bg-slate-900", className)}
