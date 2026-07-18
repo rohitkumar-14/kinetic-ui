@@ -646,7 +646,3 @@ export default async function ComponentPage(props: { params: Promise<{ slug: str
     </div>
   );
 }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
