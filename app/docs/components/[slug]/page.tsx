@@ -645,10 +645,3 @@ export default async function ComponentPage(props: { params: Promise<{ slug: str
     </div>
   );
 }
-
-export async function generateStaticParams() {
-  const slugs = getComponentSlugs();
-  return slugs.map((slug) => ({
-    slug,
-  }));
-}
