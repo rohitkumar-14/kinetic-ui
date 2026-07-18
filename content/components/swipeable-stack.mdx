@@ -1,0 +1,61 @@
+---
+title: Swipeable Stack Deck
+description: A stack of physical cards that users can drag and swipe away using advanced gestures.
+category: Cards
+---
+
+Bring Tinder-style swiping mechanics to your web application. Using Framer Motion's `drag` API and advanced physics, users can physically grab the top card of a stack and throw it off the screen. As cards are removed, the cards underneath perfectly scale and slide up to take their place.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Swipeable Stack Deck" 
+  componentName="SwipeableStack"
+  sourceFile="components/creative/swipeable-stack.tsx"
+  playgroundControls={[
+    {
+      name: "deck",
+      label: "Deck Theme",
+      type: "select",
+      options: ["travel", "abstract"],
+      default: "travel"
+    }
+  ]}
+  propsData={[
+    {
+      name: "cards",
+      type: "Array<StackCard>",
+      default: "Required",
+      description: "An array of StackCard objects containing id, title, imageUrl, and optional subtitle."
+    },
+    {
+      name: "onSwipeLeft",
+      type: "(card: StackCard) => void",
+      default: "—",
+      description: "Callback function triggered when a card is thrown to the left (rejected). Returns the card object."
+    },
+    {
+      name: "onSwipeRight",
+      type: "(card: StackCard) => void",
+      default: "—",
+      description: "Callback function triggered when a card is thrown to the right (accepted). Returns the card object."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Optional Tailwind classes for the outer container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { SwipeableStack } from "@/components/creative/swipeable-stack";\n\nconst cards = [\n  {\n    id: "1",\n    title: "Card 1",\n    imageUrl: "https://example.com/img1.jpg"\n  }\n];\n\nexport default function Example() {\n  return (\n    <SwipeableStack \n      cards={cards} \n      onSwipeRight={(card) => console.log("Liked", card)}\n      onSwipeLeft={(card) => console.log("Passed", card)}\n    />\n  );\n}`,
+      params: { deck: "travel" }
+    }
+  ]}
+>
+  <SwipeableStackDemo />
+</ComponentPreview>
+
+

@@ -1,0 +1,128 @@
+---
+title: Hover Image Trails
+description: A stunning visual effect that spawns a trail of images following the cursor — with 5 animation styles.
+category: Mouse Interactions
+---
+
+When the user moves their mouse across a designated canvas, a trail of images rapidly pops up and fades away following the cursor path. This effect is extremely popular on high-end photography portfolios and creative agency websites. Now with **5 animation effects** and performance-capped trails.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Hover Image Trails" 
+  componentName="HoverImageTrails"
+  sourceFile="components/creative/hover-image-trails.tsx"
+  playgroundControls={[
+    {
+      name: "effect",
+      label: "Animation Style",
+      type: "select",
+      options: ["pop", "rotate", "stretch", "glitch", "wave"],
+      default: "pop"
+    },
+    {
+      name: "distanceThreshold",
+      label: "Spawn Distance",
+      type: "number",
+      default: 50,
+      min: 20,
+      max: 150,
+      step: 5
+    },
+    {
+      name: "fadeDuration",
+      label: "Fade Duration",
+      type: "number",
+      default: 800,
+      min: 200,
+      max: 2000,
+      step: 100
+    }
+  ]}
+  propsData={[
+    {
+      name: "effect",
+      type: "'pop' | 'rotate' | 'stretch' | 'glitch' | 'wave'",
+      default: "'pop'",
+      description: "The animation style applied to each trail image."
+    },
+    {
+      name: "images",
+      type: "string[]",
+      default: "[]",
+      description: "Array of image URLs to cycle through."
+    },
+    {
+      name: "distanceThreshold",
+      type: "number",
+      default: "50",
+      description: "Minimum pixels the cursor must travel before spawning the next image."
+    },
+    {
+      name: "fadeDuration",
+      type: "number",
+      default: "800",
+      description: "Time in milliseconds before each trail image fades out."
+    },
+    {
+      name: "maxTrails",
+      type: "number",
+      default: "10",
+      description: "Maximum number of trail images visible at once. Prevents performance degradation."
+    },
+    {
+      name: "imageWidth",
+      type: "number",
+      default: "128",
+      description: "Width of each trail image in pixels."
+    },
+    {
+      name: "imageHeight",
+      type: "number",
+      default: "160",
+      description: "Height of each trail image in pixels."
+    },
+    {
+      name: "imageClass",
+      type: "string",
+      default: "—",
+      description: "Additional classes applied to each trail image (borders, rounded corners, etc)."
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      default: "—",
+      description: "Content displayed in the center of the trail canvas."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { HoverImageTrails } from '@/components/creative/hover-image-trails';\n\nconst images = [\n  "https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=600",\n  "https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=600",\n  "https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=600",\n];\n\nexport default function Example() {\n  return (\n    <HoverImageTrails\n      images={images}\n      effect="pop"\n      distanceThreshold={50}\n      fadeDuration={800}\n      className="w-full h-[500px] flex items-center justify-center bg-black"\n    >\n      <h3 className="text-4xl font-bold text-white">Hover Over Me</h3>\n    </HoverImageTrails>\n  );\n}`,
+      params: { effect: "pop", distanceThreshold: 50, fadeDuration: 800 }
+    }
+  ]}
+>
+  <HoverImageTrailsDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="hover-image-trails" />
+
+## Props
+
+
+## Effects
+
+| Effect | Animation | Feel |
+|---|---|---|
+| `pop` | Scale burst in/out | Classic, snappy |
+| `rotate` | Direction-aware random rotation | Organic, playful |
+| `stretch` | Horizontal squeeze → settle | Elastic, dynamic |
+| `glitch` | Clip-path wipe reveal | Digital, edgy |
+| `wave` | Spring-based upward float | Dreamy, buoyant |
+
+## How It Works
+
+The component tracks cursor position via `onPointerMove`. When the distance from the last spawn exceeds `distanceThreshold`, it calculates the movement angle and velocity, then spawns a new trail image at that position. Each effect uses these physics values for direction-aware animations. A `maxTrails` cap ensures DOM node count stays bounded. Images auto-remove after `fadeDuration` via `setTimeout`.

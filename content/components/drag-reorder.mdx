@@ -1,0 +1,64 @@
+---
+title: Drag to Reorder
+description: A polished, physics-based sortable list utilizing Framer Motion.
+---
+
+<ComponentPreview 
+  name="drag-reorder"
+  componentName="DragReorder"
+  sourceFile="components/creative/drag-reorder.tsx"
+  playgroundControls={[
+    {
+      name: "axis",
+      label: "Axis",
+      type: "select",
+      options: ["x", "y"],
+      default: "y"
+    }
+  ]}
+>
+  <DragReorderDemo />
+</ComponentPreview>
+
+## Overview
+The `DragReorder` component leverages `framer-motion`'s highly capable `<Reorder>` API to create a fluid, physics-driven drag-and-drop experience. It includes native drag handles, elevation physics (shadow and scale on drag), and seamless list reordering without the heavy overhead of traditional drag-and-drop libraries like `dnd-kit` or `react-beautiful-dnd`.
+
+## Installation
+
+```bash
+npm install framer-motion lucide-react
+```
+
+## Usage
+
+```tsx
+import { DragReorder } from "@/components/creative/drag-reorder"
+import { GripVertical } from "lucide-react"
+import { useState } from "react"
+
+export default function SortableList() {
+  const [items, setItems] = useState([
+    { id: "1", title: "Task One" },
+    { id: "2", title: "Task Two" }
+  ])
+
+  return (
+    <DragReorder 
+      items={items}
+      onReorder={setItems}
+      keyExtractor={(item) => item.id}
+      renderItem={(item, index, dragControls) => (
+        <div className="flex gap-4 p-4 bg-zinc-900 border border-white/10 rounded-xl">
+          <div 
+            className="cursor-grab text-zinc-500 hover:text-white"
+            onPointerDown={(e) => dragControls.start(e)}
+          >
+            <GripVertical />
+          </div>
+          <span className="text-white">{item.title}</span>
+        </div>
+      )}
+    />
+  )
+}
+```

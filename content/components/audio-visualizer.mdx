@@ -1,0 +1,38 @@
+---
+title: Audio Visualizer Canvas
+description: A stunning, real-time circular audio visualizer powered by the native Web Audio API and HTML5 Canvas.
+category: Media Components
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Audio Visualizer Canvas" 
+  componentName="AudioVisualizer"
+  sourceFile="components/creative/audio-visualizer.tsx"
+  playgroundControls={[
+    { name: "color", type: "string", default: "#a855f7", label: "Glow Color" }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { AudioVisualizer } from "@/components/creative/audio-visualizer";\n\nexport default function Example() {\n  return (\n    <AudioVisualizer \n      audioUrl="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg" \n      color="#a855f7"\n    />\n  );\n}`
+    }
+  ]}
+>
+  <AudioVisualizerDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="audio-visualizer" />
+
+## Architecture
+
+This component is built directly on top of the browser's native **Web Audio API** and bypasses heavy 3rd-party audio libraries entirely. 
+
+1. **Initialization:** Due to modern browser autoplay policies, the `AudioContext` is strictly instantiated *only* after the user clicks the central Play button.
+2. **Analysis:** It routes the `<audio>` source through an `AnalyserNode` with an `fftSize` of 256, giving us 128 usable frequency bins.
+3. **Canvas Drawing:** In a highly optimized `requestAnimationFrame` loop, we extract the `Uint8Array` frequency data and draw glowing vector lines distributed evenly in a circle around the center point. 
+4. **DPI Scaling:** It natively supports high-DPI (Retina) displays by scaling the canvas matrix to the `window.devicePixelRatio`.
+
+> **Note:** Ensure your audio files are served with proper CORS headers if they are hosted on a different domain, otherwise the Web Audio API will be blocked from reading the frequency data!

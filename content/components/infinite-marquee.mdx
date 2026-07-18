@@ -1,0 +1,68 @@
+---
+title: Infinite Marquee
+description: A high-performance horizontal reviews loop running infinite marquee lane animations.
+category: Marquee Components
+---
+
+The `InfiniteMovingCards` component repeats a collection of cards (like testimonials, reviews, or features) into continuous inline lanes, seamlessly scrolling them using highly optimized CSS and React refs.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Infinite Marquee" 
+  componentName="InfiniteMovingCards"
+  sourceFile="components/creative/infinite-moving-cards.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Layout Variant",
+      type: "select",
+      options: ["single", "double", "fast"],
+      default: "single"
+    }
+  ]}
+  propsData={[
+    {
+      name: "items",
+      type: "{ quote: string, name: string, title: string }[]",
+      description: "Array of items to render as cards."
+    },
+    {
+      name: "direction",
+      type: "\"left\" | \"right\"",
+      default: "\"left\"",
+      description: "The direction of the scroll."
+    },
+    {
+      name: "speed",
+      type: "\"fast\" | \"normal\" | \"slow\"",
+      default: "\"normal\"",
+      description: "Sets the loop duration (20s, 40s, or 80s)."
+    },
+    {
+      name: "pauseOnHover",
+      type: "boolean",
+      default: "true",
+      description: "Pauses the animation when the user hovers over the component."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { InfiniteMovingCards } from "@/components/creative/infinite-moving-cards";\n\nconst items = [\n  { quote: "Amazing component", name: "John Doe", title: "Developer" },\n  { quote: "Works seamlessly!", name: "Jane Smith", title: "Designer" },\n];\n\nexport default function Example() {\n  return (\n    <div className="w-full flex items-center justify-center py-12">\n      <InfiniteMovingCards items={items} direction="left" speed="normal" />\n    </div>\n  );\n}`,
+      params: { variant: "single" }
+    }
+  ]}
+>
+  <div className="w-full">
+    <InfiniteMarqueeDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="infinite-marquee" />
+
+## Props
+
+

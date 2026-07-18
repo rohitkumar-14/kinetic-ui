@@ -1,0 +1,56 @@
+---
+title: Scroll Spy
+description: A navigation indicator that tracks scroll position and highlights the active section.
+---
+
+<ComponentPreview 
+  name="scroll-spy"
+  componentName="ScrollSpy"
+  sourceFile="components/creative/scroll-spy.tsx"
+  playgroundControls={[
+    {
+      name: "alignment",
+      label: "Alignment",
+      type: "select",
+      options: ["left", "right"],
+      default: "right"
+    },
+    {
+      name: "showLabels",
+      label: "Show Labels on Hover",
+      type: "boolean",
+      default: true
+    }
+  ]}
+>
+  <ScrollSpyDemo />
+</ComponentPreview>
+
+## Overview
+The `ScrollSpy` component is an essential wayfinding tool for single-page applications or long-scrolling marketing sites. It automatically tracks the user's scroll position and highlights the currently active section dot. Clicking on any dot smoothly scrolls the page to that specific section.
+
+## Usage
+
+```tsx
+import { ScrollSpy } from "@/components/creative/scroll-spy"
+
+export default function Page() {
+  const sections = [
+    { id: "hero", label: "Introduction" },
+    { id: "features", label: "Core Features" },
+    { id: "pricing", label: "Pricing Plans" },
+    { id: "contact", label: "Get in Touch" },
+  ]
+
+  return (
+    <main>
+      <ScrollSpy sections={sections} alignment="right" />
+      
+      <section id="hero" className="h-screen">...</section>
+      <section id="features" className="h-screen">...</section>
+      <section id="pricing" className="h-screen">...</section>
+      <section id="contact" className="h-screen">...</section>
+    </main>
+  )
+}
+```

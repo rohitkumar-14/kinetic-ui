@@ -1,0 +1,51 @@
+---
+title: Input
+description: Displays a form input field or a component that looks like an input field.
+category: Forms
+---
+
+The `Input` component allows users to enter text data. It supports standard HTML input attributes, custom labels, helper text, and integrated error states with smooth animations.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Input" 
+  componentName="Input"
+  sourceFile="components/ui/input.tsx"
+  playgroundControls={[
+    { name: "variant", type: "select", options: ["default", "helper", "error", "file"], default: "default", label: "Variant" }
+  ]}
+  propsData={[
+    { name: "label", type: "string", description: "Optional label displayed above the input." },
+    { name: "helperText", type: "string", description: "Optional helper text displayed below the input." },
+    { name: "error", type: "string", description: "Error message displayed below the input. If provided, sets the border to red." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { Input } from "@/components/ui/input";\n\nexport default function Example() {\n  return (\n    <Input type="email" placeholder="Email address" />\n  );\n}`
+    },
+    {
+      name: "With Helper",
+      code: `import { Input } from "@/components/ui/input";\n\nexport default function Example() {\n  return (\n    <Input \n      label="Password"\n      type="password" \n      placeholder="Password" \n      helperText="Must be at least 8 characters long."\n    />\n  );\n}`
+    },
+    {
+      name: "Error State",
+      code: `import { Input } from "@/components/ui/input";\n\nexport default function Example() {\n  return (\n    <Input \n      type="email" \n      placeholder="Email address" \n      error="Please enter a valid email address."\n    />\n  );\n}`
+    },
+    {
+      name: "File Input",
+      code: `import { Input } from "@/components/ui/input";\n\nexport default function Example() {\n  return (\n    <Input \n      label="Upload Document"\n      type="file" \n    />\n  );\n}`
+    }
+  ]}
+>
+  <InputDemo variant="default" />
+  <InputDemo variant="helper" />
+  <InputDemo variant="error" />
+  <InputDemo variant="file" />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="input" />
+

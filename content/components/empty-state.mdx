@@ -1,0 +1,47 @@
+---
+title: Empty State
+description: A component used to represent a state when there is no data to display.
+category: Layout & Data
+---
+
+A component used to represent a state when there is no data to display, such as a 404 page, an empty search result, or a missing collection.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Empty State" 
+  componentName="EmptyState"
+  sourceFile="components/ui/empty-state.tsx"
+  playgroundControls={[
+    { name: "variant", type: "select", options: ["default", "404", "action"], default: "default", label: "Variant" }
+  ]}
+  propsData={[
+    { name: "icon", type: "React.ElementType", description: "The Lucide icon to display." },
+    { name: "title", type: "string", description: "The title string of the empty state." },
+    { name: "description", type: "string", description: "Optional description string of the empty state." },
+    { name: "action", type: "React.ReactNode", description: "Optional React element, usually a Button." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { EmptyState } from "@/components/ui/empty-state"\nimport { FolderSearch } from "lucide-react"\n\nexport default function Example() {\n  return (\n    <EmptyState\n      icon={FolderSearch}\n      title="No Results Found"\n      description="Try adjusting your search or filter to find what you're looking for."\n    />\n  );\n}`
+    },
+    {
+      name: "404 Error",
+      code: `import { EmptyState } from "@/components/ui/empty-state"\nimport { Ghost, LayoutDashboard } from "lucide-react"\nimport { Button } from "@/components/ui/button"\n\nexport default function Example() {\n  return (\n    <EmptyState\n      icon={Ghost}\n      title="Page Not Found"\n      description="The page you are looking for doesn't exist."\n      action={<Button><LayoutDashboard className="mr-2 h-4 w-4" />Return Home</Button>}\n    />\n  );\n}`
+    },
+    {
+      name: "With Action",
+      code: `import { EmptyState } from "@/components/ui/empty-state"\nimport { FolderSearch } from "lucide-react"\nimport { Button } from "@/components/ui/button"\n\nexport default function Example() {\n  return (\n    <EmptyState\n      icon={FolderSearch}\n      title="No Projects"\n      description="Start by creating a new project."\n      action={<Button>Create Project</Button>}\n    />\n  );\n}`
+    }
+  ]}
+>
+  <EmptyStateDemo variant="default" />
+  <EmptyStateDemo variant="404" />
+  <EmptyStateDemo variant="action" />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="empty-state" />
+

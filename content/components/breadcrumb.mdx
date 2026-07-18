@@ -1,0 +1,31 @@
+---
+title: Breadcrumb
+description: Displays the path to the current resource using a hierarchy of links.
+category: Navigation
+---
+
+Displays the path to the current resource using a hierarchy of links.
+
+## Preview
+
+<ComponentPreview 
+  name="Breadcrumb" 
+  componentName="Breadcrumb"
+  sourceFile="components/ui/breadcrumb.tsx"
+  propsData={[
+    {
+      name: "Inherits Props",
+      type: "HTML Attributes",
+      default: "—",
+      description: "Inherits all standard attributes from native <nav> and <ol> tags."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import {\n  Breadcrumb,\n  BreadcrumbItem,\n  BreadcrumbLink,\n  BreadcrumbList,\n  BreadcrumbPage,\n  BreadcrumbSeparator,\n} from "@/components/ui/breadcrumb"\n\nexport default function Example() {\n  return (\n    <Breadcrumb>\n      <BreadcrumbList>\n        <BreadcrumbItem>\n          <BreadcrumbLink href="/">Home</BreadcrumbLink>\n        </BreadcrumbItem>\n        <BreadcrumbSeparator />\n        <BreadcrumbItem>\n          <BreadcrumbPage>Breadcrumb</BreadcrumbPage>\n        </BreadcrumbItem>\n      </BreadcrumbList>\n    </Breadcrumb>\n  );\n}`
+    }
+  ]}
+>
+  <BreadcrumbDemo />
+</ComponentPreview>

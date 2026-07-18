@@ -1,0 +1,59 @@
+---
+title: Cursor Trail
+description: A physics-based gradient orb that elastically tracks the mouse.
+---
+
+<ComponentPreview 
+  name="cursor-trail"
+  componentName="CursorTrail"
+  sourceFile="components/creative/cursor-trail.tsx"
+  playgroundControls={[
+    {
+      name: "color",
+      label: "Color",
+      type: "string",
+      default: "#6366f1"
+    },
+    {
+      name: "size",
+      label: "Size (px)",
+      type: "number",
+      default: 150,
+      min: 50,
+      max: 400,
+      step: 10
+    },
+    {
+      name: "blur",
+      label: "Blur Amount",
+      type: "number",
+      default: 50,
+      min: 0,
+      max: 200,
+      step: 5
+    }
+  ]}
+>
+  <CursorTrailDemo />
+</ComponentPreview>
+
+## Overview
+The `CursorTrail` (or Blob Follower) is a heavily utilized effect in creative web design. It acts as an organic, ambient background aura that trails behind the user's cursor. Using `framer-motion`'s spring physics, it lags slightly behind the actual cursor position, creating a sense of weight and elasticity.
+
+## Usage
+
+```tsx
+import { CursorTrail } from "@/components/creative/cursor-trail"
+
+export default function Layout({ children }) {
+  return (
+    <div className="relative min-h-screen bg-black overflow-hidden">
+      <CursorTrail color="#ec4899" size={200} blur={80} />
+      
+      <main className="relative z-10">
+        {children}
+      </main>
+    </div>
+  )
+}
+```

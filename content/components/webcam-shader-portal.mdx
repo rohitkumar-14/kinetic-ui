@@ -1,0 +1,33 @@
+---
+title: "Webcam Shader Portal"
+description: "Real-time WebGL shader pipeline applied directly to the user's webcam feed."
+category: "Real-time & Media"
+---
+
+The `WebcamShaderPortal` requests camera permissions and immediately processes the video stream through custom GLSL fragment shaders. Perfect for 'Matrix' or 'Glitch' interactive experiences.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Webcam Shader Portal" 
+  componentName="WebcamShaderPortal"
+  sourceFile="components/creative/webcam-shader-portal.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Shader Effect",
+      type: "select",
+      options: ["default", "glitch", "matrix"],
+      default: "default"
+    }
+  ]}
+  propsData={[
+    { name: "variant", type: "'default' | 'glitch' | 'matrix'", default: "'default'", description: "The active WebGL shader program" }
+  ]}
+>
+  <WebcamShaderPortalDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="webcam-shader-portal" />

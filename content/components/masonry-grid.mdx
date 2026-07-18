@@ -1,0 +1,60 @@
+---
+title: Masonry Grid
+description: Pinterest-style grid for galleries and portfolios.
+---
+
+<ComponentPreview 
+  name="masonry-grid"
+  componentName="MasonryGrid"
+  sourceFile="components/creative/masonry-grid.tsx"
+  playgroundControls={[
+    {
+      name: "gap",
+      label: "Gap Size",
+      type: "number",
+      default: 4,
+      min: 0,
+      max: 12,
+      step: 1
+    },
+    {
+      name: "animate",
+      label: "Stagger Animation",
+      type: "boolean",
+      default: true
+    },
+    {
+      name: "columnWidth",
+      label: "Min Column Width (px)",
+      type: "number",
+      default: 250,
+      min: 150,
+      max: 400,
+      step: 10
+    }
+  ]}
+>
+  <MasonryGridDemo />
+</ComponentPreview>
+
+## Overview
+A responsive, performant masonry layout using CSS multi-columns. This ensures items of varying heights fit perfectly without awkward gaps, avoiding the heavy JavaScript calculations of traditional masonry libraries.
+
+## Usage
+
+```tsx
+import { MasonryGrid } from "@/components/creative/masonry-grid"
+```
+
+```tsx
+<MasonryGrid
+  columnWidth={250}
+  gap={4}
+  animate={true}
+>
+  <img src="/tall.jpg" alt="" />
+  <img src="/short.jpg" alt="" />
+  <img src="/medium.jpg" alt="" />
+  {/* More items */}
+</MasonryGrid>
+```

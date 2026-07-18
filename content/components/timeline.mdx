@@ -1,0 +1,38 @@
+---
+title: Timeline
+description: A component to display a chronological sequence of events.
+category: Layout & Data
+---
+
+A component to display a chronological sequence of events, perfect for changelogs, steps, or historical data.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Timeline" 
+  componentName="Timeline"
+  sourceFile="components/ui/timeline.tsx"
+  playgroundControls={[
+    { name: "alignment", type: "select", options: ["left", "right", "alternate"], default: "left", label: "Alignment" }
+  ]}
+  propsData={[
+    { name: "TimelineItem", type: "Component", description: "Represents a single event node." },
+    { name: "TimelineDot", type: "Component", description: "Customizable dot marker." },
+    { name: "TimelineTime", type: "Component", description: "Timestamp or date of the event." },
+    { name: "TimelineTitle", type: "Component", description: "Main heading for the event." },
+    { name: "TimelineDescription", type: "Component", description: "Descriptive text for the event." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import {\n  Timeline,\n  TimelineContent,\n  TimelineDescription,\n  TimelineDot,\n  TimelineItem,\n  TimelineTime,\n  TimelineTitle,\n} from "@/components/ui/timeline"\n\nexport default function Example() {\n  return (\n    <Timeline>\n      <TimelineItem>\n        <TimelineDot className="bg-indigo-500" />\n        <TimelineContent>\n          <TimelineTime>February 2024</TimelineTime>\n          <TimelineTitle>Application UI code</TimelineTitle>\n          <TimelineDescription>Get access to over 20+ pages.</TimelineDescription>\n        </TimelineContent>\n      </TimelineItem>\n      <TimelineItem>\n        <TimelineDot className="bg-zinc-600" />\n        <TimelineContent>\n          <TimelineTime>March 2024</TimelineTime>\n          <TimelineTitle>Marketing UI design</TimelineTitle>\n          <TimelineDescription>Designed in Figma.</TimelineDescription>\n        </TimelineContent>\n      </TimelineItem>\n    </Timeline>\n  );\n}`
+    }
+  ]}
+>
+  <TimelineDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="timeline" />
+

@@ -1,0 +1,46 @@
+---
+title: Notification Center
+description: A styled dropdown menu for managing recent alerts and updates.
+---
+
+<ComponentPreview 
+  name="notification-center"
+  componentName="NotificationCenter"
+  sourceFile="components/creative/notification-center.tsx"
+>
+  <NotificationCenterDemo />
+</ComponentPreview>
+
+## Overview
+A staple of application layouts. The `NotificationCenter` manages an array of notifications, displaying an unread badge if necessary. 
+
+When clicked, it uses `framer-motion` to smoothly reveal a styled dropdown menu. It handles complex internal state like marking individual items or all items as read, and includes custom scrollbars for long notification lists.
+
+## Usage
+
+```tsx
+import { NotificationCenter } from "@/components/creative/notification-center"
+
+export default function Navbar() {
+  const notifications = [
+    {
+      id: "1",
+      title: "New Message",
+      description: "You have a new message from Jane.",
+      time: "2m ago",
+      unread: true
+    }
+  ]
+
+  return (
+    <nav className="flex justify-between p-4 border-b">
+      <div className="font-bold">Dashboard</div>
+      
+      <NotificationCenter 
+        notifications={notifications}
+        onMarkAllRead={() => console.log('Marked all as read')} 
+      />
+    </nav>
+  )
+}
+```

@@ -1,0 +1,98 @@
+---
+title: WebGL Gallery
+description: GLSL shader image gallery with chromatic aberration and liquid distortion transitions.
+category: 3D Components
+---
+
+The `WebGLGallery` component is a drop-in replacement for any standard image slider. Instead of boring slide or fade transitions, it uses a **custom GLSL Fragment Shader** running on the GPU to liquify, tear apart, and RGB-split the current image as it transitions to the next one.
+
+The shader pipeline combines four simultaneous effects:
+1. **Chromatic Aberration** — Each RGB channel is sampled from a slightly different UV offset, creating the iconic "glitch" color splitting.
+2. **Liquid Noise Distortion** — A procedural 2D noise function warps the UV coordinates, making the image appear to melt.
+3. **Wave Displacement** — A sine wave ripples horizontally across the image during the transition.
+4. **Dissolve Mask** — A noise-driven dissolve boundary creates a non-linear crossfade between the two images.
+
+All four effects peak at the midpoint of the transition (`progress = 0.5`) and smoothly ease in and out.
+
+## Live Preview
+
+<ComponentPreview 
+  name="WebGL Gallery" 
+  componentName="WebGLGallery"
+  sourceFile="components/creative/webgl-gallery.tsx"
+  playgroundControls={[
+    {
+      name: "intensity",
+      label: "Glitch Intensity",
+      type: "number",
+      default: 1.2,
+      min: 0.1,
+      max: 3.0,
+      step: 0.1
+    },
+    {
+      name: "showControls",
+      label: "Show Navigation Arrows",
+      type: "boolean",
+      default: true
+    },
+    {
+      name: "showCounter",
+      label: "Show Dot Counter",
+      type: "boolean",
+      default: true
+    }
+  ]}
+  propsData={[
+    {
+      name: "images",
+      type: "string[]",
+      default: "Required",
+      description: "An array of image URLs to display in the gallery."
+    },
+    {
+      name: "intensity",
+      type: "number",
+      default: "1.0",
+      description: "Controls the strength of the chromatic aberration and distortion. 0 = clean crossfade, 2+ = extreme glitch."
+    },
+    {
+      name: "showControls",
+      type: "boolean",
+      default: "true",
+      description: "Whether to show the left/right navigation arrows on hover."
+    },
+    {
+      name: "showCounter",
+      type: "boolean",
+      default: "true",
+      description: "Whether to show the dot indicators at the bottom."
+    },
+    {
+      name: "aspectRatio",
+      type: "string",
+      default: "'16/9'",
+      description: "CSS aspect-ratio for the gallery container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { WebGLGallery } from "@/components/creative/webgl-gallery";\n\nconst images = [\n  "/image1.jpg",\n  "/image2.jpg",\n  "/image3.jpg"\n];\n\nexport default function Example() {\n  return (\n    <WebGLGallery\n      images={images}\n      intensity={1.2}\n      showControls={true}\n      showCounter={true}\n      aspectRatio="16/9"\n    />\n  );\n}`,
+      params: { intensity: 1.2, showControls: true, showCounter: true }
+    }
+  ]}
+>
+  <WebGLGalleryDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="webgl-gallery" />
+
+> [!WARNING]
+> **GPU Requirement:** This component runs a custom GLSL fragment shader on the GPU. It will not work on devices without WebGL support (extremely rare in 2025+). Performance is hardware-accelerated and typically runs at 60fps even on mobile GPUs.
+
+## Props
+
+

@@ -1,0 +1,84 @@
+---
+title: Flip Board
+description: A highly satisfying split-flap display component that animates characters with flip transitions, inspired by Vestaboard.
+category: Text Effects
+---
+
+The `FlipBoard` component recreates the tactile, mechanical feel of a classic split-flap display. It rapidly cycles through a standard character set with realistic CSS 3D folding animations until it lands on your target text.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Flip Board" 
+  componentName="FlipBoard"
+  sourceFile="components/creative/flip-board.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Theme Preset",
+      type: "select",
+      options: ["default", "cyberpunk", "minimal"],
+      default: "default"
+    },
+    {
+      name: "text",
+      label: "Text",
+      type: "string",
+      default: "DEPARTURES"
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      default: "Required",
+      description: "The target text to display on the board."
+    },
+    {
+      name: "rows",
+      type: "number",
+      default: "1",
+      description: "Number of rows in the board. If not provided, it defaults to 1."
+    },
+    {
+      name: "cols",
+      type: "number",
+      default: "text.length",
+      description: "Number of columns in the board. The text will be wrapped or padded to fit the grid."
+    },
+    {
+      name: "theme",
+      type: "'dark' | 'light'",
+      default: "'dark'",
+      description: "The aesthetic color theme of the board and flaps."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Optional CSS classes to apply to the main board container."
+    },
+    {
+      name: "charClassName",
+      type: "string",
+      default: "—",
+      description: "Optional CSS classes to apply to the individual character flaps."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { FlipBoard } from '@/components/creative/flip-board';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[300px] items-center justify-center bg-black p-8 rounded-xl">\n      <FlipBoard text="DEPARTURES" cols={10} theme="dark" />\n    </div>\n  );\n}`,
+      params: { variant: "default", text: "DEPARTURES" }
+    }
+  ]}
+>
+  <FlipBoardDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="flip-board" />
+
+## Props
+

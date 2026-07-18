@@ -1,0 +1,36 @@
+---
+title: Giant Type Footer
+description: A massive, billboard-style footer that permanently sits behind your main content, elegantly revealing itself as the user scrolls to the end of the page.
+category: Footers
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Giant Type Footer" 
+  componentName="GiantTypeFooter"
+  sourceFile="components/creative/giant-type-footer.tsx"
+  playgroundControls={[
+    { name: "title", type: "string", default: "FINAL BOSS", label: "Giant Text" }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { GiantTypeFooter } from "@/components/creative/giant-type-footer";\n\nexport default function RootLayout({ children }: { children: React.ReactNode }) {\n  return (\n    <html>\n      <body>\n        {/* Main Content MUST have a solid background and higher z-index */}\n        <main className="relative z-10 bg-white min-h-screen">\n          {children}\n        </main>\n        \n        {/* The Footer sits entirely behind the main content */}\n        <GiantTypeFooter title="YOUR BRAND" />\n      </body>\n    </html>\n  );\n}`
+    }
+  ]}
+>
+  <GiantTypeFooterDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="giant-type-footer" />
+
+## Architecture
+
+This component achieves a "curtain reveal" parallax effect without using any complex scroll listeners or physics engines. It relies purely on native CSS stacking contexts:
+
+1. **The Footer (`-z-10`, `sticky bottom-0`)**: The footer sits at the very end of your DOM tree. Because it is `sticky bottom-0`, as soon as it enters the viewport, it locks to the bottom edge of the screen and refuses to scroll any higher.
+2. **The Main Content (`z-10`, `relative`)**: Your main application wrapper (`<main>`) is rendered *before* the footer in the DOM, but has a higher `z-index` and a solid background color.
+
+As you scroll past the bottom of your main content, the footer enters the viewport, sticks to the bottom, and the main content simply slides up and off of it, revealing the giant typography natively.

@@ -1,0 +1,56 @@
+---
+title: Smooth Scroll
+description: A global smooth scrolling provider powered by Lenis.
+---
+
+<ComponentPreview 
+  name="smooth-scroll"
+  componentName="SmoothScroll"
+  sourceFile="components/creative/smooth-scroll.tsx"
+  playgroundControls={[
+    {
+      name: "duration",
+      label: "Duration",
+      type: "number",
+      default: 1.2,
+      min: 0.5,
+      max: 3.0,
+      step: 0.1
+    },
+    {
+      name: "touchMultiplier",
+      label: "Touch Multiplier",
+      type: "number",
+      default: 2,
+      min: 1,
+      max: 5,
+      step: 1
+    },
+    {
+      name: "smoothTouch",
+      label: "Smooth Touch",
+      type: "boolean",
+      default: false
+    }
+  ]}
+>
+  <SmoothScrollDemo />
+</ComponentPreview>
+
+## Overview
+A lightweight wrapper around Lenis that provides high-performance, butter-smooth scroll experiences. This is the foundation for creating Awwwards-style premium web experiences.
+
+## Usage
+
+```tsx
+import { SmoothScroll } from "@/components/creative/smooth-scroll"
+```
+
+```tsx
+<SmoothScroll
+  duration={1.2}
+  smoothTouch={false}
+>
+  {/* Your app content goes here */}
+</SmoothScroll>
+```

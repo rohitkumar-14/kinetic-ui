@@ -1,0 +1,46 @@
+---
+title: Tabs
+description: A set of layered content sections—known as tab panels—that are displayed one at a time.
+category: Navigation
+---
+
+The `Tabs` component presents navigation lists inside an aligned card interface. Built on top of Radix UI primitives.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Tabs" 
+  componentName="Tabs"
+  sourceFile="components/ui/tabs.tsx"
+  propsData={[
+    {
+      name: "Inherits Props",
+      type: "Radix UI",
+      default: "—",
+      description: "Inherits all standard properties from @radix-ui/react-tabs."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default Grid",
+      code: `import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";\nimport { User, Key } from "lucide-react";\n\nexport default function Example() {\n  return (\n    <Tabs defaultValue="profile" className="w-full">\n      <TabsList className="grid w-full grid-cols-2 bg-zinc-900 border border-white/5 p-1 rounded-xl">\n        <TabsTrigger value="profile" className="flex items-center gap-1.5 py-2 text-xs font-semibold rounded-lg transition-all data-[state=active]:bg-zinc-800 data-[state=active]:text-white">\n          <User className="w-3.5 h-3.5" />\n          Profile\n        </TabsTrigger>\n        <TabsTrigger value="password" className="flex items-center gap-1.5 py-2 text-xs font-semibold rounded-lg transition-all data-[state=active]:bg-zinc-800 data-[state=active]:text-white">\n          <Key className="w-3.5 h-3.5" />\n          Security\n        </TabsTrigger>\n      </TabsList>\n      <TabsContent value="profile" className="mt-4 p-4 border border-white/5 bg-white/[0.02] rounded-xl">\n        Profile Details Card\n      </TabsContent>\n    </Tabs>\n  );\n}`
+    },
+    {
+      name: "Underline Minimal",
+      code: `import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";\n\nexport default function Example() {\n  return (\n    <Tabs defaultValue="profile" className="w-full">\n      <TabsList className="flex w-full justify-start rounded-none border-b border-white/5 bg-transparent p-0 h-auto">\n        <TabsTrigger \n          value="profile" \n          className="relative rounded-none border-b-2 border-transparent bg-transparent px-4 pb-3 pt-2 text-xs font-semibold text-zinc-400 data-[state=active]:border-indigo-500 data-[state=active]:text-white data-[state=active]:bg-transparent shadow-none"\n        >\n          Profile\n        </TabsTrigger>\n      </TabsList>\n      <TabsContent value="profile" className="mt-6 text-xs font-light text-zinc-400">\n        Update your public profile details.\n      </TabsContent>\n    </Tabs>\n  );\n}`
+    },
+    {
+      name: "Glass Pills",
+      code: `import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";\n\nexport default function Example() {\n  return (\n    <Tabs defaultValue="profile" className="w-full">\n      <TabsList className="inline-flex gap-1.5 p-1 bg-zinc-900 border border-white/5 rounded-full">\n        <TabsTrigger \n          value="profile" \n          className="rounded-full px-4 py-1.5 text-xs font-semibold text-zinc-400 data-[state=active]:bg-white data-[state=active]:text-black"\n        >\n          Profile\n        </TabsTrigger>\n      </TabsList>\n      <TabsContent value="profile" className="mt-4 p-4 border border-white/5 bg-white/[0.02] rounded-2xl text-xs text-zinc-400">\n        Capsule pill-shaped triggers.\n      </TabsContent>\n    </Tabs>\n  );\n}`
+    },
+    {
+      name: "Vertical Sidebar",
+      code: `import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";\n\nexport default function Example() {\n  return (\n    <Tabs defaultValue="profile" className="w-full flex gap-6">\n      <TabsList className="flex flex-col h-auto w-40 justify-start items-stretch bg-zinc-900/40 border border-white/5 p-1.5 rounded-xl shrink-0">\n        <TabsTrigger \n          value="profile" \n          className="justify-start px-3 py-2 text-left text-xs font-semibold rounded-lg text-zinc-400 data-[state=active]:bg-zinc-800 data-[state=active]:text-white"\n        >\n          Profile Settings\n        </TabsTrigger>\n      </TabsList>\n      <div className="flex-1">\n        <TabsContent value="profile" className="mt-0 text-xs font-light text-zinc-400">\n          Vertical layouts are excellent for secondary settings.\n        </TabsContent>\n      </div>\n    </Tabs>\n  );\n}`
+    }
+  ]}
+>
+  <TabsDemo variant="default" />
+  <TabsDemo variant="underline" />
+  <TabsDemo variant="pills" />
+  <TabsDemo variant="vertical" />
+</ComponentPreview>

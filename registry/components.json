@@ -1,0 +1,1081 @@
+{
+  "heroes": {
+    "name": "Hero Components",
+    "items": {
+      "hero-reveal": {
+        "name": "HeroReveal",
+        "description": "Premium headline mask split reveal.",
+        "dependencies": [
+          "gsap",
+          "@gsap/react"
+        ],
+        "files": [
+          "components/creative/text-reveal.tsx"
+        ]
+      },
+      "hero-particles": {
+        "name": "HeroParticles",
+        "description": "Interactable mouse repulsion particle canvas.",
+        "dependencies": [],
+        "files": [
+          "components/creative/hero/hero-particles.tsx"
+        ]
+      },
+      "hero-3d": {
+        "name": "Hero3D",
+        "description": "3D organic liquid deformation WebGL shader canvas.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei"
+        ],
+        "files": [
+          "components/creative/hero/hero-3d.tsx"
+        ]
+      }
+    }
+  },
+  "navigation": {
+    "name": "Navigation",
+    "items": {
+      "accordion": {
+        "name": "Accordion",
+        "description": "A vertically stacked set of interactive headings that each reveal a content section.",
+        "dependencies": [
+          "@radix-ui/react-accordion",
+          "lucide-react",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/ui/accordion.tsx"
+        ]
+      },
+      "tabs": {
+        "name": "Tabs",
+        "description": "A set of layered content sections—known as tab panels—that are displayed one at a time.",
+        "dependencies": [
+          "@radix-ui/react-tabs",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/ui/tabs.tsx"
+        ]
+      },
+      "floating-navbar": {
+        "name": "FloatingNavbar",
+        "description": "Magnetic capsule navigation dock with hover layouts.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/floating-navbar.tsx"
+        ]
+      },
+      "physics-dock": {
+        "name": "PhysicsDock",
+        "description": "A playful, magnetic dock navigation component driven by real 2D collision physics.",
+        "dependencies": [
+          "matter-js",
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/physics-dock.tsx"
+        ]
+      },
+      "cyber-terminal": {
+        "name": "CyberTerminal",
+        "description": "Interactive command palette (like CMD+K) styled entirely like an old CRT monitor terminal.",
+        "dependencies": [
+          "cmdk",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/cyber-terminal.tsx"
+        ]
+      },
+      "dynamic-island": {
+        "name": "DynamicIsland",
+        "description": "A morphing notification hub built with layout animations.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/dynamic-island.tsx"
+        ]
+      },
+      "glass-tabs": {
+        "name": "GlassTabs",
+        "description": "Apple-style tabs with a frosted glass morphing indicator.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/glass-tabs.tsx"
+        ]
+      },
+      "smart-navbar": {
+        "name": "SmartNavbar",
+        "description": "A navigation bar that hides when scrolling down and reveals when scrolling up.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/smart-navbar.tsx"
+        ]
+      }
+    }
+  },
+  "buttons": {
+    "name": "Buttons",
+    "items": {
+      "magnetic-button": {
+        "name": "MagneticButton",
+        "description": "Snappy magnetic pull button with text parallax shift.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/magnetic-button.tsx"
+        ]
+      },
+      "liquid-button": {
+        "name": "LiquidButton",
+        "description": "Button with organic SVG liquid hover warp.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/liquid-button.tsx"
+        ]
+      }
+    }
+  },
+  "cards": {
+    "name": "Cards",
+    "items": {
+      "tilt-card": {
+        "name": "TiltCard",
+        "description": "3D parallax rotation reacting to mouse cursor coordinates.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/tilt-card.tsx"
+        ]
+      },
+      "spotlight-card": {
+        "name": "SpotlightCard",
+        "description": "Glow border follow mask on cursor move.",
+        "dependencies": [
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/spotlight-card.tsx"
+        ]
+      },
+      "bento-grid": {
+        "name": "BentoGrid",
+        "description": "Awwwards-inspired asymmetrical panel system.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/bento-grid.tsx"
+        ]
+      }
+    }
+  },
+  "text-effects": {
+    "name": "Text Effects",
+    "items": {
+      "glyph-matrix": {
+        "name": "GlyphMatrix",
+        "description": "An interactive digital stream matrix rain component with customizable characters, fonts, speeds, and cursor scatter repulsion.",
+        "dependencies": [
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/glyph-matrix.tsx"
+        ]
+      },
+      "text-reveal": {
+        "name": "TextReveal",
+        "description": "Staggered line mask slide reveals.",
+        "dependencies": [
+          "gsap",
+          "@gsap/react",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/text-reveal.tsx"
+        ]
+      },
+      "kinetic-loader": {
+        "name": "KineticLoader",
+        "description": "Interactive kinetic typography status screen loader.",
+        "dependencies": [
+          "gsap",
+          "@gsap/react",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/kinetic-loader.tsx"
+        ]
+      },
+      "motion-primitives": {
+        "name": "MotionPrimitives",
+        "description": "Drop-in wrappers for simple entrance animations.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/motion-primitives.tsx"
+        ]
+      },
+      "text-scramble": {
+        "name": "TextScramble",
+        "description": "A cyber-punk text effect that cycles through randomized characters.",
+        "dependencies": [
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/text-scramble.tsx"
+        ]
+      },
+      "kinetic-typography": {
+        "name": "KineticTypography",
+        "description": "Massive 3D responsive text that dynamically warps and distorts based on mouse position.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/kinetic-typography.tsx"
+        ]
+      },
+      "odometer": {
+        "name": "Odometer",
+        "description": "Physics-based number ticker.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/odometer.tsx"
+        ]
+      },
+      "flip-board": {
+        "name": "FlipBoard",
+        "description": "A split-flap display component that animates characters with flip transitions.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/flip-board.tsx"
+        ]
+      },
+      "breathing-text": {
+        "name": "BreathingText",
+        "description": "Variable font typography that breathes and reacts to the cursor.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/breathing-text.tsx"
+        ]
+      },
+      "svg-liquid-distortion": {
+        "name": "SVGLiquidDistortion",
+        "description": "Native SVG filter wrapper for melting and heat haze distortion.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/svg-liquid-distortion.tsx"
+        ]
+      },
+      "ascii-renderer": {
+        "name": "AsciiRenderer",
+        "description": "Real-time ASCII art renderer for images, videos, and webcams.",
+        "dependencies": [
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/ascii-renderer.tsx"
+        ]
+      },
+      "animated-counter": {
+        "name": "AnimatedCounter",
+        "description": "Numbers that count up when scrolled into view.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/animated-counter.tsx"
+        ]
+      }
+    }
+  },
+  "scroll-systems": {
+    "name": "Scroll Systems",
+    "items": {
+      "scroll-progress": {
+        "name": "ScrollProgress",
+        "description": "A top-bar or circular floating scroll progress indicator with smooth spring physics, neon glows, and a scroll-to-top interaction hook.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/scroll-progress.tsx"
+        ]
+      },
+      "horizontal-scroll": {
+        "name": "HorizontalScroll",
+        "description": "Horizontal scroll section powered by GSAP ScrollTrigger.",
+        "dependencies": [
+          "gsap"
+        ],
+        "files": [
+          "components/creative/horizontal-scroll.tsx"
+        ]
+      },
+      "scroll-video": {
+        "name": "ScrollVideo",
+        "description": "Apple-style component that ties video playback to the user's scroll position.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/scroll-video-scrub.tsx"
+        ]
+      },
+      "smooth-scroll": {
+        "name": "SmoothScroll",
+        "description": "A global smooth scrolling provider powered by Lenis.",
+        "dependencies": [
+          "lenis"
+        ],
+        "files": [
+          "components/creative/smooth-scroll.tsx"
+        ]
+      },
+      "tunnel-scroll": {
+        "name": "TunnelScroll",
+        "description": "Infinite 'Tunnel' Scroll component that maps HTML children as 3D billboards in a WebGL tunnel.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei",
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/tunnel-scroll.tsx"
+        ]
+      },
+      "scroll-linked-split": {
+        "name": "ScrollLinkedSplit",
+        "description": "Cinematic split reveal on scroll.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/scroll-linked-split.tsx"
+        ]
+      }
+    }
+  },
+  "background-effects": {
+    "name": "Background Effects",
+    "items": {
+      "mesh-gradient": {
+        "name": "MeshGradient",
+        "description": "Fluid canvas shader mesh backgrounds.",
+        "dependencies": [
+          "three"
+        ],
+        "files": [
+          "components/creative/magnetic-button.tsx"
+        ]
+      },
+      "fluid-background": {
+        "name": "FluidBackground",
+        "description": "WebGL noise fluid simulation background.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber"
+        ],
+        "files": [
+          "components/creative/fluid-background.tsx"
+        ]
+      },
+      "noise-overlay": {
+        "name": "NoiseOverlay",
+        "description": "Adds an organic, tactile feel to the page with SVG noise.",
+        "dependencies": [
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/noise-overlay.tsx"
+        ]
+      }
+    }
+  },
+  "mouse-interactions": {
+    "name": "Mouse Interactions",
+    "items": {
+      "cursor-follower": {
+        "name": "CursorFollower",
+        "description": "Damped mouse vector cursor trailer.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/custom-cursor.tsx"
+        ]
+      },
+      "hover-image-trails": {
+        "name": "HoverImageTrails",
+        "description": "A stunning visual effect that spawns a trail of images following the user's cursor.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/hover-image-trails.tsx"
+        ]
+      },
+      "gooey-menu": {
+        "name": "GooeyMenu",
+        "description": "A liquid SVG filter effect that makes menu items separate organically.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/gooey-menu.tsx"
+        ]
+      },
+      "directional-hover": {
+        "name": "DirectionalHover",
+        "description": "Smart wrapper that detects mouse entry direction for overlays.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/directional-hover.tsx"
+        ]
+      },
+      "magnifying-glass": {
+        "name": "MagnifyingGlass",
+        "description": "An x-ray lens that reveals a secret layout underneath your cursor.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/magnifying-glass.tsx"
+        ]
+      }
+    }
+  },
+  "marquees": {
+    "name": "Marquee Components",
+    "items": {
+      "infinite-marquee": {
+        "name": "InfiniteMarquee",
+        "description": "High-performance CSS marquee lane loop.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/testimonials.tsx"
+        ]
+      },
+      "logo-marquee": {
+        "name": "LogoMarquee",
+        "description": "Fast CSS-only horizontal logo ticker with fading edges.",
+        "dependencies": [],
+        "files": [
+          "components/creative/logo-marquee.tsx"
+        ]
+      }
+    }
+  },
+  "page-transitions": {
+    "name": "Page Transitions",
+    "items": {
+      "morph-transition": {
+        "name": "MorphTransition",
+        "description": "Elastic layout morph transitions between grid and focus views.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/morph-transition.tsx"
+        ]
+      },
+      "ai-stream-wrapper": {
+        "name": "AIStreamWrapper",
+        "description": "AI-style generative UI wrapper with staggered skeleton dissolve effects.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/ai-stream-wrapper.tsx"
+        ]
+      },
+      "scroll-reveal": {
+        "name": "ScrollReveal",
+        "description": "Foundational wrapper for entrance animations.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/scroll-reveal.tsx"
+        ]
+      }
+    }
+  },
+  "three-d": {
+    "name": "3D Components",
+    "items": {
+      "floating-3d-card": {
+        "name": "Floating3DCard",
+        "description": "WebGL fluid torus element wrapped in R3F Canvas.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei"
+        ],
+        "files": [
+          "components/creative/floating-3d-card.tsx"
+        ]
+      },
+      "globe": {
+        "name": "Globe",
+        "description": "Smooth 60fps interactive 3D WebGL globe using cobe.",
+        "dependencies": [
+          "cobe",
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/globe.tsx"
+        ]
+      },
+      "pixel-transition": {
+        "name": "PixelTransition",
+        "description": "WebGL shader effect that transitions between two images using a pixelated grid.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei"
+        ],
+        "files": [
+          "components/creative/pixel-transition.tsx"
+        ]
+      },
+      "shader-image": {
+        "name": "ShaderImage",
+        "description": "WebGL image component with GLSL shader hover transitions.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei"
+        ],
+        "files": [
+          "components/creative/shader-image.tsx"
+        ]
+      },
+      "audio-visualizer-3d": {
+        "name": "AudioVisualizer3D",
+        "description": "WebGL audio visualizer that warps a 3D sphere to the frequency of the music.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/audio-visualizer-3d.tsx"
+        ]
+      },
+      "webgl-gallery": {
+        "name": "WebGLGallery",
+        "description": "GLSL shader image gallery with chromatic aberration and liquid distortion transitions.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/webgl-gallery.tsx"
+        ]
+      }
+    }
+  },
+  "media": {
+    "name": "Media Components",
+    "items": {
+      "video-reveal": {
+        "name": "VideoReveal",
+        "description": "Hover-triggered cinematic video reveal mask.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/video-reveal.tsx"
+        ]
+      },
+      "audio-visualizer": {
+        "name": "AudioVisualizer",
+        "description": "Web Audio API radial visualizer.",
+        "dependencies": [
+          "lucide-react",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/audio-visualizer.tsx"
+        ]
+      }
+    }
+  },
+  "blocks": {
+    "name": "Blocks",
+    "items": {
+      "hero-01": {
+        "name": "Hero01",
+        "description": "Hero Section with Background Aurora and Liquid Buttons.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/blocks/hero-01.tsx"
+        ]
+      },
+      "auth-01": {
+        "name": "Auth01",
+        "description": "Authentication form with glass panel and magic tabs.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/blocks/auth-01.tsx"
+        ]
+      },
+      "pricing-section": {
+        "name": "PricingSection",
+        "description": "Glassmorphic dynamic pricing comparison cards.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/pricing-cards.tsx"
+        ]
+      },
+      "feature-section": {
+        "name": "FeatureSection",
+        "description": "Grid-based feature highlight section.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/feature-section.tsx"
+        ]
+      }
+    }
+  },
+  "forms": {
+    "name": "Forms",
+    "items": {
+      "floating-form": {
+        "name": "FloatingForm",
+        "description": "Creative inputs panel with floating placeholder triggers.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/floating-form.tsx"
+        ]
+      },
+      "date-picker": {
+        "name": "DatePicker",
+        "description": "Popover calendar for selecting a single date.",
+        "dependencies": [
+          "date-fns",
+          "react-day-picker",
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/date-picker.tsx",
+          "components/ui/calendar.tsx",
+          "components/ui/popover.tsx"
+        ]
+      },
+      "date-range-picker": {
+        "name": "DateRangePicker",
+        "description": "Popover calendar for selecting date ranges.",
+        "dependencies": [
+          "date-fns",
+          "react-day-picker",
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/date-range-picker.tsx",
+          "components/ui/calendar.tsx",
+          "components/ui/popover.tsx"
+        ]
+      },
+      "file-upload": {
+        "name": "FileUpload",
+        "description": "Drag and drop file upload zone.",
+        "dependencies": [
+          "react-dropzone",
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/file-upload.tsx"
+        ]
+      },
+      "multi-select": {
+        "name": "MultiSelect",
+        "description": "Searchable multi-select combobox.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/multi-select.tsx",
+          "components/ui/badge.tsx",
+          "components/ui/command.tsx",
+          "components/ui/popover.tsx"
+        ]
+      }
+    }
+  },
+  "layout": {
+    "name": "Layout",
+    "items": {
+      "scroll-area": {
+        "name": "ScrollArea",
+        "description": "Custom scrollbar for scrollable content areas.",
+        "dependencies": [
+          "@radix-ui/react-scroll-area"
+        ],
+        "files": [
+          "components/ui/scroll-area.tsx"
+        ]
+      },
+      "draggable-canvas": {
+        "name": "DraggableCanvas",
+        "description": "A massive 2D draggable surface perfect for Figma-style boards.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/draggable-canvas.tsx"
+        ]
+      },
+      "card-stack": {
+        "name": "CardStack",
+        "description": "A swipeable 3D deck of cards with physics-based layout transitions.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/card-stack.tsx"
+        ]
+      },
+      "magnetic-gallery": {
+        "name": "MagneticGallery",
+        "description": "Grid of images tilting to track global cursor position.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/magnetic-gallery.tsx"
+        ]
+      },
+      "physics-canvas": {
+        "name": "PhysicsCanvas",
+        "description": "Physics-Based Draggable Whiteboard using Matter.js.",
+        "dependencies": [
+          "matter-js",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/physics-canvas.tsx"
+        ]
+      },
+      "minimap": {
+        "name": "Minimap",
+        "description": "Figma-style floating minimap for large scrollable canvases.",
+        "dependencies": [
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/minimap.tsx"
+        ]
+      },
+      "split-screen-layout": {
+        "name": "SplitScreenLayout",
+        "description": "Dual-pane layout where one side stays pinned while the other scrolls.",
+        "dependencies": [
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/split-screen-layout.tsx"
+        ]
+      },
+      "masonry-grid": {
+        "name": "MasonryGrid",
+        "description": "Pinterest-style grid for galleries and portfolios.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/masonry-grid.tsx"
+        ]
+      },
+      "broken-grid": {
+        "name": "BrokenGrid",
+        "description": "Editorial, asymmetrical, overlapping grid layout.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/broken-grid.tsx"
+        ]
+      }
+    }
+  },
+  "footers": {
+    "name": "Footers",
+    "items": {
+      "parallax-footer": {
+        "name": "ParallaxFooter",
+        "description": "A stunning curtain-reveal footer effect that sits beneath your page content.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/parallax-footer.tsx"
+        ]
+      }
+    }
+  },
+  "data-display": {
+    "name": "Data Display",
+    "items": {
+      "alert": {
+        "name": "Alert",
+        "description": "Displays a callout message for user attention with a status icon and title description.",
+        "dependencies": [
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/ui/alert.tsx"
+        ]
+      },
+      "badge": {
+        "name": "Badge",
+        "description": "Small status badges used for labels, pill indicators, and custom counts.",
+        "dependencies": [
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/ui/badge.tsx"
+        ]
+      },
+      "animated-circular-progress": {
+        "name": "AnimatedCircularProgress",
+        "description": "An interactive, animated radial gauge progress bar with neon glows, smooth stroke-dashoffset transitions, and a running counter.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/animated-circular-progress.tsx"
+        ]
+      },
+      "chart": {
+        "name": "Chart",
+        "description": "Theme-aware wrapper for Recharts.",
+        "dependencies": [
+          "recharts"
+        ],
+        "files": [
+          "components/ui/chart.tsx"
+        ]
+      },
+      "force-graph": {
+        "name": "ForceGraph",
+        "description": "Interactive node-based force graph using Matter.js physics.",
+        "dependencies": [
+          "matter-js",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/force-graph.tsx"
+        ]
+      },
+      "horizontal-scroll-hijack": {
+        "name": "HorizontalScrollHijack",
+        "description": "Pins a section and creates a horizontal scroll timeline before unlocking.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/horizontal-scroll-hijack.tsx"
+        ]
+      },
+      "sticky-stacking-cards": {
+        "name": "StickyStackingCards",
+        "description": "Cards that stack on top of each other with a 3D depth scaling effect on scroll.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/sticky-stacking-cards.tsx"
+        ]
+      },
+      "text-mask-video-reveal": {
+        "name": "TextMaskVideoReveal",
+        "description": "A massive typography mask that reveals a video as it scales up exponentially on scroll.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/text-mask-video-reveal.tsx"
+        ]
+      },
+      "fluid-distortion-gallery": {
+        "name": "FluidDistortionGallery",
+        "description": "WebGL image gallery with a liquid noise displacement shader transition.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/fluid-distortion-gallery.tsx"
+        ]
+      },
+      "interactive-particle-swarm": {
+        "name": "InteractiveParticleSwarm",
+        "description": "A highly performant 3D particle swarm shader that repels organically from the user cursor.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/interactive-particle-swarm.tsx"
+        ]
+      },
+      "audio-reactive-visualizer": {
+        "name": "AudioReactiveVisualizer",
+        "description": "A WebGL shader mesh that syncs geometric distortion and color tinting to live audio frequencies.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "lucide-react",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/audio-reactive-visualizer.tsx"
+        ]
+      }
+    }
+  },
+  "templates": {
+    "name": "Premium Templates",
+    "items": {}
+  }
+}

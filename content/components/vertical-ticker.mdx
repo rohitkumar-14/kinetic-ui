@@ -1,0 +1,56 @@
+---
+title: Vertical Ticker Wall
+description: An infinite vertical scrolling wall composed of multiple independent columns moving at staggered speeds and directions.
+category: Marquees
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Vertical Ticker Wall" 
+  componentName="VerticalTickerWall"
+  sourceFile="components/creative/vertical-ticker.tsx"
+>
+  <VerticalTickerDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="vertical-ticker" />
+
+## Usage
+
+```tsx
+import { VerticalTickerWall, VerticalTickerColumn } from "@/components/creative/vertical-ticker";
+
+export default function Page() {
+  return (
+    <div className="h-[600px] overflow-hidden">
+      <VerticalTickerWall className="rotate-[-5deg] scale-110">
+        
+        {/* Column 1 (Scrolls UP at speed 2) */}
+        <VerticalTickerColumn speed={2} direction={-1}>
+          <div className="h-40 bg-zinc-900 mb-4 rounded-xl" />
+          <div className="h-40 bg-zinc-900 mb-4 rounded-xl" />
+        </VerticalTickerColumn>
+        
+        {/* Column 2 (Scrolls DOWN at speed 1.5) */}
+        <VerticalTickerColumn speed={1.5} direction={1}>
+          <div className="h-40 bg-zinc-900 mb-4 rounded-xl" />
+          <div className="h-40 bg-zinc-900 mb-4 rounded-xl" />
+        </VerticalTickerColumn>
+        
+      </VerticalTickerWall>
+    </div>
+  );
+}
+```
+
+## How it works
+
+The `VerticalTickerWall` acts as a Flexbox container for multiple `VerticalTickerColumn` components. 
+Each column utilizes an independent Framer Motion `useAnimationFrame` loop to translate its items vertically.
+
+To achieve an infinite loop without cloning DOM nodes arbitrarily, the columns expect you to duplicate your item list at least once (i.e. `{items}{items}`). The loop maps the Y translation precisely from `0%` to `-50%`. As soon as it hits `-50%`, it seamlessly snaps back to `0%`.
+
+> [!TIP]
+> This component pairs incredibly well with CSS `mix-blend-mode: screen` and `-5deg` rotation for a modern hero section background.

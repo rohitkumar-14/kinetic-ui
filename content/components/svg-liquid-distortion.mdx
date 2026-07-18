@@ -1,0 +1,98 @@
+---
+title: SVG Liquid Distortion
+description: A native SVG filter wrapper that melts and distorts elements on hover.
+category: Text Effects
+---
+
+The `SVGLiquidDistortion` component is an incredibly lightweight way to achieve WebGL-level shader effects (like water ripples, melting text, and heat haze) using only native DOM and `<svg>` filter primitives.
+
+It renders an invisible `<svg>` block containing `<feTurbulence>` and `<feDisplacementMap>`, and uses `framer-motion` to animate the distortion scale and noise frequency when you hover over it. The effect is applied via the standard CSS `filter` property, meaning it works universally on text, buttons, and images!
+
+## Live Preview
+
+<ComponentPreview 
+  name="SVG Liquid Distortion" 
+  componentName="SVGLiquidDistortion"
+  sourceFile="components/creative/svg-liquid-distortion.tsx"
+  playgroundControls={[
+    {
+      name: "target",
+      label: "Demo Target",
+      type: "select",
+      options: ["text", "button", "image"],
+      default: "text"
+    },
+    {
+      name: "intensity",
+      label: "Intensity",
+      type: "number",
+      default: 30,
+      min: 5,
+      max: 100,
+      step: 5
+    },
+    {
+      name: "frequency",
+      label: "Frequency",
+      type: "number",
+      default: 0.015,
+      min: 0.001,
+      max: 0.1,
+      step: 0.001
+    },
+    {
+      name: "speed",
+      label: "Speed",
+      type: "number",
+      default: 1.5,
+      min: 0.5,
+      max: 10,
+      step: 0.5
+    }
+  ]}
+  propsData={[
+    {
+      name: "intensity",
+      type: "number",
+      default: "20",
+      description: "How aggressively the pixels are displaced on hover. Higher = more warped/melted."
+    },
+    {
+      name: "frequency",
+      type: "number",
+      default: "0.02",
+      description: "The base frequency of the fractal noise. Lower values (0.005) create large rolling waves, higher values (0.05) create tight noisy ripples."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "2",
+      description: "The duration (in seconds) of the frequency loop animation. Lower = faster flowing liquid."
+    },
+    {
+      name: "children",
+      type: "React.ReactNode",
+      default: "Required",
+      description: "The element(s) you want to distort."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { SVGLiquidDistortion } from "@/components/creative/svg-liquid-distortion";\n\nexport default function Example() {\n  return (\n    <div className="flex flex-col gap-12 items-center">\n      {/* Melt Text */}\n      <SVGLiquidDistortion intensity={30} frequency={0.015} speed={1.5}>\n        <h1 className="text-6xl font-black">MELTDOWN</h1>\n      </SVGLiquidDistortion>\n\n      {/* Ripple Button */}\n      <SVGLiquidDistortion intensity={15} frequency={0.03} speed={2.5}>\n        <button className="px-8 py-4 bg-white text-black font-black rounded-full">\n          Liquid Button\n        </button>\n      </SVGLiquidDistortion>\n    </div>\n  );\n}`,
+      params: { target: "text", intensity: 30, frequency: 0.015, speed: 1.5 }
+    }
+  ]}
+>
+  <SVGLiquidDistortionDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="svg-liquid-distortion" />
+
+> [!TIP]
+> **Padding & Clipping:** Because SVG filters operate on the exact bounding box of the element, extreme distortion can sometimes cause the pixels to clip at the edges. The component automatically wraps your children in a `<span>` with `p-2` (padding) to give the distortion room to bleed outward safely!
+
+## Props
+

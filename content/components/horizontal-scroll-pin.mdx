@@ -1,0 +1,57 @@
+---
+title: Horizontal Scroll Pin
+description: A scrollytelling section that perfectly translates vertical scrolling into a horizontal gallery slider.
+category: Scrollytelling
+---
+
+The quintessential Awwwards-winning effect. As the user scrolls vertically down the page, this component pins itself to the viewport and translates your scrolling into horizontal movement across a massive flex track, only unlocking vertical scroll when you reach the end.
+
+## Live Preview
+
+<ComponentPreview 
+  name="horizontal-scroll-pin-demo" 
+  componentName="HorizontalScrollPin"
+  sourceFile="components/creative/horizontal-scroll-pin.tsx"
+  playgroundControls={[
+    {
+      name: "itemCount",
+      label: "Number of Items",
+      type: "number",
+      default: 4,
+      min: 2,
+      max: 4,
+      step: 1
+    }
+  ]}
+  propsData={[
+    {
+      name: "items",
+      type: "HorizontalScrollItem[]",
+      description: "An array of objects containing id, title, description, imageUrl, or custom content node."
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Optional Tailwind classes for the outer container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { HorizontalScrollPin } from "@/components/creative/horizontal-scroll-pin";\n\nconst items = [\n  { id: "1", title: "Slide 1", description: "Content", imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" },\n  { id: "2", title: "Slide 2", description: "Content", imageUrl: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=800&auto=format&fit=crop" }\n];\n\nexport default function Example() {\n  return (\n    <div className="w-full relative h-[600px] overflow-hidden">\n      <div className="absolute inset-0 overflow-y-auto no-scrollbar pointer-events-auto">\n        <div className="h-[50vh]" />\n        <HorizontalScrollPin items={items} />\n        <div className="h-[50vh]" />\n      </div>\n    </div>\n  );\n}`,
+      params: { itemCount: 2 }
+    },
+    {
+      name: "3 Items",
+      code: `import { HorizontalScrollPin } from "@/components/creative/horizontal-scroll-pin";\n\nconst items = [\n  { id: "1", title: "Slide 1", description: "Content", imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" },\n  { id: "2", title: "Slide 2", description: "Content", imageUrl: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=800&auto=format&fit=crop" },\n  { id: "3", title: "Slide 3", description: "Content", imageUrl: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800&auto=format&fit=crop" }\n];\n\nexport default function Example() {\n  return (\n    <div className="w-full relative h-[600px] overflow-hidden">\n      <div className="absolute inset-0 overflow-y-auto no-scrollbar pointer-events-auto">\n        <div className="h-[50vh]" />\n        <HorizontalScrollPin items={items} />\n        <div className="h-[50vh]" />\n      </div>\n    </div>\n  );\n}`,
+      params: { itemCount: 3 }
+    },
+    {
+      name: "4 Items",
+      code: `import { HorizontalScrollPin } from "@/components/creative/horizontal-scroll-pin";\n\nconst items = [\n  { id: "1", title: "Slide 1", description: "Content", imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" },\n  { id: "2", title: "Slide 2", description: "Content", imageUrl: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=800&auto=format&fit=crop" },\n  { id: "3", title: "Slide 3", description: "Content", imageUrl: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800&auto=format&fit=crop" },\n  { id: "4", title: "Slide 4", description: "Content", imageUrl: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=800&auto=format&fit=crop" }\n];\n\nexport default function Example() {\n  return (\n    <div className="w-full relative h-[600px] overflow-hidden">\n      <div className="absolute inset-0 overflow-y-auto no-scrollbar pointer-events-auto">\n        <div className="h-[50vh]" />\n        <HorizontalScrollPin items={items} />\n        <div className="h-[50vh]" />\n      </div>\n    </div>\n  );\n}`,
+      params: { itemCount: 4 }
+    }
+  ]}
+>
+  <HorizontalScrollPinDemo />
+</ComponentPreview>

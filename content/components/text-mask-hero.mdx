@@ -1,0 +1,100 @@
+---
+title: Text Mask Hero
+description: A cinematic hero section featuring a massive bold heading where an abstract video or animated CSS gradient plays inside the text letters.
+category: Hero Components
+---
+
+The `TextMaskHero` uses advanced CSS techniques (`background-clip: text` and `mix-blend-mode: multiply`) to create stunning visual cutouts. It allows you to pass a video URL or rely on a pure CSS animated gradient to breathe life into your typography.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Text Mask Hero" 
+  componentName="TextMaskHero"
+  sourceFile="components/creative/hero/text-mask-hero.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Mask Variant",
+      type: "select",
+      options: ["gradient", "video"],
+      default: "gradient"
+    },
+    {
+      name: "text",
+      label: "Mask Text",
+      type: "string",
+      default: "COLORFUL"
+    },
+    {
+      name: "subtext",
+      label: "Subtext",
+      type: "string",
+      default: "Scroll to discover the magic behind the mask."
+    },
+    {
+      name: "gradient",
+      label: "Gradient Value",
+      type: "string",
+      default: "linear-gradient(45deg, #ff0055, #0000ff, #00ff99, #ff0055)"
+    },
+    {
+      name: "videoSrc",
+      label: "Video Source URL",
+      type: "string",
+      default: "https://cdn.pixabay.com/video/2021/08/11/84687-587212476_large.mp4"
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'video' | 'gradient'",
+      default: "'gradient'",
+      description: "Controls the masking technique and visual source."
+    },
+    {
+      name: "text",
+      type: "string",
+      default: "'CREATIVE'",
+      description: "The massive typography word to act as the mask."
+    },
+    {
+      name: "subtext",
+      type: "string",
+      default: "'Scroll to discover the magic behind the mask.'",
+      description: "Small paragraph text placed at the bottom of the screen."
+    },
+    {
+      name: "videoSrc",
+      type: "string",
+      default: "URL",
+      description: "The direct URL to an mp4 file if using the 'video' variant."
+    },
+    {
+      name: "gradient",
+      type: "string",
+      default: "URL",
+      description: "A valid CSS linear or radial gradient value used in 'gradient' mode."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Tailwind classes applied to the root container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Video Mask",
+      code: `import { TextMaskHero } from "@/components/creative/hero/text-mask-hero";\n\nexport function HeroSection() {\n  return (\n    <TextMaskHero \n      variant="video"\n      text="CINEMA"\n      subtext="Experience the visual breakthrough."\n      videoSrc="https://path-to-your-hosted-video.mp4"\n    />\n  );\n}`,
+      params: { variant: "video", text: "CINEMA" }
+    },
+    {
+      name: "Animated Gradient",
+      code: `import { TextMaskHero } from "@/components/creative/hero/text-mask-hero";\n\nexport function GradientHeroSection() {\n  return (\n    <TextMaskHero \n      variant="gradient"\n      text="COLORFUL"\n    />\n  );\n}`,
+      params: { variant: "gradient", text: "COLORFUL" }
+    }
+  ]}
+>
+  <TextMaskHeroDemo />
+</ComponentPreview>

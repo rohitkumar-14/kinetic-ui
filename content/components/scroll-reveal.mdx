@@ -1,0 +1,51 @@
+---
+title: Scroll Reveal
+description: Foundational wrapper for entrance animations on scroll.
+---
+
+<ComponentPreview 
+  name="scroll-reveal"
+  componentName="ScrollReveal"
+  sourceFile="components/creative/scroll-reveal.tsx"
+  playgroundControls={[
+    {
+      name: "animation",
+      label: "Animation",
+      type: "select",
+      options: ["fade", "slide-up", "slide-down", "slide-left", "slide-right", "scale-up", "scale-down", "blur"],
+      default: "fade"
+    },
+    {
+      name: "duration",
+      label: "Duration (s)",
+      type: "number",
+      default: 0.6,
+      min: 0.2,
+      max: 2.0,
+      step: 0.1
+    },
+    {
+      name: "once",
+      label: "Animate Once",
+      type: "boolean",
+      default: true
+    }
+  ]}
+>
+  <ScrollRevealDemo />
+</ComponentPreview>
+
+## Overview
+A utility component that triggers smooth entry animations when its children enter the viewport. Supports multiple animation presets (fade, slide, scale, blur) and child staggering.
+
+## Usage
+
+```tsx
+import { ScrollReveal } from "@/components/creative/scroll-reveal"
+```
+
+```tsx
+<ScrollReveal animation="slide-up" duration={0.8}>
+  <h1>Reveal me when scrolled into view!</h1>
+</ScrollReveal>
+```

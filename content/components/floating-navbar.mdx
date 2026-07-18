@@ -1,0 +1,90 @@
+---
+title: Floating Navbar
+description: A sleek, auto-hiding floating navigation bar with fluid hover indicator physics.
+category: Navigation
+---
+
+The `FloatingNavbar` is an essential component for modern landing pages. It provides a non-intrusive navigation experience by automatically hiding when scrolling down and revealing when scrolling up. It features a Framer Motion-powered layout animation that seamlessly tracks the user's hover state across items. Now fully upgraded with **3 hover indicator variants**.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Floating Navbar" 
+  componentName="FloatingNavbar"
+  sourceFile="components/creative/floating-navbar.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Indicator Style",
+      type: "select",
+      options: ["pill", "underline", "block"],
+      default: "pill"
+    },
+    {
+      name: "color",
+      label: "Accent Color",
+      type: "string",
+      default: "#6366f1"
+    },
+    {
+      name: "speed",
+      label: "Animation Speed",
+      type: "number",
+      min: 0.1,
+      max: 3,
+      step: 0.1,
+      default: 1
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'pill' | 'underline' | 'block'",
+      default: "'pill'",
+      description: "Controls the visual style of the hover indicator."
+    },
+    {
+      name: "items",
+      type: "{ label: string; href: string }[]",
+      default: "Home, Showcase, Specs",
+      description: "Array of navigation links to display."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "currentColor / theme",
+      description: "Accent color for the hover indicator."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Multiplier for the spring physics speed of the hover indicator."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional Tailwind classes."
+    }
+  ]}
+  variants={[
+    {
+      name: "Pill Background",
+      code: `import { FloatingNavbar } from '@/components/creative/floating-navbar';\n\nexport default function Example() {\n  return (\n    <div className="relative h-[400px] w-full bg-zinc-950">\n      <FloatingNavbar \n        variant="pill" \n        className="absolute top-1/2 -translate-y-1/2"\n        items={[\n          { label: "Dashboard", href: "#" },\n          { label: "Projects", href: "#" },\n          { label: "Team", href: "#" },\n          { label: "Settings", href: "#" }\n        ]}\n      />\n    </div>\n  );\n}`,
+      params: { variant: "pill", color: "#6366f1" }
+    },
+    {
+      name: "Underline",
+      code: `import { FloatingNavbar } from '@/components/creative/floating-navbar';\n\nexport default function Example() {\n  return (\n    <div className="relative h-[400px] w-full bg-zinc-950">\n      <FloatingNavbar \n        variant="underline" \n        color="#10b981" \n        className="absolute top-1/2 -translate-y-1/2"\n        items={[\n          { label: "Dashboard", href: "#" },\n          { label: "Projects", href: "#" },\n          { label: "Team", href: "#" },\n          { label: "Settings", href: "#" }\n        ]}\n      />\n    </div>\n  );\n}`,
+      params: { variant: "underline", color: "#10b981" }
+    },
+    {
+      name: "Solid Block",
+      code: `import { FloatingNavbar } from '@/components/creative/floating-navbar';\n\nexport default function Example() {\n  return (\n    <div className="relative h-[400px] w-full bg-zinc-950">\n      <FloatingNavbar \n        variant="block" \n        color="#f43f5e" \n        className="absolute top-1/2 -translate-y-1/2"\n        items={[\n          { label: "Dashboard", href: "#" },\n          { label: "Projects", href: "#" },\n          { label: "Team", href: "#" },\n          { label: "Settings", href: "#" }\n        ]}\n      />\n    </div>\n  );\n}`,
+      params: { variant: "block", color: "#f43f5e" }
+    }
+  ]}
+>
+  <FloatingNavbarDemo />
+</ComponentPreview>

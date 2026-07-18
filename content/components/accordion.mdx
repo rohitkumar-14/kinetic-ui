@@ -1,0 +1,46 @@
+---
+title: Accordion
+description: A vertically stacked set of interactive headings that each reveal a content section.
+category: Navigation
+---
+
+The `Accordion` component organizes details vertically inside collapsible sections. Built using Radix UI primitives and styled with custom borders, transitions, and Lucide icons.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Accordion" 
+  componentName="Accordion"
+  sourceFile="components/ui/accordion.tsx"
+  propsData={[
+    {
+      name: "Inherits Props",
+      type: "Radix UI",
+      default: "—",
+      description: "Inherits all standard properties from @radix-ui/react-accordion."
+    }
+  ]}
+  variants={[
+    {
+      name: "Single Collapse",
+      code: `import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";\nimport { Cpu } from "lucide-react";\n\nexport default function Example() {\n  return (\n    <Accordion type="single" collapsible className="w-full space-y-2">\n      <AccordionItem value="item-1" className="border border-white/5 bg-white/5 px-4 rounded-xl">\n        <AccordionTrigger className="hover:no-underline py-4 text-sm font-semibold">\n          <span className="flex items-center gap-2">\n            <Cpu className="w-4 h-4 text-indigo-400" />\n            How performant is the system?\n          </span>\n        </AccordionTrigger>\n        <AccordionContent className="text-xs text-zinc-400 pb-4">\n          Our codebase is hand-crafted and highly optimized.\n        </AccordionContent>\n      </AccordionItem>\n    </Accordion>\n  );\n}`
+    },
+    {
+      name: "Multiple Expand",
+      code: `import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";\nimport { Cpu, Shield } from "lucide-react";\n\nexport default function Example() {\n  return (\n    <Accordion type="multiple" className="w-full space-y-2">\n      <AccordionItem value="item-1" className="border border-white/5 bg-white/5 px-4 rounded-xl">\n        <AccordionTrigger className="hover:no-underline py-4 text-sm font-semibold">\n          Multi-Expandable Item 1\n        </AccordionTrigger>\n        <AccordionContent className="text-xs text-zinc-400 pb-4">\n          You can expand multiple items at the same time.\n        </AccordionContent>\n      </AccordionItem>\n    </Accordion>\n  );\n}`
+    },
+    {
+      name: "Bordered Cards",
+      code: `import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";\n\nexport default function Example() {\n  return (\n    <Accordion type="single" collapsible className="w-full space-y-4">\n      <AccordionItem value="item-1" className="border border-indigo-500/25 bg-zinc-950/50 px-5 rounded-2xl shadow-[0_4px_12px_rgba(99,102,241,0.05)]">\n        <AccordionTrigger className="hover:no-underline py-5 text-sm font-bold">\n          Individually Isolated Cards\n        </AccordionTrigger>\n        <AccordionContent className="text-xs text-zinc-400 pb-5">\n          By nesting items inside separated card wrappers with spacing gaps.\n        </AccordionContent>\n      </AccordionItem>\n    </Accordion>\n  );\n}`
+    },
+    {
+      name: "Minimal Flat",
+      code: `import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";\n\nexport default function Example() {\n  return (\n    <Accordion type="single" collapsible className="w-full divide-y divide-white/5">\n      <AccordionItem value="item-1" className="border-none">\n        <AccordionTrigger className="hover:no-underline py-4 text-sm font-semibold">\n          Minimalist Flat Structure\n        </AccordionTrigger>\n        <AccordionContent className="text-xs text-zinc-400 pb-4 pl-6">\n          Clean and seamless outline without backgrounds.\n        </AccordionContent>\n      </AccordionItem>\n    </Accordion>\n  );\n}`
+    }
+  ]}
+>
+  <AccordionDemo variant="single" />
+  <AccordionDemo variant="multiple" />
+  <AccordionDemo variant="bordered" />
+  <AccordionDemo variant="minimal" />
+</ComponentPreview>

@@ -1,0 +1,54 @@
+---
+title: Cinematic Preloader
+description: A global, full-screen loading sequence that slices open perfectly to reveal the page.
+category: Page Transitions
+---
+
+The ultimate first impression for any Awwwards-style website. This component acts as a `z-[9999]` fixed overlay that runs a beautiful percentage counter. Once loaded, the screen physically splits in half horizontally, sliding apart seamlessly to reveal your application.
+
+## Live Preview
+
+<ComponentPreview 
+  name="cinematic-preloader-demo" 
+  componentName="CinematicPreloader"
+  sourceFile="components/creative/cinematic-preloader.tsx"
+  playgroundControls={[
+    {
+      name: "brandName",
+      label: "Brand Name",
+      type: "string",
+      default: "KINETIC UI"
+    }
+  ]}
+  propsData={[
+    {
+      name: "isLoading",
+      type: "boolean",
+      description: "Boolean controlling whether the preloader is active."
+    },
+    {
+      name: "onComplete",
+      type: "() => void",
+      description: "Callback function fired when the loading animation completely finishes."
+    },
+    {
+      name: "brandName",
+      type: "string",
+      description: "Optional text to display under the loading bar."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { CinematicPreloader } from "@/components/creative/cinematic-preloader";\nimport { useState } from "react";\n\nexport default function Example() {\n  const [isLoading, setIsLoading] = useState(true);\n  \n  return (\n    <>\n      <CinematicPreloader \n        isLoading={isLoading} \n        onComplete={() => setIsLoading(false)} \n        brandName="KINETIC UI"\n      />\n      {!isLoading && <div className="p-10">Content Loaded</div>}\n    </>\n  );\n}`,
+      params: { brandName: "KINETIC UI" }
+    }
+  ]}
+>
+  <CinematicPreloaderDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="cinematic-preloader" />
+

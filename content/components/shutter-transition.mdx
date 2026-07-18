@@ -1,0 +1,39 @@
+---
+title: Shutter Transition
+description: An elegant, cinematic page transition that splits the screen perfectly in half and slides apart to reveal the next page.
+category: Page Transitions
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Shutter Transition" 
+  componentName="ShutterTransition"
+  sourceFile="components/creative/shutter-transition.tsx"
+  playgroundControls={[
+    { name: "direction", type: "select", options: ["vertical", "horizontal"], default: "vertical", label: "Split Direction" },
+    { name: "color", type: "string", default: "#18181b", label: "Shutter Color" }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { ShutterTransition } from "@/components/creative/shutter-transition";\nimport { useState } from "react";\n\nexport default function Example() {\n  const [isActive, setIsActive] = useState(false);\n\n  return (\n    <div>\n      <button onClick={() => setIsActive(true)}>Navigate</button>\n      <ShutterTransition \n        isActive={isActive} \n        direction="vertical"\n        color="#18181b"\n      >\n        <h2>Loading...</h2>\n      </ShutterTransition>\n    </div>\n  );\n}`
+    }
+  ]}
+>
+  <ShutterTransitionDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="shutter-transition" />
+
+## Architecture
+
+The Shutter Transition is built for pure performance. Instead of animating `height` or `width` (which triggers expensive browser reflows), it relies entirely on hardware-accelerated CSS transforms.
+
+When the transition triggers:
+1. Two `div` elements (representing the two halves of the shutter) are mounted.
+2. If `direction="vertical"`, the top panel animates from `translateY(-100%)` to `0%`, and the bottom from `100%` to `0%`.
+3. If `direction="horizontal"`, the left panel animates from `translateX(-100%)` to `0%`, and the right from `100%` to `0%`.
+
+This ensures 60fps performance on all devices.

@@ -1,0 +1,126 @@
+---
+title: Physics Dock
+description: A playful, magnetic dock navigation component driven by real 2D collision physics.
+category: Navigation
+---
+
+The `PhysicsDock` takes a standard navigation pattern and injects life into it. Icons act as physical bodies connected via invisible springs. When you drag an item, it pulls on the spring and realistically collides with and pushes away other items. 
+
+Powered by `matter-js` for the physics engine and `framer-motion` for ultra-smooth 60fps rendering.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Physics Dock" 
+  componentName="PhysicsDock"
+  sourceFile="components/creative/physics-dock.tsx"
+  playgroundControls={[
+    {
+      name: "stiffness",
+      label: "Spring Stiffness",
+      type: "number",
+      min: 0.01,
+      max: 0.2,
+      step: 0.01,
+      default: 0.03
+    },
+    {
+      name: "damping",
+      label: "Friction (Damping)",
+      type: "number",
+      min: 0.01,
+      max: 0.5,
+      step: 0.01,
+      default: 0.1
+    },
+    {
+      name: "bounciness",
+      label: "Bounciness",
+      type: "number",
+      min: 0.1,
+      max: 1.0,
+      step: 0.1,
+      default: 0.5
+    }
+  ]}
+  propsData={[
+    {
+      name: "children",
+      type: "ReactNode",
+      default: "Required",
+      description: "The icons or elements to render inside the physical dock."
+    },
+    {
+      name: "itemRadius",
+      type: "number",
+      default: "24",
+      description: "The pixel radius of the physical body wrapping each child."
+    },
+    {
+      name: "gap",
+      type: "number",
+      default: "12",
+      description: "The gap between each icon's anchor position."
+    },
+    {
+      name: "stiffness",
+      type: "number",
+      default: "0.05",
+      description: "The stiffness of the spring constraint anchoring the item."
+    },
+    {
+      name: "damping",
+      type: "number",
+      default: "0.1",
+      description: "The damping (friction) of the spring constraint."
+    },
+    {
+      name: "bounciness",
+      type: "number",
+      default: "0.4",
+      description: "The restitution value of the body determining how bouncy the collisions are."
+    },
+    {
+      name: "bodyType",
+      type: "'circle' | 'rectangle'",
+      default: "'circle'",
+      description: "The shape of the physics body used for collisions."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Optional CSS classes applied to the dock boundary container."
+    },
+    {
+      name: "itemClassName",
+      type: "string",
+      default: "—",
+      description: "Optional CSS classes applied to the individual motion wrappers."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { PhysicsDock } from '@/components/creative/physics-dock';\nimport { Home, Settings, User, Bell, Mail, Compass } from "lucide-react";\n\nexport default function Example() {\n  const icons = [\n    { icon: <Home className="w-6 h-6 text-indigo-400" />, bg: "bg-indigo-500/10", border: "border-indigo-500/20" },\n    { icon: <Compass className="w-6 h-6 text-emerald-400" />, bg: "bg-emerald-500/10", border: "border-emerald-500/20" },\n    { icon: <Bell className="w-6 h-6 text-amber-400" />, bg: "bg-amber-500/10", border: "border-amber-500/20" },\n    { icon: <Mail className="w-6 h-6 text-sky-400" />, bg: "bg-sky-500/10", border: "border-sky-500/20" },\n    { icon: <User className="w-6 h-6 text-rose-400" />, bg: "bg-rose-500/10", border: "border-rose-500/20" },\n    { icon: <Settings className="w-6 h-6 text-zinc-400" />, bg: "bg-zinc-500/10", border: "border-zinc-500/20" },\n  ];\n\n  return (\n    <div className="flex w-full min-h-[400px] flex-col items-center justify-end bg-[#0a0a0a] rounded-xl overflow-hidden p-8">\n      <PhysicsDock \n        itemRadius={32}\n        gap={16}\n        className="h-[200px] w-full max-w-2xl bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl"\n      >\n        {icons.map((item, idx) => (\n          <div \n            key={idx}\n            className={\`w-full h-full rounded-full flex items-center justify-center backdrop-blur-md border shadow-xl \${item.bg} \${item.border}\`}\n          >\n            {item.icon}\n          </div>\n        ))}\n      </PhysicsDock>\n    </div>\n  );\n}`,
+      params: {}
+    },
+    {
+      name: "Jelly Dock",
+      code: `import { PhysicsDock } from '@/components/creative/physics-dock';\nimport { Home, Compass, Bell, Mail, User } from "lucide-react";\n\nexport default function JellyExample() {\n  const icons = [\n    { icon: <Home className="w-8 h-8 text-white" />, bg: "bg-fuchsia-500" },\n    { icon: <Compass className="w-8 h-8 text-white" />, bg: "bg-blue-500" },\n    { icon: <Bell className="w-8 h-8 text-white" />, bg: "bg-violet-500" },\n    { icon: <Mail className="w-8 h-8 text-white" />, bg: "bg-pink-500" },\n    { icon: <User className="w-8 h-8 text-white" />, bg: "bg-purple-500" },\n  ];\n\n  return (\n    <div className="flex w-full min-h-[400px] flex-col items-center justify-end bg-neutral-100 rounded-xl overflow-hidden p-8">\n      <PhysicsDock \n        itemRadius={40}\n        gap={10}\n        stiffness={0.01}\n        damping={0.02}\n        bounciness={0.8}\n        className="h-[250px] w-full max-w-2xl bg-white border border-neutral-200 shadow-sm rounded-3xl"\n      >\n        {icons.map((item, idx) => (\n          <div \n            key={idx}\n            className={\`w-full h-full rounded-full flex items-center justify-center shadow-lg \${item.bg}\`}\n          >\n            {item.icon}\n          </div>\n        ))}\n      </PhysicsDock>\n    </div>\n  );\n}`,
+      params: {}
+    },
+    {
+      name: "Square Collisions",
+      code: `import { PhysicsDock } from '@/components/creative/physics-dock';\nimport { Home, Compass, Bell, Mail } from "lucide-react";\n\nexport default function BlocksExample() {\n  const icons = [\n    { icon: <Home className="w-6 h-6 text-indigo-900" />, bg: "bg-indigo-100" },\n    { icon: <Compass className="w-6 h-6 text-emerald-900" />, bg: "bg-emerald-100" },\n    { icon: <Bell className="w-6 h-6 text-amber-900" />, bg: "bg-amber-100" },\n    { icon: <Mail className="w-6 h-6 text-sky-900" />, bg: "bg-sky-100" },\n  ];\n\n  return (\n    <div className="flex w-full min-h-[400px] flex-col items-center justify-end bg-zinc-950 rounded-xl overflow-hidden p-8">\n      <PhysicsDock \n        itemRadius={40}\n        gap={4}\n        stiffness={0.08}\n        damping={0.2}\n        bounciness={0.2}\n        bodyType="rectangle"\n        className="h-[250px] w-full max-w-lg bg-zinc-900/50 backdrop-blur-xl border border-white/5 rounded-3xl"\n      >\n        {icons.map((item, idx) => (\n          <div \n            key={idx}\n            className={\`w-full h-full rounded-2xl flex items-center justify-center shadow-2xl \${item.bg}\`}\n          >\n            {item.icon}\n          </div>\n        ))}\n      </PhysicsDock>\n    </div>\n  );\n}`,
+      params: {}
+    }
+  ]}
+>
+  <PhysicsDockDemo />
+  <PhysicsDockJellyDemo />
+  <PhysicsDockBlocksDemo />
+</ComponentPreview>
+
+> [!WARNING]
+> This component introduces \`matter-js\` as a dependency. While powerful, \`matter-js\` adds approximately ~70kb to your final bundle size. 

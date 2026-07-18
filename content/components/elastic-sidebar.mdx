@@ -1,0 +1,37 @@
+---
+title: Elastic Sidebar
+description: A navigation menu that physically stretches and pulls like a rubber band using SVG path morphing.
+category: Navigation
+---
+
+An advanced off-canvas navigation menu that uses Framer Motion's spring physics to animate SVG cubic bezier curves. When opened, the edge of the sidebar pulls elastically outwards before snapping into a perfectly straight line, providing an incredibly tactile feel.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Elastic Sidebar" 
+  componentName="ElasticSidebar"
+  sourceFile="components/creative/elastic-sidebar.tsx"
+  propsData={[
+    {
+      name: "items",
+      type: "{ title: string; href: string }[]",
+      default: "Required",
+      description: "An array of navigation objects containing title and href."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Optional Tailwind classes for the outer container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { ElasticSidebar } from "@/components/creative/elastic-sidebar";\n\nconst items = [\n  { title: "Home", href: "/" },\n  { title: "About", href: "/about" },\n];\n\nexport default function Example() {\n  return (\n    <ElasticSidebar items={items} />\n  );\n}`
+    }
+  ]}
+>
+  <ElasticSidebarDemo />
+</ComponentPreview>

@@ -1,0 +1,85 @@
+---
+title: Button
+description: Displays a button or a component that looks like a button.
+category: Forms
+---
+
+The `Button` component triggers an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Button" 
+  componentName="Button"
+  sourceFile="components/ui/button.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["default", "secondary", "destructive", "outline", "ghost", "link", "premium"],
+      default: "default"
+    },
+    {
+      name: "size",
+      label: "Size",
+      type: "select",
+      options: ["default", "sm", "lg", "icon"],
+      default: "default"
+    },
+    {
+      name: "isLoading",
+      label: "Loading State",
+      type: "boolean",
+      default: false
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | 'premium'",
+      default: "'default'",
+      description: "Controls the visual style of the button."
+    },
+    {
+      name: "size",
+      type: "'default' | 'sm' | 'lg' | 'icon'",
+      default: "'default'",
+      description: "Controls the size and padding of the button."
+    },
+    {
+      name: "asChild",
+      type: "boolean",
+      default: "false",
+      description: "If true, merges props onto the child element (using Radix Slot)."
+    },
+    {
+      name: "isLoading",
+      type: "boolean",
+      default: "false",
+      description: "If true, replaces left icon with a loading spinner and disables the button."
+    },
+    {
+      name: "leftIcon",
+      type: "ReactNode",
+      default: "—",
+      description: "Optional icon element to display on the left side."
+    },
+    {
+      name: "rightIcon",
+      type: "ReactNode",
+      default: "—",
+      description: "Optional icon element to display on the right side."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { Button } from "@/components/ui/button";\n\nexport default function Example() {\n  return <Button>Click Me</Button>;\n}`,
+      params: { variant: "default", size: "default", isLoading: false }
+    }
+  ]}
+>
+  <ButtonDemo />
+</ComponentPreview>
+

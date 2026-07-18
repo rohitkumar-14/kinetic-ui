@@ -1,0 +1,37 @@
+---
+title: AI Command Palette
+description: A glowing, Copilot-style command palette interface with built-in generative AI query states.
+category: AI & Generative
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="AI Command Palette" 
+  componentName="AICommandPalette"
+  sourceFile="components/creative/ai-command-palette.tsx"
+  playgroundControls={[
+    { name: "placeholder", type: "string", default: "Ask AI or search commands...", label: "Input Placeholder" }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { AICommandPalette } from "@/components/creative/ai-command-palette";\n\nexport default function Example() {\n  return <AICommandPalette />;\n}`
+    }
+  ]}
+>
+  <AICommandPaletteDemo />
+</ComponentPreview>
+
+## Installation
+
+This component relies on `cmdk` for robust keyboard navigation and accessibility.
+
+<CliInstallCommand componentName="ai-command-palette" />
+
+## Architecture
+
+This component wraps the excellent `cmdk` library with Framer Motion animations and a premium, glowing aesthetic tailored for AI integrations. 
+
+When a user types a query, it dynamically injects an "Ask AI" command at the top of the list. Selecting this command triggers an internal generative state, which seamlessly animates the command list closed and expands a loading indicator, followed by the generated response.
+
+> **Note:** To make this a global shortcut (like `Cmd+K`), simply wrap the `<Command>` element inside a `<Command.Dialog>` as specified by the `cmdk` documentation. We've built this as an inline component so it renders safely inside this documentation page without hijacking your keyboard!

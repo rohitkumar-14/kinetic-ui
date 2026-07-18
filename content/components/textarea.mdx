@@ -1,0 +1,46 @@
+---
+title: Textarea
+description: Displays a form textarea or a component that looks like a textarea.
+category: Forms
+---
+
+The `Textarea` component allows users to input multi-line text. It supports all standard HTML textarea attributes along with custom label, helper text, and error states.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Textarea" 
+  componentName="Textarea"
+  sourceFile="components/ui/textarea.tsx"
+  playgroundControls={[
+    { name: "variant", type: "select", options: ["default", "label", "error"], default: "default", label: "Variant" }
+  ]}
+  propsData={[
+    { name: "label", type: "string", description: "Optional label displayed above the textarea." },
+    { name: "helperText", type: "string", description: "Optional helper text displayed below the textarea." },
+    { name: "error", type: "string", description: "Error message displayed below the textarea. If provided, sets the border to red." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { Textarea } from "@/components/ui/textarea";\n\nexport default function Example() {\n  return (\n    <Textarea placeholder="Type your message here." />\n  );\n}`
+    },
+    {
+      name: "With Label",
+      code: `import { Textarea } from "@/components/ui/textarea";\n\nexport default function Example() {\n  return (\n    <Textarea \n      label="Your Message" \n      placeholder="Type your message here." \n      helperText="Your message will be copied to the support team."\n    />\n  );\n}`
+    },
+    {
+      name: "Error State",
+      code: `import { Textarea } from "@/components/ui/textarea";\n\nexport default function Example() {\n  return (\n    <Textarea \n      placeholder="Type your message here." \n      error="Message cannot be empty." \n    />\n  );\n}`
+    }
+  ]}
+>
+  <TextareaDemo variant="default" />
+  <TextareaDemo variant="label" />
+  <TextareaDemo variant="error" />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="textarea" />
+

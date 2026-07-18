@@ -1,0 +1,42 @@
+---
+title: Interactive 3D Model
+description: A drop-in WebGL viewer for rendering 3D assets with cinematic lighting and physics.
+category: 3D Components
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Interactive 3D Model" 
+  componentName="Interactive3DModel"
+  sourceFile="components/creative/interactive-3d-model.tsx"
+  playgroundControls={[
+    { name: "environment", type: "select", options: ["city", "studio", "night", "warehouse", "sunset"], default: "city", label: "Environment Lighting" }
+  ]}
+  propsData={[
+    { name: "modelUrl", type: "string", description: "Optional. URL to a .glb or .gltf 3D model. If omitted, a fallback Torus Knot is rendered." },
+    { name: "scale", type: "number", default: "1", description: "Scale multiplier for the 3D model." },
+    { name: "environment", type: "string", default: "'city'", description: "Drei Environment preset for reflections and ambient lighting." },
+    { name: "floatSpeed", type: "number", default: "2", description: "Speed of the floating animation." },
+    { name: "className", type: "string", description: "Tailwind classes for the outer wrapper div." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { Interactive3DModel } from "@/components/creative/interactive-3d-model";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[500px]">\n      <Interactive3DModel environment="city" />\n    </div>\n  );\n}`
+    }
+  ]}
+>
+  <div className="w-full">
+    <Interactive3DModelDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="interactive-3d-model" />
+
+## Architecture
+
+This component is built on top of **React Three Fiber** and **Drei**. It leverages `<PresentationControls>` to allow users to intuitively click and drag the 3D model around, which snaps back to its original position using spring physics.
+
+We also use `<Environment>` to apply High Dynamic Range (HDR) lighting, instantly giving standard materials realistic reflections and metallic properties.

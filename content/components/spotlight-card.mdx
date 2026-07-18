@@ -1,0 +1,72 @@
+---
+title: Spotlight Card
+description: A card component that reveals a radial lighting gradient underneath as the cursor moves over it.
+category: Cards
+---
+
+The `SpotlightCard` creates a beautiful dynamic lighting effect. Using a hidden radial gradient that perfectly tracks the mouse position, the lighting effect is only revealed when hovering over the card. Now equipped with **4 unique spotlight variants**, including animated pulsing.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Spotlight Card" 
+  componentName="SpotlightCard"
+  sourceFile="components/creative/spotlight-card.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["soft", "strong", "ring", "pulse"],
+      default: "soft"
+    },
+    {
+      name: "color",
+      label: "Spotlight Color",
+      type: "string",
+      default: "rgba(99, 102, 241, 0.15)"
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'soft' | 'strong' | 'ring' | 'pulse'",
+      default: "'soft'",
+      description: "The shape and animation behavior of the spotlight."
+    },
+    {
+      name: "color / spotlightColor",
+      type: "string",
+      default: "rgba(99, 102, 241, 0.15)",
+      description: "The color of the gradient light."
+    },
+    {
+      name: "scale",
+      type: "number",
+      default: "1",
+      description: "Multiplier for the radius of the spotlight."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional Tailwind classes."
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      default: "Required",
+      description: "Card content."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { SpotlightCard } from '@/components/creative/spotlight-card';\n\nexport default function Example() {\n  return (\n    <div className="flex min-h-[400px] items-center justify-center bg-black p-8">\n      <SpotlightCard variant="soft" color="rgba(99, 102, 241, 0.15)" className="w-80 h-96 flex items-center justify-center">\n        <h3 className="text-2xl font-bold text-white">Hover For Light</h3>\n      </SpotlightCard>\n    </div>\n  );\n}`,
+      params: { variant: "soft", color: "rgba(99, 102, 241, 0.15)" }
+    }
+  ]}
+>
+  <SpotlightCardDemo />
+</ComponentPreview>
+

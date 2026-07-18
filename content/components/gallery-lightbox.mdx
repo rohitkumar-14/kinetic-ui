@@ -1,0 +1,54 @@
+---
+title: Gallery Lightbox
+description: A seamless image modal utilizing shared-element transitions.
+---
+
+<ComponentPreview 
+  name="gallery-lightbox"
+  componentName="GalleryLightbox"
+  sourceFile="components/creative/gallery-lightbox.tsx"
+  playgroundControls={[
+    {
+      name: "aspectRatio",
+      label: "Grid Aspect Ratio",
+      type: "select",
+      options: ["video", "square", "portrait", "auto"],
+      default: "video"
+    }
+  ]}
+>
+  <GalleryLightboxDemo />
+</ComponentPreview>
+
+## Overview
+The `GalleryLightbox` component is the gold standard for modern image viewing on portfolio and photography sites. Instead of a jarring layout jump when clicking a thumbnail, this component uses Framer Motion's `layoutId` to morph the image out of its grid cell and into the center of the screen while blurring the background. 
+
+It handles everything you expect from a premium modal: keyboard navigation (Escape, Left/Right arrows), background scrolling locks, and fluid layout animations.
+
+## Usage
+
+```tsx
+import { GalleryLightbox } from "@/components/creative/gallery-lightbox"
+
+export default function Portfolio() {
+  const images = [
+    {
+      id: 1,
+      src: "/images/project-1.jpg",
+      alt: "Project 1 Overview",
+      caption: "Brand Identity Concept"
+    },
+    // ...
+  ]
+
+  return (
+    <section className="py-20 max-w-7xl mx-auto">
+      <GalleryLightbox 
+        images={images} 
+        aspectRatio="square" 
+        gridClassName="gap-8 md:grid-cols-4"
+      />
+    </section>
+  )
+}
+```

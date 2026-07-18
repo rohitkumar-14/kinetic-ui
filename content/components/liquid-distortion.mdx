@@ -1,0 +1,96 @@
+---
+title: Liquid Image Distortion
+description: A WebGL shader effect that distorts an image with a liquid ripple on hover.
+category: Mouse Interactions
+---
+
+A premium WebGL shader effect built with `react-three-fiber` that distorts an image with a liquid ripple and RGB split on hover. Perfect for project thumbnails and high-end galleries.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Liquid Image Distortion" 
+  componentName="LiquidDistortion"
+  sourceFile="components/creative/liquid-distortion.tsx"
+  playgroundControls={[
+    {
+      name: "rippleAmount",
+      label: "Ripple Intensity",
+      type: "number",
+      default: 0.05,
+      min: 0.01,
+      max: 0.2,
+      step: 0.01
+    },
+    {
+      name: "splitAmount",
+      label: "RGB Split",
+      type: "number",
+      default: 0.02,
+      min: 0,
+      max: 0.1,
+      step: 0.005
+    },
+    {
+      name: "speed",
+      label: "Animation Speed",
+      type: "number",
+      default: 5.0,
+      min: 1.0,
+      max: 15.0,
+      step: 0.5
+    }
+  ]}
+  propsData={[
+    {
+      name: "imageUrl",
+      type: "string",
+      default: "Required",
+      description: "The source URL of the image to display and distort."
+    },
+    {
+      name: "alt",
+      type: "string",
+      default: "'Image'",
+      description: "Alt text for the fallback image."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Standard Tailwind classes for the wrapper container. The container must have a defined width and height."
+    },
+    {
+      name: "rippleAmount",
+      type: "number",
+      default: "0.05",
+      description: "Intensity of the wave distortion effect."
+    },
+    {
+      name: "splitAmount",
+      type: "number",
+      default: "0.02",
+      description: "Amount of RGB chromatic aberration separation."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "5.0",
+      description: "Speed multiplier for the ripple animation loop."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { LiquidDistortion } from "@/components/creative/liquid-distortion";\n\nexport default function Example() {\n  return (\n    <LiquidDistortion \n      imageUrl="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"\n      className="w-[400px] h-[500px]"\n      rippleAmount={0.05}\n      splitAmount={0.02}\n      speed={5.0}\n    />\n  );\n}`,
+      params: { rippleAmount: 0.05, splitAmount: 0.02, speed: 5.0 }
+    }
+  ]}
+>
+  <LiquidDistortionDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="liquid-distortion" />
+

@@ -1,0 +1,46 @@
+---
+title: Boids Flocking Simulation
+description: A high-performance HTML5 Canvas implementation of Craig Reynolds' Boids algorithm, creating an organic flocking simulation that reacts to your mouse.
+category: Background Effects
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Boids Simulation" 
+  componentName="BoidsCanvas"
+  sourceFile="components/creative/boids-canvas.tsx"
+>
+  <BoidsCanvasDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="boids-canvas" />
+
+## Usage
+
+```tsx
+import { BoidsCanvas } from "@/components/creative/boids-canvas";
+
+export default function Page() {
+  return (
+    <div className="w-full h-screen relative">
+      <BoidsCanvas count={200} color="#3b82f6" />
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <h1 className="text-white text-6xl font-bold">Hero Text</h1>
+      </div>
+    </div>
+  );
+}
+```
+
+## How it works
+
+This component does not use WebGL or Three.js. Instead, it relies on an incredibly optimized 2D Canvas `requestAnimationFrame` loop.
+
+The behavior of the "boids" (bird-oid objects) is governed by three simple mathematical rules coined by Craig Reynolds in 1986:
+1. **Separation**: Steer to avoid crowding local flockmates.
+2. **Alignment**: Steer towards the average heading of local flockmates.
+3. **Cohesion**: Steer to move towards the average position (center of mass) of local flockmates.
+
+Additionally, a fourth rule is injected into the velocity vector when the user's cursor comes within a certain radius, forcing the boids to rapidly scatter away from the mouse.

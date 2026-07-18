@@ -1,0 +1,29 @@
+---
+title: "Infinite Zoom Canvas"
+description: "A massive, Miro/Figma style infinite canvas with gesture-driven panning and zooming."
+category: "Gestures & Interaction"
+---
+
+Uses `@use-gesture/react` to provide 60fps pinch-to-zoom, middle-mouse panning, and trackpad scrolling across an infinite grid space.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Infinite Zoom Canvas" 
+  componentName="InfiniteZoomCanvas"
+  sourceFile="components/creative/infinite-zoom-canvas.tsx"
+  playgroundControls={[
+    {
+      name: "showGrid",
+      label: "Show Dot Grid",
+      type: "boolean",
+      default: true
+    }
+  ]}
+>
+  <InfiniteZoomCanvasDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="infinite-zoom-canvas" />

@@ -1,0 +1,101 @@
+---
+title: Odometer
+description: A physics-based scrolling number ticker perfect for stats, metrics, and revenue counters.
+category: Text Effects
+---
+
+The `Odometer` component splits a numerical value into discrete mathematical places (ones, tens, hundreds) and uses Framer Motion's spring physics to slide an internal column of digits (0-9) vertically until the target digit is in view. It smoothly animates up or down whenever the value changes. Now updated with **4 physics variants**, custom separators, and prefix/suffix support.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Odometer" 
+  componentName="Odometer"
+  sourceFile="components/creative/odometer.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["spring", "bouncy", "smooth", "quick"],
+      default: "spring"
+    },
+    {
+      name: "prefix",
+      label: "Prefix",
+      type: "string",
+      default: "$"
+    },
+    {
+      name: "suffix",
+      label: "Suffix",
+      type: "string",
+      default: ""
+    }
+  ]}
+  propsData={[
+    {
+      name: "value",
+      type: "number",
+      default: "Required",
+      description: "The numeric value to display and animate to."
+    },
+    {
+      name: "animation",
+      type: "'spring' | 'bouncy' | 'smooth' | 'quick'",
+      default: "'spring'",
+      description: "The physics profile for the digit scrolling."
+    },
+    {
+      name: "format",
+      type: "boolean",
+      default: "true",
+      description: "Whether to format the number with grouping separators."
+    },
+    {
+      name: "separator",
+      type: "string",
+      default: "Locale dependent",
+      description: "Custom character to use for grouping (e.g., ',' or '.'). Overrides native locale formatting."
+    },
+    {
+      name: "prefix",
+      type: "string",
+      default: "—",
+      description: "Static character prepended to the number (e.g., '$')."
+    },
+    {
+      name: "suffix",
+      type: "string",
+      default: "—",
+      description: "Static character appended to the number (e.g., '%')."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional Tailwind classes for styling the text."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { Odometer } from '@/components/creative/odometer';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[300px] items-center justify-center bg-black">\n      <Odometer \n        value={125000} \n        animation="spring"\n        prefix="$"\n        className="text-6xl text-white"\n      />\n    </div>\n  );\n}`,
+      params: { variant: "spring", prefix: "$", suffix: "" }
+    }
+  ]}
+>
+  <OdometerDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="odometer" />
+
+
+
+## How it works
+
+The component formats the incoming value into a string, then iterates over each character. If a character is a separator (like `,` or `.`), it renders it statically. If it's a digit, it renders a `<Digit>` component representing that mathematical place (e.g., tens, hundreds). 
+
+Each `<Digit>` mounts an invisible column of numbers from `0-9`. Using the formula \`y: -(digit * 10)%\`, Framer Motion slides the column up or down so the target digit aligns within the visible `1em` bounding box.

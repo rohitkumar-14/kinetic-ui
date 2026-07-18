@@ -1,0 +1,52 @@
+---
+title: Minimap
+description: A Figma-style floating minimap for navigating large scrollable canvases.
+category: Layout
+---
+
+The `Minimap` component is a small, floating overview widget that gives users a bird's-eye view of a large virtual canvas. It renders colored rectangles for every item on the board and a white viewport indicator showing the currently visible area.
+
+Users can **click or drag** anywhere inside the minimap to instantly teleport the main viewport to that region of the canvas.
+
+It's designed to pair perfectly with our `DraggableCanvas`, `PhysicsCanvas`, or `ForceGraph` components, but it works with any scrollable or pannable surface since it uses a fully controlled props API.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Minimap" 
+  componentName="Minimap"
+  sourceFile="components/creative/minimap.tsx"
+  playgroundControls={[
+    { name: "width", type: "number", min: 100, max: 400, step: 10, default: 200, label: "Minimap Width" },
+    { name: "height", type: "number", min: 50, max: 300, step: 10, default: 150, label: "Minimap Height" }
+  ]}
+  propsData={[
+    { name: "canvasWidth", type: "number", default: "Required", description: "The total width of the virtual canvas in pixels." },
+    { name: "canvasHeight", type: "number", default: "Required", description: "The total height of the virtual canvas in pixels." },
+    { name: "viewportX", type: "number", default: "Required", description: "The current horizontal scroll offset of the main viewport." },
+    { name: "viewportY", type: "number", default: "Required", description: "The current vertical scroll offset of the main viewport." },
+    { name: "viewportWidth", type: "number", default: "Required", description: "The visible width of the main viewport container." },
+    { name: "viewportHeight", type: "number", default: "Required", description: "The visible height of the main viewport container." },
+    { name: "onViewportChange", type: "(x: number, y: number) => void", description: "Callback fired when the user clicks or drags inside the minimap." },
+    { name: "items", type: "{ x, y, width, height, color? }[]", default: "[]", description: "Array of rectangles to render on the minimap representing board items." },
+    { name: "position", type: "'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'", default: "'bottom-right'", description: "Where the minimap is anchored on screen." },
+    { name: "width", type: "number", default: "200", description: "Width of the minimap widget in pixels." },
+    { name: "height", type: "number", default: "150", description: "Height of the minimap widget in pixels." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { Minimap } from "@/components/creative/minimap";\n\nexport default function Example() {\n  const [panX, setPanX] = useState(0);\n  const [panY, setPanY] = useState(0);\n\n  return (\n    <div className="relative w-full h-[500px] overflow-hidden">\n      {/* Your large scrollable canvas here */}\n      <Minimap\n        canvasWidth={3000}\n        canvasHeight={2000}\n        viewportX={panX}\n        viewportY={panY}\n        viewportWidth={800}\n        viewportHeight={500}\n        onViewportChange={(x, y) => {\n          setPanX(x);\n          setPanY(y);\n        }}\n        items={[\n          { x: 100, y: 100, width: 200, height: 100, color: "#6366f1" }\n        ]}\n      />\n    </div>\n  );\n}`
+    }
+  ]}
+>
+  <MinimapDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="minimap" />
+
+> [!TIP]
+> **Controlled Architecture:** The minimap is fully controlled via props. It does not manage its own scroll state. This makes it trivially composable with *any* canvas system—just wire up `viewportX`, `viewportY`, and `onViewportChange`.
+

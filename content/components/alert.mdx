@@ -1,0 +1,54 @@
+---
+title: Alert
+description: Displays a callout message for user attention with a status icon and title description.
+category: Feedback
+---
+
+The `Alert` component delivers feedback notification prompts in a structured block. Styled with CVA and custom left-border flags.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Alert" 
+  componentName="Alert"
+  sourceFile="components/ui/alert.tsx"
+  playgroundControls={[
+    { name: "variant", type: "select", options: ["default", "destructive", "warning", "success", "premium"], default: "default", label: "Variant" }
+  ]}
+  propsData={[
+    { name: "variant", type: "'default' | 'destructive'", default: "'default'", description: "Visual style variant of the alert." }
+  ]}
+  variants={[
+    {
+      name: "Default Info",
+      code: `import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";\nimport { Info } from "lucide-react";\n\nexport default function Example() {\n  return (\n    <Alert>\n      <Info className="h-4 w-4 text-indigo-400" />\n      <AlertTitle>System Notification</AlertTitle>\n      <AlertDescription>\n        A new version of the layout builder is ready. Save your current files before upgrading.\n      </AlertDescription>\n    </Alert>\n  );\n}`
+    },
+    {
+      name: "Destructive Error",
+      code: `import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";\nimport { AlertCircle } from "lucide-react";\n\nexport default function Example() {\n  return (\n    <Alert variant="destructive">\n      <AlertCircle className="h-4 w-4" />\n      <AlertTitle>Critical Error</AlertTitle>\n      <AlertDescription>\n        Your project configuration has outdated properties. Please review package dependencies.\n      </AlertDescription>\n    </Alert>\n  );\n}`
+    },
+    {
+      name: "Warning Alert",
+      code: `import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";\nimport { AlertTriangle } from "lucide-react";\n\nexport default function Example() {\n  return (\n    <Alert className="border-yellow-500/10 bg-zinc-950/40">\n      <AlertTriangle className="h-4 w-4 text-yellow-500" />\n      <AlertTitle className="text-yellow-500">Warning Alert</AlertTitle>\n      <AlertDescription>\n        Local database synchronization took longer than expected. Retrying link connections...\n      </AlertDescription>\n    </Alert>\n  );\n}`
+    },
+    {
+      name: "Success Accent",
+      code: `import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";\nimport { CheckCircle2 } from "lucide-react";\n\nexport default function Example() {\n  return (\n    <Alert className="border-emerald-500/15 bg-zinc-950/40">\n      <CheckCircle2 className="h-4 w-4 text-emerald-400" />\n      <AlertTitle className="text-emerald-400">Success Status</AlertTitle>\n      <AlertDescription>\n        Database migrated successfully. All index nodes are fully operational and responding at 12ms.\n      </AlertDescription>\n    </Alert>\n  );\n}`
+    },
+    {
+      name: "Premium Neon",
+      code: `import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";\nimport { Sparkles } from "lucide-react";\n\nexport default function Example() {\n  return (\n    <Alert className="relative overflow-hidden border-indigo-500/30 bg-zinc-950/50 shadow-[0_0_20px_rgba(99,102,241,0.15)]">\n      <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500" />\n      <Sparkles className="h-4 w-4 text-indigo-400" />\n      <AlertTitle className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-pink-200">Enterprise Feature Unlocked</AlertTitle>\n      <AlertDescription>\n        You now have access to limitless computing, dynamic CDN edges, and premium custom GLSL shaders.\n      </AlertDescription>\n    </Alert>\n  );\n}`
+    }
+  ]}
+>
+  <AlertDemo variant="default" />
+  <AlertDemo variant="destructive" />
+  <AlertDemo variant="warning" />
+  <AlertDemo variant="success" />
+  <AlertDemo variant="premium" />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="alert" />
+

@@ -1,0 +1,51 @@
+---
+title: Stepper
+description: A multi-step process indicator with animated layout transitions.
+---
+
+<ComponentPreview 
+  name="stepper"
+  componentName="Stepper"
+  sourceFile="components/creative/stepper.tsx"
+  playgroundControls={[
+    {
+      name: "direction",
+      label: "Layout Direction",
+      type: "select",
+      options: ["horizontal", "vertical"],
+      default: "horizontal"
+    }
+  ]}
+>
+  <StepperDemo />
+</ComponentPreview>
+
+## Overview
+A Stepper (or Wizard) is essential for breaking down complex forms, onboarding flows, or checkout processes into digestible chunks. 
+
+This component features smooth `scaleX` and `scaleY` line animations that connect the nodes as progress is made, pulsing active states to draw the user's eye, and support for both horizontal desktop layouts and vertical mobile layouts.
+
+## Usage
+
+```tsx
+import { useState } from "react"
+import { Stepper } from "@/components/creative/stepper"
+
+export default function Onboarding() {
+  const [step, setStep] = useState(0)
+  
+  const steps = [
+    { id: '1', label: "Profile", description: "Set up your avatar" },
+    { id: '2', label: "Security", description: "Configure 2FA" },
+    { id: '3', label: "Done" }
+  ]
+
+  return (
+    <div className="w-full max-w-3xl mx-auto py-12">
+      <Stepper steps={steps} currentStep={step} direction="horizontal" />
+      
+      {/* Your form content based on `step` */}
+    </div>
+  )
+}
+```

@@ -1,0 +1,80 @@
+---
+title: Animated Circular Progress
+description: An interactive, animated radial gauge progress bar with neon glows, smooth stroke-dashoffset transitions, and a running counter.
+category: Data Display
+---
+
+The `AnimatedCircularProgress` component is a high-performance SVG-based radial progress indicator. It features smooth physics-based transitions, pre-configured gradient color presets (Cyber, Emerald, Ember, Sunset), and an animated center count ticker that counts up/down fluidly whenever the target value updates.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Animated Circular Progress" 
+  componentName="AnimatedCircularProgress"
+  sourceFile="components/creative/animated-circular-progress.tsx"
+  playgroundControls={[
+    { name: "value", type: "number", min: 0, max: 100, step: 1, default: 75, label: "Progress Value" },
+    { name: "theme", type: "select", options: ["cyber", "emerald", "ember", "sunset"], default: "cyber", label: "Theme" }
+  ]}
+  propsData={[
+    { name: "value", type: "number", default: "75", description: "Target percentage to animate towards, bounded between 0 and 100." },
+    { name: "size", type: "number", default: "160", description: "Overall width and height of the SVG element in pixels." },
+    { name: "strokeWidth", type: "number", default: "12", description: "Thickness of the progress path stroke." },
+    { name: "theme", type: "'cyber' | 'emerald' | 'ember' | 'sunset'", default: "'cyber'", description: "Pre-configured visual color scheme and gradient combinations." },
+    { name: "showValue", type: "boolean", default: "true", description: "Displays the dynamic numeric percentage ticker inside the center of the circle." },
+    { name: "label", type: "string", default: "—", description: "Optional metadata text status string placed beneath the percentage ticker." },
+    { name: "duration", type: "number", default: "1.5", description: "Transition animation duration in seconds." },
+    { name: "delay", type: "number", default: "0.2", description: "Start animation delay in seconds." }
+  ]}
+  variants={[
+    {
+      name: "Cyber Neon",
+      code: `import { AnimatedCircularProgress } from '@/components/creative/animated-circular-progress';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[250px] items-center justify-center bg-black">\n      <AnimatedCircularProgress value={75} theme="cyber" label="Completed" />\n    </div>\n  );\n}`
+    },
+    {
+      name: "Emerald Green",
+      code: `import { AnimatedCircularProgress } from '@/components/creative/animated-circular-progress';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[250px] items-center justify-center bg-black">\n      <AnimatedCircularProgress value={90} theme="emerald" label="Success" />\n    </div>\n  );\n}`
+    },
+    {
+      name: "Solar Ember",
+      code: `import { AnimatedCircularProgress } from '@/components/creative/animated-circular-progress';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[250px] items-center justify-center bg-black">\n      <AnimatedCircularProgress value={45} theme="ember" label="Critical" />\n    </div>\n  );\n}`
+    },
+    {
+      name: "Sunset Rose",
+      code: `import { AnimatedCircularProgress } from '@/components/creative/animated-circular-progress';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[250px] items-center justify-center bg-black">\n      <AnimatedCircularProgress value={60} theme="sunset" label="Performance" />\n    </div>\n  );\n}`
+    }
+  ]}
+>
+  <AnimatedCircularProgressDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="animated-circular-progress" />
+
+
+## Use Cases
+
+### Performance Dashboard Metric
+
+Use multiple gauges side-by-side inside grid containers to present core vitals or performance metrics:
+
+```tsx
+import { AnimatedCircularProgress } from '@/components/creative/animated-circular-progress';
+
+export function SystemMonitor() {
+  return (
+    <div className="p-6 bg-zinc-950 border border-zinc-900 rounded-2xl flex items-center justify-between gap-6 max-w-lg">
+      <div className="flex flex-col gap-1">
+        <h4 className="text-sm font-bold text-white font-mono uppercase tracking-wider">System Core</h4>
+        <p className="text-zinc-500 text-xs">Vitals are operating within acceptable thresholds.</p>
+      </div>
+
+      <div className="flex gap-4">
+        <AnimatedCircularProgress value={24} theme="emerald" size={90} strokeWidth={6} label="CPU" />
+        <AnimatedCircularProgress value={58} theme="cyber" size={90} strokeWidth={6} label="RAM" />
+      </div>
+    </div>
+  );
+}
+```

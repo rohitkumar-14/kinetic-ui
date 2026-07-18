@@ -1,0 +1,46 @@
+---
+title: Interactive Fluid Canvas
+description: A stunning, generative gradient background that mimics fluid dynamics using raw HTML5 Canvas overlapping sine waves.
+category: Background Effects
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Fluid Canvas" 
+  componentName="FluidCanvas"
+  sourceFile="components/creative/fluid-canvas.tsx"
+>
+  <FluidCanvasDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="fluid-canvas" />
+
+## Usage
+
+```tsx
+import { FluidCanvas } from "@/components/creative/fluid-canvas";
+
+export default function Page() {
+  return (
+    <div className="w-full h-screen relative">
+      <FluidCanvas colors={["#4f46e5", "#ec4899", "#06b6d4"]} />
+      
+      {/* Your content here */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center">
+        <h1 className="text-white text-5xl mix-blend-overlay">Hello World</h1>
+      </div>
+    </div>
+  );
+}
+```
+
+## How it works
+
+Instead of loading massive WebGL fluid simulation libraries, this component generates a convincing "liquid" aesthetic using high-performance 2D Canvas tricks.
+
+1. **Overlapping Orbs**: It renders massive radial gradients (orbs) that slowly orbit around the center of the screen using `Math.sin()` and `Math.cos()` tied to a continuous `requestAnimationFrame` timer.
+2. **Global Composite Operation**: By setting the canvas `globalCompositeOperation` to `"screen"`, the overlapping colors blend together like light, creating bright, vibrant intersections.
+3. **Mouse Attraction**: We calculate the distance vector between the user's cursor and the center of the orbs. If the cursor is close, we inject a slight "pull" force, dragging the gradient centers toward the mouse.
+4. **CSS Blur**: The `<canvas>` DOM element itself is heavily blurred (`blur-[60px]`) and scaled up (`scale-110`) using Tailwind CSS. This instantly smooths out the hard edges of the gradients, creating the thick, liquid aesthetic.

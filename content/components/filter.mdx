@@ -1,0 +1,37 @@
+---
+title: Filter
+description: A faceted filter component for selecting multiple values from a list.
+category: Layout & Data
+---
+
+A faceted filter component for selecting multiple values from a list, typically used in data tables or complex list views.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Filter" 
+  componentName="Filter"
+  sourceFile="components/ui/filter.tsx"
+  playgroundControls={[
+    { name: "label", type: "string", default: "Filter", label: "Filter Label" }
+  ]}
+  propsData={[
+    { name: "title", type: "string", description: "Optional title shown on the trigger button." },
+    { name: "options", type: "Option[]", description: "Array of objects with label, value, and icon." },
+    { name: "selectedValues", type: "Set<string>", description: "Optional set of selected values (controlled)." },
+    { name: "onFilterChange", type: "(values: string[]) => void", description: "Callback triggered when selection changes." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { Filter } from "@/components/ui/filter"\nimport { CheckCircle2, CircleDashed, XCircle } from "lucide-react"\n\nexport default function Example() {\n  return (\n    <Filter\n      title="Status"\n      options={[\n        { label: "Done", value: "done", icon: CheckCircle2 },\n        { label: "In Progress", value: "in-progress", icon: CircleDashed },\n        { label: "Canceled", value: "canceled", icon: XCircle },\n      ]}\n    />\n  );\n}`
+    }
+  ]}
+>
+  <FilterDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="filter" />
+

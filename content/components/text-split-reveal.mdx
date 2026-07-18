@@ -1,0 +1,58 @@
+---
+title: Text Split Reveal
+description: A massive headline that splits horizontally on hover to reveal hidden content.
+category: Text Effects
+---
+
+An elegant layout technique where hovering over a large typographical element slices it horizontally using CSS `clip-path` and animates the two halves apart, revealing hidden content (like a call-to-action or video) in the newly created negative space.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Text Split Reveal" 
+  componentName="TextSplitReveal"
+  sourceFile="components/creative/text-split-reveal.tsx"
+  playgroundControls={[
+    {
+      name: "text",
+      label: "Text",
+      type: "string",
+      default: "DISCOVER"
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      default: "Required",
+      description: "The large text to be split in half."
+    },
+    {
+      name: "revealContent",
+      type: "ReactNode",
+      default: "Required",
+      description: "The React Node (text, image, video, button) to display when the text splits."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Optional Tailwind classes for the outer container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { TextSplitReveal } from "@/components/creative/text-split-reveal";\n\nexport default function Example() {\n  return (\n    <TextSplitReveal \n      text="HOVER ME" \n      revealContent={<div>Hidden Content</div>}\n    />\n  );\n}`,
+      params: { text: "DISCOVER" }
+    }
+  ]}
+>
+  <TextSplitRevealDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="text-split-reveal" />
+
+

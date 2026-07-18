@@ -1,0 +1,64 @@
+---
+title: Glass Morphing Tabs
+description: Apple-style tabs with a frosted glass layout indicator.
+category: Navigation
+---
+
+The `GlassTabs` component is an ultra-premium variation of standard navigation tabs. 
+
+Instead of a solid color block for the active tab indicator, it uses a heavily styled, frosted glass element (`backdrop-blur-md` with inner white borders and shadows). Powered by Framer Motion's `layoutId`, the glass block physically stretches, squishes, and morphs across the tab buttons when clicked.
+
+## Live Preview
+
+> [!TIP]
+> **Refraction Effect:** Notice how the active tab indicator isn't just gray—it actually refracts and blurs the vibrant rotating orbs behind it! This effect only works if your app has a colorful, dynamic background behind the tabs.
+
+<ComponentPreview 
+  name="Glass Tabs" 
+  sourceFile="components/creative/glass-tabs.tsx"
+  playgroundControls={[
+    {
+      name: "defaultTab",
+      label: "Active Tab",
+      type: "select",
+      options: ["world", "features", "security", "performance"],
+      default: "world"
+    }
+  ]}
+  propsData={[
+    {
+      name: "tabs",
+      type: "{ id: string, label: string }[]",
+      default: "Required",
+      description: "An array of tab objects to render."
+    },
+    {
+      name: "activeTab",
+      type: "string",
+      default: "undefined",
+      description: "The ID of the currently active tab (for controlled usage)."
+    },
+    {
+      name: "onChange",
+      type: "(id: string) => void",
+      default: "undefined",
+      description: "Callback fired when a tab is clicked."
+    },
+    {
+      name: "layoutId",
+      type: "string",
+      default: "'glass-tab-indicator'",
+      description: "A unique ID for Framer Motion layout animations. You must change this if you render multiple GlassTabs components on the exact same page to prevent their indicators from flying across the screen!"
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { useState } from "react";\nimport { GlassTabs } from "@/components/creative/glass-tabs";\n\nconst TABS = [\n  { id: "world", label: "World" },\n  { id: "features", label: "Features" },\n  { id: "security", label: "Security" },\n  { id: "performance", label: "Performance" }\n];\n\nexport default function Example() {\n  const [active, setActive] = useState(TABS[0].id);\n\n  return (\n    <div className="w-full flex justify-center py-10 bg-black min-h-[300px] items-center">\n      <GlassTabs \n        tabs={TABS} \n        activeTab={active}\n        onChange={setActive}\n      />\n    </div>\n  );\n}`,
+      params: { defaultTab: "world" }
+    }
+  ]}
+>
+  <GlassTabsDemo />
+</ComponentPreview>
+

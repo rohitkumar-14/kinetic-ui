@@ -1,0 +1,32 @@
+---
+title: Terminal Footer
+description: A CLI-inspired footer that dynamically types out shell commands in an integrated terminal window as users hover over navigation links.
+category: Footers
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Terminal Footer" 
+  componentName="TerminalFooter"
+  sourceFile="components/creative/terminal-footer.tsx"
+  variants={[
+    {
+      name: "Default",
+      code: `import { TerminalFooter } from "@/components/creative/terminal-footer";\n\nconst CATEGORIES = [\n  {\n    title: "Core",\n    links: [\n      { label: "Documentation", href: "/docs", command: "man final-boss" },\n      { label: "Components", href: "/components", command: "ls -la /components" },\n    ]\n  },\n  {\n    title: "Social",\n    links: [\n      { label: "GitHub", href: "https://github.com", command: "gh repo view" },\n      { label: "Twitter", href: "https://twitter.com", command: "curl api.twitter.com" },\n    ]\n  }\n];\n\nexport default function Example() {\n  return (\n    <TerminalFooter \n      categories={CATEGORIES} \n      companyName="Final Boss"\n    />\n  );\n}`
+    }
+  ]}
+>
+  <TerminalFooterDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="terminal-footer" />
+
+## Architecture
+
+This component eschews the standard "three-column grid" footer design for something radically different: an interactive split layout.
+
+- **Interaction:** Hovering over any `Link` instantly sets the `activeCommand` state. 
+- **Typewriter Effect:** A `useEffect` hook intercepts state changes and incrementally slices the command string via `setInterval`, giving the illusion of a user typing at a blazing fast 40ms per keystroke.
+- **Fallbacks:** If a specific `command` is not provided in your links array, it automatically defaults to generating a bash `cd {href}` command for you.

@@ -1,0 +1,169 @@
+---
+title: Gooey Menu
+description: A fluid, interactive menu button that expands out sub-items using SVG gooey filters and physics.
+category: Navigation
+---
+
+The `GooeyMenu` uses SVG filters (`feGaussianBlur` and `feColorMatrix`) combined with Framer Motion spring physics to create an organic, fluid extraction effect. When toggled, child items "pop" out of the main button. It features a highly customizable layout engine capable of positioning items in radials, arcs, rows, columns, or grids.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Gooey Menu" 
+  componentName="GooeyMenu"
+  sourceFile="components/creative/gooey-menu.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Layout Preset",
+      type: "select",
+      options: ["radial", "arc", "row", "column", "colorful"],
+      default: "radial"
+    }
+  ]}
+  propsData={[
+    {
+      name: "layout",
+      type: "'radial' | 'row' | 'column' | 'arc' | 'grid'",
+      default: "'radial'",
+      description: "Controls the expansion pattern of the child items."
+    },
+    {
+      name: "radius",
+      type: "number",
+      default: "80",
+      description: "How far the items travel from the center toggle (in px)."
+    },
+    {
+      name: "startAngle",
+      type: "number",
+      default: "0",
+      description: "Starting angle in degrees. Used by 'radial' and 'arc' layouts."
+    },
+    {
+      name: "spreadAngle",
+      type: "number",
+      default: "180",
+      description: "The total angle the arc sweeps. Used only by the 'arc' layout."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "—",
+      description: "Background color of the main toggle button (hex)."
+    },
+    {
+      name: "size",
+      type: "number",
+      default: "64",
+      description: "Width and height of the main toggle button in px."
+    },
+    {
+      name: "blur",
+      type: "number",
+      default: "10",
+      description: "SVG filter blur strength. Higher values = gooier effect."
+    },
+    {
+      name: "icon",
+      type: "ReactNode",
+      default: "Hamburger SVG",
+      description: "Custom icon for the main toggle button."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional Tailwind classes applied to the root container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { GooeyMenu, GooeyMenuItem } from "@/components/creative/gooey-menu";\nimport { Plus, Home, Settings, User, Mail } from "lucide-react";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[400px] flex items-center justify-center bg-zinc-950">\n      <GooeyMenu layout="radial" radius={80} color="#818cf8" icon={<Plus />}>\n        <GooeyMenuItem label="Home"><Home /></GooeyMenuItem>\n        <GooeyMenuItem label="Profile"><User /></GooeyMenuItem>\n        <GooeyMenuItem label="Settings"><Settings /></GooeyMenuItem>\n        <GooeyMenuItem label="Messages"><Mail /></GooeyMenuItem>\n      </GooeyMenu>\n    </div>\n  );\n}`,
+      params: { variant: "radial" }
+    }
+  ]}
+>
+  <GooeyMenuDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="gooey-menu" />
+
+## Props
+
+### GooeyMenu
+
+
+
+### GooeyMenuItem
+
+<PropsTable 
+  props={[
+    {
+      name: "children",
+      type: "ReactNode",
+      default: "Required",
+      description: "The content (usually an icon) of the sub-item."
+    },
+    {
+      name: "label",
+      type: "string",
+      default: "—",
+      description: "Optional tiny text label shown below the item."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "—",
+      description: "Overrides the color for this specific item (great for multi-colored menus)."
+    },
+    {
+      name: "onClick",
+      type: "() => void",
+      default: "—",
+      description: "Action triggered when clicking this specific item."
+    }
+  ]} 
+/>
+
+## Usage Examples
+
+### Classic Radial
+Spreads items evenly in a 360° circle.
+```tsx
+import { GooeyMenu, GooeyMenuItem } from "@/components/creative/gooey-menu";
+import { Plus, Home, Settings, User, Mail } from "lucide-react";
+
+export function RadialMenu() {
+  return (
+    <GooeyMenu layout="radial" radius={80} color="#818cf8" icon={<Plus />}>
+      <GooeyMenuItem label="Home"><Home /></GooeyMenuItem>
+      <GooeyMenuItem label="Profile"><User /></GooeyMenuItem>
+      <GooeyMenuItem label="Settings"><Settings /></GooeyMenuItem>
+      <GooeyMenuItem label="Messages"><Mail /></GooeyMenuItem>
+    </GooeyMenu>
+  );
+}
+```
+
+### Bottom Corner Arc
+Fans items out in an arc (perfect for fixed bottom-right corners).
+```tsx
+export function ArcMenu() {
+  return (
+    <GooeyMenu 
+      layout="arc" 
+      radius={100} 
+      startAngle={180} // Start pointing left
+      spreadAngle={90} // Spread 90 degrees up to top
+      color="#22d3ee" 
+      icon={<Plus />}
+    >
+      {/* ... items ... */}
+    </GooeyMenu>
+  );
+}
+```

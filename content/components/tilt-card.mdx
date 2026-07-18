@@ -1,0 +1,78 @@
+---
+title: Tilt Card
+description: A 3D interactive card that physically tilts based on cursor position using Framer Motion physics.
+category: Cards
+---
+
+The `TiltCard` component creates a highly tactile 3D hover effect. As the user moves their cursor over the card, the card physically tilts towards (or away from) the cursor, complete with a subtle gloss overlay that reacts to the lighting angle. Now featuring **3 interactive depth variants**.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Tilt Card" 
+  componentName="TiltCard"
+  sourceFile="components/creative/tilt-card.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["standard", "reverse", "push"],
+      default: "standard"
+    },
+    {
+      name: "color",
+      label: "Gloss Color",
+      type: "string",
+      default: "#818cf8"
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'standard' | 'reverse' | 'push'",
+      default: "'standard'",
+      description: "How the card reacts physically to the cursor."
+    },
+    {
+      name: "tiltIntensity",
+      type: "number",
+      default: "15",
+      description: "Maximum rotation angle in degrees."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Multiplier for the spring physics stiffness and damping."
+    },
+    {
+      name: "scale",
+      type: "number",
+      default: "1",
+      description: "Multiplier for the tilt intensity."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "—",
+      description: "Optional hex/rgb color to tint the gloss reflection and border on hover."
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      default: "Required",
+      description: "Card content. Automatically offset on the Z-axis for a parallax effect."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { TiltCard } from '@/components/creative/tilt-card';\n\nexport default function Example() {\n  return (\n    <div className="flex min-h-[400px] items-center justify-center bg-black p-8">\n      <TiltCard variant="standard" color="#818cf8" className="w-80 h-96 flex items-center justify-center">\n        <h3 className="text-2xl font-bold text-white">Hover Me</h3>\n      </TiltCard>\n    </div>\n  );\n}`,
+      params: { variant: "standard", color: "#818cf8" }
+    }
+  ]}
+>
+  <TiltCardDemo />
+</ComponentPreview>
+

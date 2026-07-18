@@ -1,0 +1,38 @@
+---
+title: Cart
+description: A slide-out shopping cart with item management and checkout functionality.
+category: Layout & Data
+---
+
+A premium slide-out shopping cart component using a Sheet overlay. It includes features for item quantity management, subtotals, and a checkout call-to-action.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Shopping Cart Widget" 
+  componentName="Cart"
+  sourceFile="components/ui/cart.tsx"
+  playgroundControls={[
+    { name: "currency", type: "select", options: ["USD", "EUR", "GBP"], default: "USD", label: "Currency" }
+  ]}
+  propsData={[
+    { name: "items", type: "CartItem[]", description: "An array of CartItem objects containing id, name, price, quantity, and image." },
+    { name: "onUpdateQuantity", type: "Function", description: "Optional callback fired when an item's quantity changes." },
+    { name: "onRemoveItem", type: "Function", description: "Optional callback fired when an item is removed." },
+    { name: "onCheckout", type: "Function", description: "Optional callback fired when the checkout button is clicked." },
+    { name: "trigger", type: "React.ReactNode", description: "Optional custom React node to use as the trigger instead of the default shopping cart button." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { Cart, CartItem } from "@/components/creative/cart";\n\nconst mockItems: CartItem[] = [\n  {\n    id: "1",\n    name: "Limited Edition Keyboard",\n    price: 199.99,\n    quantity: 1,\n    image: "https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=300&q=80"\n  },\n  {\n    id: "2",\n    name: "Wireless ANC Headphones",\n    price: 249.00,\n    quantity: 2,\n    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=300&q=80"\n  }\n];\n\nexport default function Example() {\n  return (\n    <div className="flex justify-center p-8">\n      <Cart \n        items={mockItems} \n        onCheckout={() => console.log("Checkout clicked")}\n      />\n    </div>\n  );\n}`
+    }
+  ]}
+>
+  <CartDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="cart" />
+

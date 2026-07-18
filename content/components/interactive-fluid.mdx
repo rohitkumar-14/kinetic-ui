@@ -1,0 +1,65 @@
+---
+title: Interactive Fluid Background
+description: A WebGL background that behaves like colorful smoke or liquid metal responding to mouse trails.
+category: Background Effects
+---
+
+An advanced WebGL background shader built with `react-three-fiber` that simulates swirling liquid metal or colorful smoke. It calculates velocity from mouse movements to create beautiful interactive trails.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Interactive Fluid Background" 
+  componentName="InteractiveFluid"
+  sourceFile="components/creative/interactive-fluid.tsx"
+  playgroundControls={[
+    {
+      name: "color1",
+      label: "Primary Base Color",
+      type: "string",
+      default: "#1e1b4b"
+    },
+    {
+      name: "color2",
+      label: "Secondary Trail Color",
+      type: "string",
+      default: "#38bdf8"
+    }
+  ]}
+  propsData={[
+    {
+      name: "color1",
+      type: "string",
+      default: "\"#1e1b4b\"",
+      description: "The primary base color (hex format)"
+    },
+    {
+      name: "color2",
+      type: "string",
+      default: "\"#38bdf8\"",
+      description: "The secondary blob/trail color"
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Optional Standard Tailwind classes for the wrapper container. The container should be positioned relative/absolute to fill its parent."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { InteractiveFluid } from "@/components/creative/interactive-fluid";\n\nexport default function Example() {\n  return (\n    <div className="relative w-full h-[500px]">\n      <InteractiveFluid color1="#1e1b4b" color2="#38bdf8" />\n      <div className="relative z-10 flex h-full items-center justify-center text-white mix-blend-difference pointer-events-none">\n        <h1>Move your cursor!</h1>\n      </div>\n    </div>\n  );\n}`,
+      params: { color1: "#1e1b4b", color2: "#38bdf8" }
+    }
+  ]}
+>
+  <InteractiveFluidDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="interactive-fluid" />
+
+## Props
+
+

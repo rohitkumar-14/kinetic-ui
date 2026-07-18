@@ -1,0 +1,123 @@
+---
+title: FeatureSection
+description: A clean, modular feature showcase section supporting multiple grid and bento box layouts.
+category: Sections
+---
+
+The `FeatureSection` component displays product or platform features using an elegant, staggered entrance animation. It now supports multiple structural variants out of the box, including classic grids, bento boxes, and minimal lists.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Feature Section" 
+  variants={[
+    {
+      name: "Default",
+      code: `import { FeatureSection } from '@/components/creative/feature-section';\n\nexport default function Example() {\n  return (\n    <FeatureSection \n      variant="grid"\n      color="#6366f1"\n    />\n  );\n}`
+    }
+  ]}
+>
+  <FeatureSectionDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="feature-section" />
+
+## Props
+
+<PropsTable 
+  props={[
+    {
+      name: "variant",
+      type: "'grid' | 'bento' | 'minimal'",
+      default: "'grid'",
+      description: "Controls the structural layout of the features."
+    },
+    {
+      name: "features",
+      type: "FeatureItem[]",
+      default: "defaultFeatures",
+      description: "Array of feature data objects (icon, title, description, className)."
+    },
+    {
+      name: "title",
+      type: "ReactNode",
+      default: "'Supercharge Your Workflow'",
+      description: "The primary heading of the section."
+    },
+    {
+      name: "subtitle",
+      type: "ReactNode",
+      default: "'Everything you need to build...'",
+      description: "The supporting paragraph below the title."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "'#6366f1'",
+      description: "The primary accent color for gradients, glows, and hover states."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Optional Tailwind classes applied to the main wrapper section."
+    }
+  ]} 
+/>
+
+## Usage Examples
+
+### Bento Box Variant
+Uses `md:col-span-2` and `md:row-span-2` Tailwind classes injected into the feature data to create an asymmetric, modern bento grid.
+```tsx
+import { FeatureSection } from '@/components/creative/feature-section';
+import { Zap, Shield, Layers } from 'lucide-react';
+
+export default function Example() {
+  const bentoFeatures = [
+    { 
+      icon: <Zap className="w-5 h-5" />, 
+      title: "Lightning Fast", 
+      description: "Optimized for speed.",
+      className: "md:col-span-2 md:row-span-1" 
+    },
+    { 
+      icon: <Shield className="w-5 h-5" />, 
+      title: "Secure", 
+      description: "Best-in-class security.",
+      className: "md:col-span-1 md:row-span-2"
+    },
+    { 
+      icon: <Layers className="w-5 h-5" />, 
+      title: "Modular", 
+      description: "Use only what you need.",
+      className: "md:col-span-1 md:row-span-1"
+    }
+  ];
+
+  return (
+    <FeatureSection 
+      variant="bento"
+      features={bentoFeatures}
+      color="#10b981"
+    />
+  );
+}
+```
+
+### Minimal List Variant
+A simplified, borderless layout perfect for embedding within tight spaces or sidebars.
+```tsx
+import { FeatureSection } from '@/components/creative/feature-section';
+
+export default function Example() {
+  return (
+    <FeatureSection 
+      variant="minimal"
+      color="#ec4899"
+    />
+  );
+}
+```

@@ -1,0 +1,61 @@
+---
+title: Morph Transition
+description: Elastic layout morph transitions between grid and focus views.
+category: Page Transitions
+---
+
+An incredibly complex layout morphing component using Framer Motion's `layoutId`. Perfect for portfolios or feature highlights where clicking a grid item seamlessly expands it into a detailed modal view without losing context.
+
+## Live Preview
+
+<ComponentPreview 
+  name="morph-transition-demo" 
+  componentName="MorphTransition"
+  sourceFile="components/creative/morph-transition.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Layout Variant",
+      type: "select",
+      options: ["cards", "list", "bento"],
+      default: "cards"
+    }
+  ]}
+  propsData={[
+    {
+      name: "items",
+      type: "MorphItem[]",
+      description: "Array of items with { id, title, subtitle, image, description }."
+    },
+    {
+      name: "variant",
+      type: "\"cards\" | \"list\" | \"bento\"",
+      default: "\"cards\"",
+      description: "The underlying layout architecture before morphing."
+    }
+  ]}
+  variants={[
+    {
+      name: "Cards",
+      code: `import { MorphTransitionDemo } from "@/components/creative/morph-transition";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[600px]">\n      <MorphTransitionDemo variant="cards" />\n    </div>\n  );\n}`,
+      params: { variant: "cards" }
+    },
+    {
+      name: "List",
+      code: `import { MorphTransitionDemo } from "@/components/creative/morph-transition";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[600px]">\n      <MorphTransitionDemo variant="list" />\n    </div>\n  );\n}`,
+      params: { variant: "list" }
+    },
+    {
+      name: "Bento",
+      code: `import { MorphTransitionDemo } from "@/components/creative/morph-transition";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[600px]">\n      <MorphTransitionDemo variant="bento" />\n    </div>\n  );\n}`,
+      params: { variant: "bento" }
+    }
+  ]}
+>
+  <MorphTransitionDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="morph-transition" />
+

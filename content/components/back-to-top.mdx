@@ -1,0 +1,50 @@
+---
+title: Back To Top
+description: An animated scroll-to-top button with a dynamic SVG progress ring.
+---
+
+<ComponentPreview 
+  name="back-to-top"
+  componentName="BackToTop"
+  sourceFile="components/creative/back-to-top.tsx"
+  playgroundControls={[
+    {
+      name: "showProgress",
+      label: "Show Scroll Progress Ring",
+      type: "boolean",
+      default: true
+    },
+    {
+      name: "position",
+      label: "Position",
+      type: "select",
+      options: ["bottom-right", "bottom-left", "bottom-center"],
+      default: "bottom-right"
+    }
+  ]}
+>
+  <BackToTopDemo />
+</ComponentPreview>
+
+## Overview
+The `BackToTop` component is a high-end utility for long scrolling pages. Unlike simple anchor links, this component uses `framer-motion` to monitor scroll progress, only fading in after the user scrolls past a predefined threshold. It features an SVG circle that traces the exact percentage of the page scrolled, providing subtle but premium visual feedback.
+
+## Usage
+
+```tsx
+import { BackToTop } from "@/components/creative/back-to-top"
+
+export default function Layout({ children }) {
+  return (
+    <main>
+      {children}
+      
+      <BackToTop 
+        threshold={300} 
+        position="bottom-right" 
+        showProgress={true} 
+      />
+    </main>
+  )
+}
+```

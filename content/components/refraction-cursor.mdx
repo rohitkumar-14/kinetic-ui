@@ -1,0 +1,75 @@
+---
+title: Refraction Cursor
+description: A custom glassmorphism cursor that distorts and magnifies the background.
+category: Mouse Interactions
+---
+
+A highly polished custom cursor that acts like a magnifying glass. It perfectly maps the background image inside the lens and applies a scale transformation, simulating a true physical glass refraction effect directly over your content.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Refraction Cursor" 
+  componentName="RefractionCursor"
+  sourceFile="components/creative/refraction-cursor.tsx"
+  playgroundControls={[
+    {
+      name: "lensSize",
+      label: "Lens Diameter",
+      type: "number",
+      default: 200,
+      min: 50,
+      max: 500,
+      step: 10
+    },
+    {
+      name: "magnification",
+      label: "Magnification Factor",
+      type: "number",
+      default: 1.5,
+      min: 1.0,
+      max: 5.0,
+      step: 0.1
+    }
+  ]}
+  propsData={[
+    {
+      name: "imageUrl",
+      type: "string",
+      default: "Required",
+      description: "The URL of the background image to refract."
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      default: "Required",
+      description: "The foreground content that sits under the cursor."
+    },
+    {
+      name: "lensSize",
+      type: "number",
+      default: "250",
+      description: "The diameter of the magnifying lens in pixels."
+    },
+    {
+      name: "magnification",
+      type: "number",
+      default: "1.5",
+      description: "The scale multiplier for the refracted image."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { RefractionCursor } from "@/components/creative/refraction-cursor";\n\nexport default function Example() {\n  return (\n    <RefractionCursor \n      imageUrl="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop"\n      magnification={1.5}\n      lensSize={200}\n      className="w-full h-[600px]"\n    >\n      <div className="absolute inset-0 flex items-center justify-center">\n        <h2 className="text-white text-6xl font-bold drop-shadow-lg">Hover Me</h2>\n      </div>\n    </RefractionCursor>\n  );\n}`,
+      params: { magnification: 1.5, lensSize: 200 }
+    }
+  ]}
+>
+  <RefractionCursorDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="refraction-cursor" />
+

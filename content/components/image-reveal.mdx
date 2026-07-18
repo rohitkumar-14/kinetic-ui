@@ -1,0 +1,61 @@
+---
+title: Image Reveal
+description: Cinematic clip-path masks that unveil images as they enter the viewport.
+---
+
+<ComponentPreview 
+  name="image-reveal"
+  componentName="ImageReveal"
+  sourceFile="components/creative/image-reveal.tsx"
+  playgroundControls={[
+    {
+      name: "direction",
+      label: "Direction",
+      type: "select",
+      options: ["left", "right", "top", "bottom", "circle", "curtain-h", "curtain-v"],
+      default: "left"
+    },
+    {
+      name: "duration",
+      label: "Duration (s)",
+      type: "number",
+      default: 1.2,
+      min: 0.5,
+      max: 3,
+      step: 0.1
+    }
+  ]}
+>
+  <ImageRevealDemo />
+</ComponentPreview>
+
+## Overview
+The `ImageReveal` component replaces standard fade-ins with high-end, cinematic wipes. By animating the CSS `clip-path` property via Framer Motion's `useInView`, images dynamically unfold exactly when the user scrolls to them. 
+
+The component includes a subtle, built-in scale-down animation on the image itself, creating a premium parallax-like effect as the mask opens.
+
+## Usage
+
+```tsx
+import { ImageReveal } from "@/components/creative/image-reveal"
+
+export default function Gallery() {
+  return (
+    <div className="grid grid-cols-2 gap-8 py-20 max-w-5xl mx-auto">
+      <ImageReveal 
+        src="/images/photo-1.jpg"
+        alt="Photo 1"
+        direction="circle"
+        className="aspect-square rounded-2xl"
+      />
+      <ImageReveal 
+        src="/images/photo-2.jpg"
+        alt="Photo 2"
+        direction="bottom"
+        delay={0.2} // Staggered reveal
+        className="aspect-square rounded-2xl"
+      />
+    </div>
+  )
+}
+```

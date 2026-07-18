@@ -1,0 +1,82 @@
+---
+title: Circular Text
+description: A 3D spinning ring of text that accelerates based on scroll velocity.
+category: Text Effects
+---
+
+A highly engaging typographical component that wraps a string of text perfectly into a 3D circle. It spins continuously on its own, but integrates with Framer Motion's `useScroll` and `useVelocity` to physically accelerate the spin and tilt on the 3D axis when the user scrolls the page.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Circular Text" 
+  componentName="CircularText"
+  sourceFile="components/creative/circular-text.tsx"
+  playgroundControls={[
+    {
+      name: "text",
+      label: "Text",
+      type: "string",
+      default: "AWWWARDS WINNING DESIGN • "
+    },
+    {
+      name: "radius",
+      label: "Radius (px)",
+      type: "number",
+      default: 200,
+      min: 100,
+      max: 400,
+      step: 10
+    },
+    {
+      name: "baseVelocity",
+      label: "Speed",
+      type: "number",
+      default: 0.5,
+      min: 0.1,
+      max: 5,
+      step: 0.1
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      default: "Required",
+      description: "The string of text to wrap in a circle. Make sure it has enough characters (and perhaps a separator like '•') to loop seamlessly."
+    },
+    {
+      name: "radius",
+      type: "number",
+      default: "150",
+      description: "The radius of the circle in pixels."
+    },
+    {
+      name: "baseVelocity",
+      type: "number",
+      default: "0.5",
+      description: "The constant rotation speed multiplier."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Optional Tailwind classes for the outer container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { CircularText } from "@/components/creative/circular-text";\n\nexport default function Example() {\n  return (\n    <CircularText \n      text="AWWWARDS WINNING DESIGN • "\n      radius={200}\n    />\n  );\n}`,
+      params: { text: "AWWWARDS WINNING DESIGN • ", radius: 200, baseVelocity: 0.5 }
+    }
+  ]}
+>
+  <CircularTextDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="circular-text" />
+
+

@@ -1,0 +1,40 @@
+---
+title: Particle System
+description: A high-performance WebGL particle cloud that reacts to mouse physics.
+category: 3D Components
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Particle System" 
+  componentName="ParticleSystem"
+  sourceFile="components/creative/particle-system.tsx"
+  playgroundControls={[
+    { name: "count", type: "number", min: 500, max: 10000, step: 500, default: 2000, label: "Particle Count" }
+  ]}
+  propsData={[
+    { name: "count", type: "number", default: "2000", description: "The number of particles to render." },
+    { name: "color", type: "string", default: "#6366f1", description: "The hex color of the particles." },
+    { name: "className", type: "string", description: "Tailwind classes for the canvas wrapper." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { ParticleSystem } from "@/components/creative/particle-system";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[400px] relative">\n      <ParticleSystem count={2000} color="#6366f1" />\n      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">\n        <h1 className="text-white text-5xl font-bold">Interact</h1>\n      </div>\n    </div>\n  );\n}`
+    }
+  ]}
+>
+  <div className="w-full">
+    <ParticleSystemDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="particle-system" />
+
+## Architecture
+
+This component leverages `Float32Array` buffers inside a raw Three.js `<bufferGeometry>` to achieve maximum performance. Instead of rendering thousands of React nodes, it renders a single mesh consisting of thousands of vertices.
+
+During the `useFrame` loop, the distances between the normalized mouse coordinates and each vertex are calculated. If the mouse comes within the repulsion threshold, the vertex is pushed away using inverse square forces, and slowly interpolates back to its origin using a spring factor.

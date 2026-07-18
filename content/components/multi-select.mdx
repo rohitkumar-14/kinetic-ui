@@ -1,0 +1,40 @@
+---
+title: Multi Select
+description: A searchable, pill-based multiple choice dropdown combobox.
+category: Forms
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Multi Select" 
+  componentName="MultiSelect"
+  sourceFile="components/ui/multi-select.tsx"
+  playgroundControls={[
+    { name: "placeholder", type: "string", default: "Select frameworks...", label: "Placeholder Text" }
+  ]}
+  propsData={[
+    { name: "options", type: "Option[]", description: "Array of options to select from. Each option needs a label and value." },
+    { name: "selected", type: "string[]", description: "Array of selected option values." },
+    { name: "onChange", type: "(values: string[]) => void", description: "Callback when selection changes." },
+    { name: "placeholder", type: "string", description: "Placeholder text for the input." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { useState } from "react";\nimport { MultiSelect, Option } from "@/components/ui/multi-select";\n\nconst frameworks: Option[] = [\n  { label: "React", value: "react" },\n  { label: "Vue", value: "vue" },\n  { label: "Svelte", value: "svelte" },\n  { label: "Angular", value: "angular" },\n];\n\nexport default function Example() {\n  const [selected, setSelected] = useState<string[]>([]);\n  return <MultiSelect options={frameworks} selected={selected} onChange={setSelected} placeholder="Select frameworks..." />;\n}`
+    }
+  ]}
+>
+  <div className="flex items-center justify-center p-6 w-full max-w-sm mx-auto">
+    <MultiSelectDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="multi-select" />
+
+## Overview
+
+A robust multi-select combobox built using `Command` and `Popover` primitives. It allows users to search through a list of options and select multiple items, which are displayed as removable pills/badges.
+

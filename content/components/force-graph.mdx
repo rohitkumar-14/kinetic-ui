@@ -1,0 +1,46 @@
+---
+title: Force Graph
+description: An interactive, node-based network graph driven by Matter.js physics.
+category: Data Display
+---
+
+The `ForceGraph` component is a powerful visualization tool for displaying interconnected data (like architecture diagrams, tech stacks, or Obsidian-style knowledge graphs). 
+
+Instead of relying on heavy SVG libraries like D3, it leverages `matter.js` (which we already use for our Physics Canvas components). It simulates an N-Body gravitational repulsion between the nodes, connects them with elastic springs, and maps the physics bodies directly to standard React DOM elements!
+
+This means every node can contain standard HTML, Tailwind styling, buttons, or icons, and the physics run smoothly at 60fps.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Force Graph" 
+  componentName="ForceGraph"
+  sourceFile="components/creative/force-graph.tsx"
+  playgroundControls={[
+    { name: "repulsion", type: "number", min: 1000, max: 20000, step: 1000, default: 5000, label: "Repulsion Force" },
+    { name: "linkStiffness", type: "number", min: 0.01, max: 0.1, step: 0.01, default: 0.02, label: "Spring Stiffness" }
+  ]}
+  propsData={[
+    { name: "nodes", type: "ForceNode[]", default: "Required", description: "Array of objects: { id, label, element?, width?, height? }" },
+    { name: "links", type: "ForceLink[]", default: "Required", description: "Array of connections: { source, target }" },
+    { name: "repulsion", type: "number", default: "5000", description: "The N-Body repulsive force that prevents nodes from clumping together. Increase to push them further apart." },
+    { name: "linkStiffness", type: "number", default: "0.02", description: "How elastic the connecting lines are. 0.01 is very bouncy, 0.1 is rigid." },
+    { name: "linkLength", type: "number", default: "150", description: "The resting distance of the springs connecting the nodes." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { ForceGraph } from "@/components/creative/force-graph";\n\nexport default function Example() {\n  const nodes = [\n    { id: "A", label: "Client" },\n    { id: "B", label: "Server" },\n    { id: "C", label: "Database" }\n  ];\n\n  const links = [\n    { source: "A", target: "B" },\n    { source: "B", target: "C" }\n  ];\n\n  return (\n    <div className="h-[500px] w-full">\n      <ForceGraph nodes={nodes} links={links} repulsion={10000} />\n    </div>\n  );\n}`
+    }
+  ]}
+>
+  <ForceGraphDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="force-graph" />
+
+> [!WARNING]
+> **Performance Threshold:** Because this component calculates custom N-Body repulsion forces in a loop every frame (`O(n^2)` time complexity), it is designed for aesthetic micro-visualizations (10–50 nodes), not massive big-data datasets.
+

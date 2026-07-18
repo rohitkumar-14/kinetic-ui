@@ -1,0 +1,130 @@
+---
+title: Globe
+description: Smooth 60fps interactive 3D WebGL globe using cobe.
+category: 3D Components
+---
+
+A highly performant, customizable 3D globe component built using `cobe`. Perfect for "Global Reach" sections or hero headers. It features auto-rotation with momentum-based dragging, rich marker support, and multiple visual presets.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Globe" 
+  componentName="Globe"
+  sourceFile="components/creative/globe.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Theme Variant",
+      type: "select",
+      options: ["midnight", "cyber", "ember", "aurora", "rose"],
+      default: "midnight"
+    }
+  ]}
+  propsData={[
+    {
+      name: "color",
+      type: "string",
+      default: "#6366f1",
+      description: "The primary color for globe markers and background glow (Hex string)."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Multiplier for the auto-rotation speed."
+    },
+    {
+      name: "scale",
+      type: "number",
+      default: "1",
+      description: "Scale multiplier for the overall globe size."
+    },
+    {
+      name: "dark",
+      type: "number",
+      default: "1",
+      description: "Dark mode intensity (0 = light, 1 = dark)."
+    },
+    {
+      name: "diffuse",
+      type: "number",
+      default: "1.2",
+      description: "Controls the diffuse lighting intensity on the globe surface."
+    },
+    {
+      name: "mapBrightness",
+      type: "number",
+      default: "6",
+      description: "Controls the brightness of the land-mass texture map."
+    },
+    {
+      name: "mapSamples",
+      type: "number",
+      default: "16000",
+      description: "Number of samples used to render the map texture. Higher = more detail."
+    },
+    {
+      name: "baseColor",
+      type: "[number, number, number]",
+      default: "[0.1, 0.1, 0.1]",
+      description: "RGB values (0-1) for the base sphere color."
+    },
+    {
+      name: "glowColor",
+      type: "[number, number, number]",
+      default: "[0.15, 0.15, 0.15]",
+      description: "RGB values (0-1) for the atmosphere glow color."
+    },
+    {
+      name: "markerColor",
+      type: "[number, number, number]",
+      default: "auto (from color)",
+      description: "RGB values (0-1) for the marker dots. Defaults to the hex `color` prop converted to RGB."
+    },
+    {
+      name: "markers",
+      type: "GlobeMarker[]",
+      default: "10 major cities",
+      description: "Array of { location: [lat, lng], size: number } objects defining globe markers."
+    },
+    {
+      name: "theta",
+      type: "number",
+      default: "0.3",
+      description: "Initial vertical tilt angle of the globe in radians."
+    }
+  ]}
+  variants={[
+    {
+      name: "Midnight Indigo",
+      code: `import dynamic from 'next/dynamic';\n\nconst Globe = dynamic(\n  () => import('@/components/creative/globe').then(m => m.Globe),\n  { ssr: false }\n);\n\nexport default function Example() {\n  return (\n    <div className="flex items-center justify-center p-12 bg-black rounded-2xl min-h-[500px] overflow-hidden">\n      <Globe\n        color="#818cf8"\n        baseColor={[0.06, 0.06, 0.12]}\n        glowColor={[0.1, 0.1, 0.2]}\n        speed={1}\n      />\n    </div>\n  );\n}`,
+      params: { variant: "midnight" }
+    }
+  ]}
+>
+  <GlobeDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="globe" />
+
+
+
+## Performance Note
+
+> [!TIP]
+> The Globe component uses WebGL. To prevent it from bloating your initial page load bundle in Next.js, always import it dynamically with `ssr: false` as shown in the usage examples above.
+
+<VariantContent match="Cyber Neon">
+  ## Cyber Neon Details
+  > [!NOTE]
+  > The **Cyber Neon** variant achieves its intense glow by increasing the `diffuse` value to `2` and maxing out the `mapBrightness`. We recommend pairing this on a completely pitch-black background for the best contrast.
+</VariantContent>
+
+<VariantContent match={["Aurora Green", "Neon Rose"]}>
+  ## Colorful Variants
+  > [!TIP]
+  > When using highly saturated colors like **Aurora Green** or **Neon Rose**, adjusting the `glowColor` property to be slightly darker than the base `color` helps maintain the 3D spherical illusion.
+</VariantContent>

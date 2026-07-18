@@ -1,0 +1,83 @@
+---
+title: Shader Image Reveal
+description: High-performance WebGL image component with GLSL shader hover transitions.
+category: 3D Components
+---
+
+The `ShaderImage` component replaces standard `<img />` tags with an interactive 3D WebGL Canvas powered by React Three Fiber. It allows you to seamlessly transition between two images on hover using custom GLSL fragment shaders like **Liquid Ripple** or **Digital Noise Dissolve**.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Shader Image Reveal" 
+  componentName="ShaderImage"
+  sourceFile="components/creative/shader-image.tsx"
+  playgroundControls={[
+    {
+      name: "effect",
+      label: "Shader Effect",
+      type: "select",
+      options: ["liquid", "noise"],
+      default: "liquid"
+    },
+    {
+      name: "intensity",
+      label: "Effect Intensity",
+      type: "number",
+      default: 0.8,
+      min: 0.1,
+      max: 3.0,
+      step: 0.1
+    }
+  ]}
+  propsData={[
+    {
+      name: "image1",
+      type: "string",
+      default: "Required",
+      description: "The primary image URL to display."
+    },
+    {
+      name: "image2",
+      type: "string",
+      default: "Required",
+      description: "The secondary image URL to transition to on hover."
+    },
+    {
+      name: "effect",
+      type: "'liquid' | 'noise'",
+      default: "'liquid'",
+      description: "The shader effect to use during the transition."
+    },
+    {
+      name: "intensity",
+      type: "number",
+      default: "0.5",
+      description: "A multiplier for the shader effect (e.g. how distorted the ripples are, or how chunky the noise is)."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Optional CSS classes applied to the canvas wrapper container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { ShaderImage } from '@/components/creative/shader-image';\n\nexport default function Example() {\n  return (\n    <div className="w-full max-w-sm aspect-[4/5] rounded-xl overflow-hidden">\n      <ShaderImage \n        image1="/placeholder-1.jpg"\n        image2="/placeholder-2.jpg"\n        effect="liquid"\n        intensity={0.8}\n        className="w-full h-full"\n      />\n    </div>\n  );\n}`,
+      params: { effect: "liquid", intensity: 0.8 }
+    }
+  ]}
+>
+  <ShaderImageDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="shader-image" />
+
+> [!WARNING]
+> This component relies on `@react-three/fiber` and `three`. Because the images are painted onto a WebGL Canvas via WebGL textures, any external image URLs **MUST** be served with proper CORS (Cross-Origin Resource Sharing) headers, otherwise the canvas will throw a security exception.
+
+

@@ -1,0 +1,76 @@
+---
+title: Card Stack
+description: A 3D swipeable stack of cards that can be cycled through via drag gestures.
+category: Cards
+---
+
+The `CardStack` component is perfect for testimonials, product features, or any series of items you want to present compactly. Users can grab and drag the top card to flick it to the back of the deck. Now fully updated with **4 layout variants** to control how the cards stack and fan out.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Card Stack" 
+  componentName="CardStack"
+  sourceFile="components/creative/card-stack.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["bottom", "top", "left", "fan"],
+      default: "bottom"
+    },
+    {
+      name: "offset",
+      label: "Card Offset",
+      type: "number",
+      default: 12
+    }
+  ]}
+  propsData={[
+    {
+      name: "items",
+      type: "Array<{ id: string | number, content: ReactNode }>",
+      default: "Required",
+      description: "Array of card objects to render."
+    },
+    {
+      name: "variant",
+      type: "'bottom' | 'top' | 'left' | 'fan'",
+      default: "'bottom'",
+      description: "Controls the visual layout and cascading direction of the stacked cards."
+    },
+    {
+      name: "offset",
+      type: "number",
+      default: "12",
+      description: "Distance in pixels between each successive card in the stack."
+    },
+    {
+      name: "scaleFactor",
+      type: "number",
+      default: "0.06",
+      description: "How much each successive card scales down (e.g., 0.06 means the 2nd card is 94% size)."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional Tailwind classes for the wrapper."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { CardStack } from '@/components/creative/card-stack';\n\nconst CARDS = [\n  { id: 1, content: <div className="w-48 h-48 bg-indigo-500 rounded-xl" /> },\n  { id: 2, content: <div className="w-48 h-48 bg-emerald-500 rounded-xl" /> },\n  { id: 3, content: <div className="w-48 h-48 bg-rose-500 rounded-xl" /> }\n];\n\nexport default function Example() {\n  return (\n    <div className="flex h-[400px] items-center justify-center bg-black">\n      <CardStack items={CARDS} variant="bottom" offset={12} />\n    </div>\n  );\n}`,
+      params: { variant: "bottom", offset: 12 }
+    }
+  ]}
+>
+  <CardStackDemo />
+</ComponentPreview>
+
+
+## Performance Note
+
+To ensure buttery-smooth Framer Motion dragging physics, the component automatically clips rendering to only show the **top 3 cards** in the DOM at any given time, regardless of how many items are passed in the array. This keeps the DOM lightweight.

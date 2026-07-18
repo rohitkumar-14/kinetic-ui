@@ -1,0 +1,61 @@
+---
+title: Grid Pattern Background
+description: A versatile CSS-driven dot or line grid pattern for technical interfaces.
+---
+
+<ComponentPreview 
+  name="grid-pattern"
+  componentName="GridPattern"
+  sourceFile="components/creative/grid-pattern.tsx"
+  playgroundControls={[
+    {
+      name: "type",
+      label: "Grid Type",
+      type: "select",
+      options: ["lines", "dots"],
+      default: "lines"
+    },
+    {
+      name: "size",
+      label: "Grid Size (px)",
+      type: "number",
+      default: 40,
+      min: 10,
+      max: 100,
+      step: 10
+    },
+    {
+      name: "fadeEdge",
+      label: "Radial Fade Edge",
+      type: "boolean",
+      default: true
+    }
+  ]}
+>
+  <GridPatternDemo />
+</ComponentPreview>
+
+## Overview
+A subtle grid background is practically a requirement for modern developer tools and technical SaaS platforms. It provides architectural scale and structure to otherwise empty sections.
+
+Instead of loading tiled image assets, the `GridPattern` component uses lightweight CSS radial and linear gradients. It also includes an optional radial `mask-image` (the `fadeEdge` prop) which smoothly fades the grid out towards the edges, ensuring that foreground text remains highly legible.
+
+## Usage
+
+```tsx
+import { GridPattern } from "@/components/creative/grid-pattern"
+
+export default function TechHero() {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center bg-black">
+      {/* Background */}
+      <GridPattern type="lines" size={32} fadeEdge={true} />
+      
+      {/* Foreground */}
+      <div className="relative z-10 text-center">
+        <h1 className="text-5xl font-bold text-white">Deploy to the Edge</h1>
+      </div>
+    </section>
+  )
+}
+```

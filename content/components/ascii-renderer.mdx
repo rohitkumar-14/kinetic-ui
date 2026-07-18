@@ -1,0 +1,113 @@
+---
+title: ASCII Renderer
+description: A real-time engine that converts images, videos, and webcam feeds into interactive ASCII text.
+category: Text Effects
+---
+
+The `AsciiRenderer` component is the ultimate "hacker" aesthetic tool. It works by painting an image, a playing video, or a live webcam feed onto a hidden HTML5 Canvas. It then reads the pixel data, calculates the perceived brightness of each pixel block, and maps it to a string of ASCII characters (from dark space ` ` to bright `@`).
+
+It runs on a `requestAnimationFrame` loop, meaning it natively supports 60fps video and webcam playback directly in the DOM as raw text!
+
+## Live Preview
+
+<ComponentPreview 
+  name="ASCII Renderer" 
+  componentName="AsciiRenderer"
+  sourceFile="components/creative/ascii-renderer.tsx"
+  playgroundControls={[
+    {
+      name: "mode",
+      label: "Media Mode",
+      type: "select",
+      options: ["image", "video", "webcam"],
+      default: "image"
+    },
+    {
+      name: "resolution",
+      label: "Resolution",
+      type: "number",
+      default: 120,
+      min: 50,
+      max: 200,
+      step: 10
+    },
+    {
+      name: "fontSize",
+      label: "Font Size",
+      type: "number",
+      default: 8,
+      min: 4,
+      max: 20,
+      step: 1
+    },
+    {
+      name: "color",
+      label: "Text Color",
+      type: "string",
+      default: "#22c55e"
+    }
+  ]}
+  propsData={[
+    {
+      name: "src",
+      type: "string",
+      default: "undefined",
+      description: "The URL of the image or video to render."
+    },
+    {
+      name: "isVideo",
+      type: "boolean",
+      default: "false",
+      description: "Set to true if the src is a video file. This triggers the playback loop."
+    },
+    {
+      name: "useWebcam",
+      type: "boolean",
+      default: "false",
+      description: "Overrides the src and streams directly from the user's camera."
+    },
+    {
+      name: "resolution",
+      type: "number",
+      default: "100",
+      description: "How many characters wide the ASCII output should be. Higher = more detail but lower performance."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "'#22c55e'",
+      description: "The text color of the ASCII output."
+    },
+    {
+      name: "fontSize",
+      type: "number",
+      default: "10",
+      description: "The font size of the ASCII characters."
+    },
+    {
+      name: "updateInterval",
+      type: "number",
+      default: "30",
+      description: "Milliseconds between frames. Default is 30ms (~30fps) for performance."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { AsciiRenderer } from "@/components/creative/ascii-renderer";\n\nexport default function Example() {\n  return (\n    <div className="flex h-[400px] items-center justify-center bg-black">\n      <AsciiRenderer \n        src="/path/to/image.jpg" \n        resolution={120} \n        color="#22c55e"\n        fontSize={8}\n      />\n    </div>\n  );\n}`,
+      params: { mode: "image", resolution: 120, color: "#22c55e", fontSize: 8 }
+    }
+  ]}
+>
+  <AsciiRendererDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="ascii-renderer" />
+
+> [!WARNING]
+> **Webcam Permissions:** If you enable the `useWebcam` prop, the browser will immediately prompt the user for Camera permissions via `navigator.mediaDevices`. If the user denies permission, the component will output a "WEBCAM ACCESS DENIED" text fallback.
+
+## Props
+

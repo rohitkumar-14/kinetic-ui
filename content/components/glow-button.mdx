@@ -1,0 +1,78 @@
+---
+title: Glow Button
+description: A button featuring a dynamic radial gradient glow that follows the cursor position.
+category: Buttons
+---
+
+The `GlowButton` creates a sleek, futuristic aesthetic by masking a moving radial gradient. As the user's cursor moves across the button, a subtle colored glow tracks their movement. Now fully updated with **3 distinct visual variants**.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Glow Button" 
+  componentName="GlowButton"
+  sourceFile="components/creative/glow-button.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["center", "edge", "pulse"],
+      default: "center"
+    },
+    {
+      name: "glowColor",
+      label: "Glow Color",
+      type: "string",
+      default: "#8b5cf6"
+    },
+    {
+      name: "withSound",
+      label: "Sound Enabled",
+      type: "boolean",
+      default: true
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'center' | 'edge' | 'pulse'",
+      default: "'center'",
+      description: "Controls the visual style of the glow effect."
+    },
+    {
+      name: "glowColor",
+      type: "string",
+      default: "rgba(139, 92, 246, 0.5)",
+      description: "The color of the radial gradient spotlight."
+    },
+    {
+      name: "withSound",
+      type: "boolean",
+      default: "false",
+      description: "If true, plays standard UX interaction sounds on hover and click."
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      default: "Required",
+      description: "The content of the button."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional Tailwind classes."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { GlowButton } from '@/components/creative/glow-button';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[300px] items-center justify-center bg-black">\n      <GlowButton variant="center" glowColor="#8b5cf6" withSound className="px-8 py-4 text-white">\n        Hover Me\n      </GlowButton>\n    </div>\n  );\n}`,
+      params: { variant: "center", glowColor: "#8b5cf6", withSound: true }
+    }
+  ]}
+>
+  <GlowButtonDemo />
+</ComponentPreview>
+

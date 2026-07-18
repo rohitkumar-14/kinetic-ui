@@ -1,0 +1,101 @@
+---
+title: Breathing Text
+description: Variable font typography that breathes autonomously or reacts dynamically to the user's cursor.
+category: Text Effects
+---
+
+The `BreathingText` component leverages modern CSS Variable Fonts (`font-variation-settings`) to smoothly interpolate font weight and slant. Instead of snapping between fixed font weights (like 400 to 700), it interpolates seamlessly through every micro-weight in between.
+
+Perfect for highly interactive hero sections where typography takes center stage.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Breathing Text" 
+  componentName="BreathingText"
+  sourceFile="components/creative/breathing-text.tsx"
+  playgroundControls={[
+    {
+      name: "mode",
+      label: "Mode",
+      type: "select",
+      options: ["auto", "cursor"],
+      default: "auto"
+    },
+    {
+      name: "label",
+      label: "Label",
+      type: "string",
+      default: "Breathe In."
+    },
+    {
+      name: "minWeight",
+      label: "Min Weight",
+      type: "number",
+      default: 200,
+      min: 100,
+      max: 900,
+      step: 100
+    },
+    {
+      name: "maxWeight",
+      label: "Max Weight",
+      type: "number",
+      default: 900,
+      min: 100,
+      max: 900,
+      step: 100
+    }
+  ]}
+  propsData={[
+    {
+      name: "label",
+      type: "string",
+      default: "Required",
+      description: "The text to display."
+    },
+    {
+      name: "mode",
+      type: "'auto' | 'cursor'",
+      default: "'auto'",
+      description: "Determines if the text breathes on a loop or tracks mouse position."
+    },
+    {
+      name: "minWeight",
+      type: "number",
+      default: "100",
+      description: "The minimum font weight bound."
+    },
+    {
+      name: "maxWeight",
+      type: "number",
+      default: "900",
+      description: "The maximum font weight bound."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Optional Tailwind classes for styling (e.g. text size, color)."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { BreathingText } from "@/components/creative/breathing-text";\n\nexport default function Example() {\n  return (\n    <div className="flex w-full min-h-[400px] flex-col items-center justify-center bg-white rounded-xl">\n      <BreathingText \n        label="Breathe In."\n        mode="auto"\n        minWeight={200}\n        maxWeight={900}\n        className="text-7xl tracking-tighter text-neutral-900"\n      />\n    </div>\n  );\n}`,
+      params: { mode: "auto", label: "Breathe In.", minWeight: 200, maxWeight: 900 }
+    }
+  ]}
+>
+  <BreathingTextDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="breathing-text" />
+
+> [!WARNING]
+> This component **requires** the typeface you are using to be a Variable Font. Standard static fonts will ignore `font-variation-settings`. For example, `Inter` supports the `wght` (weight) and `slnt` (slant) axes natively. 
+
+## Props
+

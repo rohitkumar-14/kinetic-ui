@@ -1,0 +1,47 @@
+---
+title: Floating Action Button
+description: A bottom-corner speed-dial menu with spring-staggered action items.
+---
+
+<ComponentPreview 
+  name="floating-action-button"
+  componentName="FloatingActionButton"
+  sourceFile="components/creative/floating-action-button.tsx"
+  playgroundControls={[
+    {
+      name: "position",
+      label: "Position",
+      type: "select",
+      options: ["bottom-right", "bottom-left"],
+      default: "bottom-right"
+    }
+  ]}
+>
+  <FloatingActionButtonDemo />
+</ComponentPreview>
+
+## Overview
+The Floating Action Button (FAB) is a staple of modern web applications. When clicked, it expands into a "speed-dial" menu of quick actions (like creating a new post, sending an email, or opening support).
+
+This implementation elevates the standard FAB using Framer Motion. The menu items stagger in with a satisfying spring physics animation, and the main icon smoothly morphs (rotates 45 degrees) to become a close button. It also handles outside clicks automatically to ensure it doesn't stay open unintentionally.
+
+## Usage
+
+```tsx
+import { FloatingActionButton } from "@/components/creative/floating-action-button"
+import { Mail, MessageCircle, FileText } from "lucide-react"
+
+export default function App() {
+  const actions = [
+    { id: 1, icon: <Mail />, label: "Email", onClick: () => {} },
+    { id: 2, icon: <MessageCircle />, label: "Chat", onClick: () => {} },
+  ]
+
+  return (
+    <div>
+      {/* Your app content */}
+      <FloatingActionButton actions={actions} position="bottom-right" />
+    </div>
+  )
+}
+```

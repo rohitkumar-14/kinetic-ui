@@ -1,0 +1,46 @@
+---
+title: Physics Canvas
+description: A whiteboard wrapper that brings real 2D physics to standard DOM elements.
+category: Layout
+---
+
+The `PhysicsCanvas` uses the `matter.js` engine to turn a standard web layout into a physical sandbox. By wrapping your elements in a `PhysicsItem`, they are automatically registered as rigid bodies with real mass, friction, and bounce. 
+
+Users can grab, drag, and throw these DOM elements around the screen naturally, and they will collide with each other and the invisible boundaries of the canvas.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Physics Canvas" 
+  componentName="PhysicsCanvas"
+  sourceFile="components/creative/physics-canvas.tsx"
+  playgroundControls={[
+    { name: "frictionAir", type: "number", min: 0, max: 0.1, step: 0.01, default: 0.02, label: "Air Friction" }
+  ]}
+  propsData={[
+    { name: "gravity", type: "{ x, y }", default: "{ x: 0, y: 1 }", description: "Global gravity multiplier. Set to { x: 0, y: 0 } for a top-down zero-gravity view." },
+    { name: "frictionAir", type: "number", default: "0.02", description: "Air resistance for all bodies." },
+    { name: "x, y", type: "number", default: "Required", description: "Initial spawning coordinates relative to the canvas." },
+    { name: "width, height", type: "number", default: "Required", description: "Dimensions of the physical body. Must match your CSS sizing." },
+    { name: "shape", type: "'rectangle' | 'circle'", default: "'rectangle'", description: "The collision boundary shape." },
+    { name: "restitution", type: "number", default: "0.5", description: "Bounciness of the item (0 to 1)." },
+    { name: "density", type: "number", default: "0.001", description: "Density (mass = density * area)." }
+  ]}
+  variants={[
+    {
+      name: "Sticky Notes",
+      code: `import { PhysicsCanvas, PhysicsItem } from "@/components/creative/physics-canvas";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[600px] border relative">\n      <PhysicsCanvas className="w-full h-full">\n        {/* A simple draggable block */}\n        <PhysicsItem \n          x={200} y={150} \n          width={180} height={180}\n          restitution={0.6}\n          className="bg-yellow-200 rounded-lg shadow-lg flex flex-col p-4"\n        >\n          <p className="font-mono text-sm">Drag me around!</p>\n        </PhysicsItem>\n\n        {/* A bouncy circular image */}\n        <PhysicsItem \n          x={500} y={100} \n          width={120} height={120}\n          shape="circle"\n          restitution={0.9} // Very bouncy\n          className="rounded-full overflow-hidden shadow-xl"\n        >\n          <img src="..." alt="Avatar" className="pointer-events-none" />\n        </PhysicsItem>\n      </PhysicsCanvas>\n    </div>\n  );\n}`
+    }
+  ]}
+>
+  <PhysicsCanvasDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="physics-canvas" />
+
+> [!TIP]
+> **Pointer Events:** If your `PhysicsItem` contains images or text that might interfere with the dragging action, make sure to add `className="pointer-events-none"` to those child elements so the drag event registers cleanly on the wrapper!
+
+

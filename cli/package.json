@@ -1,0 +1,23 @@
+{
+  "name": "antigravity-ui",
+  "version": "1.0.0",
+  "description": "CLI to add Antigravity UI components to your project.",
+  "main": "index.js",
+  "bin": {
+    "antigravity-ui": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^14.0.3",
+    "fs-extra": "^11.3.5",
+    "ora": "^5.4.1",
+    "prompts": "^2.4.2"
+  }
+}

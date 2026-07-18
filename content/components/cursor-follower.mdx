@@ -1,0 +1,110 @@
+---
+title: Custom Cursor
+description: A custom cursor override with zero dependencies (native requestAnimationFrame) and 5 interactive states.
+category: Mouse Interactions
+---
+
+The `CustomCursor` overrides standard pointer cursors, binding a custom pointer dot alongside a delayed trailer shape. It actively listens for hovers over interactive elements (`a`, `button`, `input`) to trigger animated active states. Now rewritten **without GSAP** (using native physics) and featuring 5 unique cursor styles.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Custom Cursor" 
+  componentName="CustomCursor"
+  sourceFile="components/creative/custom-cursor.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Cursor Style",
+      type: "select",
+      options: ["dot", "ring", "glow", "morph", "magnet"],
+      default: "dot"
+    },
+    {
+      name: "color",
+      label: "Accent Color",
+      type: "string",
+      default: "#818cf8"
+    },
+    {
+      name: "speed",
+      label: "Follow Speed",
+      type: "number",
+      default: 1.2,
+      min: 0.1,
+      max: 5,
+      step: 0.1
+    },
+    {
+      name: "scale",
+      label: "Cursor Scale",
+      type: "number",
+      default: 1,
+      min: 0.5,
+      max: 3,
+      step: 0.1
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'dot' | 'ring' | 'glow' | 'morph' | 'magnet'",
+      default: "'dot'",
+      description: "Visual style of the cursor and its interactive state."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "#818cf8",
+      description: "Accent color (hex). Used for borders, dots, and glow effects."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Multiplier for the outer trailer's follow speed. Higher = faster catch-up."
+    },
+    {
+      name: "scale",
+      type: "number",
+      default: "1",
+      description: "Base size multiplier for the cursor elements."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { CustomCursor } from '@/components/creative/custom-cursor';\n\nexport default function Example() {\n  return (\n    <div className="relative w-full h-[300px] border border-white/5 bg-zinc-950 rounded-2xl flex items-center justify-center overflow-hidden cursor-none">\n      <CustomCursor variant="dot" color="#818cf8" speed={1.2} scale={1} />\n      <button className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white cursor-none">\n        Hover Me\n      </button>\n    </div>\n  );\n}`,
+      params: { variant: "dot", color: "#818cf8", speed: 1.2, scale: 1 }
+    }
+  ]}
+>
+  <CustomCursorDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="cursor-follower" />
+
+## Architecture
+
+- **Zero Dependencies**: Previously relied on GSAP. Now entirely driven by native `requestAnimationFrame` and linear interpolation (Lerp). This cuts bundle size and guarantees 60/120fps sync with the display.
+- **Mix Blend Mode**: Uses `mix-blend-difference` to ensure the cursor remains visible regardless of whether the background is light or dark.
+- **Auto-Hide**: Listens to `mouseleave` on the document root to hide the cursor when the user leaves the browser window.
+
+## Props
+
+
+## Usage Tips
+
+When using a custom cursor, you generally want to hide the native OS cursor. Add the `cursor-none` class to your main container or `<body>` tag. Ensure interactive elements (buttons, links) also have `cursor-none` if you want the custom cursor to persist over them.
+
+## Variants
+
+| Variant | Idle State | Hover State |
+|---|---|---|
+| `dot` | Solid center dot + trailing outline | Outline scales up 2.5x and fills |
+| `ring` | Clean hollow ring (no center dot) | Scales up and fills |
+| `glow` | Emits large ambient shadow/halo | Shadow intensifies and solidifies |
+| `morph` | Standard circle | Border radius morphs into rounded square |
+| `magnet` | Standard circle | Massively expands and becomes a dashed border |

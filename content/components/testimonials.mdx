@@ -1,0 +1,69 @@
+---
+title: Testimonials
+description: An infinite scrolling marquee of customer reviews with a frosted glass aesthetic.
+category: Sections
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Testimonials" 
+  previewLink="/preview/testimonials" 
+  variants={[
+    {
+      name: "Default",
+      code: `import { Testimonials } from "@/components/creative/testimonials";\n\nexport default function Example() {\n  return <Testimonials speed={1} />;\n}`
+    }
+  ]}
+>
+  <div className="w-full max-h-[400px] overflow-y-auto border border-border bg-background rounded-2xl scale-95 origin-top">
+    <Testimonials speed={1} />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="testimonials" />
+
+## Props
+
+<PropsTable 
+  props={[
+    {
+      name: "color",
+      type: "string",
+      description: "Optional hex color to tint the star ratings, borders, and text accents. Defaults to primary CSS variables if omitted."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Multiplier for the scrolling animation speed. Higher is faster."
+    },
+    {
+      name: "scale",
+      type: "number",
+      default: "1",
+      description: "Scaling factor for the individual review cards."
+    }
+  ]} 
+/>
+
+## Overview
+
+The Testimonials block provides an infinitely scrolling wall of customer reviews. It's built with CSS animations for perfect performance and features a premium frosted glass design that automatically adapts to your site's color scheme.
+
+## Usage
+
+```tsx
+import { Testimonials } from "@/components/creative/testimonials";
+
+export default function Page() {
+  return (
+    <Testimonials 
+      color="#4f46e5" 
+      speed={1.5} 
+      scale={0.95} 
+    />
+  );
+}
+```

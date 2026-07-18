@@ -1,0 +1,45 @@
+---
+title: Glass Video Player
+description: A premium, completely custom media player that replaces native browser controls with a stunning, framer-motion powered glass interface.
+category: Media Components
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Glass Video Player" 
+  componentName="GlassVideoPlayer"
+  sourceFile="components/creative/glass-video-player.tsx"
+>
+  <GlassVideoPlayerDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="glass-video-player" />
+
+## Usage
+
+```tsx
+import { GlassVideoPlayer } from "@/components/creative/glass-video-player";
+
+export default function Page() {
+  return (
+    <div className="max-w-4xl mx-auto">
+      <GlassVideoPlayer 
+        src="https://example.com/my-video.mp4"
+        poster="https://example.com/thumbnail.jpg"
+        className="aspect-video w-full"
+      />
+    </div>
+  );
+}
+```
+
+## How it works
+
+Building a custom video player requires entirely hiding the native `<video controls>` attribute and orchestrating everything via React refs.
+
+1. **State Orchestration**: We use a `useRef` to target the underlying `<video>` DOM node. By listening to native events like `onTimeUpdate` and `onLoadedMetadata`, we sync the video's actual playback time to our React state to drive the custom progress bar.
+2. **Animation**: Framer Motion's `AnimatePresence` is used to gracefully fade the control bar in and out.
+3. **Auto-Hide Logic**: We implement a debounce timer (`setTimeout`) in `onMouseMove` that automatically hides the controls after 2.5 seconds of inactivity if the video is currently playing.
+4. **Volume Slider**: The volume slider uses a clever CSS trick: the container is normally `w-0` and `overflow-hidden`, but on group-hover, it expands to `w-20`, revealing the native range input customized with Tailwind accent colors.

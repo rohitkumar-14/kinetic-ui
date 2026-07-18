@@ -1,0 +1,57 @@
+---
+title: Split Screen Layout
+description: Dual-pane layout where one side stays pinned while the other scrolls.
+---
+
+<ComponentPreview 
+  name="split-screen-layout"
+  componentName="SplitScreenLayout"
+  sourceFile="components/creative/split-screen-layout.tsx"
+  playgroundControls={[
+    {
+      name: "splitRatio",
+      label: "Split Ratio",
+      type: "select",
+      options: ["50/50", "40/60", "60/40", "30/70", "70/30"],
+      default: "50/50"
+    },
+    {
+      name: "stickySide",
+      label: "Sticky Side",
+      type: "select",
+      options: ["left", "right", "none", "both"],
+      default: "left"
+    }
+  ]}
+>
+  <SplitScreenLayoutDemo />
+</ComponentPreview>
+
+## Overview
+A foundational layout component commonly used on Awwwards sites for product features, dual narratives, or sticky text paired with scrolling images. 
+
+## Usage
+
+```tsx
+import { SplitScreenLayout } from "@/components/creative/split-screen-layout"
+```
+
+```tsx
+<SplitScreenLayout
+  splitRatio="40/60"
+  stickySide="left"
+  leftContent={
+    <div className="p-12 flex flex-col justify-center h-full">
+      <h2>Sticky Heading</h2>
+      <p>This side stays pinned to the screen.</p>
+    </div>
+  }
+  rightContent={
+    <div className="p-12 space-y-24">
+      <img src="/img1.jpg" alt="Image 1" />
+      <img src="/img2.jpg" alt="Image 2" />
+      <img src="/img3.jpg" alt="Image 3" />
+    </div>
+  }
+/>
+```

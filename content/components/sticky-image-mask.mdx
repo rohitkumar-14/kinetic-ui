@@ -1,0 +1,55 @@
+---
+title: Sticky Image Mask
+description: A cinematic scroll effect where a text mask infinitely scales to reveal background media.
+category: Page Transitions
+---
+
+A cinematic scrollytelling section. As the user scrolls down, a massive text block acting as an SVG clipping mask infinitely scales up until the hidden image or video breaks out of the letterforms to cover the entire screen seamlessly.
+
+## Live Preview
+
+<ComponentPreview 
+  name="sticky-image-mask-demo" 
+  componentName="StickyImageMask"
+  sourceFile="components/creative/sticky-image-mask.tsx"
+  playgroundControls={[
+    {
+      name: "text",
+      label: "Text",
+      type: "string",
+      default: "NATURE"
+    },
+    {
+      name: "videoUrl",
+      label: "Video URL",
+      type: "string",
+      default: "https://videos.pexels.com/video-files/856973/856973-hd_1920_1080_25fps.mp4"
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      description: "The heavy, bold text to use as the clipping mask."
+    },
+    {
+      name: "imageUrl",
+      type: "string",
+      description: "The URL of the background image to reveal."
+    },
+    {
+      name: "videoUrl",
+      type: "string",
+      description: "(Optional) The URL of a background video to reveal instead of an image. If provided, overrides imageUrl."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { StickyImageMask } from "@/components/creative/sticky-image-mask";\n\nexport default function Example() {\n  return (\n    <div className="w-full relative h-[600px] overflow-hidden">\n      <div className="absolute inset-0 overflow-y-auto no-scrollbar pointer-events-auto">\n        <div className="h-[50vh]" />\n        <StickyImageMask \n          text="NATURE" \n          videoUrl="https://videos.pexels.com/video-files/856973/856973-hd_1920_1080_25fps.mp4"\n        />\n        <div className="h-[50vh]" />\n      </div>\n    </div>\n  );\n}`,
+      params: { text: "NATURE", videoUrl: "https://videos.pexels.com/video-files/856973/856973-hd_1920_1080_25fps.mp4" }
+    }
+  ]}
+>
+  <StickyImageMaskDemo />
+</ComponentPreview>

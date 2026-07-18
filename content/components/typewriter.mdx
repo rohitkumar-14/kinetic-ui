@@ -1,0 +1,80 @@
+---
+title: Typewriter Effect
+description: An auto-typing text animation perfect for hero sections and terminal UIs.
+---
+
+<ComponentPreview 
+  name="typewriter"
+  componentName="Typewriter"
+  sourceFile="components/creative/typewriter.tsx"
+  playgroundControls={[
+    {
+      name: "speed",
+      label: "Typing Speed (ms)",
+      type: "number",
+      default: 50,
+      min: 10,
+      max: 200,
+      step: 10
+    },
+    {
+      name: "deleteSpeed",
+      label: "Deleting Speed (ms)",
+      type: "number",
+      default: 30,
+      min: 10,
+      max: 200,
+      step: 10
+    },
+    {
+      name: "waitTime",
+      label: "Wait Time (ms)",
+      type: "number",
+      default: 2000,
+      min: 500,
+      max: 5000,
+      step: 500
+    },
+    {
+      name: "loop",
+      label: "Loop",
+      type: "boolean",
+      default: true
+    }
+  ]}
+>
+  <TypewriterDemo />
+</ComponentPreview>
+
+## Overview
+The `Typewriter` component is a lightweight, dependency-free (other than framer-motion for the blinking cursor) React component that simulates typing text. It can take a single string to type out once, or an array of strings to infinitely loop through, deleting the previous string before typing the next one.
+
+## Usage
+
+### Single String
+```tsx
+import { Typewriter } from "@/components/creative/typewriter"
+
+export default function SingleString() {
+  return (
+    <h1>
+      Loading system... <Typewriter text="Done." loop={false} />
+    </h1>
+  )
+}
+```
+
+### Rotating Array
+```tsx
+import { Typewriter } from "@/components/creative/typewriter"
+
+export default function Hero() {
+  const words = ["Designers.", "Engineers.", "Creators."]
+  
+  return (
+    <h1>
+      Built for <Typewriter text={words} cursorClassName="text-blue-500" />
+    </h1>
+  )
+}
+```

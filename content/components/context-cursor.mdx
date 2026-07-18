@@ -1,0 +1,64 @@
+---
+title: Context Cursor
+description: A robust React Context system for dynamic, state-aware cursor morphing.
+---
+
+<ComponentPreview 
+  name="context-cursor"
+  componentName="ContextCursor"
+  sourceFile="components/creative/context-cursor.tsx"
+>
+  <ContextCursorDemo />
+</ComponentPreview>
+
+## Overview
+The `ContextCursor` is an essential piece of infrastructure for heavily interactive Awwwards sites. Instead of managing multiple cursors or complex prop drilling, this component uses React Context (`CursorProvider`) to allow any element on the page to instantly communicate with the global cursor.
+
+By calling `setCursor` on `onMouseEnter`, you can morph the cursor into a solid pill with text (like "Play" over a video), an expansive outline ring, or inject custom SVG icons.
+
+## Usage
+
+### 1. Wrap your application
+Wrap your root layout in the `CursorProvider` and include the `ContextCursor` component.
+
+```tsx
+import { CursorProvider, ContextCursor } from "@/components/creative/context-cursor"
+
+export default function RootLayout({ children }) {
+  return (
+    <CursorProvider>
+      {/* Hide native cursor globally if desired via CSS, or just let ContextCursor overlay it */}
+      <ContextCursor />
+      {children}
+    </CursorProvider>
+  )
+}
+```
+
+### 2. Trigger states via the hook
+Any child component can use the `useCursor` hook to change the cursor state on hover.
+
+```tsx
+import { useCursor } from "@/components/creative/context-cursor"
+import { Play } from "lucide-react"
+
+export function VideoPlayer() {
+  const { setCursor, resetCursor } = useCursor()
+
+  return (
+    <div 
+      className="video-container"
+      onMouseEnter={() => setCursor({ 
+        variant: "solid", 
+        text: "Play", 
+        size: 80,
+        color: "#6366f1",
+        icon: <Play />
+      })}
+      onMouseLeave={resetCursor}
+    >
+      <video src="..." />
+    </div>
+  )
+}
+```

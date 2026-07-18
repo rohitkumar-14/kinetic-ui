@@ -1,0 +1,69 @@
+---
+title: Cyber Terminal
+description: An interactive command palette styled entirely like an old CRT monitor terminal.
+category: Blocks & Templates
+---
+
+The `CyberTerminal` is a heavily stylized command palette built on top of `cmdk`. It features CSS-driven CRT monitor effects (scanlines, screen flicker, phosphor glow) and utilizes the browser's native Web Audio API to synthesize mechanical keystroke sounds with zero latency.
+
+Perfect for developer-focused portfolios, hackathon sites, or any project that leans into the retro-futuristic cyberpunk aesthetic.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Cyber Terminal" 
+  componentName="CyberTerminal"
+  sourceFile="components/creative/cyber-terminal.tsx"
+  playgroundControls={[
+    {
+      name: "soundEnabled",
+      label: "Mechanical Keystroke Sounds",
+      type: "boolean",
+      default: true
+    }
+  ]}
+  propsData={[
+    {
+      name: "commands",
+      type: "Array<{heading, items}>",
+      default: "Required",
+      description: "An array of command groups. Each group requires a heading and an array of items (id, title, icon, onSelect)."
+    },
+    {
+      name: "open",
+      type: "boolean",
+      default: "Required",
+      description: "Controls the open state of the terminal dialog."
+    },
+    {
+      name: "onOpenChange",
+      type: "(open: boolean) => void",
+      default: "Required",
+      description: "Callback function fired when the open state changes."
+    },
+    {
+      name: "soundEnabled",
+      type: "boolean",
+      default: "true",
+      description: "Whether to play synthesized mechanical keystroke sounds."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Optional CSS classes to append to the dialog container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { useState } from "react";\nimport { CyberTerminal } from "@/components/creative/cyber-terminal";\nimport { Terminal, Database, Code } from "lucide-react";\n\nexport default function Example() {\n  const [open, setOpen] = useState(false);\n\n  const mockCommands = [\n    {\n      heading: "System",\n      items: [\n        {\n          id: "sys-init",\n          title: "Initialize Core",\n          icon: <Terminal className="w-4 h-4" />,\n          onSelect: () => console.log("Init"),\n        }\n      ],\n    }\n  ];\n\n  return (\n    <div className="flex w-full min-h-[400px] flex-col items-center justify-center bg-[#0a0a0a] rounded-xl">\n      <button onClick={() => setOpen(true)} className="px-6 py-3 bg-emerald-950 text-emerald-400 border border-emerald-800 rounded-lg uppercase tracking-widest text-sm">\n        Initialize Mainframe\n      </button>\n      <CyberTerminal \n        commands={mockCommands} \n        open={open} \n        onOpenChange={setOpen} \n        soundEnabled={true}\n      />\n    </div>\n  );\n}`,
+      params: { soundEnabled: true }
+    }
+  ]}
+>
+  <CyberTerminalDemo />
+</ComponentPreview>
+
+> [!NOTE]
+> The terminal uses the native `AudioContext` API to generate sound. Browsers require a user interaction (like clicking a button or pressing a key on the page) before audio can be played. The component handles this automatically by attaching an initializer to the capture phase of the click event.

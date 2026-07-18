@@ -1,0 +1,68 @@
+---
+title: Fullscreen Menu
+description: A bold, cinematic fullscreen navigation overlay with customizable entrance animations.
+category: Navigation
+---
+
+The `FullscreenMenu` provides an immersive navigation experience, perfect for portfolios or creative agency sites. It overrides the entire viewport, forcing the user to focus purely on the navigation hierarchy. The underlying staggered text reveals give it a highly polished, premium feel. Now featuring **4 distinct entrance animations**.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Fullscreen Menu" 
+  componentName="FullscreenMenu"
+  sourceFile="components/creative/fullscreen-menu.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Entrance Animation",
+      type: "select",
+      options: ["curtain", "slide", "fade", "zoom"],
+      default: "curtain"
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'curtain' | 'slide' | 'fade' | 'zoom'",
+      default: "'curtain'",
+      description: "Controls the main entrance animation style of the overlay."
+    },
+    {
+      name: "links",
+      type: "{ title: string; href: string }[]",
+      default: "Home, Work, About, Contact",
+      description: "Array of large navigation links to display."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional Tailwind classes applied to the root container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Curtain Drop",
+      code: `import { FullscreenMenu } from '@/components/creative/fullscreen-menu';\n\nexport default function Example() {\n  return (\n    <div className="relative h-[400px] w-full bg-zinc-950">\n      <FullscreenMenu variant="curtain" className="absolute inset-0" />\n    </div>\n  );\n}`,
+      params: { variant: "curtain" }
+    },
+    {
+      name: "Slide In",
+      code: `import { FullscreenMenu } from '@/components/creative/fullscreen-menu';\n\nexport default function Example() {\n  return (\n    <div className="relative h-[400px] w-full bg-zinc-950">\n      <FullscreenMenu variant="slide" className="absolute inset-0" />\n    </div>\n  );\n}`,
+      params: { variant: "slide" }
+    },
+    {
+      name: "Fade In",
+      code: `import { FullscreenMenu } from '@/components/creative/fullscreen-menu';\n\nexport default function Example() {\n  return (\n    <div className="relative h-[400px] w-full bg-zinc-950">\n      <FullscreenMenu variant="fade" className="absolute inset-0" />\n    </div>\n  );\n}`,
+      params: { variant: "fade" }
+    },
+    {
+      name: "Zoom Out",
+      code: `import { FullscreenMenu } from '@/components/creative/fullscreen-menu';\n\nexport default function Example() {\n  return (\n    <div className="relative h-[400px] w-full bg-zinc-950">\n      <FullscreenMenu variant="zoom" className="absolute inset-0" />\n    </div>\n  );\n}`,
+      params: { variant: "zoom" }
+    }
+  ]}
+>
+  <FullscreenMenuDemo />
+</ComponentPreview>

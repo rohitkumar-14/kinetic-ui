@@ -1,0 +1,85 @@
+---
+title: Floating 3D Card
+description: A stunning premium card that renders an interactive WebGL 3D object responding to the user's mouse.
+category: Premium Cards
+---
+
+The `Floating3DCard` bridges the gap between traditional UI design and advanced WebGL experiences. Utilizing React Three Fiber, it renders a high-performance 3D scene directly inside a standard DOM layout with **5 unique geometry variants**.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Floating 3D Card" 
+  componentName="Floating3DCard"
+  sourceFile="components/creative/floating-3d-card.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Geometry Variant",
+      type: "select",
+      options: ["crystal", "nebula", "prism", "plasma", "ring"],
+      default: "crystal"
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'crystal' | 'nebula' | 'prism' | 'plasma' | 'ring'",
+      default: "'crystal'",
+      description: "The 3D geometry variant to render inside the card."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "auto (per variant)",
+      description: "The primary accent color used for the 3D object, glow effects, and hover highlights."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Multiplier for the float animation and rotation speed."
+    },
+    {
+      name: "scale",
+      type: "number",
+      default: "1",
+      description: "Scale multiplier for the 3D object size."
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      default: "—",
+      description: "Content rendered in the bottom card section below the 3D scene."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { Floating3DCard } from '@/components/creative/floating-3d-card';\nimport { ArrowRight } from 'lucide-react';\n\nexport default function Example() {\n  return (\n    <div className="flex w-full items-center justify-center p-12 bg-black">\n      <Floating3DCard variant="crystal" color="#818cf8">\n        <h3 className="text-xl font-medium mb-2 text-white">Crystal Architecture</h3>\n        <p className="text-zinc-400 font-light mb-6">\n          A wireframe icosahedron with metallic reflections and a glass inner core.\n        </p>\n        <button className="w-full h-11 rounded-xl bg-indigo-500 text-black flex items-center justify-center gap-2">\n          Explore <ArrowRight className="h-4 w-4" />\n        </button>\n      </Floating3DCard>\n    </div>\n  );\n}`,
+      params: { variant: "crystal" }
+    }
+  ]}
+>
+  <Floating3DCardDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="floating-3d-card" />
+
+
+
+## Variants
+
+| Variant | Geometry | Material | Best For |
+|---|---|---|---|
+| `crystal` | Wireframe Icosahedron + Glass Core | Physical + Clearcoat | SaaS, Developer tools |
+| `nebula` | Distorted Sphere | MeshDistort | AI/ML, Creative platforms |
+| `prism` | Glass Octahedron + Orbital Ring | Physical Transmission | Analytics, Data products |
+| `plasma` | Organic Blob | Distort + Emissive | Gaming, Entertainment |
+| `ring` | Torus Knot | Physical Metallic | Fintech, Luxury brands |
+
+## How it works
+
+This component encapsulates a `Canvas` from React Three Fiber. Inside the Canvas, it renders one of five geometry variants, each with its own `Scene` sub-component. During each frame, `useFrame` reads `state.pointer` (normalized mouse position) and smoothly interpolates the 3D object's rotation to follow the cursor. The `Float` helper from drei adds organic hovering motion. `Environment` provides realistic image-based lighting and `ContactShadows` grounds the object in the card.

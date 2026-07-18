@@ -1,0 +1,55 @@
+---
+title: 3D Cylinder Marquee
+description: A 3D hardware-accelerated carousel that renders items in a continuous, rotating cylindrical ring.
+category: Marquees
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="3D Cylinder Marquee" 
+  componentName="CylinderMarquee"
+  sourceFile="components/creative/cylinder-marquee.tsx"
+  playgroundControls={[
+    { name: "speed", type: "number", default: 25, label: "Rotation Speed (s)", min: 5, max: 60, step: 1 },
+    { name: "direction", type: "string", default: "left", label: "Direction" }
+  ]}
+>
+  <CylinderMarqueeDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="cylinder-marquee" />
+
+## Usage
+
+```tsx
+import { CylinderMarquee } from "@/components/creative/cylinder-marquee";
+
+export default function Page() {
+  const cards = [
+    <div key="1" className="bg-zinc-900 p-8 rounded-xl text-white">Item 1</div>,
+    <div key="2" className="bg-zinc-900 p-8 rounded-xl text-white">Item 2</div>,
+    // Add enough items to form a ring (usually 6-12)
+  ];
+
+  return (
+    <div style={{ perspective: "1000px" }}>
+      <CylinderMarquee 
+        items={cards}
+        itemWidth={250}
+        itemHeight={300}
+        speed={20}
+      />
+    </div>
+  );
+}
+```
+
+## How it works
+
+This component relies entirely on native CSS 3D transforms (`transform-style: preserve-3d`) and avoids heavy JavaScript frame loops. 
+
+1. **Math Calculation**: It automatically calculates the correct `translateZ` distance needed to push items outward into a perfect circle based on the `itemWidth` and the total number of items: `radius = (width / 2) / tan(π / count)`.
+2. **Radial Distribution**: Each item is rotated around the Y-axis (`rotateY`) by a fraction of 360 degrees (e.g., if there are 10 items, they are rotated by 0°, 36°, 72°, etc).
+3. **Carousel Rotation**: The parent container uses Framer Motion to continuously animate its own `rotateY` from 0 to 360 degrees over time, causing the entire rigid 3D structure to spin like a Ferris wheel.

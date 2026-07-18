@@ -1,0 +1,57 @@
+---
+title: Pixel Transition
+description: A stunning WebGL shader effect that transitions between two images using a pixelated distortion grid.
+category: 3D Components
+---
+
+The `PixelTransition` component uses React Three Fiber and custom GLSL shaders to create a mesmerizing hover effect. When hovered, the first image breaks apart into a grid of pixels to reveal the second image underneath, a signature effect seen on top-tier Awwwards portfolios.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Pixel Transition" 
+  componentName="PixelTransition"
+  sourceFile="components/creative/pixel-transition.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Theme Variant",
+      type: "select",
+      options: ["landscape", "cyber", "chunky"],
+      default: "landscape"
+    }
+  ]}
+  propsData={[
+    {
+      name: "firstImage",
+      type: "string",
+      default: "Required",
+      description: "URL of the initial image"
+    },
+    {
+      name: "secondImage",
+      type: "string",
+      default: "Required",
+      description: "URL of the hover state image"
+    },
+    {
+      name: "gridSize",
+      type: "number",
+      default: "40",
+      description: "Controls the density of the pixelation grid"
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { PixelTransition } from "@/components/creative/pixel-transition";\n\nexport default function Example() {\n  return (\n    <div className="w-full max-w-lg aspect-[4/3] rounded-2xl overflow-hidden">\n      <PixelTransition\n        firstImage="/placeholder-1.jpg"\n        secondImage="/placeholder-2.jpg"\n        gridSize={30}\n        className="w-full h-full"\n      />\n    </div>\n  );\n}`,
+      params: { variant: "landscape" }
+    }
+  ]}
+>
+  <PixelTransitionDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="pixel-transition" />

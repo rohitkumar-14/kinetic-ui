@@ -1,0 +1,46 @@
+---
+title: Animated Gradient Text
+description: Smoothly panning, multi-stop gradient text fills for high-impact headlines.
+---
+
+<ComponentPreview 
+  name="animated-gradient-text"
+  componentName="AnimatedGradientText"
+  sourceFile="components/creative/animated-gradient-text.tsx"
+  playgroundControls={[
+    {
+      name: "animationSpeed",
+      label: "Animation Speed (s)",
+      type: "number",
+      default: 8,
+      min: 1,
+      max: 20,
+      step: 1
+    }
+  ]}
+>
+  <AnimatedGradientTextDemo />
+</ComponentPreview>
+
+## Overview
+The `AnimatedGradientText` component uses CSS `background-clip: text` combined with `framer-motion` to continuously pan a gradient background across your text. This creates a mesmerizing, iridescent shimmer effect that is heavily featured on modern SaaS landing pages and AI product announcements.
+
+## Usage
+
+```tsx
+import { AnimatedGradientText } from "@/components/creative/animated-gradient-text"
+
+export default function Hero() {
+  return (
+    <h1 className="text-6xl font-bold text-white">
+      The future of {" "}
+      <AnimatedGradientText 
+        colors={["#ffaa40", "#9c40ff", "#ffaa40"]}
+        animationSpeed={5}
+      >
+        Artificial Intelligence
+      </AnimatedGradientText>
+    </h1>
+  )
+}
+```

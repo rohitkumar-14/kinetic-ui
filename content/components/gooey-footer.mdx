@@ -1,0 +1,35 @@
+---
+title: Gooey Footer
+description: A playful footer component that uses SVG filters to create a liquid physics effect when interacting with social icons.
+category: Footers
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Gooey Footer" 
+  componentName="GooeyFooter"
+  sourceFile="components/creative/gooey-footer.tsx"
+  playgroundControls={[
+    { name: "color", type: "string", default: "#a855f7", label: "Goo Color" }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { GooeyFooter } from "@/components/creative/gooey-footer";\nimport { Twitter, Github } from "lucide-react";\n\nconst LINKS = [{ label: "Home", href: "/" }];\nconst SOCIALS = [\n  { icon: <Twitter />, href: "#" },\n  { icon: <Github />, href: "#" },\n];\n\nexport default function Example() {\n  return (\n    <GooeyFooter \n      links={LINKS}\n      socials={SOCIALS}\n      color="#a855f7"\n    />\n  );\n}`
+    }
+  ]}
+>
+  <GooeyFooterDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="gooey-footer" />
+
+## Architecture
+
+This component relies on a classic UI engineering trick to avoid shipping complex 2D fluid simulation libraries.
+
+1. **Hidden SVG Filter:** It embeds a hidden `<svg>` with a `<filter>` that chains `feGaussianBlur` and `feColorMatrix`. 
+2. **The Matrix Math:** The color matrix (`values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"`) aggressively increases the contrast of the alpha channel.
+3. **The Illusion:** When two div elements (like the center blob and a social icon) get close to each other, their blurred edges overlap. The high-contrast color matrix snaps those overlapping blurry alpha channels into solid colors, creating the illusion of surface tension and liquid tearing!

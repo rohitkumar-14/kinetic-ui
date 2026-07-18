@@ -1,0 +1,243 @@
+'use client';
+
+import React, { useState } from 'react';
+import { 
+  DndContext, 
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
+import { usePlaygroundStore, PlaygroundItem } from '@/hooks/use-playground-store';
+import { MagneticButton } from '@/components/creative/magnetic-button';
+import { TextReveal } from '@/components/creative/text-reveal';
+import { Component, Type, Trash2, GripVertical, Code2, Play } from 'lucide-react';
+import { CodeHighlight } from '@/components/creative/code-highlight';
+
+// --- Registry of available components ---
+const AVAILABLE_COMPONENTS = [
+  {
+    id: 'magnetic-button',
+    name: 'Magnetic Button',
+    icon: <Component className="h-4 w-4" />,
+    render: (props: any) => (
+      <div className="flex justify-center p-8 bg-muted/10 rounded-xl border border-dashed border-border/50">
+        <MagneticButton className="h-16 px-10 text-lg rounded-full bg-foreground text-background">
+          Hover Me
+        </MagneticButton>
+      </div>
+    ),
+    codeSnippet: `<div className="flex justify-center py-8">\n  <MagneticButton className="h-16 px-10 text-lg rounded-full bg-foreground text-background">\n    Hover Me\n  </MagneticButton>\n</div>`
+  },
+  {
+    id: 'text-reveal',
+    name: 'Text Reveal',
+    icon: <Type className="h-4 w-4" />,
+    render: (props: any) => (
+      <div className="p-12 bg-muted/10 rounded-xl border border-dashed border-border/50">
+        <h2 className="text-4xl md:text-6xl font-medium tracking-tight text-center">
+          <TextReveal text="Creative Motion" />
+        </h2>
+      </div>
+    ),
+    codeSnippet: `<div className="py-12">\n  <h2 className="text-4xl md:text-6xl font-medium tracking-tight text-center">\n    <TextReveal text="Creative Motion" />\n  </h2>\n</div>`
+  }
+];
+
+// --- Sortable Item Wrapper ---
+function SortablePlaygroundItem({ item, onRemove }: { item: PlaygroundItem, onRemove: (id: string) => void }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({ id: item.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  const compData = AVAILABLE_COMPONENTS.find(c => c.id === item.componentId);
+
+  return (
+    <div ref={setNodeRef} style={style} className="relative group bg-background border border-border rounded-xl shadow-sm mb-4 flex flex-col">
+      {/* Top Toolbar */}
+      <div className="flex items-center justify-between p-2 border-b border-border bg-muted/30">
+        <div className="flex items-center gap-2">
+           <button {...attributes} {...listeners} className="p-1.5 text-muted-foreground hover:text-foreground cursor-grab active:cursor-grabbing rounded">
+             <GripVertical className="h-4 w-4" />
+           </button>
+           <span className="text-sm font-medium">{item.name}</span>
+        </div>
+        <button 
+          onClick={() => onRemove(item.id)}
+          className="p-1.5 text-muted-foreground hover:text-destructive transition-colors rounded"
+        >
+          <Trash2 className="h-4 w-4" />
+        </button>
+      </div>
+      
+      {/* Actual Component Render */}
+      <div className="p-4">
+         {compData?.render({})}
+      </div>
+    </div>
+  );
+}
+
+// --- Main Page ---
+export default function PlaygroundPage() {
+  const { items, addItem, removeItem, reorderItems, clearCanvas } = usePlaygroundStore();
+  const [showExport, setShowExport] = useState(false);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      const oldIndex = items.findIndex((i) => i.id === active.id);
+      const newIndex = items.findIndex((i) => i.id === over.id);
+      reorderItems(oldIndex, newIndex);
+    }
+  };
+
+  const handleAdd = (compId: string, name: string) => {
+    addItem({ componentId: compId, name });
+  };
+
+  const generateExportCode = () => {
+    const imports = new Set<string>();
+    const componentsCode: string[] = [];
+
+    items.forEach(item => {
+      const compData = AVAILABLE_COMPONENTS.find(c => c.id === item.componentId);
+      if (compData) {
+        componentsCode.push(compData.codeSnippet);
+        if (compData.id === 'magnetic-button') imports.add(`import { MagneticButton } from '@/components/creative/magnetic-button';`);
+        if (compData.id === 'text-reveal') imports.add(`import { TextReveal } from '@/components/creative/text-reveal';`);
+      }
+    });
+
+    return `// Generated by Kinetic UI Playground\n'use client';\n\n${Array.from(imports).join('\n')}\n\nexport default function MyCustomPage() {\n  return (\n    <main className="flex flex-col gap-8 min-h-screen p-8 bg-background text-foreground">\n${componentsCode.map(c => c.split('\n').map(line => '      ' + line).join('\n')).join('\n\n')}\n    </main>\n  );\n}`;
+  };
+
+  return (
+    <div className="flex h-screen pt-16 bg-muted/10">
+      
+      {/* Sidebar - Component Library */}
+      <aside className="w-80 border-r border-border bg-background p-6 flex flex-col h-full overflow-y-auto">
+        <h2 className="text-xl font-medium tracking-tight mb-2">Components</h2>
+        <p className="text-sm text-muted-foreground mb-6">Click to add to your canvas</p>
+        
+        <div className="space-y-3 flex-1">
+          {AVAILABLE_COMPONENTS.map((comp) => (
+            <button
+              key={comp.id}
+              onClick={() => handleAdd(comp.id, comp.name)}
+              className="w-full flex items-center gap-3 p-4 rounded-xl border border-border bg-muted/20 hover:bg-muted transition-colors text-left group"
+            >
+              <div className="p-2 bg-background rounded-lg border border-border/50 group-hover:scale-110 transition-transform">
+                {comp.icon}
+              </div>
+              <span className="font-medium text-sm">{comp.name}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-auto pt-6 border-t border-border">
+          <button 
+            onClick={() => setShowExport(true)}
+            disabled={items.length === 0}
+            className="w-full flex items-center justify-center gap-2 h-12 rounded-lg bg-foreground text-background font-medium disabled:opacity-50 transition-colors hover:bg-foreground/90"
+          >
+            <Code2 className="h-4 w-4" /> Export Code
+          </button>
+        </div>
+      </aside>
+
+      {/* Main Canvas Area */}
+      <main className="flex-1 p-8 overflow-y-auto relative">
+        <div className="max-w-4xl mx-auto min-h-[80vh] bg-background border border-border border-dashed rounded-3xl p-8 relative">
+          
+          {items.length === 0 ? (
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground">
+               <div className="w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mb-4">
+                 <Play className="h-6 w-6 opacity-50" />
+               </div>
+               <h3 className="text-lg font-medium text-foreground mb-1">Canvas is empty</h3>
+               <p className="text-sm">Select components from the sidebar to start building.</p>
+            </div>
+          ) : (
+            <div className="mb-6 flex justify-end">
+              <button onClick={clearCanvas} className="text-xs text-muted-foreground hover:text-destructive transition-colors">
+                Clear Canvas
+              </button>
+            </div>
+          )}
+
+          <DndContext 
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext 
+              items={items.map(i => i.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              <div className="flex flex-col gap-2">
+                {items.map((item) => (
+                  <SortablePlaygroundItem 
+                    key={item.id} 
+                    item={item} 
+                    onRemove={removeItem}
+                  />
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
+        </div>
+      </main>
+
+      {/* Export Modal */}
+      {showExport && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-background/80 backdrop-blur-sm">
+           <div className="w-full max-w-3xl bg-background border border-border rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">
+             <div className="flex items-center justify-between p-4 border-b border-border bg-muted/20">
+               <h3 className="font-medium flex items-center gap-2"><Code2 className="h-4 w-4 text-indigo-400" /> Exported Code</h3>
+               <button onClick={() => setShowExport(false)} className="text-sm text-muted-foreground hover:text-foreground">Close</button>
+             </div>
+             <div className="p-4 overflow-y-auto flex-1 bg-[#121212]">
+                {/* Fallback to simple pre block if CodeHighlight is acting up in client context, but since this is a client component, CodeHighlight (Server Component) might fail. Let's use a standard pre for the modal to be safe, or just dangerouslySetInnerHTML if we use an api. */}
+                <pre className="text-sm text-gray-300 font-mono whitespace-pre-wrap">
+                  <code>{generateExportCode()}</code>
+                </pre>
+             </div>
+             <div className="p-4 border-t border-border bg-muted/20 flex justify-end gap-3">
+               <button onClick={() => navigator.clipboard.writeText(generateExportCode())} className="px-4 py-2 rounded-md bg-foreground text-background text-sm font-medium hover:bg-foreground/90">
+                 Copy to Clipboard
+               </button>
+             </div>
+           </div>
+        </div>
+      )}
+    </div>
+  );
+}

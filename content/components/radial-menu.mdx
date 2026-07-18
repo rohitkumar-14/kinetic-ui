@@ -1,0 +1,74 @@
+---
+title: Radial Menu
+description: An animated circular navigation menu that expands from a central button.
+---
+
+<ComponentPreview 
+  name="radial-menu"
+  componentName="RadialMenu"
+  sourceFile="components/creative/radial-menu.tsx"
+  playgroundControls={[
+    {
+      name: "radius",
+      label: "Radius",
+      type: "number",
+      default: 100,
+      min: 50,
+      max: 200,
+      step: 10
+    },
+    {
+      name: "startAngle",
+      label: "Start Angle",
+      type: "number",
+      default: -90,
+      min: -180,
+      max: 180,
+      step: 15
+    },
+    {
+      name: "endAngle",
+      label: "End Angle",
+      type: "number",
+      default: 90,
+      min: -180,
+      max: 360,
+      step: 15
+    }
+  ]}
+>
+  <RadialMenuDemo />
+</ComponentPreview>
+
+## Overview
+The `RadialMenu` is a highly interactive, space-saving navigation pattern. When activated, menu items expand outwards along a circular path using physics-based spring animations. By tweaking the `startAngle` and `endAngle`, you can create full circles (0 to 360), semi-circles (-90 to 90), or quarter-circles (0 to 90) perfect for corner placement.
+
+## Installation
+
+```bash
+npm install framer-motion lucide-react
+```
+
+## Usage
+
+```tsx
+import { RadialMenu } from "@/components/creative/radial-menu"
+import { Home, User, Settings } from "lucide-react"
+
+export default function MyMenu() {
+  const items = [
+    { id: "1", label: "Home", icon: <Home className="w-5 h-5" /> },
+    { id: "2", label: "Profile", icon: <User className="w-5 h-5" /> },
+    { id: "3", label: "Settings", icon: <Settings className="w-5 h-5" /> },
+  ]
+
+  return (
+    <RadialMenu 
+      items={items} 
+      radius={120}
+      startAngle={0} 
+      endAngle={360} 
+    />
+  )
+}
+```

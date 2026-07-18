@@ -1,0 +1,34 @@
+---
+title: CTA Section
+description: A high-conversion Call to Action section with modern gradients and layout.
+category: Blocks & Templates
+---
+
+A high-conversion Call to Action section with modern gradients, engaging copy layout, and primary/secondary actions to drive user engagement. Perfect for landing pages and marketing sites.
+
+## Live Preview
+
+<ComponentPreview 
+  name="CTA Section" 
+  variants={[
+    {
+      name: "Default",
+      code: `import { CtaSection } from "@/components/creative/cta-section";\n\nexport default function Example() {\n  return (\n    <CtaSection \n      title="Ready to transform your workflow?"\n      description="Join thousands of developers building faster and more beautiful applications with our premium UI kit."\n      primaryActionText="Get Started Now"\n      secondaryActionText="View Documentation"\n    />\n  );\n}`
+    }
+  ]}
+>
+  <CtaSectionDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="cta-section" />
+
+## Props
+
+- `title`: The main headline of the section.
+- `description`: The supporting text below the headline.
+- `primaryActionText`: The text for the primary button.
+- `primaryActionUrl`: The URL for the primary button.
+- `secondaryActionText`: The text for the secondary outline button.
+- `secondaryActionUrl`: The URL for the secondary outline button.

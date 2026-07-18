@@ -1,0 +1,38 @@
+---
+title: Project Card
+description: A highly interactive portfolio card featuring parallax backgrounds and hover reveals.
+---
+
+<ComponentPreview 
+  name="project-card"
+  componentName="ProjectCard"
+  sourceFile="components/creative/project-card.tsx"
+>
+  <ProjectCardDemo />
+</ComponentPreview>
+
+## Overview
+The `ProjectCard` is essential for any portfolio or agency site. It hides complex metadata (tags, descriptions) by default to keep the grid looking clean and visual, but elegantly reveals them when the user hovers over the card. 
+
+It also includes a subtle mouse-tracking parallax effect on the background image using `useMotionValue` and `useSpring`, creating a sense of depth that feels highly premium.
+
+## Usage
+
+```tsx
+import { ProjectCard } from "@/components/creative/project-card"
+
+export default function WorkGrid() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto py-20">
+      <ProjectCard 
+        title="Fintech App"
+        description="A complete redesign of the core banking experience."
+        image="/projects/fintech.jpg"
+        tags={["Mobile", "UX/UI"]}
+        href="/work/fintech"
+      />
+      {/* ... */}
+    </div>
+  )
+}
+```

@@ -1,0 +1,77 @@
+---
+title: Motion Primitives
+description: A collection of reusable Framer Motion wrappers for standard UI entry animations.
+category: Text Effects
+---
+
+The `MotionPrimitives` file exports several lightweight wrapper components (like `<FadeIn>`, `<SlideUp>`, and `<ScaleIn>`) that make it incredibly easy to orchestrate standard UI entrance animations without writing verbose Framer Motion variants every time.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Motion Primitives" 
+  componentName="MotionPrimitives"
+  sourceFile="components/creative/motion-primitives.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Primitive",
+      type: "select",
+      options: ["fade", "slide", "scale", "blur", "rotate", "stagger"],
+      default: "fade"
+    }
+  ]}
+  propsData={[]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { FadeIn } from '@/components/creative/motion-primitives';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[300px] items-center justify-center bg-black">\n      <FadeIn duration={0.8}>\n        <div className="w-32 h-32 rounded-2xl bg-indigo-500/20 border border-indigo-500/50" />\n      </FadeIn>\n    </div>\n  );\n}`,
+      params: { variant: "fade" }
+    }
+  ]}
+>
+  <MotionPrimitivesDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="motion-primitives" />
+
+## Exported Components
+
+All primitives accept standard `className` and Framer Motion `HTMLMotionProps` in addition to their custom props.
+
+### 1. FadeIn
+Standard opacity fade from 0 to 1.
+- `duration` (default: 0.5): Length of transition.
+- `delay` (default: 0): Wait before animating.
+
+### 2. SlideUp
+Translates upwards along the Y-axis while fading in. Uses a custom bezier curve for a snappy entrance.
+- `yOffset` (default: 40): Starting position on the Y axis.
+
+### 3. ScaleIn
+Bounces from a smaller scale up to 1 using a backOut ease, creating a subtle pop effect.
+- `initialScale` (default: 0.8): Starting scale percentage.
+
+### 4. BlurIn
+Transitions a CSS blur filter down to 0px while fading in. Excellent for typography or heavy images.
+- `initialBlur` (default: "10px"): Starting blur amount.
+
+### 5. RotateIn
+Combines a slight rotation with scale and fade. Best used for floating cards or staggered grids.
+- `initialRotation` (default: -15): Starting rotation in degrees.
+
+### 6. StaggerContainer & StaggerItem
+Use these together to orchestrate sequential animations for lists or grids.
+
+- `<StaggerContainer>`
+  - `staggerChildren` (default: 0.1): Delay between each child animating.
+  - `delayChildren` (default: 0.1): Delay before the first child starts.
+
+- `<StaggerItem>`
+  - `yOffset` (default: 30): Starting position on the Y axis for the child slide-up animation.
+
+## Viewport Logic
+
+All motion primitives utilize `whileInView` instead of `animate`, meaning they will automatically trigger when they scroll into the viewport. They also use `viewport={{ once: true, margin: "-50px" }}`, meaning they wait until they are 50px inside the screen to trigger, and they will only animate once per page load.

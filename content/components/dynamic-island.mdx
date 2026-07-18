@@ -1,0 +1,75 @@
+---
+title: Dynamic Island
+description: A morphing notification hub built with Framer Motion layout animations.
+category: Navigation
+---
+
+The `DynamicIsland` component is a polished, Apple-inspired notification pill that seamlessly morphs and resizes itself depending on the content inside it. 
+
+Instead of hard-coding widths and heights, the wrapper utilizes Framer Motion's `layout` engine. When the active `DynamicIslandContent` changes, the parent wrapper naturally stretches or shrinks to fit the new content using spring physics, preventing any harsh layout jumping.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Dynamic Island" 
+  sourceFile="components/creative/dynamic-island.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Island State",
+      type: "select",
+      options: ["idle", "incoming-call", "active-call", "music", "upload"],
+      default: "idle"
+    }
+  ]}
+  propsData={[
+    {
+      name: "children",
+      type: "React.ReactNode",
+      default: "Required",
+      description: "[DynamicIsland] Should contain conditionally rendered `DynamicIslandContent` blocks."
+    },
+    {
+      name: "spring",
+      type: "{ stiffness: number, damping: number }",
+      default: "{ stiffness: 400, damping: 30 }",
+      description: "[DynamicIsland] The physics configuration for the layout morph animation. A lower stiffness creates a slower, softer morph."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "[DynamicIsland] Tailwind classes for the outer pill container."
+    },
+    {
+      name: "id",
+      type: "string",
+      default: "Required",
+      description: "[DynamicIslandContent] A unique string key. This tells Framer Motion to trigger an enter/exit animation when the state swaps."
+    },
+    {
+      name: "children",
+      type: "React.ReactNode",
+      default: "Required",
+      description: "[DynamicIslandContent] The UI layout for this specific state."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "[DynamicIslandContent] Crucial: Apply explicit width and height here (e.g., `w-[300px] h-[80px]`) to control the size of the island."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { useState } from "react";\nimport { DynamicIsland, DynamicIslandContent } from "@/components/creative/dynamic-island";\n\nexport default function Example() {\n  const [state, setState] = useState("idle");\n\n  return (\n    <div className="flex flex-col items-center gap-8">\n      <DynamicIsland>\n        {state === "idle" && (\n          <DynamicIslandContent id="idle" className="w-[120px] h-[36px] flex items-center justify-between px-4">\n            <div className="w-4 h-4 bg-red-500 rounded-full" />\n          </DynamicIslandContent>\n        )}\n\n        {state === "calling" && (\n          <DynamicIslandContent id="calling" className="w-[300px] h-[80px] flex items-center justify-between px-6">\n            <h3 className="text-xl font-bold">Incoming Call...</h3>\n          </DynamicIslandContent>\n        )}\n      </DynamicIsland>\n\n      <button onClick={() => setState(state === "idle" ? "calling" : "idle")}>\n        Toggle State\n      </button>\n    </div>\n  );\n}`,
+      params: { variant: "idle" }
+    }
+  ]}
+>
+  <DynamicIslandDemo />
+</ComponentPreview>
+
+> [!TIP]
+> **Dimensions:** The `DynamicIsland` parent container does *not* need a specific width or height. It will automatically snap to the dimensions of the currently active `DynamicIslandContent`. Always apply strict `w-[...]` and `h-[...]` classes to your `DynamicIslandContent` wrappers so the parent knows exactly what size to morph into.

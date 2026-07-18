@@ -1,0 +1,73 @@
+---
+title: Mesh Gradient
+description: An animated, fluid mesh gradient background component powered by Framer Motion and heavy CSS blurs.
+category: Background Effects
+---
+
+The `MeshGradient` component creates a stunning organic gradient background using intersecting, animated SVG blurs. It's an essential element in modern "glassmorphism" or Awwwards-winning hero sections.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Mesh Gradient" 
+  componentName="MeshGradient"
+  sourceFile="components/creative/mesh-gradient.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Theme Variant",
+      type: "select",
+      options: ["default", "ocean", "cyber", "monochrome"],
+      default: "default"
+    }
+  ]}
+  propsData={[
+    {
+      name: "color1",
+      type: "string",
+      default: "#8b5cf6",
+      description: "First base color for the gradient."
+    },
+    {
+      name: "color2",
+      type: "string",
+      default: "#ec4899",
+      description: "Second base color for the gradient."
+    },
+    {
+      name: "color3",
+      type: "string",
+      default: "#06b6d4",
+      description: "Third base color for the gradient."
+    },
+    {
+      name: "color4",
+      type: "string",
+      default: "#f59e0b",
+      description: "Fourth base color for the gradient."
+    },
+    {
+      name: "speed",
+      type: "'slow' | 'normal' | 'fast'",
+      default: "'normal'",
+      description: "Controls the animation speed of the overlapping blurs."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { MeshGradient } from "@/components/creative/mesh-gradient";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[500px] relative overflow-hidden rounded-xl">\n      <MeshGradient \n        color1="#8b5cf6"\n        color2="#ec4899"\n        color3="#06b6d4"\n        color4="#f59e0b"\n        speed="normal"\n      >\n        {/* Content goes here */}\n      </MeshGradient>\n    </div>\n  );\n}`,
+      params: { variant: "default" }
+    }
+  ]}
+>
+  <MeshGradientDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="mesh-gradient" />
+
+## Props
+
+

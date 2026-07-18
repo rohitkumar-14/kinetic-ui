@@ -1,0 +1,37 @@
+---
+title: Infinite Draggable Canvas
+description: A massive 2D draggable surface perfect for Figma-style boards, nodes, or gallery layouts.
+category: Layout
+---
+
+The `DraggableCanvas` provides a high-performance, frictionless dragging surface using Framer Motion. It acts as a massive container that users can grab and pan around, complete with elastic edge constraints and physical momentum. 
+
+Perfect for creating spatial interfaces, node editors, or sprawling image galleries.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Infinite Draggable Canvas" 
+  componentName="DraggableCanvas"
+  sourceFile="components/creative/draggable-canvas.tsx"
+  playgroundControls={[
+    { name: "canvasSize", type: "number", min: 1000, max: 5000, step: 500, default: 3000, label: "Canvas Size" }
+  ]}
+  propsData={[
+    { name: "canvasSize", type: "number", default: "3000", description: "The total width and height of the draggable inner surface in pixels." },
+    { name: "initialX", type: "number", default: "-1000", description: "The starting X pan offset." },
+    { name: "initialY", type: "number", default: "-1000", description: "The starting Y pan offset." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { DraggableCanvasDemo } from '@/components/creative/docs/draggable-canvas-demo';\n\nexport default function Example() {\n  return <DraggableCanvasDemo />;\n}`
+    }
+  ]}
+>
+  <DraggableCanvasDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="draggable-canvas" />

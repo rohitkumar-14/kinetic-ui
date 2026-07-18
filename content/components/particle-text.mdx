@@ -1,0 +1,124 @@
+---
+title: Particle Text
+description: A massive headline that physically shatters into hundreds of physics-based particles when your mouse approaches.
+category: Text Effects
+---
+
+An incredibly advanced WebGL-style effect built entirely using native HTML5 Canvas `ImageData`. It reads any text string, converts the pixels into physical particles, and applies repulsion and spring forces to them as the user's mouse interacts with the canvas.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Particle Text" 
+  componentName="ParticleText"
+  sourceFile="components/creative/particle-text.tsx"
+  playgroundControls={[
+    {
+      name: "text",
+      label: "Text",
+      type: "string",
+      default: "SHATTER"
+    },
+    {
+      name: "fontSize",
+      label: "Font Size",
+      type: "number",
+      default: 150,
+      min: 50,
+      max: 200,
+      step: 10
+    },
+    {
+      name: "particleSize",
+      label: "Particle Size",
+      type: "number",
+      default: 2,
+      min: 1,
+      max: 5,
+      step: 0.5
+    },
+    {
+      name: "mouseRadius",
+      label: "Interaction Radius",
+      type: "number",
+      default: 120,
+      min: 50,
+      max: 300,
+      step: 10
+    },
+    {
+      name: "pushForce",
+      label: "Repulsion Force",
+      type: "number",
+      default: 4,
+      min: 1,
+      max: 10,
+      step: 0.5
+    },
+    {
+      name: "particleColor",
+      label: "Color (Hex)",
+      type: "string",
+      default: "#818cf8"
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      default: "Required",
+      description: "The string of text to render as particles."
+    },
+    {
+      name: "fontSize",
+      type: "number",
+      default: "120",
+      description: "The size of the text."
+    },
+    {
+      name: "fontFamily",
+      type: "string",
+      default: "'Inter, sans-serif'",
+      description: "The font family to use."
+    },
+    {
+      name: "particleSize",
+      type: "number",
+      default: "1.5",
+      description: "The radius of each individual particle."
+    },
+    {
+      name: "particleColor",
+      type: "string",
+      default: "'#ffffff'",
+      description: "The hex color of the particles."
+    },
+    {
+      name: "mouseRadius",
+      type: "number",
+      default: "100",
+      description: "The interaction radius of the mouse pointer."
+    },
+    {
+      name: "pushForce",
+      type: "number",
+      default: "2",
+      description: "How violently the particles are blasted away."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { ParticleText } from "@/components/creative/particle-text";\n\nexport default function Example() {\n  return (\n    <ParticleText \n      text="SHATTER"\n      fontSize={150}\n      particleColor="#ffffff"\n    />\n  );\n}`,
+      params: { text: "SHATTER", fontSize: 150, particleSize: 2, mouseRadius: 120, pushForce: 4, particleColor: "#818cf8" }
+    }
+  ]}
+>
+  <ParticleTextDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="particle-text" />
+
+

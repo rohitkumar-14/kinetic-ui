@@ -1,0 +1,108 @@
+---
+title: Text Scramble
+description: A hacker-style text reveal animation that cycles through random characters before settling on the target text.
+category: Text Effects
+---
+
+The `TextScramble` component animates text into view by rapidly cycling through a set of randomized characters. It creates a classic "cyberpunk" or "decoding" effect. Now updated with **4 pre-configured character sets** and better re-triggering logic.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Text Scramble" 
+  componentName="TextScramble"
+  sourceFile="components/creative/text-scramble.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["cyber", "matrix", "blocks", "minimal"],
+      default: "cyber"
+    },
+    {
+      name: "text",
+      label: "Text",
+      type: "string",
+      default: "SYSTEM INITIALIZED"
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      default: "Required",
+      description: "The final text to reveal."
+    },
+    {
+      name: "variant",
+      type: "'cyber' | 'matrix' | 'blocks' | 'minimal'",
+      default: "'cyber'",
+      description: "Pre-configured character sets for the scramble effect."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "50",
+      description: "The interval speed in milliseconds. Lower is faster."
+    },
+    {
+      name: "delay",
+      type: "number",
+      default: "0",
+      description: "Delay in milliseconds before the animation starts."
+    },
+    {
+      name: "characterSet",
+      type: "string",
+      default: "—",
+      description: "Override the variant with your own custom string of characters to scramble through."
+    },
+    {
+      name: "trigger",
+      type: "boolean",
+      default: "true",
+      description: "When false, the animation will not start. Useful for triggering on hover or scroll."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { TextScramble } from '@/components/creative/text-scramble';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[300px] items-center justify-center bg-black">\n      <h3 className="text-4xl font-mono font-bold text-white">\n        <TextScramble text="SYSTEM INITIALIZED" variant="cyber" speed={40} />\n      </h3>\n    </div>\n  );\n}`,
+      params: { variant: "cyber", text: "SYSTEM INITIALIZED" }
+    }
+  ]}
+>
+  <TextScrambleDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="text-scramble" />
+
+
+
+## Custom Triggers
+
+You can use the `trigger` prop in combination with state to re-run the animation when a user interacts with an element.
+
+```tsx
+import { useState } from 'react';
+import { TextScramble } from '@/components/creative/text-scramble';
+
+export function HoverScramble() {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <button 
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <TextScramble 
+        text="Hover Me" 
+        trigger={isHovered} 
+      />
+    </button>
+  );
+}
+```

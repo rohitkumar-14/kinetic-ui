@@ -1,0 +1,62 @@
+---
+title: Mega Menu
+description: A rich, multi-column hover navigation dropdown featuring embedded content and images.
+---
+
+<ComponentPreview 
+  name="mega-menu"
+  componentName="MegaMenu"
+  sourceFile="components/creative/mega-menu.tsx"
+  playgroundControls={[
+    {
+      name: "animationDirection",
+      label: "Animation Direction",
+      type: "select",
+      options: ["top", "bottom"],
+      default: "bottom"
+    }
+  ]}
+>
+  <MegaMenuDemo />
+</ComponentPreview>
+
+## Overview
+The `MegaMenu` is a staple for complex SaaS, e-commerce, and enterprise sites. Unlike standard dropdowns, mega menus can accommodate extensive hierarchies, featured articles, marketing banners, and icons. This component uses `framer-motion` for buttery smooth dropdown animations and delays the `onMouseLeave` event slightly to prevent accidental closures when users move their mouse across gaps.
+
+## Installation
+
+```bash
+npm install framer-motion lucide-react
+```
+
+## Usage
+
+```tsx
+import { MegaMenu } from "@/components/creative/mega-menu"
+
+export default function Navigation() {
+  const menuItems = [
+    {
+      id: "products",
+      label: "Products",
+      children: [
+        { label: "Design System", href: "/design" },
+        { label: "API Services", href: "/api" },
+      ],
+      featured: {
+        title: "New AI Features",
+        description: "Explore our latest generative AI tools.",
+        image: "/banner.jpg",
+        href: "/ai"
+      }
+    },
+    {
+      id: "pricing",
+      label: "Pricing",
+      href: "/pricing"
+    }
+  ]
+
+  return <MegaMenu items={menuItems} />
+}
+```

@@ -1,0 +1,77 @@
+---
+title: Card
+description: Displays a card with header, content, and footer.
+category: Data Display
+---
+
+The `Card` component is a flexible container used to group related content and actions together in a visually distinct block.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Card" 
+  componentName="Card"
+  sourceFile="components/ui/card.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["default", "interactive", "minimal"],
+      default: "default"
+    }
+  ]}
+  propsData={[
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "[Card] Additional classes for the main card container."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "[CardHeader] Additional classes for the header section."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "[CardTitle] Additional classes for the title."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "[CardDescription] Additional classes for the description."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "[CardContent] Additional classes for the main content body."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "[CardFooter] Additional classes for the footer section."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import {\n  Card,\n  CardContent,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from "@/components/ui/card";\nimport { Button } from "@/components/ui/button";\n\nexport default function Example() {\n  return (\n    <Card>\n      <CardHeader>\n        <CardTitle>Create project</CardTitle>\n        <CardDescription>Deploy your new project in one-click.</CardDescription>\n      </CardHeader>\n      <CardContent>\n        <div className="flex flex-col space-y-1.5">\n          <span className="text-sm font-medium">Framework</span>\n          <span className="text-sm text-muted-foreground">Next.js</span>\n        </div>\n      </CardContent>\n      <CardFooter className="flex justify-between">\n        <Button variant="outline">Cancel</Button>\n        <Button>Deploy</Button>\n      </CardFooter>\n    </Card>\n  );\n}`,
+      params: { variant: "default" }
+    }
+  ]}
+>
+  <CardDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="card" />
+
+

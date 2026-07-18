@@ -1,0 +1,100 @@
+---
+title: Expandable Sidebar
+description: A sleek, modern vertical navigation rail that fluidly expands to reveal full text labels.
+category: Navigation
+---
+
+The `Expandable Sidebar` is a space-efficient navigation component. In its collapsed state, it acts as a minimalist icon rail. When interacted with, it expands fluidly using Framer Motion spring physics to reveal text labels, allowing users to navigate complex hierarchies without sacrificing permanent screen real estate.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Expandable Sidebar" 
+  componentName="ExpandableSidebar"
+  sourceFile="components/creative/expandable-sidebar.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Interaction Mode",
+      type: "select",
+      options: ["hover", "click", "floating"],
+      default: "hover"
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'hover' | 'click' | 'floating'",
+      default: "'hover'",
+      description: "Controls how the sidebar is toggled and if it pushes layout."
+    },
+    {
+      name: "collapsedWidth",
+      type: "number",
+      default: "72",
+      description: "Width of the sidebar in pixels when collapsed."
+    },
+    {
+      name: "expandedWidth",
+      type: "number",
+      default: "260",
+      description: "Width of the sidebar in pixels when expanded."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional Tailwind classes applied to the root container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Hover Expand",
+      code: `import { ExpandableSidebar, SidebarItem, SidebarHeader } from "@/components/creative/expandable-sidebar";\nimport { Home, User, Settings } from "lucide-react";\n\nexport function SidebarNav() {\n  return (\n    <ExpandableSidebar variant="hover">\n      <SidebarHeader>\n        <span className="font-bold text-lg text-white">MyApp</span>\n      </SidebarHeader>\n      \n      <div className="flex-1 py-4 flex flex-col gap-2">\n        <SidebarItem icon={<Home />} label="Dashboard" isActive />\n        <SidebarItem icon={<User />} label="Profile" />\n      </div>\n\n      <div className="pb-6">\n        <SidebarItem icon={<Settings />} label="Settings" />\n      </div>\n    </ExpandableSidebar>\n  );\n}`,
+      params: { variant: "hover" }
+    },
+    {
+      name: "Click to Toggle",
+      code: `import { ExpandableSidebar, SidebarItem, SidebarHeader } from "@/components/creative/expandable-sidebar";\nimport { Home, User, Settings } from "lucide-react";\n\nexport function SidebarNav() {\n  return (\n    <ExpandableSidebar variant="click">\n      <SidebarHeader>\n        <span className="font-bold text-lg text-white">MyApp</span>\n      </SidebarHeader>\n      \n      <div className="flex-1 py-4 flex flex-col gap-2">\n        <SidebarItem icon={<Home />} label="Dashboard" isActive />\n        <SidebarItem icon={<User />} label="Profile" />\n      </div>\n\n      <div className="pb-6">\n        <SidebarItem icon={<Settings />} label="Settings" />\n      </div>\n    </ExpandableSidebar>\n  );\n}`,
+      params: { variant: "click" }
+    },
+    {
+      name: "Floating Overlay",
+      code: `import { ExpandableSidebar, SidebarItem, SidebarHeader } from "@/components/creative/expandable-sidebar";\nimport { Home, User, Settings } from "lucide-react";\n\nexport function SidebarNav() {\n  return (\n    <ExpandableSidebar variant="floating">\n      <SidebarHeader>\n        <span className="font-bold text-lg text-white">MyApp</span>\n      </SidebarHeader>\n      \n      <div className="flex-1 py-4 flex flex-col gap-2">\n        <SidebarItem icon={<Home />} label="Dashboard" isActive />\n        <SidebarItem icon={<User />} label="Profile" />\n      </div>\n\n      <div className="pb-6">\n        <SidebarItem icon={<Settings />} label="Settings" />\n      </div>\n    </ExpandableSidebar>\n  );\n}`,
+      params: { variant: "floating" }
+    }
+  ]}
+>
+  <ExpandableSidebarDemo />
+</ComponentPreview>
+
+## SidebarItem Props
+
+<PropsTable 
+  props={[
+    {
+      name: "icon",
+      type: "ReactNode",
+      default: "Required",
+      description: "The icon displayed for this navigation item."
+    },
+    {
+      name: "label",
+      type: "string",
+      default: "Required",
+      description: "The text label revealed when the sidebar expands."
+    },
+    {
+      name: "href",
+      type: "string",
+      default: "—",
+      description: "If provided, renders the item as an anchor tag `<a>`."
+    },
+    {
+      name: "isActive",
+      type: "boolean",
+      default: "false",
+      description: "Highlights the item as the current active page."
+    }
+  ]} 
+/>

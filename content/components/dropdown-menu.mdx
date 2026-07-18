@@ -1,0 +1,31 @@
+---
+title: Dropdown Menu
+description: Displays a menu to the user—such as a set of actions or functions—triggered by a button.
+category: Navigation
+---
+
+Displays a menu to the user—such as a set of actions or functions—triggered by a button.
+
+## Preview
+
+<ComponentPreview 
+  name="Dropdown Menu" 
+  componentName="DropdownMenu"
+  sourceFile="components/ui/dropdown-menu.tsx"
+  propsData={[
+    {
+      name: "Inherits Props",
+      type: "Radix UI",
+      default: "—",
+      description: "Supports standard Radix UI Dropdown Menu primitives."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from "@/components/ui/dropdown-menu"\nimport { Button } from "@/components/ui/button"\n\nexport default function Example() {\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant="outline">Open</Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent>\n        <DropdownMenuLabel>My Account</DropdownMenuLabel>\n        <DropdownMenuSeparator />\n        <DropdownMenuItem>Profile</DropdownMenuItem>\n        <DropdownMenuItem>Billing</DropdownMenuItem>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n}`
+    }
+  ]}
+>
+  <DropdownDemo />
+</ComponentPreview>

@@ -1,0 +1,77 @@
+---
+title: Shiny Text
+description: A lightweight, CSS gradient animation that sweeps across text to create a metallic or glowing shine effect.
+category: Text Effects
+---
+
+The `ShinyText` component uses Framer Motion and `background-clip: text` to animate a linear gradient across text. It's perfect for highlighting premium features, drawing attention to calls-to-action, or adding subtle polish to headings. Now updated with **4 built-in animation variants**.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Shiny Text" 
+  componentName="ShinyText"
+  sourceFile="components/creative/shiny-text.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["standard", "fast", "slow", "pulse"],
+      default: "standard"
+    },
+    {
+      name: "text",
+      label: "Text",
+      type: "string",
+      default: "Premium Features"
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      default: "Required",
+      description: "The text to display and animate."
+    },
+    {
+      name: "variant",
+      type: "'standard' | 'slow' | 'fast' | 'pulse'",
+      default: "'standard'",
+      description: "The animation preset to use."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "—",
+      description: "Custom duration in seconds. Overrides the variant's default speed."
+    },
+    {
+      name: "shimmerWidth",
+      type: "number",
+      default: "100",
+      description: "Controls the width of the shimmer gradient (currently unused in pulse variant)."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional Tailwind classes for typography styling."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { ShinyText } from '@/components/creative/shiny-text';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[300px] items-center justify-center bg-black">\n      <h2 className="text-4xl font-bold">\n        <ShinyText text="Premium Features" variant="standard" />\n      </h2>\n    </div>\n  );\n}`,
+      params: { variant: "standard", text: "Premium Features" }
+    }
+  ]}
+>
+  <ShinyTextDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="shiny-text" />
+
+

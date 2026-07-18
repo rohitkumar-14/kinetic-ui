@@ -1,0 +1,87 @@
+---
+title: Magnifying Glass
+description: An x-ray lens that reveals a secret layout underneath your cursor.
+category: Mouse Interactions
+---
+
+The `MagnifyingGlass` component creates a stunning "x-ray" or "flashlight" effect by rendering two completely different layouts on top of each other. 
+
+It uses `framer-motion` to track the user's cursor with spring physics, and applies a dynamic CSS `mask-image` with a radial gradient to the top layer. The result is a smooth, performant lens that reveals the secret `lensContent` exactly where the user hovers!
+
+## Live Preview
+
+<ComponentPreview 
+  name="Magnifying Glass" 
+  componentName="MagnifyingGlass"
+  sourceFile="components/creative/magnifying-glass.tsx"
+  playgroundControls={[
+    {
+      name: "lensSize",
+      label: "Lens Diameter",
+      type: "number",
+      default: 250,
+      min: 100,
+      max: 600,
+      step: 10
+    },
+    {
+      name: "smoothing",
+      label: "Smoothing (Spring)",
+      type: "number",
+      default: 0.1,
+      min: 0.01,
+      max: 0.5,
+      step: 0.01
+    }
+  ]}
+  propsData={[
+    {
+      name: "mainContent",
+      type: "React.ReactNode",
+      default: "Required",
+      description: "The base layout that is visible when the user is not hovering, or outside the lens radius."
+    },
+    {
+      name: "lensContent",
+      type: "React.ReactNode",
+      default: "Required",
+      description: "The secret layout that is only revealed inside the magnifying glass."
+    },
+    {
+      name: "lensSize",
+      type: "number",
+      default: "150",
+      description: "The diameter of the magnifying glass in pixels."
+    },
+    {
+      name: "smoothing",
+      type: "number",
+      default: "0.15",
+      description: "Controls the mass/delay of the lens tracking. A higher number makes the lens feel heavier and drag behind the cursor."
+    },
+    {
+      name: "lensClassName",
+      type: "string",
+      default: "—",
+      description: "Optional Tailwind classes to style the visible glass ring itself."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { MagnifyingGlass } from "@/components/creative/magnifying-glass";\n\nexport default function Example() {\n  return (\n    <MagnifyingGlass\n      lensSize={200}\n      smoothing={0.1}\n      mainContent={\n        <div className="w-full h-[400px] bg-zinc-900 flex items-center justify-center">\n          <h1 className="text-white text-4xl">Client View</h1>\n        </div>\n      }\n      lensContent={\n        <div className="w-full h-full bg-emerald-900 flex items-center justify-center font-mono">\n          <h1 className="text-emerald-400 text-4xl">&lt;Code View /&gt;</h1>\n        </div>\n      }\n    />\n  );\n}`,
+      params: { lensSize: 200, smoothing: 0.1 }
+    }
+  ]}
+>
+  <MagnifyingGlassDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="magnifying-glass" />
+
+> [!TIP]
+> **Performance:** We use native CSS custom properties (`--lens-x`, `--lens-y`) inside a Framer Motion `onUpdate` callback to update the mask position. This bypasses the React render cycle completely, guaranteeing 60fps tracking even if the underlying layouts are extremely complex.
+
+

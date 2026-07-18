@@ -1,0 +1,49 @@
+---
+title: Checkbox
+description: A control that allows the user to toggle between checked and not checked.
+category: Forms
+---
+
+The `Checkbox` component is used in forms when a user needs to select one or more items from a list, or to indicate a boolean value (e.g., "I agree to the terms"). It is built on Radix UI's Checkbox primitive.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Checkbox" 
+  componentName="Checkbox"
+  sourceFile="components/ui/checkbox.tsx"
+  playgroundControls={[
+    { name: "variant", type: "select", options: ["default", "checked", "text", "disabled"], default: "default", label: "Variant" }
+  ]}
+  propsData={[
+    { name: "Inherits Props", type: "Radix UI", default: "—", description: "Inherits all standard properties from @radix-ui/react-checkbox." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { Checkbox } from "@/components/ui/checkbox";\n\nexport default function Example() {\n  return (\n    <div className="flex items-center space-x-2">\n      <Checkbox id="terms" />\n      <label\n        htmlFor="terms"\n        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"\n      >\n        Accept terms and conditions\n      </label>\n    </div>\n  );\n}`
+    },
+    {
+      name: "Checked",
+      code: `import { Checkbox } from "@/components/ui/checkbox";\n\nexport default function Example() {\n  return (\n    <div className="flex items-center space-x-2">\n      <Checkbox id="terms-checked" defaultChecked />\n      <label\n        htmlFor="terms-checked"\n        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"\n      >\n        Accept terms and conditions\n      </label>\n    </div>\n  );\n}`
+    },
+    {
+      name: "With Text",
+      code: `import { Checkbox } from "@/components/ui/checkbox";\n\nexport default function Example() {\n  return (\n    <div className="flex items-start space-x-2">\n      <Checkbox id="terms-text" />\n      <div className="grid gap-1.5 leading-none">\n        <label\n          htmlFor="terms-text"\n          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"\n        >\n          Accept terms and conditions\n        </label>\n        <p className="text-sm text-muted-foreground">\n          You agree to our Terms of Service and Privacy Policy.\n        </p>\n      </div>\n    </div>\n  );\n}`
+    },
+    {
+      name: "Disabled",
+      code: `import { Checkbox } from "@/components/ui/checkbox";\n\nexport default function Example() {\n  return (\n    <div className="flex items-center space-x-2">\n      <Checkbox id="terms-disabled" disabled />\n      <label\n        htmlFor="terms-disabled"\n        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 opacity-50"\n      >\n        Accept terms and conditions\n      </label>\n    </div>\n  );\n}`
+    }
+  ]}
+>
+  <CheckboxDemo variant="default" />
+  <CheckboxDemo variant="checked" />
+  <CheckboxDemo variant="text" />
+  <CheckboxDemo variant="disabled" />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="checkbox" />
+

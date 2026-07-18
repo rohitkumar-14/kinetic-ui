@@ -1,0 +1,31 @@
+---
+title: FAQ Section
+description: A Frequently Asked Questions section utilizing the Accordion primitive.
+category: Blocks & Templates
+---
+
+A Frequently Asked Questions section utilizing the Accordion primitive. Enhanced with smooth layout animations and premium typography, suitable for marketing and support pages.
+
+## Live Preview
+
+<ComponentPreview 
+  name="FAQ Section" 
+  variants={[
+    {
+      name: "Default",
+      code: `import { FaqSection } from "@/components/creative/faq-section";\n\nconst faqs = [\n  {\n    question: "Is there a free trial available?",\n    answer: "Yes, you can try us for free for 30 days."\n  },\n  {\n    question: "Can I change my plan later?",\n    answer: "Of course. Our pricing scales with your company."\n  }\n];\n\nexport default function Example() {\n  return (\n    <FaqSection items={faqs} />\n  );\n}`
+    }
+  ]}
+>
+  <FaqSectionDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="faq-section" />
+
+## Props
+
+- `title`: The main headline of the section.
+- `description`: The supporting text below the headline.
+- `items`: An array of FAQ objects containing `question` and `answer`. The `answer` can be a string or a React node.

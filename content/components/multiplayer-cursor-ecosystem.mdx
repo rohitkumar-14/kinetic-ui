@@ -1,0 +1,29 @@
+---
+title: "Multiplayer Cursor Ecosystem"
+description: "A highly optimized, Framer Motion-driven system for rendering real-time collaborative cursors."
+category: "Real-time & Interaction"
+---
+
+Simulate a Figma-like multiplayer environment. Automatically interpolates position data using spring physics to ensure buttery smooth movement across the screen. Includes an AI 'Ghost Mode'.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Multiplayer Cursor Ecosystem" 
+  componentName="MultiplayerCursorEcosystem"
+  sourceFile="components/creative/multiplayer-cursor-ecosystem.tsx"
+  playgroundControls={[
+    {
+      name: "ghostMode",
+      label: "Enable Ghost AI",
+      type: "boolean",
+      default: true
+    }
+  ]}
+>
+  <MultiplayerCursorEcosystemDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="multiplayer-cursor-ecosystem" />

@@ -1,0 +1,40 @@
+---
+title: Client Logo Grid
+description: A responsive bento-style grid for trust markers and partner logos.
+---
+
+<ComponentPreview 
+  name="client-logo-grid"
+  componentName="ClientLogoGrid"
+  sourceFile="components/creative/client-logo-grid.tsx"
+>
+  <ClientLogoGridDemo />
+</ComponentPreview>
+
+## Overview
+While the `LogoMarquee` is great for sheer volume, a static `ClientLogoGrid` is often better for B2B sites where you want visitors to clearly recognize specific high-value partners.
+
+This component features a robust CSS Grid layout that naturally responsive, and includes a classic interaction: logos sit in a grayscale, low-opacity state to blend into the design, and transition to full color on hover, revealing tooltips for clarity.
+
+## Usage
+
+```tsx
+import { ClientLogoGrid } from "@/components/creative/client-logo-grid"
+
+export default function TrustBar() {
+  const logos = [
+    { id: 1, name: "Vercel", src: "/logos/vercel.svg" },
+    { id: 2, name: "Stripe", src: "/logos/stripe.svg" },
+    // ...
+  ]
+
+  return (
+    <section className="py-24 border-y border-white/10">
+      <div className="max-w-6xl mx-auto px-6">
+        <p className="text-center text-zinc-500 mb-12">Trusted by the best teams</p>
+        <ClientLogoGrid logos={logos} />
+      </div>
+    </section>
+  )
+}
+```

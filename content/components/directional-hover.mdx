@@ -1,0 +1,99 @@
+---
+title: Directional Hover
+description: A smart card wrapper that detects mouse entry direction and animates an overlay with 5 unique effects.
+category: Mouse Interactions
+---
+
+The `DirectionalHover` component tracks mouse events and calculates the angle of entry relative to the center of the bounding box. It then uses Framer Motion's `AnimatePresence` with custom variants to animate an overlay from the exact edge your cursor crossed — with **5 distinct animation effects**.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Directional Hover" 
+  componentName="DirectionalHover"
+  sourceFile="components/creative/directional-hover.tsx"
+  playgroundControls={[
+    {
+      name: "effect",
+      label: "Animation Effect",
+      type: "select",
+      options: ["slide", "fade", "scale", "flip", "blur"],
+      default: "slide"
+    }
+  ]}
+  propsData={[
+    {
+      name: "effect",
+      type: "'slide' | 'fade' | 'scale' | 'flip' | 'blur'",
+      default: "'slide'",
+      description: "The animation style for the overlay entrance/exit."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "—",
+      description: "Accent color (hex) applied as the overlay background. Overrides overlayClassName backgrounds."
+    },
+    {
+      name: "duration",
+      type: "number",
+      default: "0.3–0.4",
+      description: "Transition duration in seconds. Each effect has an optimized default."
+    },
+    {
+      name: "dimOnHover",
+      type: "boolean",
+      default: "true",
+      description: "When true, the base content subtly scales up and dims on hover for depth."
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      default: "Required",
+      description: "The base content of the card (always visible)."
+    },
+    {
+      name: "overlayContent",
+      type: "ReactNode",
+      default: "Required",
+      description: "The content displayed inside the hover overlay."
+    },
+    {
+      name: "overlayClassName",
+      type: "string",
+      default: "—",
+      description: "Additional classes for the overlay (e.g. custom background, text color)."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { DirectionalHover } from '@/components/creative/directional-hover';\nimport { ArrowUpRight } from 'lucide-react';\n\nexport default function Example() {\n  return (\n    <div className="p-10 flex justify-center bg-zinc-950">\n      <DirectionalHover\n        effect="slide"\n        color="#818cf8"\n        className="h-48 w-48 rounded-2xl cursor-pointer"\n        overlayContent={\n          <div className="flex flex-col items-center gap-2 text-white">\n            <ArrowUpRight className="h-6 w-6" />\n            <span className="text-sm font-semibold">View Project</span>\n          </div>\n        }\n      >\n        <div className="h-full w-full rounded-2xl bg-zinc-900 border border-white/5 flex items-center justify-center">\n          <span className="text-zinc-500">Hover me</span>\n        </div>\n      </DirectionalHover>\n    </div>\n  );\n}`,
+      params: { effect: "slide" }
+    }
+  ]}
+>
+  <DirectionalHoverDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="directional-hover" />
+
+## Props
+
+
+
+## Effects
+
+| Effect | Animation | Feel |
+|---|---|---|
+| `slide` | Full slide from entry edge | Classic, snappy |
+| `fade` | Opacity crossfade | Subtle, elegant |
+| `scale` | Expand from entry edge | Curtain reveal |
+| `flip` | 3D perspective rotation | Dramatic, playful |
+| `blur` | Slide with gaussian blur dissolve | Dreamy, cinematic |
+
+## How it Works
+
+The component calculates the angle between the cursor and the card center using `Math.atan2`. It maps the result to one of four quadrants (top/right/bottom/left). That direction is passed as a `custom` prop to Framer Motion variants, which adapt the initial/exit animation accordingly. The `effect` prop selects which set of variants to use — from simple opacity fades to perspective-aware 3D flips.

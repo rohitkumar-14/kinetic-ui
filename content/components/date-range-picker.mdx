@@ -1,0 +1,39 @@
+---
+title: Date Range Picker
+description: A popover calendar component for selecting a date range.
+category: Forms
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Date Range Picker" 
+  componentName="DateRangePicker"
+  sourceFile="components/ui/date-range-picker.tsx"
+  playgroundControls={[
+    { name: "placeholder", type: "string", default: "Pick a date range", label: "Placeholder Text" }
+  ]}
+  propsData={[
+    { name: "date", type: "DateRange | undefined", description: "The currently selected date range." },
+    { name: "onDateChange", type: "(date: DateRange | undefined) => void", description: "Callback when the date range is changed." },
+    { name: "placeholder", type: "string", description: "Placeholder text for the input when no date is selected." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { useState } from "react";\nimport { DateRangePicker } from "@/components/ui/date-range-picker";\nimport { DateRange } from "react-day-picker";\n\nexport default function Example() {\n  const [date, setDate] = useState<DateRange | undefined>();\n  return <DateRangePicker date={date} onDateChange={setDate} placeholder="Select trip dates" />;\n}`
+    }
+  ]}
+>
+  <div className="flex items-center justify-center p-6 w-full">
+    <DateRangePicker />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="date-range-picker" />
+
+## Overview
+
+A robust date range picker built on top of `react-day-picker` and our standard `Popover` primitive. It inherits the global theme and CSS variables.
+

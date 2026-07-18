@@ -1,0 +1,46 @@
+---
+title: Velocity Marquee
+description: A premium scrolling marquee that dynamically accelerates and decelerates based on the user's scroll speed, built with Framer Motion.
+category: Marquees
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Velocity Marquee" 
+  componentName="VelocityMarquee"
+  sourceFile="components/creative/velocity-marquee.tsx"
+  playgroundControls={[
+    { name: "baseVelocity", type: "number", default: 3, label: "Base Speed", min: -10, max: 10, step: 1 }
+  ]}
+>
+  <VelocityMarqueeDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="velocity-marquee" />
+
+## Usage
+
+```tsx
+import { VelocityMarquee } from "@/components/creative/velocity-marquee";
+
+export default function Page() {
+  return (
+    <VelocityMarquee baseVelocity={5}>
+      <span className="text-4xl font-bold px-4">
+        Scroll fast to see me accelerate!
+      </span>
+    </VelocityMarquee>
+  );
+}
+```
+
+## How it works
+
+This component leverages Framer Motion's `useScroll` and `useVelocity` hooks to calculate how fast the user is scrolling the page. 
+
+1. **Velocity Tracking**: As you scroll, `useVelocity` outputs the scroll speed in pixels per second.
+2. **Spring Dampening**: We pass the raw velocity into a `useSpring` to smooth out sudden stops (so the marquee doesn't jerk violently when you stop scrolling).
+3. **Animation Loop**: A `useAnimationFrame` loop continuously updates the `x` position of the items. It calculates the offset by combining the `baseVelocity` with the dampened scroll velocity factor. 
+4. **Wrapping**: Finally, `wrap()` ensures that when the items scroll out of view on one side, they seamlessly snap back to the other side to create the infinite illusion.

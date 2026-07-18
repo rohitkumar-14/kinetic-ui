@@ -1,0 +1,54 @@
+---
+title: Desktop Window System
+description: A complete macOS-style windowing environment. Features draggable windows, fullscreen expansion, z-index context management, and glassmorphic UI.
+category: Layout & Data
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Desktop OS System" 
+  componentName="DesktopEnvironment"
+  sourceFile="components/creative/desktop-window.tsx"
+>
+  <DesktopWindowDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="desktop-window" />
+
+## Usage
+
+```tsx
+import { DesktopEnvironment, DraggableWindow } from "@/components/creative/desktop-window";
+
+export default function Page() {
+  return (
+    <div className="h-screen w-full">
+      <DesktopEnvironment backgroundUrl="/wallpapers/macos-ventura.jpg">
+        
+        <DraggableWindow 
+          id="term1" 
+          title="Terminal - zsh"
+          defaultPosition={{ x: 100, y: 100 }}
+          defaultSize={{ width: 600, height: 400 }}
+        >
+          <div className="p-4 font-mono text-green-400">
+            $ npm run dev
+          </div>
+        </DraggableWindow>
+
+      </DesktopEnvironment>
+    </div>
+  );
+}
+```
+
+## How it works
+
+This component builds a robust "Operating System" layer inside the browser using React Context and Framer Motion.
+
+1. **`DesktopContext` Z-Index Management**: The `DesktopEnvironment` acts as a context provider tracking the `highestZ` variable. Whenever a user clicks on *any* `DraggableWindow`, that window calls `bringToFront()`, which increments `highestZ` by 1 and assigns it to itself, instantly popping it above all other windows.
+2. **`useDragControls`**: By attaching Framer Motion's drag controls specifically to the top title bar of the window, we prevent the user from accidentally dragging the window when they try to highlight text inside the window body.
+3. **`dragConstraints`**: The `DesktopEnvironment` passes its `ref` down through the context, so windows are strictly constrained to the desktop boundaries and cannot be dragged off-screen.
+4. **Window State**: Supports minimize (hides the component), maximize (animates width/height to 100%), and close (calls the `onClose` prop to unmount it).

@@ -1,0 +1,81 @@
+---
+title: Text Reveal
+description: A scroll-triggered staggered text animation that reveals words sequentially.
+category: Text Effects
+---
+
+The `TextReveal` component breaks a string down into individual words and orchestrates a highly customizable entrance sequence when the text scrolls into the viewport. Now updated to use **Framer Motion** (removing the GSAP dependency) with **4 distinct built-in variants**.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Text Reveal" 
+  componentName="TextReveal"
+  sourceFile="components/creative/text-reveal.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["slide-up", "slide-down", "scale", "fade"],
+      default: "slide-up"
+    },
+    {
+      name: "text",
+      label: "Text",
+      type: "string",
+      default: "Building the future of web interfaces."
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      default: "Required",
+      description: "The text string to animate."
+    },
+    {
+      name: "variant",
+      type: "'slide-up' | 'slide-down' | 'scale' | 'fade'",
+      default: "'slide-up'",
+      description: "The animation preset defining how the words enter."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Speed multiplier for the animation and stagger delay. Higher is faster."
+    },
+    {
+      name: "delay",
+      type: "number",
+      default: "0",
+      description: "Initial delay in seconds before the first word starts animating."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional Tailwind classes for the wrapper element."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { TextReveal } from '@/components/creative/text-reveal';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[300px] items-center justify-center bg-black px-12 text-center">\n      <h3 className="text-4xl font-black text-indigo-400">\n        <TextReveal text="Building the future of web interfaces." variant="slide-up" />\n      </h3>\n    </div>\n  );\n}`,
+      params: { variant: "slide-up", text: "Building the future of web interfaces." }
+    }
+  ]}
+>
+  <TextRevealDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="text-reveal" />
+
+
+
+## Viewport Logic
+
+The component utilizes Framer Motion's `useInView` hook with `margin: "-15% 0px"`. This ensures the stagger animation reliably triggers exactly once when the heading scrolls far enough into the viewport to be comfortably seen by the user.

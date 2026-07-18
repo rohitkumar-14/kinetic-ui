@@ -1,0 +1,65 @@
+---
+title: Team Section
+description: A marketing block used to showcase your company's team members and leaders.
+category: Marketing Sections
+---
+
+The `TeamSection` component is designed for "About Us" pages. It features multiple high-end layouts including minimal lists, grids, and glassmorphic interactive cards with integrated social links.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Team Section" 
+  variants={[
+    {
+      name: "Default Grid",
+      code: `import { TeamSection } from "@/components/creative/team-section";\n\nconst team = [\n  {\n    id: "1",\n    name: "Alex Rivera",\n    role: "Lead Developer",\n    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",\n    socials: { twitter: "#", github: "#" }\n  }\n];\n\nexport default function Example() {\n  return (\n    <TeamSection \n      members={team} \n      variant="default"\n    />\n  );\n}`
+    },
+    {
+      name: "Interactive Cards",
+      code: `import { TeamSection } from "@/components/creative/team-section";\n\nconst team = [\n  {\n    id: "1",\n    name: "Alex Rivera",\n    role: "Lead Developer",\n    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",\n    bio: "Obsessed with shaders and micro-interactions.",\n    socials: { twitter: "#", github: "#" }\n  }\n];\n\nexport default function Example() {\n  return (\n    <TeamSection \n      members={team} \n      variant="cards"\n    />\n  );\n}`
+    },
+    {
+      name: "Minimal List",
+      code: `import { TeamSection } from "@/components/creative/team-section";\n\nconst team = [\n  {\n    id: "1",\n    name: "Alex Rivera",\n    role: "Lead Developer",\n    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",\n    socials: { twitter: "#", github: "#" }\n  }\n];\n\nexport default function Example() {\n  return (\n    <TeamSection \n      members={team} \n      variant="minimal"\n    />\n  );\n}`
+    }
+  ]}
+>
+  <TeamSectionDemo variant="default" />
+  <TeamSectionDemo variant="cards" />
+  <TeamSectionDemo variant="minimal" />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="team-section" />
+
+## Props
+
+<PropsTable 
+  props={[
+    {
+      name: "members",
+      type: "TeamMember[]",
+      description: "Array of team member objects (id, name, role, avatar, bio, socials)."
+    },
+    {
+      name: "title",
+      type: "string",
+      default: "'Meet Our Team'",
+      description: "Heading text for the section."
+    },
+    {
+      name: "description",
+      type: "string",
+      default: "'The brilliant minds behind our success.'",
+      description: "Subtitle or descriptive paragraph below the title."
+    },
+    {
+      name: "variant",
+      type: "'default' | 'cards' | 'minimal'",
+      default: "'default'",
+      description: "The visual style and layout of the team grid."
+    }
+  ]} 
+/>

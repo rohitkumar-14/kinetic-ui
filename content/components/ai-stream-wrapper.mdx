@@ -1,0 +1,58 @@
+---
+title: AI Stream Wrapper
+description: A generative AI-style wrapper that makes UI elements appear as if they are being compiled in real-time.
+category: Page Transitions
+---
+
+The `AIStreamWrapper` component wraps standard React children and reveals them using a staggered, glowing "skeleton dissolve" effect — mimicking the experience of AI generating a user interface in real-time (like Vercel's v0 or Claude Artifacts).
+
+It treats each direct child element as a discrete "block" and reveals them sequentially with:
+1. **Skeleton shimmer placeholders** that glow before the content appears.
+2. **A scanning line** that sweeps down the page as blocks are compiled.
+3. **Edge glow halos** that pulse around each element as it materializes.
+4. **A status bar** showing a typing indicator and a live progress counter.
+
+## Live Preview
+
+> [!TIP]
+> Click the **"Re-generate UI"** button to replay the effect!
+
+<ComponentPreview 
+  name="ai-stream-wrapper-demo" 
+  componentName="AIStreamWrapper"
+  sourceFile="components/creative/ai-stream-wrapper.tsx"
+  playgroundControls={[
+    { name: "staggerDelay", label: "Stagger Delay (ms)", type: "number", default: 350, min: 0, max: 1000, step: 50 },
+    { name: "dissolveDuration", label: "Dissolve Duration (ms)", type: "number", default: 500, min: 100, max: 2000, step: 100 },
+    { name: "statusText", label: "Status Text", type: "string", default: "Compiling dashboard components" },
+    { name: "glowColor", label: "Glow Color (RGB)", type: "string", default: "99, 102, 241" }
+  ]}
+  propsData={[
+    { name: "children", type: "React.ReactNode", default: "Required", description: "The UI content to reveal. Each direct child is treated as one sequential block." },
+    { name: "startDelay", type: "number", default: "500", description: "Milliseconds to wait before starting the generation effect." },
+    { name: "staggerDelay", type: "number", default: "200", description: "Milliseconds between each block's reveal." },
+    { name: "dissolveDuration", type: "number", default: "600", description: "Duration (ms) of each block's fade-in animation." },
+    { name: "showScanLine", type: "boolean", default: "true", description: "Whether to show the sweeping scan line effect." },
+    { name: "showStatus", type: "boolean", default: "true", description: "Whether to show the status bar with typing indicator and progress counter." },
+    { name: "statusText", type: "string", default: "'Generating interface'", description: "Custom text shown in the status bar during generation." },
+    { name: "trigger", type: "boolean", default: "true", description: "Controls when the animation fires. Toggle to re-trigger." },
+    { name: "glowColor", type: "string", default: "'99, 102, 241'", description: "RGB string for the glow/scan line color." }
+  ]}
+  variants={[
+    {
+      name: "Default Dashboard",
+      code: `import { AIStreamWrapper } from "@/components/creative/ai-stream-wrapper";\n\nexport default function Example() {\n  return (\n    <AIStreamWrapper staggerDelay={350} dissolveDuration={500} statusText="Compiling dashboard components">\n      <div className="h-24 bg-zinc-900 rounded-lg w-full mb-4" />\n      <div className="grid grid-cols-3 gap-4 mb-4">\n        <div className="h-32 bg-zinc-900 rounded-lg" />\n        <div className="h-32 bg-zinc-900 rounded-lg" />\n        <div className="h-32 bg-zinc-900 rounded-lg" />\n      </div>\n    </AIStreamWrapper>\n  );\n}`,
+      params: { staggerDelay: 350, dissolveDuration: 500, statusText: "Compiling dashboard components", glowColor: "99, 102, 241" }
+    }
+  ]}
+>
+  <AIStreamWrapperDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="ai-stream-wrapper" />
+
+> [!IMPORTANT]
+> **Block Granularity:** The wrapper treats each **direct child** as one "block" to reveal. If you want finer-grained control (e.g., reveal each stat card separately), wrap each one in its own `<div>` at the top level of the wrapper's children.
+

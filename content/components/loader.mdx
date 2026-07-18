@@ -1,0 +1,66 @@
+---
+title: Loader
+description: Visual indicators used to express an unspecified wait time or display the status of an ongoing process.
+category: Data Display
+---
+
+The `Loader` component gives users visual feedback during data fetching, form submissions, or while waiting for background operations to complete. It includes multiple design variants and scaling sizes.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Loader" 
+  componentName="Loader"
+  sourceFile="components/ui/loader.tsx"
+  playgroundControls={[
+    { name: "variant", type: "select", options: ["spinner", "dots", "pulse", "ring", "bars", "grid", "sizes"], default: "spinner", label: "Variant" }
+  ]}
+  propsData={[
+    { name: "variant", type: "'spinner' | 'dots' | 'pulse' | 'ring' | 'bars' | 'grid'", default: "'spinner'", description: "Controls the visual animation style of the loader." },
+    { name: "size", type: "'sm' | 'default' | 'lg' | 'xl'", default: "'default'", description: "Controls the dimensions of the loader element." },
+    { name: "className", type: "string", description: "Standard class name property to add custom styles." }
+  ]}
+  variants={[
+    {
+      name: "Spinner",
+      code: `import { Loader } from "@/components/ui/loader";\n\nexport default function Example() {\n  return <Loader />;\n}`
+    },
+    {
+      name: "Dots",
+      code: `import { Loader } from "@/components/ui/loader";\n\nexport default function Example() {\n  return <Loader variant="dots" className="text-indigo-400" />;\n}`
+    },
+    {
+      name: "Pulse",
+      code: `import { Loader } from "@/components/ui/loader";\n\nexport default function Example() {\n  return <Loader variant="pulse" className="text-pink-500" />;\n}`
+    },
+    {
+      name: "Ring",
+      code: `import { Loader } from "@/components/ui/loader";\n\nexport default function Example() {\n  return <Loader variant="ring" className="text-purple-400" />;\n}`
+    },
+    {
+      name: "Bars",
+      code: `import { Loader } from "@/components/ui/loader";\n\nexport default function Example() {\n  return <Loader variant="bars" className="text-emerald-400" />;\n}`
+    },
+    {
+      name: "Grid",
+      code: `import { Loader } from "@/components/ui/loader";\n\nexport default function Example() {\n  return <Loader variant="grid" className="text-cyan-400" />;\n}`
+    },
+    {
+      name: "Sizes",
+      code: `import { Loader } from "@/components/ui/loader";\n\nexport default function Example() {\n  return (\n    <div className="flex gap-4 items-end">\n      <Loader size="sm" />\n      <Loader size="default" />\n      <Loader size="lg" />\n      <Loader size="xl" />\n    </div>\n  );\n}`
+    }
+  ]}
+>
+  <LoaderDemo variant="spinner" />
+  <LoaderDemo variant="dots" />
+  <LoaderDemo variant="pulse" />
+  <LoaderDemo variant="ring" />
+  <LoaderDemo variant="bars" />
+  <LoaderDemo variant="grid" />
+  <LoaderDemo variant="sizes" />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="loader" />
+

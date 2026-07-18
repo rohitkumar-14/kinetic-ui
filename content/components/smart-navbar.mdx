@@ -1,0 +1,77 @@
+---
+title: Smart Navbar
+description: A navigation bar that hides when scrolling down and reveals when scrolling up.
+---
+
+<ComponentPreview 
+  name="smart-navbar"
+  componentName="SmartNavbar"
+  sourceFile="components/creative/smart-navbar.tsx"
+  playgroundControls={[
+    {
+      name: "threshold",
+      label: "Threshold (px)",
+      type: "number",
+      default: 50,
+      min: 0,
+      max: 200,
+      step: 10
+    },
+    {
+      name: "glass",
+      label: "Glass Effect",
+      type: "boolean",
+      default: true
+    }
+  ]}
+  propsData={[
+    {
+      name: "threshold",
+      type: "number",
+      default: "50",
+      description: "How many pixels to scroll down before the background/glass effect applies."
+    },
+    {
+      name: "glass",
+      type: "boolean",
+      default: "true",
+      description: "Whether to apply a backdrop-blur glassmorphism effect when scrolled."
+    },
+    {
+      name: "container",
+      type: "React.RefObject<HTMLElement>",
+      default: "undefined",
+      description: "Optional container ref if used inside a scrollable div instead of the window."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { SmartNavbar } from "@/components/creative/smart-navbar";\n\nexport default function Example() {\n  return (\n    <SmartNavbar threshold={50} glass={true} className="px-6 py-4">\n      <div className="font-bold text-white">Brand</div>\n      <div className="flex gap-4">\n        <a href="#">Home</a>\n        <a href="#">About</a>\n      </div>\n    </SmartNavbar>\n  );\n}`,
+      params: { threshold: 50, glass: true }
+    },
+    {
+      name: "Solid Background",
+      code: `import { SmartNavbar } from "@/components/creative/smart-navbar";\n\nexport default function Example() {\n  return (\n    <SmartNavbar threshold={100} glass={false} className="px-6 py-4">\n      <div className="font-bold text-white">Brand</div>\n      <div className="flex gap-4">\n        <a href="#">Home</a>\n        <a href="#">About</a>\n      </div>\n    </SmartNavbar>\n  );\n}`,
+      params: { threshold: 100, glass: false }
+    }
+  ]}
+>
+  <SmartNavbarDemo />
+</ComponentPreview>
+
+## Overview
+The most common navigation pattern on Awwwards-winning websites. This navigation bar stays out of the user's way while they read by hiding on scroll down, but instantly reappears the moment they scroll back up, offering easy access to navigation without wasting vertical space.
+
+## Usage
+
+```tsx
+import { SmartNavbar } from "@/components/creative/smart-navbar"
+```
+
+```tsx
+<SmartNavbar threshold={100} glass={true}>
+  <div>Logo</div>
+  <div>Menu Items</div>
+</SmartNavbar>
+```

@@ -1,0 +1,43 @@
+---
+title: Scroll-Linked Split
+description: Cinematic split reveal on scroll.
+---
+
+<ComponentPreview 
+  name="scroll-linked-split"
+  componentName="ScrollLinkedSplit"
+  sourceFile="components/creative/scroll-linked-split.tsx"
+  playgroundControls={[
+    {
+      name: "direction",
+      label: "Split Direction",
+      type: "select",
+      options: ["horizontal", "vertical"],
+      default: "horizontal"
+    }
+  ]}
+>
+  <ScrollLinkedSplitDemo />
+</ComponentPreview>
+
+## Overview
+A dramatic page transition component. As the user scrolls, the layout splits horizontally or vertically to reveal content underneath. This effect is heavily used on high-end storytelling sites to introduce new narrative sections.
+
+## Usage
+
+```tsx
+import { ScrollLinkedSplit } from "@/components/creative/scroll-linked-split"
+```
+
+```tsx
+<ScrollLinkedSplit
+  direction="horizontal"
+  leftContent={<div className="bg-black text-white h-full grid place-items-center">Left Door</div>}
+  rightContent={<div className="bg-black text-white h-full grid place-items-center">Right Door</div>}
+  revealContent={
+    <div className="text-4xl font-bold">
+      The Secret Content
+    </div>
+  }
+/>
+```

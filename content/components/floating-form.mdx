@@ -1,0 +1,37 @@
+---
+title: Floating Form
+description: Creative inputs panel with floating placeholder triggers.
+category: Forms
+---
+
+A highly polished, interactive form component toolkit. Built using Framer Motion, it features floating labels, dynamic glassmorphism focus states, and a smooth inline success state transition upon submission. Includes inputs, textareas, checkboxes, and radio buttons.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Floating Form Input" 
+  componentName="FloatingForm"
+  sourceFile="components/ui/floating-form.tsx"
+  playgroundControls={[
+    { name: "disabled", type: "boolean", default: false, label: "Disabled State" }
+  ]}
+  propsData={[
+    { name: "label", type: "string", description: "Required. The text used for both the floating label and the hidden placeholder." },
+    { name: "className", type: "string", description: "Optional. Tailwind classes to style the container border or glow." }
+  ]}
+>
+  <div className="w-full">
+    <FloatingFormDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="floating-form" />
+
+## Architecture
+
+We export four primary components: `FloatingInput`, `FloatingTextarea`, `FloatingCheckbox`, and `FloatingRadio`. 
+
+These components are un-controlled internally (for seamless visual animations) but can accept standard React `onChange` and `value`/`checked` props for controlled usage inside standard forms.
+

@@ -1,0 +1,38 @@
+---
+title: Generative UI Chat
+description: A ChatGPT-style interface capable of rendering complex React components natively inside chat bubbles.
+category: AI & Generative
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Generative UI Chat" 
+  componentName="GenerativeUIChat"
+  sourceFile="components/creative/generative-ui-chat.tsx"
+  playgroundControls={[
+    { name: "placeholder", type: "string", default: "Ask AI to generate a component...", label: "Input Placeholder" }
+  ]}
+  propsData={[
+    { name: "messages", type: "Message[]", description: "Array of chat messages. Each message takes an id, role, and ReactNode content." },
+    { name: "isGenerating", type: "boolean", default: "false", description: "If true, shows a pulsing loading indicator and disables the input." },
+    { name: "onSend", type: "(msg: string) => void", description: "Callback fired when the user submits a new prompt." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { GenerativeChat, Message } from "@/components/creative/generative-ui-chat";\n\nexport default function Example() {\n  const messages: Message[] = [\n    { id: "1", role: "user", content: "Show me my stats" },\n    { id: "2", role: "assistant", content: <div className="text-indigo-400">Custom React Node Stats</div> }\n  ];\n\n  return <GenerativeChat messages={messages} />;\n}`
+    }
+  ]}
+>
+  <GenerativeUIChatDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="generative-ui-chat" />
+
+## Architecture
+
+Standard chat interfaces pass `strings` or `markdown`. With modern LLMs utilizing "Tool Calling" or structured JSON outputs (like Vercel AI SDK), we can instead pass fully interactive React Components (often called *Artifacts*) directly into the chat flow.
+
+This container allows the `content` of a message to be a `React.ReactNode`. It handles auto-scrolling, spring animations for new bubbles, disabled states, and glowing inputs out of the box.

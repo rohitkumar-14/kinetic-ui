@@ -1,0 +1,39 @@
+---
+title: Sticky Sequence Container
+description: An Apple-style scrollytelling container that scrubs a video purely based on scroll progress.
+category: Scrollytelling
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Sticky Sequence Container" 
+  componentName="StickySequenceContainer"
+  sourceFile="components/creative/sticky-sequence-container.tsx"
+  playgroundControls={[
+    { name: "scrollDistance", type: "string", default: "2400px", label: "Scroll Distance" }
+  ]}
+  propsData={[
+    { name: "videoUrl", type: "string", description: "Required. URL of the video (MP4) to scrub through." },
+    { name: "scrollDistance", type: "string", default: "'300vh'", description: "The total distance required to scrub from start to finish. Larger values mean slower playback." },
+    { name: "stickyHeight", type: "string", default: "'100vh'", description: "The height of the sticky container (the visible viewport)." },
+    { name: "children", type: "ReactNode", description: "Content to display as an overlay above the video." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { StickySequenceContainer } from "@/components/creative/sticky-sequence-container";\n\nexport default function Example() {\n  return (\n    <StickySequenceContainer \n      videoUrl="https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"\n      scrollDistance="300vh"\n    >\n      <div className="flex items-center justify-center h-full">\n        <h1 className="text-white text-5xl font-bold">Scroll Down</h1>\n      </div>\n    </StickySequenceContainer>\n  );\n}`
+    }
+  ]}
+>
+  <StickySequenceDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="sticky-sequence-container" />
+
+## Architecture
+
+This component is the holy grail of cinematic web design. Instead of dealing with massive arrays of 150+ PNG sequences (which severely bloats bundles), it uses a much more performant method: **Video Scrubbing**.
+
+We leverage `framer-motion`'s `useScroll` to calculate exact page progress, map it to a `0-1` float, and manually set the `HTMLVideoElement.currentTime` to sync perfectly with the user's scroll wheel inside a sticky container.

@@ -1,0 +1,49 @@
+---
+title: Comparison Table
+description: A high-converting SaaS feature matrix with sticky headers and tooltips.
+---
+
+<ComponentPreview 
+  name="comparison-table"
+  componentName="ComparisonTable"
+  sourceFile="components/creative/comparison-table.tsx"
+>
+  <ComparisonTableDemo />
+</ComponentPreview>
+
+## Overview
+A pricing page is often the most important page on a SaaS website. The `ComparisonTable` component solves the most common UX problems with large feature matrices:
+
+1. **Sticky Headers**: As users scroll down through dozens of features, the plan names and prices stick to the top of the container, so they never lose context of which column they are evaluating.
+2. **Pro Highlighting**: Built-in support for highlighting the "Most Popular" plan column to drive conversions.
+3. **Tooltips**: Integrated hover tooltips for complex feature names without cluttering the layout.
+4. **Responsiveness**: Safely handles horizontal overflow on mobile devices so tables don't break your layout grid.
+
+## Usage
+
+```tsx
+import { ComparisonTable } from "@/components/creative/comparison-table"
+
+export default function Pricing() {
+  const plans = [
+    { id: 'free', name: 'Free', price: '$0' },
+    { id: 'pro', name: 'Pro', price: '$29', isPopular: true },
+  ]
+
+  const features = [
+    {
+      category: 'Features',
+      items: [
+        { name: 'API Access', values: { free: false, pro: true } },
+        { name: 'Bandwidth', values: { free: '10GB', pro: '100GB' } },
+      ]
+    }
+  ]
+
+  return (
+    <section className="py-20 max-w-5xl mx-auto">
+      <ComparisonTable plans={plans} features={features} />
+    </section>
+  )
+}
+```

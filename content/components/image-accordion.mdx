@@ -1,0 +1,35 @@
+---
+title: Horizontal Image Accordion
+description: A sleek layout where hovering over an image strip smoothly expands it to fill the screen while shrinking the others.
+category: Layout & Data
+---
+
+A highly fluid discovery experience. Utilizing hardware-accelerated CSS flex transitions layered with Framer Motion text animations, this component presents multiple narrow image strips side-by-side. When the user hovers over a strip, it seamlessly expands into a large focal point while the others organically shrink out of the way.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Horizontal Image Accordion" 
+  componentName="ImageAccordion"
+  sourceFile="components/creative/image-accordion.tsx"
+  playgroundControls={[
+    { name: "direction", type: "select", options: ["horizontal", "vertical"], default: "horizontal", label: "Direction" }
+  ]}
+  propsData={[
+    { name: "items", type: "AccordionImage[]", description: "An array of AccordionImage objects containing id, title, imageUrl, and optional subtitle." },
+    { name: "className", type: "string", description: "Optional Tailwind classes for the outer container." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { ImageAccordion } from "@/components/creative/image-accordion";\n\nconst items = [\n  {\n    id: "1",\n    title: "Panel 1",\n    imageUrl: "https://example.com/img1.jpg"\n  }\n];\n\nexport default function Example() {\n  return (\n    <ImageAccordion items={items} />\n  );\n}`
+    }
+  ]}
+>
+  <ImageAccordionDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="image-accordion" />
+

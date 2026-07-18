@@ -1,0 +1,36 @@
+---
+title: Chart
+description: A theme-aware wrapper for Recharts that automatically syncs with your global CSS variables.
+category: Data Display
+author: Kinetic
+---
+
+A robust wrapper around the `recharts` library. Instead of hardcoding hex colors into your charts, this component automatically injects your Theme Customizer's CSS variables (like `--primary`) into the charts. This ensures your data visualizations always match your site's exact aesthetic, even when switching to dark mode.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Chart"
+  componentName="Chart"
+  sourceFile="components/ui/chart.tsx"
+  playgroundControls={[
+    { name: "theme", type: "select", options: ["dark", "light"], default: "dark", label: "Theme" }
+  ]}
+  propsData={[
+    { name: "Inherits Props", type: "Recharts", default: "—", description: "Inherits configuration properties mapped to Recharts components." }
+  ]}
+>
+  <div className="w-full p-2 sm:p-6">
+    <ChartDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="chart" />
+
+## Architecture
+
+The `ChartContainer` component provides a React Context that maps a `config` object containing labels and CSS colors down to the tooltip and the SVG charts. 
+
+By defining colors as CSS variables internally, you can effortlessly swap out themes or toggle dark mode, and your recharts will instantly update without requiring a full React re-render.

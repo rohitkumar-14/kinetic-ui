@@ -1,0 +1,66 @@
+---
+title: Logo Marquee
+description: A customizable, infinitely looping marquee for logos or text using Framer Motion.
+category: Text & Typography
+---
+
+A highly polished, infinitely looping marquee component built with Framer Motion. It seamlessly supports horizontal and vertical scrolling, adjustable speeds, pausing on hover, and custom gradient masks. Perfect for showcasing trusted partners, tech stacks, or features.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Logo Marquee" 
+  componentName="LogoMarquee"
+  sourceFile="components/creative/logo-marquee.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Layout Variant",
+      type: "select",
+      options: ["horizontal", "vertical", "perspective"],
+      default: "horizontal"
+    }
+  ]}
+  propsData={[
+    {
+      name: "children",
+      type: "React.ReactNode",
+      description: "The logos or elements you want to scroll."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Multiplier for the animation speed."
+    },
+    {
+      name: "direction",
+      type: "\"left\" | \"right\" | \"up\" | \"down\"",
+      default: "\"left\"",
+      description: "The direction of the scroll."
+    },
+    {
+      name: "pauseOnHover",
+      type: "boolean",
+      default: "true",
+      description: "Pauses the animation when the user hovers over the component."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { LogoMarquee } from "@/components/creative/logo-marquee";\nimport { Github, Twitter, Figma } from "lucide-react";\n\nexport default function Example() {\n  return (\n    <div className="w-full flex items-center justify-center py-12">\n      <LogoMarquee direction="left" speed={1}>\n        <Github className="w-10 h-10 mx-4" />\n        <Twitter className="w-10 h-10 mx-4" />\n        <Figma className="w-10 h-10 mx-4" />\n      </LogoMarquee>\n    </div>\n  );\n}`,
+      params: { variant: "horizontal" }
+    }
+  ]}
+>
+  <LogoMarqueeDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="logo-marquee" />
+
+## Props
+
+

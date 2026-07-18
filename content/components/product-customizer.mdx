@@ -1,0 +1,46 @@
+---
+title: Interactive 3D Customizer
+description: A WebGL product configurator built with React Three Fiber. Allows users to rotate a 3D model and dynamically swap material colors in real-time.
+category: 3D Components
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="3D Product Customizer" 
+  componentName="ProductCustomizer"
+  sourceFile="components/creative/product-customizer.tsx"
+>
+  <ProductCustomizerDemo />
+</ComponentPreview>
+
+## Installation
+
+You will need to install the Three.js ecosystem:
+
+```bash
+npm install three @react-three/fiber @react-three/drei
+```
+
+<CliInstallCommand componentName="product-customizer" />
+
+## Usage
+
+```tsx
+import { ProductCustomizer } from "@/components/creative/product-customizer";
+
+export default function Page() {
+  return (
+    <div className="w-full max-w-6xl mx-auto">
+      <ProductCustomizer />
+    </div>
+  );
+}
+```
+
+## How it works
+
+This component merges standard React state (`useState`) with the React Three Fiber (`useFrame`) render loop to create a highly optimized interactive 3D experience.
+
+1. **State Management**: The UI sidebar uses standard React state to track the active hex colors for the `base`, `accent`, and `core` materials.
+2. **Animation Loop**: Instead of abruptly snapping to a new color when a user clicks a swatch, we pass the hex color down to an `AnimatedMaterial` component. Inside that component, a `useFrame` hook continuously calls Three.js's native `.lerp()` function to smoothly blend the current material color into the target material color at 60fps.
+3. **Environment & Lighting**: We use `@react-three/drei`'s `Environment` preset ("city") to provide realistic HDRI lighting and reflections on the metallic surfaces. The `ContactShadows` component renders a realistic, blurring shadow directly underneath the floating geometry.

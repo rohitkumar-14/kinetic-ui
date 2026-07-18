@@ -1,0 +1,46 @@
+---
+title: Spatial UI (VisionOS)
+description: A suite of 3D, depth-aware components inspired by Apple Vision Pro's eye-tracking and spatial computing interface.
+category: AI & Generative
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Spatial UI" 
+  componentName="SpatialCard"
+  sourceFile="components/creative/spatial-ui.tsx"
+>
+  <SpatialUIDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="spatial-ui" />
+
+## Usage
+
+```tsx
+import { SpatialCard, SpatialButton } from "@/components/creative/spatial-ui";
+
+export default function Page() {
+  return (
+    <SpatialCard className="w-96 h-64">
+      <div className="flex flex-col h-full items-center justify-center gap-6">
+        <h2 className="text-2xl text-white font-light">Spatial Computing</h2>
+        
+        <SpatialButton onClick={() => alert("Clicked!")}>
+          Enter Environment
+        </SpatialButton>
+      </div>
+    </SpatialCard>
+  );
+}
+```
+
+## How it works
+
+This component heavily leverages Framer Motion's `useMotionValue` and `useSpring` to map your cursor position to a 3D coordinate space.
+
+- **Perspective & Depth**: The parent container uses `perspective: 2000px`, and the inner content wrapper uses `translateZ` to physically push the content outward towards the user.
+- **Specular Highlights**: A dynamic CSS `radial-gradient` follows your mouse cursor across the card, simulating real-world light reflecting off a glass surface.
+- **Magnetic Buttons**: The `SpatialButton` components actually move their `x` and `y` coordinates slightly towards your cursor, mimicking the "magnetic snap" effect seen in VisionOS when you look at a button.

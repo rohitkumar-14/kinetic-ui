@@ -1,0 +1,35 @@
+---
+title: Glitch Transition
+description: A high-intensity, cyberpunk-style routing transition that tears the screen with chromatic aberration and digital noise.
+category: Page Transitions
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Glitch Transition" 
+  componentName="GlitchTransition"
+  sourceFile="components/creative/glitch-transition.tsx"
+  playgroundControls={[
+    { name: "text", type: "string", default: "SYSTEM ERROR", label: "Glitch Text" }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { GlitchTransition } from "@/components/creative/glitch-transition";\nimport { useState } from "react";\n\nexport default function Example() {\n  const [isActive, setIsActive] = useState(false);\n\n  return (\n    <div>\n      <button onClick={() => setIsActive(true)}>Trigger</button>\n      <GlitchTransition \n        isActive={isActive} \n        text="LOADING"\n      />\n    </div>\n  );\n}`
+    }
+  ]}
+>
+  <GlitchTransitionDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="glitch-transition" />
+
+## Architecture
+
+To achieve a true "digital tear" without destroying the browser's paint performance, this component relies on three overlapping text layers and a set of `clip-path` masks:
+
+1. **Chromatic Split**: We render three identical text nodes precisely on top of each other. The base layer is white, the left layer is `text-red-500`, and the right layer is `text-cyan-500`.
+2. **Jitter & Blend**: We apply `mix-blend-screen` to the text wrapper. Framer Motion rapidly shifts the red and cyan layers left and right at sub-second intervals.
+3. **Screen Tearing**: We use absolute `div` elements with fixed horizontal `clip-path` rectangles (e.g., `inset(20% 0 80% 0)`) that flash across the screen to simulate horizontal scanning tears.

@@ -1,0 +1,79 @@
+---
+title: Scroll Progress
+description: A top-bar or circular floating scroll progress indicator with smooth spring physics, neon glows, and a scroll-to-top interaction hook.
+category: Scroll Systems
+---
+
+The `ScrollProgress` component indicates the page's current scroll depth using clean, performant SVG drawings and CSS transforms. It supports two main layout configurations (horizontal progress bar or floating circular progress widget) and multiple color schemes with custom sizes, thicknesses, and neon glows.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Scroll Progress" 
+  componentName="ScrollProgress"
+  sourceFile="components/creative/scroll-progress.tsx"
+  playgroundControls={[
+    { name: "theme", type: "select", options: ["cyber", "emerald", "ember", "sunset", "white"], default: "cyber", label: "Theme" }
+  ]}
+  propsData={[
+    { name: "variant", type: "'bar' | 'circle'", default: "'bar'", description: "Selects the layout: top bar or bottom-right floating circular action widget." },
+    { name: "theme", type: "'cyber' | 'emerald' | 'ember' | 'sunset' | 'white'", default: "'cyber'", description: "Visual theme with pre-configured color schemes." },
+    { name: "height", type: "number", default: "4", description: "For 'bar' variant: height of the progress bar in pixels." },
+    { name: "size", type: "number", default: "48", description: "For 'circle' variant: width and height of the circular button in pixels." },
+    { name: "strokeWidth", type: "number", default: "4", description: "For 'circle' variant: thickness of the SVG progress path." },
+    { name: "glow", type: "boolean", default: "true", description: "Applies a neon shadow glow drop effect reflecting the active theme." },
+    { name: "scrollToTop", type: "boolean", default: "true", description: "For 'circle' variant: click triggers a smooth scroll back to the top of the viewport." },
+    { name: "hideAtTop", type: "boolean", default: "true", description: "For 'circle' variant: hides the button when the viewport is at the top of the page." }
+  ]}
+  variants={[
+    {
+      name: "Top Bar (Cyber Theme)",
+      code: `import { ScrollProgress } from '@/components/creative/scroll-progress';\n\nexport default function Example() {\n  return (\n    // Renders globally at the top of the viewport\n    <ScrollProgress variant="bar" theme="cyber" height={4} />\n  );\n}`
+    },
+    {
+      name: "Top Bar (Emerald Theme)",
+      code: `import { ScrollProgress } from '@/components/creative/scroll-progress';\n\nexport default function Example() {\n  return (\n    <ScrollProgress variant="bar" theme="emerald" height={4} />\n  );\n}`
+    },
+    {
+      name: "Floating Circle (Sunset Theme)",
+      code: `import { ScrollProgress } from '@/components/creative/scroll-progress';\n\nexport default function Example() {\n  return (\n    // Renders in the bottom right corner with smooth fade in\n    <ScrollProgress variant="circle" theme="sunset" size={48} />\n  );\n}`
+    },
+    {
+      name: "Floating Circle (Minimalist)",
+      code: `import { ScrollProgress } from '@/components/creative/scroll-progress';\n\nexport default function Example() {\n  return (\n    <ScrollProgress variant="circle" theme="white" size={48} />\n  );\n}`
+    }
+  ]}
+>
+  <ScrollProgressDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="scroll-progress" />
+
+
+## Use Cases
+
+### Combined Global Scroll Indicators
+
+You can render both variants together in your main layout file (`app/layout.tsx` or similar) to give the user the best scrolling experience:
+
+```tsx
+import { ScrollProgress } from '@/components/creative/scroll-progress';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        {/* Top-bar progress */}
+        <ScrollProgress variant="bar" theme="cyber" height={4} />
+        
+        <main>{children}</main>
+
+        {/* Circular indicator with scroll-to-top */}
+        <ScrollProgress variant="circle" theme="cyber" size={48} hideAtTop={true} />
+      </body>
+    </html>
+  );
+}
+```

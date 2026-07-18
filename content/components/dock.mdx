@@ -1,0 +1,94 @@
+---
+title: Dock
+description: A fluid, interactive macOS-style dock navigation that dynamically magnifies items on hover.
+category: Navigation
+---
+
+The `Dock` component brings the classic macOS navigation experience to the web. Built entirely with Framer Motion's `useMotionValue` and `useTransform` hooks, it tracks the user's cursor distance to smoothly scale up items and gently push adjacent items away. It's perfect for fixed global navigation or sticky sub-menus.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Dock Menu" 
+  componentName="Dock"
+  sourceFile="components/creative/dock.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Dock Position",
+      type: "select",
+      options: ["bottom", "top", "floating"],
+      default: "floating"
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'bottom' | 'top' | 'floating'",
+      default: "'bottom'",
+      description: "Controls the positioning and docking behavior."
+    },
+    {
+      name: "backgroundColor",
+      type: "string",
+      default: "rgba(0, 0, 0, 0.4)",
+      description: "The background color of the main dock container."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional Tailwind classes applied to the dock."
+    }
+  ]}
+  variants={[
+    {
+      name: "Sticky Bottom",
+      code: `import { Dock, DockItem } from "@/components/creative/dock";\nimport { Home, User, Settings } from "lucide-react";\n\nexport function AppNavigation() {\n  return (\n    <Dock variant="bottom">\n      <DockItem label="Home" href="/">\n        <Home className="w-full h-full" />\n      </DockItem>\n      <DockItem label="Profile" href="/profile">\n        <User className="w-full h-full" />\n      </DockItem>\n      <DockItem label="Settings" onClick={() => alert('Settings')}>\n        <Settings className="w-full h-full" />\n      </DockItem>\n    </Dock>\n  );\n}`,
+      params: { variant: "bottom" }
+    },
+    {
+      name: "Sticky Top",
+      code: `import { Dock, DockItem } from "@/components/creative/dock";\nimport { Home, User, Settings } from "lucide-react";\n\nexport function AppNavigation() {\n  return (\n    <Dock variant="top">\n      <DockItem label="Home" href="/">\n        <Home className="w-full h-full" />\n      </DockItem>\n      <DockItem label="Profile" href="/profile">\n        <User className="w-full h-full" />\n      </DockItem>\n      <DockItem label="Settings" onClick={() => alert('Settings')}>\n        <Settings className="w-full h-full" />\n      </DockItem>\n    </Dock>\n  );\n}`,
+      params: { variant: "top" }
+    },
+    {
+      name: "Floating",
+      code: `import { Dock, DockItem } from "@/components/creative/dock";\nimport { Home, User, Settings } from "lucide-react";\n\nexport function AppNavigation() {\n  return (\n    <Dock variant="floating">\n      <DockItem label="Home" href="/">\n        <Home className="w-full h-full" />\n      </DockItem>\n      <DockItem label="Profile" href="/profile">\n        <User className="w-full h-full" />\n      </DockItem>\n      <DockItem label="Settings" onClick={() => alert('Settings')}>\n        <Settings className="w-full h-full" />\n      </DockItem>\n    </Dock>\n  );\n}`,
+      params: { variant: "floating" }
+    }
+  ]}
+>
+  <DockDemo />
+</ComponentPreview>
+
+## DockItem Props
+
+<PropsTable 
+  props={[
+    {
+      name: "label",
+      type: "string",
+      default: "—",
+      description: "Tooltip text to display above the item on hover."
+    },
+    {
+      name: "href",
+      type: "string",
+      default: "—",
+      description: "If provided, renders the item as an anchor tag `<a>`."
+    },
+    {
+      name: "onClick",
+      type: "() => void",
+      default: "—",
+      description: "Click handler function."
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      default: "Required",
+      description: "The icon or content of the item."
+    }
+  ]} 
+/>

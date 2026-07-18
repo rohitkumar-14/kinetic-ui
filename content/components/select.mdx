@@ -1,0 +1,44 @@
+---
+title: Select
+description: Displays a list of options for the user to pick from—triggered by a button.
+category: Forms
+---
+
+The `Select` component allows users to choose a value from a dropdown list. It is built using Radix UI's Select primitive for full accessibility and keyboard navigation support.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Select" 
+  componentName="Select"
+  sourceFile="components/ui/select.tsx"
+  playgroundControls={[
+    { name: "variant", type: "select", options: ["default", "grouped", "disabled"], default: "default", label: "Variant" }
+  ]}
+  propsData={[
+    { name: "Inherits Props", type: "Radix UI", default: "—", description: "Inherits all standard properties from @radix-ui/react-select." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from "@/components/ui/select";\n\nexport default function Example() {\n  return (\n    <Select>\n      <SelectTrigger className="w-[180px]">\n        <SelectValue placeholder="Theme" />\n      </SelectTrigger>\n      <SelectContent>\n        <SelectItem value="light">Light</SelectItem>\n        <SelectItem value="dark">Dark</SelectItem>\n        <SelectItem value="system">System</SelectItem>\n      </SelectContent>\n    </Select>\n  );\n}`
+    },
+    {
+      name: "Grouped",
+      code: `import {\n  Select,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectLabel,\n  SelectTrigger,\n  SelectValue,\n} from "@/components/ui/select";\n\nexport default function Example() {\n  return (\n    <Select>\n      <SelectTrigger className="w-[280px]">\n        <SelectValue placeholder="Select a timezone" />\n      </SelectTrigger>\n      <SelectContent>\n        <SelectGroup>\n          <SelectLabel>North America</SelectLabel>\n          <SelectItem value="est">Eastern Standard Time (EST)</SelectItem>\n          <SelectItem value="cst">Central Standard Time (CST)</SelectItem>\n          <SelectItem value="mst">Mountain Standard Time (MST)</SelectItem>\n          <SelectItem value="pst">Pacific Standard Time (PST)</SelectItem>\n        </SelectGroup>\n        <SelectGroup>\n          <SelectLabel>Europe</SelectLabel>\n          <SelectItem value="gmt">Greenwich Mean Time (GMT)</SelectItem>\n          <SelectItem value="cet">Central European Time (CET)</SelectItem>\n        </SelectGroup>\n      </SelectContent>\n    </Select>\n  );\n}`
+    },
+    {
+      name: "Disabled",
+      code: `import {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from "@/components/ui/select";\n\nexport default function Example() {\n  return (\n    <Select disabled>\n      <SelectTrigger className="w-[180px]">\n        <SelectValue placeholder="Theme" />\n      </SelectTrigger>\n      <SelectContent>\n        <SelectItem value="light">Light</SelectItem>\n        <SelectItem value="dark">Dark</SelectItem>\n        <SelectItem value="system">System</SelectItem>\n      </SelectContent>\n    </Select>\n  );\n}`
+    }
+  ]}
+>
+  <SelectDemo variant="default" />
+  <SelectDemo variant="grouped" />
+  <SelectDemo variant="disabled" />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="select" />
+

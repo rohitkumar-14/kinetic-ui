@@ -1,0 +1,35 @@
+---
+title: "Raymarching Clouds"
+description: "A gorgeous, cinematic WebGL raymarching volumetric cloud shader."
+category: "3D & WebGL"
+---
+
+The `RaymarchingClouds` component uses raw GLSL raymarching to render hyper-realistic, volumetric clouds in real-time. It provides deep atmosphere scattering and beautiful sun flares.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Raymarching Clouds" 
+  componentName="RaymarchingClouds"
+  sourceFile="components/creative/raymarching-clouds.tsx"
+  playgroundControls={[
+    {
+      name: "speed",
+      label: "Cloud Speed",
+      type: "number",
+      min: 0,
+      max: 5,
+      step: 0.1,
+      default: 1.0
+    }
+  ]}
+  propsData={[
+    { name: "speed", type: "number", default: "1.0", description: "Speed of cloud movement" }
+  ]}
+>
+  <RaymarchingCloudsDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="raymarching-clouds" />

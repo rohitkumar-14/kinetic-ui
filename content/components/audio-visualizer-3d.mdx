@@ -1,0 +1,77 @@
+---
+title: 3D Audio Visualizer
+description: A stunning WebGL audio visualizer that warps a 3D sphere to the frequency of your music.
+category: 3D Components
+---
+
+The `AudioVisualizer3D` component mounts a React Three Fiber canvas and uses the browser's native `AnalyserNode` (Web Audio API) to generate a real-time reactive 3D mesh. 
+
+It maps the low-end frequencies (bass) to dynamically scale the sphere, and maps the high-end frequencies to distort the mesh using organic noise parameters.
+
+## Live Preview
+
+<ComponentPreview 
+  name="3D Audio Visualizer" 
+  componentName="AudioVisualizer3D"
+  sourceFile="components/creative/audio-visualizer-3d.tsx"
+  playgroundControls={[
+    {
+      name: "wireframe",
+      label: "Wireframe Mode",
+      type: "boolean",
+      default: true
+    },
+    {
+      name: "color",
+      label: "Material Color",
+      type: "string",
+      default: "#10b981"
+    }
+  ]}
+  propsData={[
+    {
+      name: "audioSrc",
+      type: "string",
+      default: "Required",
+      description: "The URL or local path to the audio file."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "'#6366f1'",
+      description: "The hex color of the 3D material."
+    },
+    {
+      name: "wireframe",
+      type: "boolean",
+      default: "false",
+      description: "Whether to render the sphere as a wireframe grid or a solid liquid blob."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Optional Tailwind classes for the outer container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { AudioVisualizer3D } from "@/components/creative/audio-visualizer-3d";\n\nexport default function Example() {\n  return (\n    <AudioVisualizer3D \n      audioSrc="https://your-audio-file.mp3" \n      color="#10b981"\n      wireframe={true}\n      className="h-[400px] w-full"\n    />\n  );\n}`,
+      params: { wireframe: true, color: "#10b981" }
+    }
+  ]}
+>
+  <AudioVisualizer3DDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="audio-visualizer-3d" />
+
+> [!WARNING]
+> WebGL components require a lot of processing power. Do not mount multiple `AudioVisualizer3D` components on the same page at the same time unless absolutely necessary.
+>
+> Also, if you are passing external audio URLs, the server hosting the audio **must** provide proper CORS headers, otherwise the browser will block the `MediaElementSource` from reading the frequency data!
+
+

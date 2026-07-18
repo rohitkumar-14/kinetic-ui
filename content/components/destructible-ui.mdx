@@ -1,0 +1,45 @@
+---
+title: Destructible UI
+description: A lightweight, physics-inspired wrapper that shatters your React components into geometric shards upon interaction.
+category: Physics & Micro-Interactions
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Destructible UI" 
+  componentName="DestructibleUI"
+  sourceFile="components/creative/destructible-ui.tsx"
+  playgroundControls={[
+    { name: "force", type: "number", default: 1, label: "Explosion Force", min: 0.5, max: 3, step: 0.1 }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { DestructibleUI } from "@/components/creative/destructible-ui";\nimport { useState } from "react";\n\nexport default function Example() {\n  const [isDestroyed, setIsDestroyed] = useState(false);\n\n  return (\n    <DestructibleUI isDestroyed={isDestroyed} force={1}>\n      <div className="bg-red-500 p-6 rounded-lg text-white">\n        <button onClick={() => setIsDestroyed(true)}>\n          Delete Action\n        </button>\n      </div>\n    </DestructibleUI>\n  );\n}`
+    }
+  ]}
+>
+  <DestructibleUIDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="destructible-ui" />
+
+## Architecture
+
+This component is incredibly lightweight compared to traditional physics engines (like `matter.js`). Instead of simulating 2D bodies, it uses a brilliant illusion:
+
+1. It renders your `children` exactly as normal.
+2. When `isDestroyed` becomes `true`, it immediately sets the original component to `opacity-0` (so it maintains its exact layout footprint in the DOM without shifting neighboring elements).
+3. Simultaneously, it mounts 5 absolute clones of your component perfectly overlaid on top.
+4. Each clone is masked via a CSS `clip-path` polygon to represent a shard of glass.
+5. Framer Motion applies gravity, translation, and rotation to each clone individually, causing them to shatter outwards and fall.
+
+### Props
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `children` | React.ReactNode | | The component to wrap and shatter. |
+| `isDestroyed` | boolean | | State controlling whether the component is whole or shattered. |
+| `force` | number | 1 | Multiplier for the explosion radius and gravity speed. |

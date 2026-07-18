@@ -1,0 +1,60 @@
+---
+title: Video Portal
+description: Hover over links to reveal a fluid, liquid-shaped video preview portal that follows your cursor.
+category: Mouse Interactions
+---
+
+A highly engaging list component perfect for portfolio sites or showcases. Hovering over a list item spawns a fluidly animating portal that smoothly tracks the cursor while playing a video preview of the hovered item.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Video Portal" 
+  componentName="VideoPortal"
+  sourceFile="components/creative/video-portal.tsx"
+  playgroundControls={[
+    {
+      name: "portalSize",
+      label: "Portal Size",
+      type: "number",
+      default: 300,
+      min: 150,
+      max: 600,
+      step: 10
+    }
+  ]}
+  propsData={[
+    {
+      name: "items",
+      type: "PortalItem[]",
+      default: "Required",
+      description: "An array of PortalItem objects, containing id, title, category, and videoUrl."
+    },
+    {
+      name: "portalSize",
+      type: "number",
+      default: "300",
+      description: "The width and height of the video portal in pixels."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Optional Tailwind classes for the outer container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { VideoPortal } from "@/components/creative/video-portal";\n\nconst items = [\n  {\n    id: "1",\n    title: "Project Alpha",\n    category: "Design",\n    videoUrl: "https://example.com/video1.mp4"\n  }\n];\n\nexport default function Example() {\n  return (\n    <VideoPortal items={items} portalSize={300} />\n  );\n}`,
+      params: { portalSize: 300 }
+    }
+  ]}
+>
+  <VideoPortalDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="video-portal" />
+

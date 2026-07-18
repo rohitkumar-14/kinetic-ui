@@ -1,0 +1,60 @@
+---
+title: Noise Overlay
+description: Adds an organic, tactile feel to the page with SVG noise.
+---
+
+<ComponentPreview 
+  name="noise-overlay"
+  componentName="NoiseOverlay"
+  sourceFile="components/creative/noise-overlay.tsx"
+  playgroundControls={[
+    {
+      name: "opacity",
+      label: "Opacity",
+      type: "number",
+      default: 0.08,
+      min: 0.01,
+      max: 0.5,
+      step: 0.01
+    },
+    {
+      name: "type",
+      label: "Noise Type",
+      type: "select",
+      options: ["fractalNoise", "turbulence"],
+      default: "fractalNoise"
+    },
+    {
+      name: "blendMode",
+      label: "Blend Mode",
+      type: "select",
+      options: ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"],
+      default: "overlay"
+    },
+    {
+      name: "blur",
+      label: "Backdrop Blur",
+      type: "select",
+      options: ["none", "sm", "md", "lg", "xl", "2xl", "3xl"],
+      default: "none"
+    }
+  ]}
+>
+  <NoiseOverlayDemo />
+</ComponentPreview>
+
+## Overview
+A lightweight SVG noise filter that creates a subtle, tactile film grain effect over your entire page or specific sections. This is one of the most common techniques used by award-winning websites to combat the sterile look of pure digital interfaces.
+
+## Usage
+
+```tsx
+import { NoiseOverlay } from "@/components/creative/noise-overlay"
+```
+
+```tsx
+<div className="relative w-full h-screen">
+  <NoiseOverlay opacity={0.05} />
+  {/* Content here */}
+</div>
+```

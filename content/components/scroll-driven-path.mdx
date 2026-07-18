@@ -1,0 +1,41 @@
+---
+title: Scroll Driven Path
+description: A scrollytelling primitive that dynamically draws an SVG path based on scroll progress.
+category: Scrollytelling
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Scroll Driven Path" 
+  componentName="ScrollDrivenPath"
+  sourceFile="components/creative/scroll-driven-path.tsx"
+  playgroundControls={[
+    { name: "color", type: "string", default: "#a855f7", label: "Path Color" },
+    { name: "glow", type: "boolean", default: true, label: "Enable Glow" }
+  ]}
+  propsData={[
+    { name: "pathData", type: "string", description: "SVG path data string (d attribute)." },
+    { name: "color", type: "string", default: "'#6366f1'", description: "Color of the drawing path." },
+    { name: "strokeWidth", type: "number", default: "4", description: "Thickness of the path line." },
+    { name: "glow", type: "boolean", default: "true", description: "Applies an SVG gaussian blur filter for a glowing effect." },
+    { name: "children", type: "ReactNode", description: "Content to place over the path." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { ScrollDrivenPath } from "@/components/creative/scroll-driven-path";\n\nexport default function Example() {\n  return (\n    <ScrollDrivenPath \n      pathData="M 50 0 C 150 200, -50 400, 50 600 C 150 800, -50 1000, 50 1200"\n      color="#a855f7"\n    >\n      <div className="h-[1200px] flex items-center justify-center">\n        <p className="text-white">Content weaves along the path...</p>\n      </div>\n    </ScrollDrivenPath>\n  );\n}`
+    }
+  ]}
+>
+  <ScrollDrivenPathDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="scroll-driven-path" />
+
+## Architecture
+
+This component utilizes Framer Motion's `useScroll` hook combined with the `<motion.path>` component.
+
+By mapping the `scrollYProgress` (a value between `0` and `1`) directly to the SVG's `pathLength` style property, we achieve a flawless, hardware-accelerated "drawing" animation that scrubs back and forth perfectly with the user's scroll wheel. No complex intersection observers required!

@@ -1,0 +1,70 @@
+---
+title: Tunnel Scroll
+description: A 3D scrollytelling wrapper that turns standard HTML into floating billboards inside a WebGL tunnel.
+category: Scrollytelling
+---
+
+The `TunnelScroll` component acts as an immersive page wrapper. Instead of the page scrolling down normally, the component maps your scroll progress to the Z-axis of a 3D camera. 
+
+It wraps your standard React `children` inside `@react-three/drei`'s `<Html>` projection, rendering them as standard DOM elements that live physically inside the 3D space of the tunnel!
+
+## Live Preview
+
+<ComponentPreview 
+  name="tunnel-scroll-demo" 
+  componentName="TunnelScroll"
+  sourceFile="components/creative/tunnel-scroll.tsx"
+  playgroundControls={[
+    {
+      name: "tunnelColor",
+      label: "Tunnel Color",
+      type: "string",
+      default: "#10b981"
+    },
+    {
+      name: "spacing",
+      label: "Spacing (Depth)",
+      type: "number",
+      default: 25,
+      min: 15,
+      max: 50,
+      step: 5
+    }
+  ]}
+  propsData={[
+    {
+      name: "children",
+      type: "React.ReactNode",
+      description: "The HTML sections to render as floating billboards. Each top-level child will be spaced out along the Z-axis."
+    },
+    {
+      name: "spacing",
+      type: "number",
+      default: "30",
+      description: "The distance in 3D units between each child element."
+    },
+    {
+      name: "tunnelColor",
+      type: "string",
+      default: "'#6366f1'",
+      description: "The hex color of the neon wireframe tunnel material."
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Optional Tailwind classes for the outer scroll container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { TunnelScroll } from "@/components/creative/tunnel-scroll";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[600px] overflow-hidden relative">\n      <TunnelScroll tunnelColor="#10b981" spacing={25}>\n        <div className="w-[800px] p-12 bg-zinc-900 rounded-3xl text-center">\n          <h1 className="text-white text-6xl font-black">SLIDE 1</h1>\n        </div>\n        <div className="w-[800px] p-12 bg-zinc-900 rounded-3xl text-center">\n          <h1 className="text-white text-6xl font-black">SLIDE 2</h1>\n        </div>\n        <div className="w-[800px] p-12 bg-zinc-900 rounded-3xl text-center">\n          <h1 className="text-white text-6xl font-black">SLIDE 3</h1>\n        </div>\n      </TunnelScroll>\n    </div>\n  );\n}`,
+      params: { tunnelColor: "#10b981", spacing: 25 }
+    }
+  ]}
+>
+  <TunnelScrollDemo />
+</ComponentPreview>
+
+> [!IMPORTANT]
+> **Fixed Widths:** Because the children are projected into 3D space, standard CSS responsive behaviors (like `w-full` expanding infinitely) can break the projection and cause the elements to size incorrectly. Always provide fixed maximum widths (e.g., `w-[800px]` or `w-[1000px]`) to the top-level children you pass into the wrapper.

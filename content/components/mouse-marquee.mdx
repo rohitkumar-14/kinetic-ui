@@ -1,0 +1,49 @@
+---
+title: Mouse-Driven Marquee
+description: A marquee that sits perfectly still until the user interacts with it, mapping its scroll speed and direction to the cursor's horizontal position.
+category: Marquees
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Mouse-Driven Marquee" 
+  componentName="MouseMarquee"
+  sourceFile="components/creative/mouse-marquee.tsx"
+  playgroundControls={[
+    { name: "maxSpeed", type: "number", default: 3, label: "Max Speed", min: 1, max: 10, step: 0.5 }
+  ]}
+>
+  <MouseMarqueeDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="mouse-marquee" />
+
+## Usage
+
+```tsx
+import { MouseMarquee } from "@/components/creative/mouse-marquee";
+
+export default function Page() {
+  return (
+    <MouseMarquee maxSpeed={5}>
+      <div className="flex gap-4">
+        {/* Your items here */}
+        <div className="w-64 h-80 bg-zinc-900 rounded-xl" />
+        <div className="w-64 h-80 bg-zinc-900 rounded-xl" />
+      </div>
+    </MouseMarquee>
+  );
+}
+```
+
+## How it works
+
+This component is incredibly fun to interact with. It tracks the global mouse position using `window.addEventListener('mousemove')` and normalizes the X coordinate between `-1` and `1` relative to the center of the screen.
+
+- If your cursor is exactly in the middle of the screen (0), the marquee stops.
+- If your cursor moves to the far right (1), the marquee scrolls quickly to the left.
+- If your cursor moves to the far left (-1), the marquee scrolls quickly to the right.
+
+The raw normalized value is passed through a Framer Motion `useSpring` so that jerky mouse movements don't cause the marquee to stutter, resulting in a buttery smooth scrub effect. When the mouse leaves the browser window, the spring gently settles back to 0.

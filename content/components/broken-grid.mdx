@@ -1,0 +1,67 @@
+---
+title: Broken Grid
+description: Editorial, asymmetrical, overlapping grid layout.
+---
+
+<ComponentPreview 
+  name="broken-grid"
+  componentName="BrokenGrid"
+  sourceFile="components/creative/broken-grid.tsx"
+  playgroundControls={[
+    {
+      name: "columns",
+      label: "Grid Columns",
+      type: "number",
+      default: 12,
+      min: 4,
+      max: 24,
+      step: 1
+    },
+    {
+      name: "gap",
+      label: "Grid Gap",
+      type: "number",
+      default: 4,
+      min: 0,
+      max: 12,
+      step: 1
+    },
+    {
+      name: "animate",
+      label: "Stagger Animation",
+      type: "boolean",
+      default: true
+    }
+  ]}
+>
+  <BrokenGridDemo />
+</ComponentPreview>
+
+## Overview
+A raw, editorial-style asymmetrical grid. This "Tactile Brutalism" approach breaks traditional 12-column layouts by allowing items to span irregular columns and rows, with custom offset transforms to create intentional overlaps.
+
+## Usage
+
+```tsx
+import { BrokenGrid, BrokenGridItem } from "@/components/creative/broken-grid"
+```
+
+```tsx
+<BrokenGrid columns={12} gap={4}>
+  <BrokenGridItem colSpan={6} rowSpan={2} zIndex={10}>
+    <img src="/hero.jpg" alt="" />
+  </BrokenGridItem>
+  
+  <BrokenGridItem 
+    colStart={5} 
+    colSpan={4} 
+    offsetX="-20px" 
+    offsetY="40px" 
+    zIndex={20}
+  >
+    <div className="bg-white p-6 shadow-xl">
+      Overlapping Text Box
+    </div>
+  </BrokenGridItem>
+</BrokenGrid>
+```

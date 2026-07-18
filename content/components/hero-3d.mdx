@@ -1,0 +1,103 @@
+---
+title: Hero3D
+description: A 3D WebGL torus canvas utilizing customized vertex and fragment shaders to deform and tilt dynamically based on cursor movement.
+category: Hero Components
+---
+
+The `Hero3D` component loads a Three.js canvas utilizing custom GLSL shader programs to perturb mesh geometry in real time. It reacts organically to mouse coordinates, deforming the glass-like torus-knot with sine/cosine offset frequencies.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Hero 3D Canvas" 
+  componentName="Hero3D"
+  sourceFile="components/creative/hero/hero-3d.tsx"
+  playgroundControls={[
+    {
+      name: "color",
+      label: "Liquid Color",
+      type: "select",
+      options: ["#6366f1", "#ec4899", "#14b8a6", "#f59e0b", "#ef4444"],
+      default: "#6366f1"
+    },
+    {
+      name: "speed",
+      label: "Animation Speed",
+      type: "number",
+      min: 0.1,
+      max: 3,
+      step: 0.1,
+      default: 1
+    },
+    {
+      name: "scale",
+      label: "Model Scale",
+      type: "number",
+      min: 0.5,
+      max: 2,
+      step: 0.1,
+      default: 1
+    }
+  ]}
+  propsData={[
+    {
+      name: "color",
+      type: "string",
+      default: "'#6366f1'",
+      description: "Base accent color injected into the GLSL fragment shader uniform (uColor1)."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Multiplier for the elapsed time passed to the shader, affecting wave speed and rotation."
+    },
+    {
+      name: "scale",
+      type: "number",
+      default: "1",
+      description: "Scale multiplier for the THREE.Mesh object."
+    },
+    {
+      name: "badgeText",
+      type: "string",
+      default: "'Three.js & WebGL'",
+      description: "Text displayed in the glowing top badge."
+    },
+    {
+      name: "title",
+      type: "string",
+      default: "'Immersive 3D Experiences'",
+      description: "Primary headline text rendered as a gradient."
+    },
+    {
+      name: "description",
+      type: "string",
+      default: "'A stunning WebGL hero...'",
+      description: "Secondary supporting copy below the title."
+    }
+  ]}
+  variants={[
+    {
+      name: "Indigo Glass",
+      code: `import dynamic from 'next/dynamic';\n\nconst Hero3D = dynamic(() => import('@/components/creative/hero/hero-3d').then(m => m.Hero3D), { ssr: false });\n\nexport default function Example() {\n  return (\n    <div className="relative w-full h-[600px] border border-white/5 rounded-2xl overflow-hidden bg-black">\n      <Hero3D className="absolute inset-0 min-h-full h-full" color="#6366f1" />\n    </div>\n  );\n}`,
+      params: { color: "#6366f1" }
+    },
+    {
+      name: "Crimson Liquid",
+      code: `import dynamic from 'next/dynamic';\n\nconst Hero3D = dynamic(() => import('@/components/creative/hero/hero-3d').then(m => m.Hero3D), { ssr: false });\n\nexport default function Example() {\n  return (\n    <div className="relative w-full h-[600px] border border-white/5 rounded-2xl overflow-hidden bg-black">\n      <Hero3D className="absolute inset-0 min-h-full h-full" color="#ef4444" speed={1.5} />\n    </div>\n  );\n}`,
+      params: { color: "#ef4444", speed: 1.5 }
+    }
+  ]}
+>
+  <div className="relative w-full h-[600px] border border-white/5 rounded-2xl overflow-hidden bg-black">
+    <Hero3D className="absolute inset-0 min-h-full h-full" />
+  </div>
+</ComponentPreview>
+
+## Performance Notes
+
+> [!TIP]
+> The Hero3D component relies on Three.js and `@react-three/fiber` which are heavy dependencies. Always import this component dynamically with `ssr: false` in Next.js to avoid blocking your initial page load.
+
+WebGL shaders execute directly on the GPU. The torus knot is geometry-instanced with low vertex division counts to maintain 60fps rendering cycles across both mobile and integrated GPU devices.

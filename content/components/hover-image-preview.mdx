@@ -1,0 +1,72 @@
+---
+title: Hover Image Preview
+description: A portfolio interaction where hovering list items spawns a floating image cursor.
+---
+
+<ComponentPreview 
+  name="hover-image-preview"
+  componentName="HoverImagePreview"
+  sourceFile="components/creative/hover-image-preview.tsx"
+  playgroundControls={[
+    {
+      name: "imageWidth",
+      label: "Image Width (px)",
+      type: "number",
+      default: 350,
+      min: 200,
+      max: 600,
+      step: 10
+    },
+    {
+      name: "imageHeight",
+      label: "Image Height (px)",
+      type: "number",
+      default: 250,
+      min: 150,
+      max: 500,
+      step: 10
+    }
+  ]}
+>
+  <HoverImagePreviewDemo />
+</ComponentPreview>
+
+## Overview
+The `HoverImagePreview` is a hallmark of modern, award-winning agency and portfolio sites. Instead of a traditional grid of thumbnails, projects are listed in bold typography. When the user hovers over an item, a high-quality image preview instantly appears and smoothly tracks the cursor using spring physics.
+
+## Installation
+
+```bash
+npm install framer-motion
+```
+
+## Usage
+
+```tsx
+import { HoverImagePreview } from "@/components/creative/hover-image-preview"
+
+export default function Projects() {
+  const items = [
+    {
+      id: "project-1",
+      label: "E-Commerce Rebrand",
+      subtext: "2024",
+      image: "/projects/1.jpg",
+      href: "/work/e-commerce"
+    },
+    {
+      id: "project-2",
+      label: "Fintech Dashboard",
+      subtext: "2023",
+      image: "/projects/2.jpg",
+      href: "/work/fintech"
+    }
+  ]
+
+  return (
+    <section className="py-20">
+      <HoverImagePreview items={items} imageWidth={400} imageHeight={300} />
+    </section>
+  )
+}
+```

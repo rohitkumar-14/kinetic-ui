@@ -1,0 +1,66 @@
+---
+title: Flashlight Reveal
+description: A pitch-black section where your cursor acts as a physical spotlight to reveal the vibrant content underneath.
+category: Mouse Interactions
+---
+
+An incredibly visual discovery mechanic. Built using CSS `mask-image` and Framer Motion's high-performance `useMotionTemplate`, this component overlays a pitch-black layer on top of a vibrant gradient layer, dynamically punching a perfect spotlight hole exactly where your cursor is hovering.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Flashlight Reveal" 
+  componentName="FlashlightReveal"
+  sourceFile="components/creative/flashlight-reveal.tsx"
+  playgroundControls={[
+    {
+      name: "text",
+      label: "Text",
+      type: "string",
+      default: "DISCOVER"
+    },
+    {
+      name: "cursorSize",
+      label: "Cursor Size",
+      type: "number",
+      default: 350,
+      min: 100,
+      max: 800,
+      step: 10
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      default: "Required",
+      description: "The massive typography text to display."
+    },
+    {
+      name: "cursorSize",
+      type: "number",
+      default: "300",
+      description: "The diameter of the spotlight in pixels."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Optional Tailwind classes for the outer container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { FlashlightReveal } from "@/components/creative/flashlight-reveal";\n\nexport default function Example() {\n  return (\n    <div className="w-full relative rounded-2xl overflow-hidden shadow-2xl border border-white/5 cursor-none">\n      <FlashlightReveal \n        text="DISCOVER" \n        cursorSize={350}\n        className="h-[500px]"\n      />\n    </div>\n  );\n}`,
+      params: { text: "DISCOVER", cursorSize: 350 }
+    }
+  ]}
+>
+  <FlashlightRevealDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="flashlight-reveal" />
+

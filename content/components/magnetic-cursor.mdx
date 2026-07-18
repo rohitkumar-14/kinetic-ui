@@ -1,0 +1,66 @@
+---
+title: Magnetic Cursor Ecosystem
+description: A global cursor replacement that dynamically morphs and adapts based on the context of the elements it hovers over.
+category: Physics & Micro-Interactions
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Magnetic Cursor Ecosystem" 
+  componentName="CustomCursor"
+  sourceFile="components/creative/custom-cursor.tsx"
+  playgroundControls={[
+    { name: "variant", type: "select", options: ["dot", "ring", "glow", "morph", "magnet"], default: "dot", label: "Style Variant" },
+    { name: "color", type: "string", default: "#a855f7", label: "Accent Color" },
+    { name: "scale", type: "number", default: 0.8, min: 0.5, max: 2, step: 0.1, label: "Size Multiplier" },
+    { name: "speed", type: "number", default: 1, min: 0.1, max: 3, step: 0.1, label: "Trail Speed" }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { CustomCursor } from "@/components/creative/custom-cursor";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[500px] flex items-center justify-center">\n      <CustomCursor color="#a855f7" />\n      <div \n        className="w-64 h-40 bg-zinc-900 rounded-lg flex items-center justify-center cursor-none"\n        data-cursor="play"\n      >\n        Hover me\n      </div>\n    </div>\n  );\n}`
+    }
+  ]}
+>
+  <MagneticCursorDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="custom-cursor" />
+
+## Architecture & Ecosystem
+
+The \`CustomCursor\` isn't just a simple tracking dot—it's an entire ecosystem that listens for specific data attributes on elements throughout your application. This allows any component to instruct the cursor on how it should behave when hovered.
+
+### Triggering Contextual States
+
+Add the following `data` attributes to any element in your app to morph the cursor dynamically:
+
+| Attribute | Value | Result |
+| :--- | :--- | :--- |
+| \`data-cursor="play"\` | N/A | Morphs into a glowing "Play" icon. |
+| \`data-cursor="view"\` | N/A | Morphs into a magnifying glass "View" icon. |
+| \`data-cursor="link"\` | N/A | Morphs into an angled arrow link icon. |
+| \`data-cursor-text="Label"\` | string | Expands and displays the custom text label. |
+
+### Global Usage
+
+For standard Next.js apps, mount the cursor globally in your root \`layout.tsx\`:
+
+```tsx
+import { CustomCursor } from "@/components/creative/custom-cursor";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body className="bg-black">
+        <CustomCursor color="#a855f7" variant="dot" />
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+> **Note:** We render the cursor inside the `<MagneticCursorDemo />` container for this documentation, but in your actual application, you should mount it at the absolute top level of your DOM tree.

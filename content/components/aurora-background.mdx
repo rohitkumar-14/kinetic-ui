@@ -1,0 +1,65 @@
+---
+title: Aurora Background
+description: A stunning, animated aurora gradient background that creates a subtle, shifting mood.
+category: Background Effects
+---
+
+The `AuroraBackground` uses an intricate combination of CSS gradients, SVG noise filters, and a repeating linear gradient animation to create a beautiful, organic aurora effect. It is completely driven by CSS and requires zero JavaScript to animate, ensuring maximum performance.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Aurora Background" 
+  componentName="AuroraBackground"
+  sourceFile="components/creative/aurora-background.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Theme Variant",
+      type: "select",
+      options: ["default", "sunset", "emerald", "candy"],
+      default: "default"
+    }
+  ]}
+  propsData={[
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "The content to display on top of the aurora background."
+    },
+    {
+      name: "showRadialGradient",
+      type: "boolean",
+      default: "true",
+      description: "Whether to apply a radial gradient mask to feather the edges of the aurora."
+    },
+    {
+      name: "colors",
+      type: "[string, string, string, string, string]",
+      default: "[\"var(--color-blue-500)\", ...]",
+      description: "An array of exactly 5 colors (hex, rgb, or CSS variables) to define the aurora gradient."
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Additional CSS classes to apply to the main container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { AuroraBackground } from "@/components/creative/aurora-background";\n\nexport default function Example() {\n  return (\n    <AuroraBackground>\n      {/* Foreground Content */}\n      <div className="relative z-10 flex h-full items-center justify-center">\n        <h1 className="text-4xl text-black dark:text-white">Pure CSS Aurora</h1>\n      </div>\n    </AuroraBackground>\n  );\n}`,
+      params: { variant: "default" }
+    }
+  ]}
+>
+  <AuroraBackgroundDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="aurora-background" />
+
+## Props
+
+

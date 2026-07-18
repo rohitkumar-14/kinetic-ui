@@ -1,0 +1,37 @@
+---
+title: Liquid Sweep Transition
+description: A premium page transition that sweeps a liquid-like SVG wave across the screen, hiding the current page and revealing the next.
+category: Page Transitions
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Liquid Sweep Transition" 
+  componentName="LiquidSweepTransition"
+  sourceFile="components/creative/liquid-sweep-transition.tsx"
+  playgroundControls={[
+    { name: "color", type: "string", default: "#4f46e5", label: "Wave Color" }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { LiquidSweepTransition } from "@/components/creative/liquid-sweep-transition";\nimport { useState } from "react";\n\nexport default function Example() {\n  const [isActive, setIsActive] = useState(false);\n\n  return (\n    <div>\n      <button onClick={() => setIsActive(true)}>Navigate</button>\n      <LiquidSweepTransition \n        isActive={isActive} \n        color="#4f46e5"\n        onAnimationComplete={() => console.log("Done!")}\n      >\n        <h2>Loading...</h2>\n      </LiquidSweepTransition>\n    </div>\n  );\n}`
+    }
+  ]}
+>
+  <LiquidSweepTransitionDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="liquid-sweep-transition" />
+
+## Architecture
+
+Rather than relying on heavy WebGL fluid simulations, this component achieves a hyper-smooth 60fps liquid wave effect using a very simple architectural trick:
+
+1. It renders an absolute overlay that is taller than the screen (`calc(100vh + 300px)`).
+2. The top and bottom edges of this overlay are capped with SVG `<path>` elements drawn as curved waves.
+3. Framer Motion simply translates the entire overlay container upwards on the Y-axis (`y: "100%" -> y: "-100%"`).
+
+Because translating a DOM node on the Y-axis is hardware accelerated, this technique is perfectly smooth even on low-end mobile devices, giving the illusion of a complex path-morphing liquid fluid.

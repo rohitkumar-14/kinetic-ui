@@ -1,0 +1,78 @@
+---
+title: Liquid Button
+description: A button that reveals a fluid, morphing liquid background layer on hover.
+category: Buttons
+---
+
+The `LiquidButton` leverages SVG filters (`feGaussianBlur` and `feColorMatrix`) applied to a Framer Motion layer to create an incredibly organic, fluid animation effect when hovered. Now completely upgraded with **3 fluid interaction variants**.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Liquid Button" 
+  componentName="LiquidButton"
+  sourceFile="components/creative/liquid-button.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["gooey", "fill", "swipe"],
+      default: "gooey"
+    },
+    {
+      name: "color",
+      label: "Color",
+      type: "string",
+      default: "#6366f1"
+    },
+    {
+      name: "withSound",
+      label: "Sound Enabled",
+      type: "boolean",
+      default: true
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'gooey' | 'fill' | 'swipe'",
+      default: "'gooey'",
+      description: "Controls the origin and animation axis of the liquid effect."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "#6366f1",
+      description: "The background color of the liquid."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Multiplier for the animation speed."
+    },
+    {
+      name: "scale",
+      type: "number",
+      default: "1",
+      description: "Static scale multiplier for the entire button."
+    },
+    {
+      name: "withSound",
+      type: "boolean",
+      default: "false",
+      description: "If true, plays standard UX interaction sounds on hover and click."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { LiquidButton } from '@/components/creative/liquid-button';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[300px] items-center justify-center bg-black">\n      <LiquidButton variant="gooey" color="#6366f1" withSound className="text-black hover:text-white transition-colors duration-300">\n        Hover Me\n      </LiquidButton>\n    </div>\n  );\n}`,
+      params: { variant: "gooey", color: "#6366f1", withSound: true }
+    }
+  ]}
+>
+  <LiquidButtonDemo />
+</ComponentPreview>
+

@@ -1,0 +1,32 @@
+---
+title: "Falling Elements"
+description: "Physics-based rigid body simulation of UI elements falling onto the screen."
+category: "Physics"
+---
+
+A playful physics sandbox using Matter.js to drop rigid bodies onto the screen.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Falling Elements" 
+  componentName="FallingElements"
+  sourceFile="components/creative/falling-elements.tsx"
+  playgroundControls={[
+    {
+      name: "gravity",
+      label: "Gravity",
+      type: "number",
+      min: 0,
+      max: 3,
+      step: 0.1,
+      default: 1
+    }
+  ]}
+>
+  <FallingElementsDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="falling-elements" />

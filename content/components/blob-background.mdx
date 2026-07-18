@@ -1,0 +1,67 @@
+---
+title: Animated Blob Background
+description: Slow-moving gradient masses that provide dynamic depth to hero sections.
+---
+
+<ComponentPreview 
+  name="blob-background"
+  componentName="BlobBackground"
+  sourceFile="components/creative/blob-background.tsx"
+  playgroundControls={[
+    {
+      name: "blur",
+      label: "Blur Amount (px)",
+      type: "number",
+      default: 60,
+      min: 20,
+      max: 150,
+      step: 10
+    },
+    {
+      name: "blobOpacity",
+      label: "Opacity",
+      type: "number",
+      default: 0.5,
+      min: 0.1,
+      max: 1,
+      step: 0.1
+    },
+    {
+      name: "animationSpeed",
+      label: "Animation Duration (s)",
+      type: "number",
+      default: 20,
+      min: 5,
+      max: 60,
+      step: 5
+    }
+  ]}
+>
+  <BlobBackgroundDemo />
+</ComponentPreview>
+
+## Overview
+While the `Fluid Background` is great for full-canvas simulations, sometimes you just need distinct, organic gradient masses drifting behind your content. The `BlobBackground` component is a staple of modern SaaS design.
+
+It uses Framer Motion keyframes to slowly orbit and morph large, heavily blurred `div`s. It automatically sets `pointer-events: none` and `mix-blend-screen` to ensure it sits elegantly behind your UI.
+
+## Usage
+
+```tsx
+import { BlobBackground } from "@/components/creative/blob-background"
+
+export default function Hero() {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
+      <BlobBackground 
+        colors={["#ffaa40", "#9c40ff", "#00c6ff"]} 
+        blur={80} 
+      />
+      
+      <div className="relative z-10 text-center">
+        <h1 className="text-6xl font-bold text-white">Next Generation Tools</h1>
+      </div>
+    </section>
+  )
+}
+```

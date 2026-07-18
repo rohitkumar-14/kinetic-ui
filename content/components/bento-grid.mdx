@@ -1,0 +1,109 @@
+---
+title: Bento Grid
+description: A responsive, staggered grid layout system perfect for feature showcases and dashboard widgets.
+category: Layout
+---
+
+The `BentoGrid` is an incredibly popular layout pattern inspired by bento boxes. Our implementation provides a `BentoGrid` container that handles staggered entrance animations, and a `BentoCard` component that provides a beautiful glassmorphism aesthetic with **3 interactive hover variants**.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Bento Grid"
+  componentName="BentoGrid"
+  sourceFile="components/creative/bento-grid.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Hover Variant",
+      type: "select",
+      options: ["standard", "scale", "glow"],
+      default: "standard"
+    },
+    {
+      name: "color",
+      label: "Accent Color",
+      type: "select",
+      options: ["#818cf8", "#10b981", "#f59e0b", "#ec4899", "#06b6d4"],
+      default: "#818cf8"
+    },
+    {
+      name: "speed",
+      label: "Stagger Speed",
+      type: "number",
+      min: 0.1,
+      max: 5,
+      step: 0.1,
+      default: 1
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'standard' | 'scale' | 'glow'",
+      default: "'standard'",
+      description: "[BentoGrid] Passed down to all children to dictate hover behavior."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "[BentoGrid] Controls the entrance stagger delay. Higher is faster."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "—",
+      description: "[BentoGrid] Base accent color passed down to all cards."
+    },
+    {
+      name: "title",
+      type: "string | ReactNode",
+      default: "—",
+      description: "[BentoCard] The primary heading of the card."
+    },
+    {
+      name: "description",
+      type: "string | ReactNode",
+      default: "—",
+      description: "[BentoCard] The secondary descriptive text."
+    },
+    {
+      name: "icon",
+      type: "ReactNode",
+      default: "—",
+      description: "[BentoCard] An icon placed above the title."
+    },
+    {
+      name: "header",
+      type: "ReactNode",
+      default: "—",
+      description: "[BentoCard] A large content area at the top of the card (often used for images or graphics)."
+    }
+  ]}
+  variants={[
+    {
+      name: "Standard Float",
+      code: `import { BentoGrid, BentoCard } from '@/components/creative/bento-grid';\nimport { Zap, Target } from 'lucide-react';\n\nexport default function Example() {\n  return (\n    <div className="p-8 bg-black w-full min-h-[400px]">\n      <BentoGrid variant="standard">\n        <BentoCard title="Fast" description="Lightning fast speeds." icon={<Zap />} />\n        <BentoCard title="Accurate" description="Precision engineered." icon={<Target />} />\n      </BentoGrid>\n    </div>\n  );\n}`,
+      params: { variant: "standard", color: "#818cf8" }
+    },
+    {
+      name: "Scale Up",
+      code: `import { BentoGrid, BentoCard } from '@/components/creative/bento-grid';\nimport { Zap, Target } from 'lucide-react';\n\nexport default function Example() {\n  return (\n    <div className="p-8 bg-black w-full min-h-[400px]">\n      <BentoGrid variant="scale" color="#10b981">\n        <BentoCard title="Fast" description="Lightning fast speeds." icon={<Zap />} />\n        <BentoCard title="Accurate" description="Precision engineered." icon={<Target />} />\n      </BentoGrid>\n    </div>\n  );\n}`,
+      params: { variant: "scale", color: "#10b981" }
+    },
+    {
+      name: "Outer Glow",
+      code: `import { BentoGrid, BentoCard } from '@/components/creative/bento-grid';\nimport { Zap, Target } from 'lucide-react';\n\nexport default function Example() {\n  return (\n    <div className="p-8 bg-black w-full min-h-[400px]">\n      <BentoGrid variant="glow" color="#f59e0b">\n        <BentoCard title="Fast" description="Lightning fast speeds." icon={<Zap />} />\n        <BentoCard title="Accurate" description="Precision engineered." icon={<Target />} />\n      </BentoGrid>\n    </div>\n  );\n}`,
+      params: { variant: "glow", color: "#f59e0b" }
+    }
+  ]}
+>
+  <BentoGridDemo />
+</ComponentPreview>
+
+## Architecture Note
+
+The grid is composed of two components:
+1. `<BentoGrid />`: The outer container. It sets up the CSS Grid (defaults to 3 columns on desktop) and orchestrates the entrance animation.
+2. `<BentoCard />`: The individual cells. You can easily make a card span multiple columns by passing Tailwind classes like \`className="@md:col-span-2"\`.

@@ -1,0 +1,44 @@
+---
+title: Parallax Footer
+description: A stunning curtain-reveal footer effect that sits beneath your page content.
+category: Layout
+---
+
+The Parallax Footer creates a beautiful premium effect where the main page content scrolls up to reveal the footer sitting underneath it, like a curtain being lifted. 
+
+This is heavily used by top-tier creative studios and Awwwards-winning websites to add depth to the end of a page.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Parallax Footer"
+  componentName="ParallaxFooter"
+  sourceFile="components/creative/parallax-footer.tsx"
+  playgroundControls={[
+    { name: "intensity", type: "number", min: 10, max: 100, step: 10, default: 30, label: "Parallax Intensity" },
+    { name: "watermark", type: "string", default: "KINETIC", label: "Watermark Text" }
+  ]}
+  propsData={[
+    { name: "children", type: "ReactNode", description: "The footer content." },
+    { name: "scrollContainer", type: "React.RefObject<HTMLElement>", description: "Optional. Pass a scroll container ref if the footer is inside a custom scrollable div instead of the main window." },
+    { name: "intensity", type: "number", default: "30", description: "Parallax travel distance as a percentage. Higher = more dramatic." },
+    { name: "watermark", type: "string", description: "Optional. Large outlined text rendered behind the footer content." },
+    { name: "accentColor", type: "string", default: "#6366f1", description: "CSS color for the top glow line and ambient light effect." }
+  ]}
+>
+  <div className="w-full">
+    <ParallaxFooterDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="parallax-footer" />
+
+## Architecture
+
+This component leverages `framer-motion`'s `useScroll` hook to precisely map the element's position relative to the viewport. As the container scrolls into view, the inner content translates downwards via a Y-offset, moving at a slightly slower rate than the actual scroll position. 
+
+Combined with `overflow-hidden` on the wrapper, this creates the physical illusion that the footer is anchored behind the main content.
+
+

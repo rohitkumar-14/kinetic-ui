@@ -1,0 +1,61 @@
+---
+title: Testimonial Carousel
+description: A focused, single-card slider that auto-rotates through premium testimonials.
+---
+
+<ComponentPreview 
+  name="testimonial-carousel"
+  componentName="TestimonialCarousel"
+  sourceFile="components/creative/testimonial-carousel.tsx"
+  playgroundControls={[
+    {
+      name: "autoPlay",
+      label: "Auto Play",
+      type: "boolean",
+      default: true
+    },
+    {
+      name: "interval",
+      label: "Interval (ms)",
+      type: "number",
+      default: 5000,
+      min: 2000,
+      max: 10000,
+      step: 500
+    }
+  ]}
+>
+  <TestimonialCarouselDemo />
+</ComponentPreview>
+
+## Overview
+While infinite scrolling marquees are great for logos or sheer volume, high-impact quotes often require focus. The `TestimonialCarousel` puts a single review front and center. 
+
+It features `AnimatePresence` cross-fading, interactive pagination dots, star ratings, and physics-based swipe handling on touch devices (or mouse dragging on desktop).
+
+## Usage
+
+```tsx
+import { TestimonialCarousel } from "@/components/creative/testimonial-carousel"
+
+export default function SocialProof() {
+  const reviews = [
+    {
+      id: 1,
+      author: "Jane Doe",
+      role: "CEO",
+      company: "Acme Corp",
+      avatar: "/avatars/jane.jpg",
+      text: "This UI library changed everything for us.",
+      rating: 5
+    }
+    // ...
+  ]
+
+  return (
+    <section className="py-20 bg-black">
+      <TestimonialCarousel testimonials={reviews} autoPlay interval={6000} />
+    </section>
+  )
+}
+```

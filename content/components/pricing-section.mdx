@@ -1,0 +1,99 @@
+---
+title: PricingSection
+description: A responsive, glassmorphic pricing cards layout utilizing magnetic action items, hover variants, and dynamic spotlights.
+category: Sections
+---
+
+The `PricingSection` arranges premium package cards inside dark-glass surfaces. It has been completely rebuilt to support modular configurations, customizable accent colors, and multiple interactive variants like dynamic mouse spotlights and focus blurring.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Pricing Section" 
+  variants={[
+    {
+      name: "Default",
+      code: `import { PricingCards } from '@/components/creative/pricing-cards';\n\nexport default function Example() {\n  return (\n    <PricingCards \n      variant="grid"\n      color="#ec4899"\n    />\n  );\n}`
+    }
+  ]}
+>
+  <PricingCardsDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="pricing-section" />
+
+## Props
+
+<PropsTable 
+  props={[
+    {
+      name: "variant",
+      type: "'grid' | 'spotlight' | 'focus'",
+      default: "'grid'",
+      description: "Controls the hover interactions across the cards."
+    },
+    {
+      name: "tiers",
+      type: "PricingTier[]",
+      default: "defaultTiers",
+      description: "Array of pricing data objects to map into cards."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "'#6366f1'",
+      description: "The primary accent color for the highlighted card, buttons, and radial glows."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Controls the animation duration multiplier."
+    },
+    {
+      name: "scale",
+      type: "number",
+      default: "1",
+      description: "Controls how much the cards scale up on hover."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Optional Tailwind classes applied to the main wrapper section."
+    }
+  ]} 
+/>
+
+## Usage Examples
+
+### Spotlight Hover Variant
+A dynamic variant where a spotlight follows your cursor across the cards.
+```tsx
+import { PricingCards } from '@/components/creative/pricing-cards';
+
+export default function Example() {
+  return (
+    <PricingCards 
+      variant="spotlight"
+      color="#10b981" // Custom emerald accent
+    />
+  );
+}
+```
+
+### Focus Mode Variant
+When you hover over a specific card, the others will dim out and blur to emphasize the focused package.
+```tsx
+import { PricingCards } from '@/components/creative/pricing-cards';
+
+export default function Example() {
+  return (
+    <PricingCards 
+      variant="focus"
+    />
+  );
+}
+```

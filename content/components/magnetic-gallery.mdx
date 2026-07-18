@@ -1,0 +1,30 @@
+---
+title: Magnetic Gallery
+description: A grid of images that slightly rotate in 3D space to track the global mouse position.
+category: Layout
+---
+
+The `MagneticGallery` component creates a stunning layout where every image tracks the global mouse vector. By calculating the distance from the mouse to the center of each image, we map that proximity to Framer Motion's `rotateX` and `rotateY` transforms, creating a localized magnetic "look at" effect.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Magnetic Gallery" 
+  componentName="MagneticGallery"
+  sourceFile="components/creative/magnetic-gallery.tsx"
+  playgroundControls={[
+    { name: "strength", type: "number", min: 10, max: 100, step: 5, default: 50, label: "Magnetic Strength" }
+  ]}
+  propsData={[
+    { name: "images", type: "Array<{ src, alt, className }>", default: "Required", description: "Array of images to render in the gallery" },
+    { name: "className", type: "string", description: "Additional Tailwind classes for the grid container" }
+  ]}
+>
+  <div className="w-full">
+    <MagneticGalleryDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="magnetic-gallery" />

@@ -1,0 +1,82 @@
+---
+title: Server Components Guide
+description: Learn how to correctly compose Kinetic UI Client Components with your Next.js Server Components for maximum performance.
+category: System
+author: Kinetic
+---
+
+# Architecture: Server Components (RSC)
+
+Kinetic UI relies heavily on highly interactive, motion-driven libraries like `framer-motion`, `gsap`, and `@react-three/fiber`. Because these libraries require access to browser APIs (like `window` and `document`), the components built with them must be marked with `"use client"`.
+
+However, using `"use client"` does **not** mean you have to abandon Server Components, SSR, or SEO. If used correctly, you can perfectly mix Client interactions with Server-rendered data.
+
+---
+
+## Installation
+
+<CliInstallCommand componentName="server-components" />
+
+## The Golden Rule: Pass Server Components as Children
+
+The most common mistake developers make is putting `"use client"` at the very top of their page layout just to use an interactive component. **Do not do this.** 
+
+If you put `"use client"` at the top of `page.tsx`, the *entire page* and all its children become Client Components.
+
+Instead, import the interactive Kinetic UI component into a Server Component, and pass your server-rendered content to it as `children`.
+
+### ❌ The Wrong Way
+
+```tsx
+// app/page.tsx (WRONG)
+"use client"; // ❌ This forces the entire page to render on the client!
+
+import { TiltCard } from "@/components/creative/tilt-card";
+import { fetchHeavyData } from "@/lib/db";
+
+export default async function Page() {
+  // ❌ This will fail or cause massive hydration issues because
+  // you cannot await server data inside a client component directly like this.
+  const data = await fetchHeavyData(); 
+
+  return (
+    <TiltCard>
+      <h1>{data.title}</h1>
+    </TiltCard>
+  );
+}
+```
+
+### ✅ The Right Way (Composition)
+
+Kinetic UI components are specifically engineered to accept `children: React.ReactNode`. 
+
+When you pass a Server Component as a child to a Client Component, **Next.js still renders the child on the server**.
+
+```tsx
+// app/page.tsx (CORRECT)
+// ✅ No "use client" directive here. This remains a Server Component.
+
+import { TiltCard } from "@/components/creative/tilt-card";
+import { fetchHeavyData } from "@/lib/db";
+
+export default async function Page() {
+  // ✅ Data is fetched securely and blazingly fast on the server.
+  const data = await fetchHeavyData(); 
+
+  return (
+    {/* TiltCard is a Client Component, but it accepts children. */}
+    <TiltCard>
+      {/* This <h1> is rendered on the server and injected into the Client Component! */}
+      <h1>{data.title}</h1>
+    </TiltCard>
+  );
+}
+```
+
+## Summary
+
+1. Keep `"use client"` out of your main `page.tsx` or `layout.tsx` files.
+2. Rely on Kinetic UI components managing their own `"use client"` boundaries internally.
+3. Pass your server-fetched data and static HTML as `children` into our interactive wrappers.
+4. Enjoy 60fps animations alongside instantaneous Server-Side Rendering!

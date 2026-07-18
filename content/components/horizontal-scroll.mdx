@@ -1,0 +1,36 @@
+---
+title: Horizontal Scroll
+description: A creative scroll-linked animation component that translates vertical page scrolling into horizontal container movement.
+category: Scroll Animations
+---
+
+The `HorizontalScroll` component is a high-impact layout technique often used in Awwwards-winning websites to showcase portfolios, image galleries, or features. It leverages Framer Motion's `useScroll` and `useTransform` hooks to hijack the vertical scroll and map it to a horizontal X-axis translation.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Horizontal Scroll" 
+  componentName="HorizontalScroll"
+  sourceFile="components/creative/horizontal-scroll.tsx"
+  playgroundControls={[
+    { name: "snap", type: "boolean", default: true, label: "Snap to Cards" }
+  ]}
+  propsData={[
+    { name: "children", type: "React.ReactNode", description: "The horizontal elements or cards to scroll through." },
+    { name: "className", type: "string", description: "Optional CSS classes to apply to the scroll container." },
+    { name: "card", type: "{ id: number, title: string, url: string, description?: string }", description: "Data object required to render a standard image card (ScrollCard component)." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { HorizontalScroll, ScrollCard } from "@/components/creative/horizontal-scroll";\n\nconst CARDS = [\n  { id: 1, title: "Card 1", url: "/image1.jpg" },\n  { id: 2, title: "Card 2", url: "/image2.jpg" },\n];\n\nexport default function Example() {\n  return (\n    <HorizontalScroll>\n      {CARDS.map(card => (\n        <ScrollCard key={card.id} card={card} />\n      ))}\n    </HorizontalScroll>\n  );\n}`
+    }
+  ]}
+>
+  <HorizontalScrollDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="horizontal-scroll" />
+

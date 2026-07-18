@@ -1,0 +1,94 @@
+---
+title: Gravity Grid Hero
+description: A highly interactive canvas-based hero section where background grid elements react dynamically to the user's cursor with spring physics.
+category: Hero Components
+---
+
+The `GravityGridHero` renders a highly performant HTML5 `<canvas>` background underneath your hero content. The grid of dots (or connected lines) uses raw mathematics and spring physics to continuously calculate distance from the mouse pointer, repelling elements outwards before smoothly springing them back to their origin.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Gravity Grid Hero" 
+  componentName="GravityGridHero"
+  sourceFile="components/creative/hero/gravity-grid-hero.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Grid Variant",
+      type: "select",
+      options: ["dots", "lines"],
+      default: "dots"
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'dots' | 'lines'",
+      default: "'dots'",
+      description: "Controls whether to render floating dots or connected grid lines."
+    },
+    {
+      name: "badgeText",
+      type: "string",
+      default: "'Creative Hero Section'",
+      description: "Text displayed inside the top Pill badge."
+    },
+    {
+      name: "title",
+      type: "string",
+      default: "'Gravity Grid'",
+      description: "The primary massive hero heading."
+    },
+    {
+      name: "description",
+      type: "string",
+      default: "...",
+      description: "Descriptive paragraph text below the header."
+    },
+    {
+      name: "primaryCtaText",
+      type: "string",
+      default: "'Start Building'",
+      description: "Label for the primary solid button."
+    },
+    {
+      name: "primaryCtaHref",
+      type: "string",
+      default: "'#'",
+      description: "Href path for the primary button."
+    },
+    {
+      name: "secondaryCtaText",
+      type: "string",
+      default: "'View Source'",
+      description: "Label for the secondary outline button."
+    },
+    {
+      name: "secondaryCtaHref",
+      type: "string",
+      default: "'#'",
+      description: "Href path for the secondary button."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Tailwind classes applied to the root container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Dots Grid",
+      code: `import { GravityGridHero } from "@/components/creative/hero/gravity-grid-hero";\n\nexport default function Example() {\n  return (\n    <GravityGridHero \n      variant="dots"\n      badgeText="v1.0 is Live"\n      title="Gravity Grid"\n      description="Move your cursor to repel the grid."\n    />\n  );\n}`,
+      params: { variant: "dots" }
+    },
+    {
+      name: "Vector Mesh",
+      code: `import { GravityGridHero } from "@/components/creative/hero/gravity-grid-hero";\n\nexport default function Example() {\n  return (\n    <GravityGridHero \n      variant="lines"\n      title="Vector Mesh"\n    />\n  );\n}`,
+      params: { variant: "lines" }
+    }
+  ]}
+>
+  <GravityGridHeroDemo />
+</ComponentPreview>

@@ -1,0 +1,57 @@
+---
+title: Parallax Depth Cards
+description: A stack of cards that fly in with 3D rotation and stack up as you scroll.
+category: Cards
+---
+
+A highly engaging layout component where cards don't just scroll normally, but instead fly in from the background, rotate in 3D space (`rotateX`), and stack on top of each other while fading out slightly to create a deep, parallax depth-of-field effect.
+
+## Live Preview
+
+<ComponentPreview 
+  name="parallax-depth-cards-demo" 
+  componentName="ParallaxDepthCards"
+  sourceFile="components/creative/parallax-depth-cards.tsx"
+  playgroundControls={[
+    {
+      name: "itemCount",
+      label: "Number of Cards",
+      type: "number",
+      default: 4,
+      min: 2,
+      max: 4,
+      step: 1
+    }
+  ]}
+  propsData={[
+    {
+      name: "cards",
+      type: "DepthCard[]",
+      description: "An array of objects containing id, title, description, and optionally imageUrl or color for the background."
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Optional Tailwind classes for the outer container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { ParallaxDepthCards } from "@/components/creative/parallax-depth-cards";\n\nconst items = [\n  { id: "1", title: "Card 1", description: "Desc", category: "Test", imageUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=800&auto=format&fit=crop" },\n  { id: "2", title: "Card 2", description: "Desc", category: "Test", imageUrl: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop" }\n];\n\nexport default function Example() {\n  return (\n    <div className="w-full relative h-[600px] overflow-hidden">\n      <div className="absolute inset-0 overflow-y-auto no-scrollbar pointer-events-auto">\n        <div className="h-[50vh]" />\n        <ParallaxDepthCards items={items} />\n        <div className="h-[50vh]" />\n      </div>\n    </div>\n  );\n}`,
+      params: { itemCount: 2 }
+    },
+    {
+      name: "3 Items",
+      code: `import { ParallaxDepthCards } from "@/components/creative/parallax-depth-cards";\n\nconst items = [\n  { id: "1", title: "Card 1", description: "Desc", category: "Test", imageUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=800&auto=format&fit=crop" },\n  { id: "2", title: "Card 2", description: "Desc", category: "Test", imageUrl: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop" },\n  { id: "3", title: "Card 3", description: "Desc", category: "Test", imageUrl: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=800&auto=format&fit=crop" }\n];\n\nexport default function Example() {\n  return (\n    <div className="w-full relative h-[600px] overflow-hidden">\n      <div className="absolute inset-0 overflow-y-auto no-scrollbar pointer-events-auto">\n        <div className="h-[50vh]" />\n        <ParallaxDepthCards items={items} />\n        <div className="h-[50vh]" />\n      </div>\n    </div>\n  );\n}`,
+      params: { itemCount: 3 }
+    },
+    {
+      name: "4 Items",
+      code: `import { ParallaxDepthCards } from "@/components/creative/parallax-depth-cards";\n\nconst items = [\n  { id: "1", title: "Card 1", description: "Desc", category: "Test", imageUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=800&auto=format&fit=crop" },\n  { id: "2", title: "Card 2", description: "Desc", category: "Test", imageUrl: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop" },\n  { id: "3", title: "Card 3", description: "Desc", category: "Test", imageUrl: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=800&auto=format&fit=crop" },\n  { id: "4", title: "Card 4", description: "Desc", category: "Test", imageUrl: "https://images.unsplash.com/photo-1439405326854-014607f694d7?q=80&w=800&auto=format&fit=crop" }\n];\n\nexport default function Example() {\n  return (\n    <div className="w-full relative h-[600px] overflow-hidden">\n      <div className="absolute inset-0 overflow-y-auto no-scrollbar pointer-events-auto">\n        <div className="h-[50vh]" />\n        <ParallaxDepthCards items={items} />\n        <div className="h-[50vh]" />\n      </div>\n    </div>\n  );\n}`,
+      params: { itemCount: 4 }
+    }
+  ]}
+>
+  <ParallaxDepthCardsDemo />
+</ComponentPreview>

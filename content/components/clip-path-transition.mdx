@@ -1,0 +1,54 @@
+---
+title: Clip Path Transition
+description: An expansive geometric page transition using SVG clip-paths.
+---
+
+<ComponentPreview 
+  name="clip-path-transition"
+  componentName="ClipPathTransition"
+  sourceFile="components/creative/clip-path-transition.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["circle", "diamond", "wipe-up", "wipe-right", "polygon"],
+      default: "circle"
+    },
+    {
+      name: "duration",
+      label: "Duration (s)",
+      type: "number",
+      default: 0.8,
+      min: 0.3,
+      max: 2.0,
+      step: 0.1
+    }
+  ]}
+>
+  <ClipPathTransitionDemo />
+</ComponentPreview>
+
+## Overview
+A staple of creative agency portfolios. Instead of standard crossfades or slide transitions, this component uses Framer Motion to animate CSS `clip-path` properties, creating a dramatic reveal for new content.
+
+It uses `AnimatePresence mode="wait"` internally, meaning it waits for the current page to finish its exit animation before the new page's entrance animation begins.
+
+## Usage
+
+You can wrap this around your page components, passing the route path or a unique ID to the `triggerKey` prop to trigger the transition when the route changes.
+
+```tsx
+import { ClipPathTransition } from "@/components/creative/clip-path-transition"
+import { usePathname } from "next/navigation"
+
+export default function AppLayout({ children }) {
+  const pathname = usePathname()
+
+  return (
+    <ClipPathTransition triggerKey={pathname} variant="circle" duration={1.2}>
+      {children}
+    </ClipPathTransition>
+  )
+}
+```

@@ -1,0 +1,48 @@
+---
+title: Dynamic Morphing Chart
+description: A data visualization component that uses Framer Motion's layoutId to seamlessly morph between bar, line, and scatter chart representations without unmounting elements.
+category: Layout & Data
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Dynamic Morphing Chart" 
+  componentName="MorphChart"
+  sourceFile="components/creative/morph-chart.tsx"
+>
+  <MorphChartDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="morph-chart" />
+
+## Usage
+
+```tsx
+import { MorphChart } from "@/components/creative/morph-chart";
+
+const chartData = [
+  { label: "Q1", value: 1200 },
+  { label: "Q2", value: 1900 },
+  { label: "Q3", value: 1500 },
+  { label: "Q4", value: 2800 },
+];
+
+export default function Page() {
+  return (
+    <div className="max-w-2xl mx-auto">
+      <MorphChart data={chartData} color="#818cf8" />
+    </div>
+  );
+}
+```
+
+## How it works
+
+This chart entirely skips traditional charting libraries (like Recharts or D3) in favor of CSS and Framer Motion, making it incredibly lightweight and visually stunning.
+
+The core trick relies on Framer Motion's **`layoutId`** prop.
+1. When in **Bar Mode**, the data point is rendered as a wide `motion.div` with a height percentage tied to its value.
+2. When the user clicks **Line Mode**, React updates the state. Instead of destroying the bar, Framer Motion animates the `motion.div` into a tiny 12x12 pixel circle (`border-radius: 50%`) positioned exactly at the top coordinate where the bar used to end.
+3. Simultaneously, an SVG `<path>` is animated in using Framer's `pathLength` attribute, physically drawing a glowing connecting line between all the newly formed nodes.

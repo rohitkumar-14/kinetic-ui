@@ -1,0 +1,52 @@
+---
+title: Draggable Carousel
+description: A physics-based, touch-native draggable row for horizontal scrolling.
+---
+
+<ComponentPreview 
+  name="draggable-carousel"
+  componentName="DraggableCarousel"
+  sourceFile="components/creative/draggable-carousel.tsx"
+>
+  <DraggableCarouselDemo />
+</ComponentPreview>
+
+## Overview
+The `DraggableCarousel` replaces native `overflow-x-scroll` with a much more premium, physics-driven interaction. By leveraging Framer Motion's `drag="x"` capabilities, it provides momentum, elasticity on the edges, and a smooth tactile feel that mimics native mobile apps on both desktop and mobile browsers.
+
+The component uses a `renderItem` prop pattern, meaning you can pass any type of UI into the carousel—from simple images to complex interactive product cards.
+
+## Usage
+
+```tsx
+import { DraggableCarousel } from "@/components/creative/draggable-carousel"
+
+export default function FeaturedProducts() {
+  const products = [
+    { id: 1, name: "Chair", price: "$120", img: "/chair.jpg" },
+    { id: 2, name: "Lamp", price: "$85", img: "/lamp.jpg" },
+    // ...
+  ]
+
+  return (
+    <section className="py-20 pl-8 overflow-hidden">
+      <h2 className="text-3xl font-bold mb-8">Featured Items</h2>
+      
+      <DraggableCarousel 
+        items={products}
+        gap={24}
+        itemClassName="w-[280px]"
+        renderItem={(item) => (
+          <div className="w-full bg-zinc-900 rounded-xl overflow-hidden cursor-grab active:cursor-grabbing">
+            <img src={item.img} className="w-full aspect-square object-cover pointer-events-none" />
+            <div className="p-4">
+              <h3 className="text-white font-semibold">{item.name}</h3>
+              <p className="text-zinc-400">{item.price}</p>
+            </div>
+          </div>
+        )}
+      />
+    </section>
+  )
+}
+```

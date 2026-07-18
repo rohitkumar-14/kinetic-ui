@@ -1,0 +1,36 @@
+---
+title: Cover Flow Carousel
+description: A 3D draggable carousel that rotates and scales items dynamically based on their distance from the center.
+category: Layout & Data
+---
+
+A highly premium draggable carousel that creates a perfect 3D cylinder illusion without using WebGL. By dynamically hooking into Framer Motion's `x` offset, each card mathematically calculates its own `rotateY`, `scale`, and `filter` based on its physical distance from the center of your screen.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Cover Flow Carousel" 
+  componentName="CoverFlowCarousel"
+  sourceFile="components/creative/cover-flow-carousel.tsx"
+  playgroundControls={[
+    { name: "itemWidth", type: "number", min: 200, max: 500, step: 10, default: 300, label: "Item Width" }
+  ]}
+  propsData={[
+    { name: "items", type: "CarouselItem[]", description: "An array of CarouselItem objects containing id, title, and imageUrl." },
+    { name: "itemWidth", type: "number", default: "300", description: "The fixed pixel width of each card in the carousel." },
+    { name: "className", type: "string", description: "Optional Tailwind classes for the outer container." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { CoverFlowCarousel } from "@/components/creative/cover-flow-carousel";\n\nconst items = [\n  {\n    id: "1",\n    title: "Album 1",\n    imageUrl: "https://example.com/cover1.jpg"\n  }\n];\n\nexport default function Example() {\n  return (\n    <CoverFlowCarousel items={items} itemWidth={300} />\n  );\n}`
+    }
+  ]}
+>
+  <CoverFlowCarouselDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="cover-flow-carousel" />
+

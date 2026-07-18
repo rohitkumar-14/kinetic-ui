@@ -1,0 +1,39 @@
+---
+title: Date Picker
+description: A popover calendar component for selecting a single date.
+category: Forms
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Date Picker" 
+  componentName="DatePicker"
+  sourceFile="components/ui/date-picker.tsx"
+  playgroundControls={[
+    { name: "placeholder", type: "string", default: "Pick a date", label: "Placeholder Text" }
+  ]}
+  propsData={[
+    { name: "date", type: "Date | undefined", description: "The currently selected date." },
+    { name: "onDateChange", type: "(date: Date | undefined) => void", description: "Callback when the date is changed." },
+    { name: "placeholder", type: "string", description: "Placeholder text for the input when no date is selected." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { useState } from "react";\nimport { DatePicker } from "@/components/ui/date-picker";\n\nexport default function Example() {\n  const [date, setDate] = useState<Date | undefined>();\n  return <DatePicker date={date} onDateChange={setDate} placeholder="Pick a date" />;\n}`
+    }
+  ]}
+>
+  <div className="flex items-center justify-center p-6 w-full">
+    <DatePicker />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="date-picker" />
+
+## Overview
+
+A robust single date picker built on top of `react-day-picker` and our standard `Popover` primitive. It inherits the global theme and CSS variables.
+

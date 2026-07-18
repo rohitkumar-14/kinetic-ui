@@ -1,0 +1,81 @@
+---
+title: Kinetic Typography
+description: Massive responsive text that dynamically warps, floats, and scrambles using Framer Motion.
+category: Text Effects
+---
+
+The `KineticTypography` component breaks down strings into individual `framer-motion` nodes. By applying mathematical transforms or physics springs to individual letters, it creates powerful "magnetic spline" waves, organic floats, and interactive hover effects. Now updated with **5 animation variants**.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Kinetic Typography" 
+  componentName="KineticTypography"
+  sourceFile="components/creative/kinetic-typography.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["elastic", "wave", "jump", "float", "decode"],
+      default: "elastic"
+    },
+    {
+      name: "text",
+      label: "Text",
+      type: "string",
+      default: "Kinetic"
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      default: "Required",
+      description: "The string to be broken down and animated."
+    },
+    {
+      name: "variant",
+      type: "'elastic' | 'wave' | 'jump' | 'float' | 'decode'",
+      default: "'elastic'",
+      description: "The animation logic applied to the characters."
+    },
+    {
+      name: "intensity",
+      type: "number",
+      default: "50",
+      description: "How far the letters stretch and distort based on mouse proximity. (Only applies to the 'elastic' variant)."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional Tailwind classes applied to the container (e.g., text sizing, colors)."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { KineticTypography } from '@/components/creative/kinetic-typography';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[350px] items-center justify-center bg-black">\n      <KineticTypography \n        text="Kinetic"\n        variant="elastic" \n        intensity={60}\n        className="text-white"\n      />\n    </div>\n  );\n}`,
+      params: { variant: "elastic", text: "Kinetic" }
+    }
+  ]}
+>
+  <KineticTypographyDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="kinetic-typography" />
+
+
+
+## Variants
+
+| Variant | Interaction | Description |
+|---|---|---|
+| `elastic` | Mouse Move | Maps cursor position to 3D rotation, scaling, and translation for a magnetic spline effect. |
+| `wave` | Auto-playing | Continuous, staggered sine wave oscillation across the text. |
+| `jump` | Hover | Individual letters spring upwards and change color when hovered. |
+| `float` | Auto-playing | Letters drift organically with randomized delays, distances, and rotations. |
+| `decode` | Mount & Hover | Scrambles letters through random characters before settling. Re-triggers on individual letter hover. |

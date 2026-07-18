@@ -1,0 +1,56 @@
+---
+title: Scroll Velocity Text
+description: Typography that dynamically stretches and skews based on your scroll speed.
+category: Text Effects
+---
+
+A highly dynamic typographic component that uses Framer Motion's `useScroll` and `useVelocity` to calculate scroll speed in real-time, applying a dramatic stretch and skew effect that intensifies the faster you scroll.
+
+## Live Preview
+
+<ComponentPreview 
+  name="scroll-velocity-text-demo" 
+  componentName="ScrollVelocityText"
+  sourceFile="components/creative/scroll-velocity-text.tsx"
+  playgroundControls={[
+    {
+      name: "text",
+      label: "Text",
+      type: "text",
+      default: "FAST SCROLL VELOCITY"
+    },
+    {
+      name: "defaultVelocity",
+      label: "Default Velocity",
+      type: "number",
+      default: "50"
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      description: "The string of text to render and animate."
+    },
+    {
+      name: "defaultVelocity",
+      type: "number",
+      default: "5",
+      description: "Base velocity multiplier. Positive moves left, negative moves right."
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Optional Tailwind classes for styling (color, positioning, etc)."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { ScrollVelocityText } from "@/components/creative/scroll-velocity-text";\n\nexport default function Example() {\n  return (\n    <div className="w-full relative bg-zinc-950 overflow-hidden h-[400px]">\n      <div className="absolute inset-0 overflow-y-auto no-scrollbar pointer-events-auto flex items-center justify-center">\n        <div className="h-[100vh]" />\n        <ScrollVelocityText \n          text="FAST SCROLL VELOCITY" \n          defaultVelocity={50} \n          className="text-white absolute top-1/2 -translate-y-1/2"\n        />\n      </div>\n    </div>\n  );\n}`,
+      params: { text: "FAST SCROLL VELOCITY", defaultVelocity: 50 }
+    }
+  ]}
+>
+  <ScrollVelocityTextDemo />
+</ComponentPreview>

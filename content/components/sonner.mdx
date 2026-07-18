@@ -1,0 +1,34 @@
+---
+title: Sonner (Toast)
+description: An opinionated toast component for React.
+category: Layout & Data
+---
+
+An opinionated toast component for React, designed to be beautifully animated and easy to use.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Sonner Toast" 
+  componentName="Sonner"
+  sourceFile="components/ui/sonner.tsx"
+  playgroundControls={[
+    { name: "position", type: "select", options: ["top-right", "top-left", "bottom-right", "bottom-left"], default: "bottom-right", label: "Position" }
+  ]}
+  propsData={[
+    { name: "Inherits Props", type: "Sonner API", default: "—", description: "Supports standard Radix UI and Sonner Toast API." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { toast } from "sonner"\nimport { Button } from "@/components/ui/button"\n\nexport default function Example() {\n  return (\n    <Button\n      variant="outline"\n      onClick={() =>\n        toast("Event has been created", {\n          description: "Sunday, December 03, 2023 at 9:00 AM",\n          action: {\n            label: "Undo",\n            onClick: () => console.log("Undo"),\n          },\n        })\n      }\n    >\n      Show Toast\n    </Button>\n  );\n}`
+    }
+  ]}
+>
+  <ToastDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="sonner" />
+

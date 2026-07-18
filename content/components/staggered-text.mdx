@@ -1,0 +1,60 @@
+---
+title: Staggered Text Reveal
+description: A robust text component that splits and reveals text with staggered timing.
+---
+
+<ComponentPreview 
+  name="staggered-text"
+  componentName="StaggeredText"
+  sourceFile="components/creative/staggered-text.tsx"
+  playgroundControls={[
+    {
+      name: "type",
+      label: "Split Type",
+      type: "select",
+      options: ["word", "char"],
+      default: "word"
+    },
+    {
+      name: "animation",
+      label: "Animation Type",
+      type: "select",
+      options: ["slide-up", "fade", "blur-in"],
+      default: "slide-up"
+    },
+    {
+      name: "staggerDelay",
+      label: "Stagger Delay",
+      type: "number",
+      default: 0.05,
+      min: 0.01,
+      max: 0.2,
+      step: 0.01
+    }
+  ]}
+>
+  <StaggeredTextDemo />
+</ComponentPreview>
+
+## Overview
+The `StaggeredText` component is an essential utility for modern scrollytelling sites. Instead of manually splitting text and creating complex staggered arrays in `framer-motion`, this component automatically handles the string splitting (preserving whitespace wrapping) and orchestrates a beautiful cascading reveal when the text enters the viewport.
+
+## Usage
+
+```tsx
+import { StaggeredText } from "@/components/creative/staggered-text"
+
+export default function Section() {
+  return (
+    <section className="py-20">
+      <StaggeredText 
+        text="The ultimate solution for digital creators."
+        type="word"
+        animation="slide-up"
+        staggerDelay={0.1}
+        className="text-6xl font-bold"
+      />
+    </section>
+  )
+}
+```

@@ -1,0 +1,49 @@
+---
+title: Video Reveal
+description: Hover-triggered cinematic video reveal masks.
+category: Media
+---
+
+A highly interactive media component that acts as a sleek typography container until hovered, at which point it elegantly reveals a looping video background using Framer Motion animations. Features multiple Awwwards-style reveal styles.
+
+## Live Preview
+
+<ComponentPreview 
+  name="video-reveal-demo" 
+  componentName="VideoReveal"
+  sourceFile="components/creative/video-reveal.tsx"
+  playgroundControls={[
+    { name: "variant", label: "Animation Variant", type: "select", options: ["hover-zoom", "cursor-mask", "split-door"], default: "hover-zoom" },
+    { name: "text", label: "Text", type: "string", default: "Hover to Reveal" }
+  ]}
+  propsData={[
+    { name: "videoSrc", type: "string", description: "The URL source of the video to reveal on hover." },
+    { name: "variant", type: "\"hover-zoom\" | \"cursor-mask\" | \"split-door\"", default: "\"hover-zoom\"", description: "The animation style used to reveal the video." },
+    { name: "posterSrc", type: "string", description: "Optional URL for a poster image to show while the video loads." },
+    { name: "text", type: "string", default: "\"Hover to Reveal\"", description: "The typography text displayed in the center of the component." }
+  ]}
+  variants={[
+    {
+      name: "Hover Zoom",
+      code: `import { VideoReveal } from "@/components/creative/video-reveal";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[600px] flex items-center justify-center">\n      <VideoReveal variant="hover-zoom" text="Hover to Reveal" videoSrc="https://videos.pexels.com/video-files/856973/856973-hd_1920_1080_25fps.mp4" />\n    </div>\n  );\n}`,
+      params: { variant: "hover-zoom", text: "Hover to Reveal" }
+    },
+    {
+      name: "Cursor Mask",
+      code: `import { VideoReveal } from "@/components/creative/video-reveal";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[600px] flex items-center justify-center">\n      <VideoReveal variant="cursor-mask" text="Hover to Reveal" videoSrc="https://videos.pexels.com/video-files/856973/856973-hd_1920_1080_25fps.mp4" />\n    </div>\n  );\n}`,
+      params: { variant: "cursor-mask", text: "Hover to Reveal" }
+    },
+    {
+      name: "Split Door",
+      code: `import { VideoReveal } from "@/components/creative/video-reveal";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[600px] flex items-center justify-center">\n      <VideoReveal variant="split-door" text="Hover to Reveal" videoSrc="https://videos.pexels.com/video-files/856973/856973-hd_1920_1080_25fps.mp4" />\n    </div>\n  );\n}`,
+      params: { variant: "split-door", text: "Hover to Reveal" }
+    }
+  ]}
+>
+  <VideoRevealDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="video-reveal" />
+

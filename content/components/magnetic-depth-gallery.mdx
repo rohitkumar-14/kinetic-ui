@@ -1,0 +1,35 @@
+---
+title: Magnetic Depth Gallery
+description: An interactive grid that mimics physical depth-of-field by dynamically blurring and scaling images based on their distance from your cursor.
+category: Media Components
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Magnetic Depth Gallery" 
+  componentName="MagneticDepthGallery"
+  sourceFile="components/creative/magnetic-depth-gallery.tsx"
+  variants={[
+    {
+      name: "Default",
+      code: `import { MagneticDepthGallery } from "@/components/creative/magnetic-depth-gallery";\n\nconst IMAGES = [\n  { id: "1", url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800", alt: "1" },\n  { id: "2", url: "https://images.unsplash.com/photo-1618005192384-a83a8bd57fbe?w=800", alt: "2" },\n  { id: "3", url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800", alt: "3" },\n];\n\nexport default function Example() {\n  return (\n    <MagneticDepthGallery images={IMAGES} />\n  );\n}`
+    }
+  ]}
+>
+  <MagneticDepthGalleryDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="magnetic-depth-gallery" />
+
+## Architecture
+
+This component calculates **Euclidean distance** directly in a 60fps `useAnimationFrame` loop to achieve its effect:
+
+1. A single `onMouseMove` event listener is attached to the parent container. This writes the cursor's `X` and `Y` coordinates into highly-performant Framer Motion `useMotionValue`s.
+2. Every image in the gallery subscribes to these motion values.
+3. On every frame, each image calculates its exact center point on the screen and measures its distance to the cursor.
+4. Using linear interpolation, the component dynamically scales and sharpens items that are near the cursor, while fading and applying CSS `blur()` to items that are far away.
+
+The result is a stunning "macro lens" depth-of-field effect that reacts instantly to user input.

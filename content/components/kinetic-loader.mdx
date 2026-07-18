@@ -1,0 +1,90 @@
+---
+title: Kinetic Loader
+description: A staggered text loading animation featuring 3D flips, waves, and bounces.
+category: Text Effects
+---
+
+The `KineticLoader` component uses Framer Motion to split text into characters and animate them with a continuous stagger sequence. It's perfect for full-page loading screens or in-button loading states. Now updated to be **zero-dependency** (removed GSAP) and features **4 built-in animation variants**.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Kinetic Loader" 
+  componentName="KineticLoader"
+  sourceFile="components/creative/kinetic-loader.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["flip", "bounce", "wave", "pulse"],
+      default: "flip"
+    },
+    {
+      name: "text",
+      label: "Text",
+      type: "string",
+      default: "LOADING..."
+    },
+    {
+      name: "size",
+      label: "Size",
+      type: "select",
+      options: ["sm", "md", "lg"],
+      default: "md"
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      default: "'LOADING...'",
+      description: "The text to split and animate."
+    },
+    {
+      name: "variant",
+      type: "'flip' | 'bounce' | 'wave' | 'pulse'",
+      default: "'flip'",
+      description: "The animation preset to use."
+    },
+    {
+      name: "size",
+      type: "'sm' | 'md' | 'lg'",
+      default: "'md'",
+      description: "Pre-configured text sizes."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Animation speed multiplier. Higher is faster."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "—",
+      description: "Optional hex/rgb color to override Tailwind text colors."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional Tailwind classes."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { KineticLoader } from '@/components/creative/kinetic-loader';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[300px] items-center justify-center bg-black">\n      <KineticLoader text="LOADING..." variant="flip" size="md" className="text-indigo-400" />\n    </div>\n  );\n}`,
+      params: { variant: "flip", text: "LOADING...", size: "md" }
+    }
+  ]}
+>
+  <KineticLoaderDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="kinetic-loader" />
+
+

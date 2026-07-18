@@ -1,0 +1,40 @@
+---
+title: File Upload
+description: A drag-and-drop file upload zone with interactive states.
+category: Forms
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="File Upload" 
+  componentName="FileUpload"
+  sourceFile="components/ui/file-upload.tsx"
+  playgroundControls={[
+    { name: "maxFiles", type: "number", min: 1, max: 10, step: 1, default: 3, label: "Max Files" }
+  ]}
+  propsData={[
+    { name: "maxFiles", type: "number", default: "1", description: "Maximum number of files allowed." },
+    { name: "onFilesChange", type: "(files: File[]) => void", description: "Callback when files are dropped or removed." },
+    { name: "label", type: "string", default: "\"Upload files\"", description: "Main text label for the dropzone." },
+    { name: "description", type: "string", description: "Secondary text description below the label." }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { FileUpload } from "@/components/ui/file-upload";\n\nexport default function Example() {\n  return <FileUpload maxFiles={3} />;\n}`
+    }
+  ]}
+>
+  <div className="w-full">
+    <FileUploadDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="file-upload" />
+
+## Overview
+
+A premium, drag-and-drop file upload zone built on top of `react-dropzone`. It features smooth hover states, dashed borders that react to drag events, and a clean file list preview.
+

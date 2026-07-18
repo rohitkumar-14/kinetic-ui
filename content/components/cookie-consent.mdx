@@ -1,0 +1,52 @@
+---
+title: Cookie Consent
+description: A GDPR/CCPA-compliant banner with premium animations and glassmorphism.
+---
+
+<ComponentPreview 
+  name="cookie-consent"
+  componentName="CookieConsent"
+  sourceFile="components/creative/cookie-consent.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["modal", "bottom-bar"],
+      default: "modal"
+    }
+  ]}
+>
+  <CookieConsentDemo />
+</ComponentPreview>
+
+## Overview
+Every professional website needs a cookie consent banner for GDPR and CCPA compliance. However, most default plugins are incredibly ugly and instantly ruin the premium aesthetic you've worked so hard to build.
+
+This `CookieConsent` component solves that. It provides a sleek, animated, glassmorphism UI that looks intentional and high-end. It supports both a full-width `bottom-bar` and a modern floating corner `modal`.
+
+## Usage
+
+Place this in your main layout so it tracks across pages.
+
+```tsx
+import { CookieConsent } from "@/components/creative/cookie-consent"
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        
+        <CookieConsent 
+          variant="modal" 
+          delay={1500}
+          onAcceptAll={() => {
+            // Initialize analytics here
+          }}
+        />
+      </body>
+    </html>
+  )
+}
+```

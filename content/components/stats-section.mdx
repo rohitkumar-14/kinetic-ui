@@ -1,0 +1,68 @@
+---
+title: Stats Section
+description: A highly prominent metrics layout featuring animated count-ups.
+---
+
+<ComponentPreview 
+  name="stats-section"
+  componentName="StatsSection"
+  sourceFile="components/creative/stats-section.tsx"
+  playgroundControls={[
+    {
+      name: "layout",
+      label: "Layout",
+      type: "select",
+      options: ["row", "grid"],
+      default: "row"
+    }
+  ]}
+>
+  <StatsSectionDemo />
+</ComponentPreview>
+
+## Overview
+The `StatsSection` leverages our internal `AnimatedCounter` component to build the quintessential metric display block seen on every modern SaaS and agency landing page. It features automatic, scroll-triggered count-up animations, staggered delays, and optional icon slots.
+
+## Installation
+
+```bash
+npm install framer-motion lucide-react
+```
+
+## Usage
+
+```tsx
+import { StatsSection } from "@/components/creative/stats-section"
+import { Users, Code, Zap } from "lucide-react"
+
+export default function Metrics() {
+  const stats = [
+    { 
+      value: 1.2, 
+      label: "Active Users", 
+      suffix: "M+", 
+      decimals: 1,
+      icon: <Users />
+    },
+    { 
+      value: 50, 
+      label: "Integrations", 
+      prefix: "",
+      icon: <Code />
+    },
+    { 
+      value: 99.9, 
+      label: "Uptime",
+      suffix: "%",
+      decimals: 1,
+      icon: <Zap />
+    }
+  ]
+
+  return (
+    <section className="py-20 bg-black">
+      <StatsSection stats={stats} layout="row" />
+    </section>
+  )
+}
+```

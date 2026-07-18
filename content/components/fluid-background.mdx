@@ -1,0 +1,72 @@
+---
+title: Fluid Background
+description: A stunning WebGL shader background that simulates fluid noise reacting to mouse movement.
+category: Background Effects
+---
+
+The `FluidBackground` component uses React Three Fiber and a custom GLSL fragment shader. It generates multiple layers of Simplex 2D noise that drift over time and organically distort based on mouse proximity, creating a premium "liquid smoke" aesthetic perfect for hero sections.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Fluid Background" 
+  componentName="FluidBackground"
+  sourceFile="components/creative/fluid-background.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Theme Variant",
+      type: "select",
+      options: ["ocean", "magma", "aurora", "monochrome"],
+      default: "ocean"
+    }
+  ]}
+  propsData={[
+    {
+      name: "color1",
+      type: "string",
+      default: "\"#4f46e5\"",
+      description: "The primary highlight color (hex format)"
+    },
+    {
+      name: "color2",
+      type: "string",
+      default: "\"#db2777\"",
+      description: "The secondary highlight color"
+    },
+    {
+      name: "color3",
+      type: "string",
+      default: "\"#0f172a\"",
+      description: "The base/darkest background color"
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Multiplier for the underlying simplex noise drift velocity."
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Additional Tailwind classes for the wrapper"
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { FluidBackground } from "@/components/creative/fluid-background";\n\nexport default function Example() {\n  return (\n    <div className="relative w-full h-[500px]">\n      <FluidBackground color1="#1d4ed8" color2="#2dd4bf" color3="#020617" />\n      <div className="relative z-10 flex h-full items-center justify-center text-white mix-blend-difference pointer-events-none">\n        <h1>Move your cursor!</h1>\n      </div>\n    </div>\n  );\n}`,
+      params: { variant: "ocean" }
+    }
+  ]}
+>
+  <FluidBackgroundDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="fluid-background" />
+
+## Props
+
+

@@ -1,0 +1,34 @@
+---
+title: Interactive 360° Viewer
+description: A high-performance scrubbable media component that allows users to drag and rotate a product smoothly in 360 degrees.
+category: Media Components
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Interactive 360° Viewer" 
+  componentName="Interactive360Viewer"
+  sourceFile="components/creative/interactive-360-viewer.tsx"
+  playgroundControls={[
+    { name: "sensitivity", type: "number", default: 15, min: 5, max: 50, step: 1, label: "Drag Sensitivity" }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { Interactive360Viewer } from "@/components/creative/interactive-360-viewer";\n\n// Provide an array of image URLs (usually 36-72 frames for a smooth rotation)\nconst productFrames = [\n  "/shoe_01.jpg",\n  "/shoe_02.jpg",\n  // ...\n  "/shoe_36.jpg",\n];\n\nexport default function Example() {\n  return (\n    <Interactive360Viewer \n      images={productFrames} \n      sensitivity={15}\n    />\n  );\n}`
+    }
+  ]}
+>
+  <Interactive360ViewerDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="interactive-360-viewer" />
+
+## Architecture
+
+This component is designed to replace heavy WebGL/Three.js viewers for simple 360-degree product showcases. It works by preloading an array of standard image frames (e.g., `.jpg` or `.webp`) and intelligently swapping the `src` attribute based on mouse or touch drag distance.
+
+### Preloading Optimization
+To guarantee a 60fps scrubbing experience without flickering, the component aggressively preloads every image in the array upon mount. It displays an internal loading spinner until all images are fully cached by the browser, ensuring a perfectly smooth rotation the moment the user interacts with it.

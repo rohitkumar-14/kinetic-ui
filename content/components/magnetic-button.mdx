@@ -1,0 +1,78 @@
+---
+title: Magnetic Button
+description: A button that snaps and physically pulls towards the user's cursor on hover using spring physics.
+category: Buttons
+---
+
+The `MagneticButton` uses Framer Motion's robust spring physics to create a highly tactile, physical interaction. When a user hovers near or over the button, it pulls towards their cursor, snapping back into place when they leave. Now featuring **3 physics variants** to simulate different physical materials.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Magnetic Button" 
+  componentName="MagneticButton"
+  sourceFile="components/creative/magnetic-button.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["standard", "heavy", "bouncy"],
+      default: "standard"
+    },
+    {
+      name: "color",
+      label: "Color",
+      type: "string",
+      default: "#818cf8"
+    },
+    {
+      name: "withSound",
+      label: "Sound Enabled",
+      type: "boolean",
+      default: true
+    }
+  ]}
+  propsData={[
+    {
+      name: "variant",
+      type: "'standard' | 'heavy' | 'bouncy'",
+      default: "'standard'",
+      description: "Pre-configured Framer Motion spring physics representing different materials."
+    },
+    {
+      name: "magneticPull",
+      type: "number",
+      default: "0.3",
+      description: "How aggressively the button tracks the cursor (0 to 1). Higher = more tracking distance."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Global speed multiplier affecting the spring physics."
+    },
+    {
+      name: "withSound",
+      type: "boolean",
+      default: "false",
+      description: "If true, plays standard UX interaction sounds on hover and click."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "—",
+      description: "Overrides Tailwind background/border colors safely."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { MagneticButton } from '@/components/creative/magnetic-button';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[300px] items-center justify-center bg-black">\n      <MagneticButton variant="standard" color="#818cf8" withSound className="px-8 py-4 text-white">\n        Pull Me\n      </MagneticButton>\n    </div>\n  );\n}`,
+      params: { variant: "standard", color: "#818cf8", withSound: true }
+    }
+  ]}
+>
+  <MagneticButtonDemo />
+</ComponentPreview>
+

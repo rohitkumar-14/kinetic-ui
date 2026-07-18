@@ -1,0 +1,56 @@
+---
+title: Scroll Video Scrub
+description: A scrollytelling component where your scroll position perfectly controls the timeline playback of a video.
+category: Scrollytelling
+---
+
+The ultimate Apple-style product reveal technique. This component pins a video to your screen and mathematically maps its `currentTime` to your scroll progress. Scroll down to play forward, scroll up to rewind in real-time.
+
+> **Tip:** For production use, ensure your video is exported with keyframes on every single frame (e.g., using Handbrake or FFmpeg with `keyint=1`) to guarantee buttery smooth scrubbing, especially when scrolling backward!
+
+## Live Preview
+
+<ComponentPreview 
+  name="scroll-video-scrub-demo" 
+  componentName="ScrollVideoScrub"
+  sourceFile="components/creative/scroll-video-scrub.tsx"
+  playgroundControls={[
+    {
+      name: "videoUrl",
+      label: "Video URL",
+      type: "string",
+      default: "https://videos.pexels.com/video-files/856973/856973-hd_1920_1080_25fps.mp4"
+    }
+  ]}
+  propsData={[
+    {
+      name: "videoUrl",
+      type: "string",
+      description: "The URL or path to the video file."
+    },
+    {
+      name: "textNodes",
+      type: "TextNode[]",
+      description: "Array of text overlays tied to scroll progress timestamps. Each node has { content, start, end }."
+    },
+    {
+      name: "fallbackImage",
+      type: "string",
+      description: "Optional poster image to display while the video metadata loads."
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Optional Tailwind classes for the outer container."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { ScrollVideoScrub } from "@/components/creative/scroll-video-scrub";\n\nexport default function Example() {\n  return (\n    <div className="w-full relative h-[600px] overflow-hidden">\n      <div className="absolute inset-0 overflow-y-auto no-scrollbar pointer-events-auto">\n        <div className="h-[50vh]" />\n        <ScrollVideoScrub \n          videoUrl="https://videos.pexels.com/video-files/856973/856973-hd_1920_1080_25fps.mp4"\n          textNodes={[\n            { start: 0.1, end: 0.5, content: <h2 className="text-white text-4xl">Start</h2> }\n          ]}\n        />\n        <div className="h-[50vh]" />\n      </div>\n    </div>\n  );\n}`,
+      params: { videoUrl: "https://videos.pexels.com/video-files/856973/856973-hd_1920_1080_25fps.mp4" }
+    }
+  ]}
+>
+  <ScrollVideoScrubDemo />
+</ComponentPreview>

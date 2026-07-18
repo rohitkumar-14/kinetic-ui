@@ -1,0 +1,88 @@
+---
+title: Blur Text
+description: A staggered text reveal animation that fades and unblurs text by word or character.
+category: Text Effects
+---
+
+The `BlurText` component is a classic cinematic text reveal. By applying a heavy CSS `filter: blur()` and orchestrating a delayed stagger across the words or characters, it creates a feeling of a camera focusing in on the typography. Now updated with **4 distinct animation variants**.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Blur Text" 
+  componentName="BlurText"
+  sourceFile="components/creative/blur-text.tsx"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["elevate", "drop", "scale", "fade"],
+      default: "elevate"
+    },
+    {
+      name: "animateBy",
+      label: "Animate By",
+      type: "select",
+      options: ["word", "character"],
+      default: "word"
+    },
+    {
+      name: "text",
+      label: "Text",
+      type: "string",
+      default: "Focusing clarity"
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      default: "Required",
+      description: "The text string to animate."
+    },
+    {
+      name: "variant",
+      type: "'elevate' | 'drop' | 'scale' | 'fade'",
+      default: "'elevate'",
+      description: "The animation preset defining the starting position/scale."
+    },
+    {
+      name: "animateBy",
+      type: "'word' | 'character'",
+      default: "'word'",
+      description: "Whether to stagger the animation by each word or by each individual character. (Note: character stagger is much faster per element)."
+    },
+    {
+      name: "delay",
+      type: "number",
+      default: "0",
+      description: "Initial delay in seconds before the first element starts animating."
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional Tailwind classes for the wrapper element."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { BlurText } from '@/components/creative/blur-text';\n\nexport default function Example() {\n  return (\n    <div className="flex h-[300px] items-center justify-center bg-black">\n      <h2 className="text-4xl font-bold">\n        <BlurText text="Focusing clarity" variant="elevate" />\n      </h2>\n    </div>\n  );\n}`,
+      params: { variant: "elevate", text: "Focusing clarity", animateBy: "word" }
+    }
+  ]}
+>
+  <BlurTextDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="blur-text" />
+
+
+
+## Viewport Logic
+
+The component utilizes Framer Motion's `useInView` hook with `margin: "-10% 0px"`. This means the animation will automatically trigger exactly once when the text scrolls into the viewport (specifically, when it's 10% past the bottom edge of the screen), preventing animations from running off-screen.

@@ -1,0 +1,152 @@
+---
+title: Glyph Matrix
+description: An interactive digital stream matrix rain component with customizable characters, fonts, speeds, and cursor scatter repulsion.
+category: Text Effects
+---
+
+The `GlyphMatrix` component renders a high-performance digital stream rain on a canvas, inspired by the classic Matrix film effect and modern cyberpunk HUD elements. It is fully responsive, customizable, and features interactive cursor repulsion that dynamically scatters and scrambles the glyphs on hover.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Glyph Matrix" 
+  componentName="GlyphMatrix"
+  sourceFile="components/creative/glyph-matrix.tsx"
+  playgroundControls={[
+    {
+      name: "theme",
+      label: "Matrix Theme",
+      type: "select",
+      options: ["matrix", "cyber", "binary", "runic"],
+      default: "matrix"
+    },
+    {
+      name: "fontSize",
+      label: "Font Size",
+      type: "number",
+      min: 10,
+      max: 24,
+      step: 1,
+      default: 14
+    },
+    {
+      name: "speed",
+      label: "Fall Speed",
+      type: "number",
+      min: 0.5,
+      max: 3.0,
+      step: 0.1,
+      default: 1.2
+    },
+    {
+      name: "density",
+      label: "Density",
+      type: "number",
+      min: 0.8,
+      max: 2.0,
+      step: 0.1,
+      default: 1.1
+    },
+    {
+      name: "interactive",
+      label: "Mouse Repel",
+      type: "boolean",
+      default: true
+    },
+    {
+      name: "glow",
+      label: "Neon Glow",
+      type: "boolean",
+      default: true
+    }
+  ]}
+  propsData={[
+    {
+      name: "theme",
+      type: "'matrix' | 'cyber' | 'binary' | 'runic'",
+      default: "'matrix'",
+      description: "Presets for character sets, primary colors, glow, and highlight accents."
+    },
+    {
+      name: "fontSize",
+      type: "number",
+      default: "14",
+      description: "Size of the characters in pixels."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "1.2",
+      description: "Flow rate of the cascading rain. Lower is slower."
+    },
+    {
+      name: "density",
+      type: "number",
+      default: "1.1",
+      description: "Spacing multiplier between columns. Lower values increase the density."
+    },
+    {
+      name: "fadeSpeed",
+      type: "number",
+      default: "0.06",
+      description: "Transparency trail decay rate. Lower values create longer tails."
+    },
+    {
+      name: "interactive",
+      type: "boolean",
+      default: "true",
+      description: "Enables glyph repulsion and scrambling when the cursor hovers near the streams."
+    },
+    {
+      name: "glow",
+      type: "boolean",
+      default: "true",
+      description: "Applies a neon shadow blur highlight on interactive characters."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import { GlyphMatrix } from '@/components/creative/glyph-matrix';\n\nexport default function Example() {\n  return (\n    <div className="relative w-full h-[400px] bg-black rounded-xl overflow-hidden">\n      <GlyphMatrix theme="matrix" fontSize={14} speed={1.2} />\n    </div>\n  );\n}`,
+      params: { theme: "matrix", fontSize: 14, speed: 1.2, density: 1.1, interactive: true, glow: true }
+    }
+  ]}
+>
+  <GlyphMatrixDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="glyph-matrix" />
+
+
+
+## Use Cases
+
+### Custom Background Container
+
+You can layer the `GlyphMatrix` behind user interfaces or dashboard widgets by setting its positioning to absolute:
+
+```tsx
+import { GlyphMatrix } from '@/components/creative/glyph-matrix';
+
+export function CyberCard() {
+  return (
+    <div className="relative w-80 h-96 border border-zinc-800 rounded-2xl bg-black overflow-hidden p-6 flex flex-col justify-between">
+      {/* Background Matrix Rain */}
+      <div className="absolute inset-0 opacity-40 z-0">
+        <GlyphMatrix theme="cyber" fontSize={12} interactive={true} />
+      </div>
+
+      <div className="relative z-10">
+        <h3 className="text-lg font-mono font-bold text-white uppercase tracking-wider">Access Node</h3>
+        <p className="text-zinc-500 text-xs mt-1">Terminal connection secure.</p>
+      </div>
+
+      <button className="relative z-10 w-full py-2 bg-pink-500 text-white font-mono text-xs font-bold uppercase rounded-lg border border-pink-400/20 hover:bg-pink-600 transition-all duration-200">
+        Establish Link
+      </button>
+    </div>
+  );
+}
+```
