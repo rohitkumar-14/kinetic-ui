@@ -107,7 +107,9 @@ program
       spinner.text = 'Creating utils file...';
       let utilsPathStr = response.utilsAlias;
       if (utilsPathStr.startsWith('@/') || utilsPathStr.startsWith('~/')) {
-        utilsPathStr = utilsPathStr.substring(2);
+        const baseDir = utilsPathStr.substring(2);
+        const hasSrcDir = fs.existsSync(path.join(process.cwd(), 'src'));
+        utilsPathStr = hasSrcDir ? `src/${baseDir}` : baseDir;
       }
       
       const ext = response.typescript ? '.ts' : '.js';
@@ -267,7 +269,10 @@ program
           let aliasPath = compAlias;
           // Strip the @/ or ~/ prefix to get the actual directory path
           if (aliasPath.startsWith('@/') || aliasPath.startsWith('~/')) {
-            aliasPath = aliasPath.substring(2);
+            const baseDir = aliasPath.substring(2);
+            // Auto-detect src directory
+            const hasSrcDir = fs.existsSync(path.join(process.cwd(), 'src'));
+            aliasPath = hasSrcDir ? `src/${baseDir}` : baseDir;
           }
           targetPath = targetPath.replace('components/', aliasPath + '/');
         }
@@ -366,7 +371,9 @@ program
         if (compAlias && targetPath.startsWith('components/')) {
           let aliasPath = compAlias;
           if (aliasPath.startsWith('@/') || aliasPath.startsWith('~/')) {
-            aliasPath = aliasPath.substring(2);
+            const baseDir = aliasPath.substring(2);
+            const hasSrcDir = fs.existsSync(path.join(process.cwd(), 'src'));
+            aliasPath = hasSrcDir ? `src/${baseDir}` : baseDir;
           }
           targetPath = targetPath.replace('components/', aliasPath + '/');
         }
