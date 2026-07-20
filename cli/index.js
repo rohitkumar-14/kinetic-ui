@@ -9,7 +9,7 @@ const path = require('path');
 const { execSync } = require('child_process');
 const https = require('https');
 const http = require('http'); 
-const REGISTRY_URL = process.env.REGISTRY_URL || 'https://antigravity-ui.vercel.app/registry.json';
+const REGISTRY_URL = process.env.REGISTRY_URL || 'https://kinetiic-ui.netlify.app/registry.json';
 
 // Helper to fetch JSON from our Next.js API
 async function fetchRegistry() {
@@ -32,15 +32,15 @@ async function fetchRegistry() {
 }
 
 program
-  .name('antigravity-ui')
-  .description('CLI to add Antigravity UI components to your project')
+  .name('kinetic-ui')
+  .description('CLI to add Kinetic UI components to your project')
   .version('1.0.0');
 
 program
   .command('init')
   .description('initialize your project and install dependencies')
   .action(async () => {
-    console.log(chalk.bold.indigo || chalk.bold.blue('\n✨ Initializing Antigravity UI\n'));
+    console.log(chalk.bold.indigo || chalk.bold.blue('\n✨ Initializing Kinetic UI\n'));
 
     const response = await prompts([
       {
@@ -135,7 +135,7 @@ export function cn(...inputs) {
 
       spinner.succeed(chalk.green('Project initialized successfully.'));
       console.log(chalk.blue('\nYou can now add components using:'));
-      console.log(chalk.cyan('  npx antigravity-ui add <component>\n'));
+      console.log(chalk.cyan('  npx kinetic-ui-cli add <component>\n'));
       
     } catch (err) {
       spinner.fail(chalk.red('Failed to initialize project.'));
@@ -149,7 +149,7 @@ program
   .description('add a component to your project')
   .argument('[component]', 'the component to add (e.g. magnetic-button)')
   .action(async (componentName) => {
-    console.log(chalk.bold.indigo || chalk.bold.blue('\n✨ Antigravity UI CLI\n'));
+    console.log(chalk.bold.indigo || chalk.bold.blue('\n✨ Kinetic UI CLI\n'));
 
     const spinner = ora('Fetching component registry...').start();
     let registry;
@@ -294,7 +294,7 @@ program
   .description('update an existing component to the latest version')
   .argument('[component]', 'the component to update (e.g. magnetic-button)')
   .action(async (componentName) => {
-    console.log(chalk.bold.indigo || chalk.bold.blue('\n✨ Antigravity UI CLI (Update)\n'));
+    console.log(chalk.bold.indigo || chalk.bold.blue('\n✨ Kinetic UI CLI (Update)\n'));
 
     const spinner = ora('Fetching component registry...').start();
     let registry;
@@ -307,7 +307,7 @@ program
     }
 
     if (!componentName) {
-      console.log(chalk.yellow('\nPlease specify a component to update: npx antigravity-ui update <component>'));
+      console.log(chalk.yellow('\nPlease specify a component to update: npx kinetic-ui-cli update <component>'));
       process.exit(1);
     }
 
