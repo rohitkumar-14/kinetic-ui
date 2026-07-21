@@ -155,23 +155,13 @@ module.exports = {
 program
   .name('kinetic-ui')
   .description('CLI to add Kinetic UI components to your project')
-  .version('1.1.0');
+  .version('1.0.0');
 
 program
   .command('init')
   .description('initialize your project with Kinetic UI design tokens and dependencies')
   .action(async () => {
-    console.log(chalk.bold.blue('\n✨ Initializing Kinetic UI\n'));
-
-    // Auto-detect the CSS file path
-    let defaultCssPath = 'src/index.css';
-    if (fs.existsSync(path.join(process.cwd(), 'app/globals.css'))) {
-      defaultCssPath = 'app/globals.css';
-    } else if (fs.existsSync(path.join(process.cwd(), 'src/index.css'))) {
-      defaultCssPath = 'src/index.css';
-    } else if (fs.existsSync(path.join(process.cwd(), 'styles/globals.css'))) {
-      defaultCssPath = 'styles/globals.css';
-    }
+    console.log(chalk.bold.indigo || chalk.bold.blue('\n✨ Initializing Kinetic UI\n'));
 
     const response = await prompts([
       {
@@ -269,77 +259,8 @@ export function cn(...inputs) {
       fs.writeFileSync(fullUtilsPath, response.typescript ? utilsContentTs : utilsContentJs, 'utf8');
       console.log(`${chalk.green('CREATED')} ${utilsPathStr}${ext}`);
 
-      // 4. Inject CSS variables into global CSS file
-      spinner.text = 'Injecting Kinetic UI design tokens...';
-      const cssFilePath = path.join(process.cwd(), response.globalCss);
-      fs.ensureDirSync(path.dirname(cssFilePath));
-
-      let existingCss = '';
-      if (fs.existsSync(cssFilePath)) {
-        existingCss = fs.readFileSync(cssFilePath, 'utf8');
-      }
-
-      // Prepend Tailwind directives if not already present
-      let newCss = '';
-      if (!existingCss.includes('@tailwind base')) {
-        newCss += '@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n';
-      }
-
-      // Only add variables if they aren't already there
-      if (!existingCss.includes('--background')) {
-        newCss += CSS_VARIABLES;
-      }
-
-      if (newCss) {
-        // Prepend new content before existing content
-        const finalCss = newCss + existingCss;
-        fs.writeFileSync(cssFilePath, finalCss, 'utf8');
-        console.log(`${chalk.green('UPDATED')} ${response.globalCss} — injected design tokens`);
-      } else {
-        console.log(`${chalk.yellow('SKIPPED')} ${response.globalCss} — design tokens already present`);
-      }
-
-      // 5. Create or patch tailwind.config.js
-      spinner.text = 'Configuring Tailwind CSS...';
-      const twConfigPath = path.join(process.cwd(), 'tailwind.config.js');
-      
-      if (fs.existsSync(twConfigPath)) {
-        const existingConfig = fs.readFileSync(twConfigPath, 'utf8');
-        // Only overwrite if it doesn't already have our color mappings
-        if (!existingConfig.includes('var(--background)')) {
-          // Back up the existing config
-          fs.copyFileSync(twConfigPath, twConfigPath + '.bak');
-          console.log(`${chalk.yellow('BACKUP')} tailwind.config.js.bak`);
-          fs.writeFileSync(twConfigPath, TAILWIND_CONFIG_CONTENT, 'utf8');
-          console.log(`${chalk.green('UPDATED')} tailwind.config.js — added semantic color mappings`);
-        } else {
-          console.log(`${chalk.yellow('SKIPPED')} tailwind.config.js — already configured`);
-        }
-      } else {
-        fs.writeFileSync(twConfigPath, TAILWIND_CONFIG_CONTENT, 'utf8');
-        console.log(`${chalk.green('CREATED')} tailwind.config.js`);
-      }
-
-      // 6. Create postcss.config.js if missing
-      const postcssPath = path.join(process.cwd(), 'postcss.config.js');
-      if (!fs.existsSync(postcssPath)) {
-        const postcssContent = `module.exports = {\n  plugins: {\n    tailwindcss: {},\n    autoprefixer: {},\n  },\n};\n`;
-        fs.writeFileSync(postcssPath, postcssContent, 'utf8');
-        console.log(`${chalk.green('CREATED')} postcss.config.js`);
-      }
-
-      spinner.succeed(chalk.green('Project initialized successfully!'));
-      
-      console.log(chalk.blue('\n─────────────────────────────────────────'));
-      console.log(chalk.bold.white('  What was set up:'));
-      console.log(chalk.gray('  ✓ CSS design tokens (light + dark mode)'));
-      console.log(chalk.gray('  ✓ Tailwind CSS color mappings'));
-      console.log(chalk.gray('  ✓ PostCSS configuration'));
-      console.log(chalk.gray('  ✓ Utility function (cn)'));
-      console.log(chalk.gray('  ✓ Core dependencies'));
-      console.log(chalk.blue('─────────────────────────────────────────\n'));
-
-      console.log(chalk.blue('You can now add components using:'));
+      spinner.succeed(chalk.green('Project initialized successfully.'));
+      console.log(chalk.blue('\nYou can now add components using:'));
       console.log(chalk.cyan('  npx kinetic-ui-cli add <component>\n'));
       
     } catch (err) {
@@ -354,7 +275,7 @@ program
   .description('add a component to your project')
   .argument('[component]', 'the component to add (e.g. magnetic-button)')
   .action(async (componentName) => {
-    console.log(chalk.bold.blue('\n✨ Kinetic UI CLI\n'));
+    console.log(chalk.bold.indigo || chalk.bold.blue('\n✨ Kinetic UI CLI\n'));
 
     const spinner = ora('Fetching component registry...').start();
     let registry;
@@ -502,7 +423,7 @@ program
   .description('update an existing component to the latest version')
   .argument('[component]', 'the component to update (e.g. magnetic-button)')
   .action(async (componentName) => {
-    console.log(chalk.bold.blue('\n✨ Kinetic UI CLI (Update)\n'));
+    console.log(chalk.bold.indigo || chalk.bold.blue('\n✨ Kinetic UI CLI (Update)\n'));
 
     const spinner = ora('Fetching component registry...').start();
     let registry;
