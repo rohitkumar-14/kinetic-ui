@@ -1077,5 +1077,378 @@
   "templates": {
     "name": "Premium Templates",
     "items": {}
+  },
+  "ui-primitives": {
+    "name": "UI Primitives",
+    "items": {
+      "ai-chat-bubble": {
+        "name": "AiChatBubble",
+        "description": "Standard ai-chat-bubble UI component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/ai-chat-bubble.tsx"
+        ]
+      },
+      "animated-background": {
+        "name": "AnimatedBackground",
+        "description": "Standard animated-background UI component.",
+        "dependencies": [],
+        "files": [
+          "components/ui/animated-background.tsx"
+        ]
+      },
+      "avatar": {
+        "name": "Avatar",
+        "description": "Standard avatar UI component.",
+        "dependencies": [
+          "@radix-ui/react-avatar"
+        ],
+        "files": [
+          "components/ui/avatar.tsx"
+        ]
+      },
+      "breadcrumb": {
+        "name": "Breadcrumb",
+        "description": "Standard breadcrumb UI component.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/breadcrumb.tsx"
+        ]
+      },
+      "button": {
+        "name": "Button",
+        "description": "Standard button UI component.",
+        "dependencies": [
+          "class-variance-authority",
+          "@radix-ui/react-slot",
+          "lucide-react",
+          "framer-motion"
+        ],
+        "files": [
+          "components/ui/button.tsx"
+        ]
+      },
+      "calendar": {
+        "name": "Calendar",
+        "description": "Standard calendar UI component.",
+        "dependencies": [
+          "lucide-react",
+          "react-day-picker"
+        ],
+        "files": [
+          "components/ui/calendar.tsx"
+        ]
+      },
+      "card": {
+        "name": "Card",
+        "description": "Standard card UI component.",
+        "dependencies": [],
+        "files": [
+          "components/ui/card.tsx"
+        ]
+      },
+      "checkbox": {
+        "name": "Checkbox",
+        "description": "Standard checkbox UI component.",
+        "dependencies": [
+          "@radix-ui/react-checkbox",
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/checkbox.tsx"
+        ]
+      },
+      "command": {
+        "name": "Command",
+        "description": "Standard command UI component.",
+        "dependencies": [
+          "@radix-ui/react-dialog",
+          "cmdk",
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/command.tsx"
+        ]
+      },
+      "copy-button": {
+        "name": "CopyButton",
+        "description": "Standard copy-button UI component.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/copy-button.tsx"
+        ]
+      },
+      "data-table": {
+        "name": "DataTable",
+        "description": "Standard data-table UI component.",
+        "dependencies": [],
+        "files": [
+          "components/ui/data-table.tsx"
+        ]
+      },
+      "dialog": {
+        "name": "Dialog",
+        "description": "Standard dialog UI component.",
+        "dependencies": [
+          "@radix-ui/react-dialog",
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/dialog.tsx"
+        ]
+      },
+      "dropdown-menu": {
+        "name": "DropdownMenu",
+        "description": "Standard dropdown-menu UI component.",
+        "dependencies": [
+          "@radix-ui/react-dropdown-menu",
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/dropdown-menu.tsx"
+        ]
+      },
+      "empty-state": {
+        "name": "EmptyState",
+        "description": "Standard empty-state UI component.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/empty-state.tsx"
+        ]
+      },
+      "filter": {
+        "name": "Filter",
+        "description": "Standard filter UI component.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/filter.tsx"
+        ]
+      },
+      "form": {
+        "name": "Form",
+        "description": "Standard form UI component.",
+        "dependencies": [
+          "@radix-ui/react-slot"
+        ],
+        "files": [
+          "components/ui/form.tsx"
+        ]
+      },
+      "glass-panel": {
+        "name": "GlassPanel",
+        "description": "Standard glass-panel UI component.",
+        "dependencies": [],
+        "files": [
+          "components/ui/glass-panel.tsx"
+        ]
+      },
+      "input": {
+        "name": "Input",
+        "description": "Standard input UI component.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/ui/input.tsx"
+        ]
+      },
+      "label": {
+        "name": "Label",
+        "description": "Standard label UI component.",
+        "dependencies": [
+          "@radix-ui/react-label",
+          "class-variance-authority"
+        ],
+        "files": [
+          "components/ui/label.tsx"
+        ]
+      },
+      "loader": {
+        "name": "Loader",
+        "description": "Standard loader UI component.",
+        "dependencies": [
+          "lucide-react",
+          "class-variance-authority"
+        ],
+        "files": [
+          "components/ui/loader.tsx"
+        ]
+      },
+      "magic-tabs": {
+        "name": "MagicTabs",
+        "description": "Standard magic-tabs UI component.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/ui/magic-tabs.tsx"
+        ]
+      },
+      "pagination": {
+        "name": "Pagination",
+        "description": "Standard pagination UI component.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/pagination.tsx"
+        ]
+      },
+      "popover": {
+        "name": "Popover",
+        "description": "Standard popover UI component.",
+        "dependencies": [
+          "@radix-ui/react-popover"
+        ],
+        "files": [
+          "components/ui/popover.tsx"
+        ]
+      },
+      "progress": {
+        "name": "Progress",
+        "description": "Standard progress UI component.",
+        "dependencies": [
+          "@radix-ui/react-progress"
+        ],
+        "files": [
+          "components/ui/progress.tsx"
+        ]
+      },
+      "radio-group": {
+        "name": "RadioGroup",
+        "description": "Standard radio-group UI component.",
+        "dependencies": [
+          "@radix-ui/react-radio-group",
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/radio-group.tsx"
+        ]
+      },
+      "select": {
+        "name": "Select",
+        "description": "Standard select UI component.",
+        "dependencies": [
+          "@radix-ui/react-select",
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/select.tsx"
+        ]
+      },
+      "separator": {
+        "name": "Separator",
+        "description": "Standard separator UI component.",
+        "dependencies": [],
+        "files": [
+          "components/ui/separator.tsx"
+        ]
+      },
+      "sheet": {
+        "name": "Sheet",
+        "description": "Standard sheet UI component.",
+        "dependencies": [
+          "@radix-ui/react-dialog",
+          "class-variance-authority",
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/sheet.tsx"
+        ]
+      },
+      "skeleton": {
+        "name": "Skeleton",
+        "description": "Standard skeleton UI component.",
+        "dependencies": [],
+        "files": [
+          "components/ui/skeleton.tsx"
+        ]
+      },
+      "slider": {
+        "name": "Slider",
+        "description": "Standard slider UI component.",
+        "dependencies": [
+          "@radix-ui/react-slider"
+        ],
+        "files": [
+          "components/ui/slider.tsx"
+        ]
+      },
+      "sonner": {
+        "name": "Sonner",
+        "description": "Standard sonner UI component.",
+        "dependencies": [
+          "sonner"
+        ],
+        "files": [
+          "components/ui/sonner.tsx"
+        ]
+      },
+      "stack": {
+        "name": "Stack",
+        "description": "Standard stack UI component.",
+        "dependencies": [],
+        "files": [
+          "components/ui/stack.tsx"
+        ]
+      },
+      "switch": {
+        "name": "Switch",
+        "description": "Standard switch UI component.",
+        "dependencies": [
+          "@radix-ui/react-switch"
+        ],
+        "files": [
+          "components/ui/switch.tsx"
+        ]
+      },
+      "table": {
+        "name": "Table",
+        "description": "Standard table UI component.",
+        "dependencies": [],
+        "files": [
+          "components/ui/table.tsx"
+        ]
+      },
+      "textarea": {
+        "name": "Textarea",
+        "description": "Standard textarea UI component.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/ui/textarea.tsx"
+        ]
+      },
+      "timeline": {
+        "name": "Timeline",
+        "description": "Standard timeline UI component.",
+        "dependencies": [],
+        "files": [
+          "components/ui/timeline.tsx"
+        ]
+      },
+      "tooltip": {
+        "name": "Tooltip",
+        "description": "Standard tooltip UI component.",
+        "dependencies": [
+          "@radix-ui/react-tooltip"
+        ],
+        "files": [
+          "components/ui/tooltip.tsx"
+        ]
+      }
+    }
   }
 }
