@@ -1,10 +1,10 @@
 {
-  "name": "antigravity-ui",
-  "version": "1.0.0",
-  "description": "CLI to add Antigravity UI components to your project.",
+  "name": "kinetic-ui-cli",
+  "version": "1.1.0",
+  "description": "CLI to add Kinetic UI components to your project.",
   "main": "index.js",
   "bin": {
-    "antigravity-ui": "./index.js"
+    "kinetic-ui-cli": "./index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

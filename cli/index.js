@@ -9,7 +9,7 @@ const path = require('path');
 const { execSync } = require('child_process');
 const https = require('https');
 const http = require('http'); 
-const REGISTRY_URL = process.env.REGISTRY_URL || 'https://antigravity-ui.vercel.app/registry.json';
+const REGISTRY_URL = process.env.REGISTRY_URL || 'https://kinetiic-ui.netlify.app/registry.json';
 
 // Helper to fetch JSON from our Next.js API
 async function fetchRegistry() {
@@ -31,16 +31,147 @@ async function fetchRegistry() {
   });
 }
 
+// ── CSS Variables that power all Kinetic UI components ──────────────────────
+const CSS_VARIABLES = `
+/* ═══════════════════════════════════════════════════════════════
+   Kinetic UI — Design Tokens (CSS Variables)
+   These variables power all semantic Tailwind classes used by
+   Kinetic UI components (bg-background, text-foreground, etc.)
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --background: #ffffff;
+  --foreground: #020617;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --popover: #ffffff;
+  --popover-foreground: #020617;
+  --card: #ffffff;
+  --card-foreground: #020617;
+  --primary: #0f172a;
+  --primary-foreground: #f8fafc;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --destructive: #ef4444;
+  --destructive-foreground: #f8fafc;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0f172a;
+}
+
+.dark {
+  --background: #000000;
+  --foreground: #ededed;
+  --muted: #111111;
+  --muted-foreground: #a1a1aa;
+  --popover: #0a0a0a;
+  --popover-foreground: #ededed;
+  --card: #0a0a0a;
+  --card-foreground: #ededed;
+  --primary: #ededed;
+  --primary-foreground: #000000;
+  --secondary: #111111;
+  --secondary-foreground: #ededed;
+  --accent: #111111;
+  --accent-foreground: #ededed;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #ededed;
+  --border: #222222;
+  --input: #222222;
+  --ring: #d4d4d8;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
+`;
+
+// ── Tailwind config content ─────────────────────────────────────────────────
+const TAILWIND_CONFIG_CONTENT = `/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: "class",
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        primary: {
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
+        },
+        secondary: {
+          DEFAULT: "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
+        },
+        accent: {
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
+        },
+        muted: {
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted-foreground)",
+        },
+        popover: {
+          DEFAULT: "var(--popover)",
+          foreground: "var(--popover-foreground)",
+        },
+        card: {
+          DEFAULT: "var(--card)",
+          foreground: "var(--card-foreground)",
+        },
+        destructive: {
+          DEFAULT: "var(--destructive)",
+          foreground: "var(--destructive-foreground)",
+        },
+        border: "var(--border)",
+        input: "var(--input)",
+        ring: "var(--ring)",
+      },
+      borderRadius: {
+        lg: "0.75rem",
+        md: "calc(0.75rem - 2px)",
+        sm: "calc(0.75rem - 4px)",
+      },
+    },
+  },
+  plugins: [],
+};
+`;
+
 program
-  .name('antigravity-ui')
-  .description('CLI to add Antigravity UI components to your project')
-  .version('1.0.0');
+  .name('kinetic-ui')
+  .description('CLI to add Kinetic UI components to your project')
+  .version('1.1.0');
 
 program
   .command('init')
-  .description('initialize your project and install dependencies')
+  .description('initialize your project with Kinetic UI design tokens and dependencies')
   .action(async () => {
-    console.log(chalk.bold.indigo || chalk.bold.blue('\n✨ Initializing Antigravity UI\n'));
+    console.log(chalk.bold.blue('\n✨ Initializing Kinetic UI\n'));
+
+    // Auto-detect the CSS file path
+    let defaultCssPath = 'src/index.css';
+    if (fs.existsSync(path.join(process.cwd(), 'app/globals.css'))) {
+      defaultCssPath = 'app/globals.css';
+    } else if (fs.existsSync(path.join(process.cwd(), 'src/index.css'))) {
+      defaultCssPath = 'src/index.css';
+    } else if (fs.existsSync(path.join(process.cwd(), 'styles/globals.css'))) {
+      defaultCssPath = 'styles/globals.css';
+    }
 
     const response = await prompts([
       {
@@ -53,7 +184,7 @@ program
         type: 'text',
         name: 'globalCss',
         message: 'Where is your global CSS file?',
-        initial: 'app/globals.css'
+        initial: defaultCssPath
       },
       {
         type: 'text',
@@ -84,7 +215,7 @@ program
         style: 'default',
         typescript: response.typescript,
         tailwind: {
-          config: 'tailwind.config.ts',
+          config: 'tailwind.config.js',
           css: response.globalCss,
           baseColor: 'slate',
           cssVariables: true
@@ -96,18 +227,22 @@ program
       };
       
       fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf8');
+      console.log(`\n${chalk.green('CREATED')} components.json`);
 
       // 2. Install dependencies
       spinner.text = 'Installing dependencies...';
-      const deps = ['clsx', 'tailwind-merge', 'lucide-react', 'class-variance-authority'];
+      const deps = ['clsx', 'tailwind-merge', 'lucide-react', 'class-variance-authority', 'tailwindcss', 'postcss', 'autoprefixer'];
       // Use ignore to not spam the console
       execSync(`npm install ${deps.join(' ')}`, { stdio: 'ignore' });
+      console.log(`${chalk.green('INSTALLED')} ${deps.join(', ')}`);
 
       // 3. Create utils file
       spinner.text = 'Creating utils file...';
       let utilsPathStr = response.utilsAlias;
       if (utilsPathStr.startsWith('@/') || utilsPathStr.startsWith('~/')) {
-        utilsPathStr = utilsPathStr.substring(2);
+        const baseDir = utilsPathStr.substring(2);
+        const hasSrcDir = fs.existsSync(path.join(process.cwd(), 'src'));
+        utilsPathStr = hasSrcDir ? `src/${baseDir}` : baseDir;
       }
       
       const ext = response.typescript ? '.ts' : '.js';
@@ -132,10 +267,80 @@ export function cn(...inputs) {
 `;
 
       fs.writeFileSync(fullUtilsPath, response.typescript ? utilsContentTs : utilsContentJs, 'utf8');
+      console.log(`${chalk.green('CREATED')} ${utilsPathStr}${ext}`);
 
-      spinner.succeed(chalk.green('Project initialized successfully.'));
-      console.log(chalk.blue('\nYou can now add components using:'));
-      console.log(chalk.cyan('  npx antigravity-ui add <component>\n'));
+      // 4. Inject CSS variables into global CSS file
+      spinner.text = 'Injecting Kinetic UI design tokens...';
+      const cssFilePath = path.join(process.cwd(), response.globalCss);
+      fs.ensureDirSync(path.dirname(cssFilePath));
+
+      let existingCss = '';
+      if (fs.existsSync(cssFilePath)) {
+        existingCss = fs.readFileSync(cssFilePath, 'utf8');
+      }
+
+      // Prepend Tailwind directives if not already present
+      let newCss = '';
+      if (!existingCss.includes('@tailwind base')) {
+        newCss += '@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n';
+      }
+
+      // Only add variables if they aren't already there
+      if (!existingCss.includes('--background')) {
+        newCss += CSS_VARIABLES;
+      }
+
+      if (newCss) {
+        // Prepend new content before existing content
+        const finalCss = newCss + existingCss;
+        fs.writeFileSync(cssFilePath, finalCss, 'utf8');
+        console.log(`${chalk.green('UPDATED')} ${response.globalCss} — injected design tokens`);
+      } else {
+        console.log(`${chalk.yellow('SKIPPED')} ${response.globalCss} — design tokens already present`);
+      }
+
+      // 5. Create or patch tailwind.config.js
+      spinner.text = 'Configuring Tailwind CSS...';
+      const twConfigPath = path.join(process.cwd(), 'tailwind.config.js');
+      
+      if (fs.existsSync(twConfigPath)) {
+        const existingConfig = fs.readFileSync(twConfigPath, 'utf8');
+        // Only overwrite if it doesn't already have our color mappings
+        if (!existingConfig.includes('var(--background)')) {
+          // Back up the existing config
+          fs.copyFileSync(twConfigPath, twConfigPath + '.bak');
+          console.log(`${chalk.yellow('BACKUP')} tailwind.config.js.bak`);
+          fs.writeFileSync(twConfigPath, TAILWIND_CONFIG_CONTENT, 'utf8');
+          console.log(`${chalk.green('UPDATED')} tailwind.config.js — added semantic color mappings`);
+        } else {
+          console.log(`${chalk.yellow('SKIPPED')} tailwind.config.js — already configured`);
+        }
+      } else {
+        fs.writeFileSync(twConfigPath, TAILWIND_CONFIG_CONTENT, 'utf8');
+        console.log(`${chalk.green('CREATED')} tailwind.config.js`);
+      }
+
+      // 6. Create postcss.config.js if missing
+      const postcssPath = path.join(process.cwd(), 'postcss.config.js');
+      if (!fs.existsSync(postcssPath)) {
+        const postcssContent = `module.exports = {\n  plugins: {\n    tailwindcss: {},\n    autoprefixer: {},\n  },\n};\n`;
+        fs.writeFileSync(postcssPath, postcssContent, 'utf8');
+        console.log(`${chalk.green('CREATED')} postcss.config.js`);
+      }
+
+      spinner.succeed(chalk.green('Project initialized successfully!'));
+      
+      console.log(chalk.blue('\n─────────────────────────────────────────'));
+      console.log(chalk.bold.white('  What was set up:'));
+      console.log(chalk.gray('  ✓ CSS design tokens (light + dark mode)'));
+      console.log(chalk.gray('  ✓ Tailwind CSS color mappings'));
+      console.log(chalk.gray('  ✓ PostCSS configuration'));
+      console.log(chalk.gray('  ✓ Utility function (cn)'));
+      console.log(chalk.gray('  ✓ Core dependencies'));
+      console.log(chalk.blue('─────────────────────────────────────────\n'));
+
+      console.log(chalk.blue('You can now add components using:'));
+      console.log(chalk.cyan('  npx kinetic-ui-cli add <component>\n'));
       
     } catch (err) {
       spinner.fail(chalk.red('Failed to initialize project.'));
@@ -149,7 +354,7 @@ program
   .description('add a component to your project')
   .argument('[component]', 'the component to add (e.g. magnetic-button)')
   .action(async (componentName) => {
-    console.log(chalk.bold.indigo || chalk.bold.blue('\n✨ Antigravity UI CLI\n'));
+    console.log(chalk.bold.blue('\n✨ Kinetic UI CLI\n'));
 
     const spinner = ora('Fetching component registry...').start();
     let registry;
@@ -267,7 +472,10 @@ program
           let aliasPath = compAlias;
           // Strip the @/ or ~/ prefix to get the actual directory path
           if (aliasPath.startsWith('@/') || aliasPath.startsWith('~/')) {
-            aliasPath = aliasPath.substring(2);
+            const baseDir = aliasPath.substring(2);
+            // Auto-detect src directory
+            const hasSrcDir = fs.existsSync(path.join(process.cwd(), 'src'));
+            aliasPath = hasSrcDir ? `src/${baseDir}` : baseDir;
           }
           targetPath = targetPath.replace('components/', aliasPath + '/');
         }
@@ -294,7 +502,7 @@ program
   .description('update an existing component to the latest version')
   .argument('[component]', 'the component to update (e.g. magnetic-button)')
   .action(async (componentName) => {
-    console.log(chalk.bold.indigo || chalk.bold.blue('\n✨ Antigravity UI CLI (Update)\n'));
+    console.log(chalk.bold.blue('\n✨ Kinetic UI CLI (Update)\n'));
 
     const spinner = ora('Fetching component registry...').start();
     let registry;
@@ -307,7 +515,7 @@ program
     }
 
     if (!componentName) {
-      console.log(chalk.yellow('\nPlease specify a component to update: npx antigravity-ui update <component>'));
+      console.log(chalk.yellow('\nPlease specify a component to update: npx kinetic-ui-cli update <component>'));
       process.exit(1);
     }
 
@@ -366,7 +574,9 @@ program
         if (compAlias && targetPath.startsWith('components/')) {
           let aliasPath = compAlias;
           if (aliasPath.startsWith('@/') || aliasPath.startsWith('~/')) {
-            aliasPath = aliasPath.substring(2);
+            const baseDir = aliasPath.substring(2);
+            const hasSrcDir = fs.existsSync(path.join(process.cwd(), 'src'));
+            aliasPath = hasSrcDir ? `src/${baseDir}` : baseDir;
           }
           targetPath = targetPath.replace('components/', aliasPath + '/');
         }

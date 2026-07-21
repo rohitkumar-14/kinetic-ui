@@ -3,7 +3,6 @@
 import React, { useRef, useState } from "react";
 import { motion, HTMLMotionProps, useAnimationFrame } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useUXSounds } from "@/hooks/use-ux-sounds";
 
 export type GlowVariant = "center" | "edge" | "pulse";
 
@@ -27,7 +26,6 @@ export function GlowButton({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState(0);
-  const { playSound } = useUXSounds();
   
   // For pulse variant
   const timeRef = useRef(0);
@@ -52,7 +50,6 @@ export function GlowButton({
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
     setOpacity(1);
-    if (withSound) playSound("pop");
     if (props.onMouseEnter) props.onMouseEnter(e as any);
   };
 
@@ -62,7 +59,6 @@ export function GlowButton({
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (withSound) playSound("click");
     if (props.onClick) props.onClick(e as any);
   };
 

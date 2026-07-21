@@ -3,7 +3,6 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useUXSounds } from "@/hooks/use-ux-sounds";
 
 export type LiquidVariant = "gooey" | "fill" | "swipe";
 
@@ -27,18 +26,15 @@ export function LiquidButton({
   variant = "gooey",
   ...props
 }: LiquidButtonProps) {
-  const { playSound } = useUXSounds();
   const hasBg = className?.includes("bg-");
   const hasText = className?.includes("text-");
   const hoverDuration = 0.5 / speed;
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (withSound) playSound("swoosh");
     if (props.onMouseEnter) props.onMouseEnter(e);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (withSound) playSound("click");
     if (props.onClick) props.onClick(e);
   };
 

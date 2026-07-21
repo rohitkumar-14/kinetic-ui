@@ -3,7 +3,6 @@
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useUXSounds } from "@/hooks/use-ux-sounds";
 
 export type MagneticVariant = "standard" | "heavy" | "bouncy";
 
@@ -31,7 +30,6 @@ export function MagneticButton({
 }: MagneticButtonProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const { playSound } = useUXSounds();
 
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { clientX, clientY } = e;
@@ -54,12 +52,10 @@ export function MagneticButton({
   };
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (withSound) playSound("pop");
     if (props.onMouseEnter) props.onMouseEnter(e);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (withSound) playSound("click");
     if (props.onClick) props.onClick(e);
   };
 
@@ -103,7 +99,7 @@ export function MagneticButton({
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", ...physics }}
       className={cn(
-        "relative inline-flex items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+        "relative inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
         !hasBg && "bg-primary hover:bg-primary/90",
         !hasText && "text-primary-foreground",
         className

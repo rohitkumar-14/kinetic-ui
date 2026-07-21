@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 import { Settings2, Copy, Check } from 'lucide-react';
 
@@ -126,7 +125,17 @@ export function HeroParticles({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000, radius: 150 });
   const animFrameRef = useRef<number>(0);
-  const { resolvedTheme } = useTheme();
+
+  // Framework-agnostic dark mode detection (works without next-themes)
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const hasDarkClass = document.documentElement.classList.contains('dark');
+    setIsDarkMode(hasDarkClass || mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDarkMode(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -135,7 +144,7 @@ export function HeroParticles({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const isDark = resolvedTheme !== 'light';
+    const isDark = isDarkMode;
     const preset = PRESETS[themePreset] || PRESETS.constellation;
 
     const activeCount = particleCount ?? preset.particleCount;
@@ -338,7 +347,7 @@ export function HeroParticles({
     repulsionForce,
     interactive,
     themePreset,
-    resolvedTheme,
+    isDarkMode,
     speed,
     scale,
   ]);
