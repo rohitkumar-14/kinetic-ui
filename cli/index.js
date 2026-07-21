@@ -13,6 +13,15 @@ const REGISTRY_URL = process.env.REGISTRY_URL || 'https://kinetiic-ui.netlify.ap
 
 // Helper to fetch JSON from our Next.js API
 async function fetchRegistry() {
+  if (!REGISTRY_URL.startsWith('http://') && !REGISTRY_URL.startsWith('https://')) {
+    try {
+      const localData = fs.readFileSync(REGISTRY_URL, 'utf-8');
+      return JSON.parse(localData);
+    } catch (err) {
+      throw new Error(`Failed to read local registry file at ${REGISTRY_URL}: ${err.message}`);
+    }
+  }
+
   return new Promise((resolve, reject) => {
     const client = REGISTRY_URL.startsWith('http://') ? http : https;
     client.get(REGISTRY_URL, (res) => {
