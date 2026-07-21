@@ -31,14 +31,42 @@ async function fetchRegistry() {
   });
 }
 
-// ── CSS Variables that power all Kinetic UI components ──────────────────────
-const CSS_VARIABLES = `
+function hexToRgb(hex) {
+  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  const fullHex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(fullHex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
+
+function rgbToHex(r, g, b) {
+  return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+function blend(c1, c2, weight) {
+  const rgb1 = hexToRgb(c1) || {r:0, g:0, b:0};
+  const rgb2 = hexToRgb(c2) || {r:255, g:255, b:255};
+  const r = Math.round(rgb1.r * (1 - weight) + rgb2.r * weight);
+  const g = Math.round(rgb1.g * (1 - weight) + rgb2.g * weight);
+  const b = Math.round(rgb1.b * (1 - weight) + rgb2.b * weight);
+  return rgbToHex(r, g, b);
+}
+
+function getBrightness(hex) {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return 0;
+  return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
+}
+
+function getThemeCss(themeOption, customPrimary, customBg) {
+  if (themeOption === 'default') {
+    return `
 /* ═══════════════════════════════════════════════════════════════
    Kinetic UI — Design Tokens (CSS Variables)
-   These variables power all semantic Tailwind classes used by
-   Kinetic UI components (bg-background, text-foreground, etc.)
    ═══════════════════════════════════════════════════════════════ */
-
 :root {
   --background: #ffffff;
   --foreground: #020617;
@@ -93,6 +121,275 @@ const CSS_VARIABLES = `
   }
 }
 `;
+  }
+
+  if (themeOption === 'cyberpunk') {
+    return `
+/* ═══════════════════════════════════════════════════════════════
+   Kinetic UI — Design Tokens (CSS Variables) - Cyberpunk Theme
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --background: #ffffff;
+  --foreground: #09090b;
+  --muted: #f3e8ff;
+  --muted-foreground: #6b21a8;
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --primary: #7c3aed;
+  --primary-foreground: #ffffff;
+  --secondary: #f3e8ff;
+  --secondary-foreground: #7c3aed;
+  --accent: #06b6d4;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e9d5ff;
+  --input: #e9d5ff;
+  --ring: #7c3aed;
+}
+
+.dark {
+  --background: #03001e;
+  --foreground: #f5f3ff;
+  --muted: #140526;
+  --muted-foreground: #a21caf;
+  --popover: #0a0518;
+  --popover-foreground: #f5f3ff;
+  --card: #0a0518;
+  --card-foreground: #f5f3ff;
+  --primary: #d946ef;
+  --primary-foreground: #03001e;
+  --secondary: #1a0933;
+  --secondary-foreground: #d946ef;
+  --accent: #00f5ff;
+  --accent-foreground: #03001e;
+  --destructive: #9f1239;
+  --destructive-foreground: #f5f3ff;
+  --border: #2a1b4e;
+  --input: #2a1b4e;
+  --ring: #d946ef;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
+`;
+  }
+
+  if (themeOption === 'aurora') {
+    return `
+/* ═══════════════════════════════════════════════════════════════
+   Kinetic UI — Design Tokens (CSS Variables) - Aurora Theme
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --background: #ffffff;
+  --foreground: #064e3b;
+  --muted: #e6fcf5;
+  --muted-foreground: #047857;
+  --popover: #ffffff;
+  --popover-foreground: #064e3b;
+  --card: #ffffff;
+  --card-foreground: #064e3b;
+  --primary: #059669;
+  --primary-foreground: #ffffff;
+  --secondary: #d1fae5;
+  --secondary-foreground: #065f46;
+  --accent: #10b981;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #a7f3d0;
+  --input: #a7f3d0;
+  --ring: #059669;
+}
+
+.dark {
+  --background: #022c22;
+  --foreground: #ecfdf5;
+  --muted: #033f31;
+  --muted-foreground: #059669;
+  --popover: #023528;
+  --popover-foreground: #ecfdf5;
+  --card: #023528;
+  --card-foreground: #ecfdf5;
+  --primary: #34d399;
+  --primary-foreground: #022c22;
+  --secondary: #064e3b;
+  --secondary-foreground: #34d399;
+  --accent: #fbbf24;
+  --accent-foreground: #022c22;
+  --destructive: #9f1239;
+  --destructive-foreground: #ecfdf5;
+  --border: #065f46;
+  --input: #065f46;
+  --ring: #34d399;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
+`;
+  }
+
+  if (themeOption === 'rust') {
+    return `
+/* ═══════════════════════════════════════════════════════════════
+   Kinetic UI — Design Tokens (CSS Variables) - Amber Rust Theme
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --background: #ffffff;
+  --foreground: #451a03;
+  --muted: #fffbeb;
+  --muted-foreground: #b45309;
+  --popover: #ffffff;
+  --popover-foreground: #451a03;
+  --card: #ffffff;
+  --card-foreground: #451a03;
+  --primary: #d97706;
+  --primary-foreground: #ffffff;
+  --secondary: #fef3c7;
+  --secondary-foreground: #78350f;
+  --accent: #f59e0b;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #fde68a;
+  --input: #fde68a;
+  --ring: #d97706;
+}
+
+.dark {
+  --background: #1c1917;
+  --foreground: #fafaf9;
+  --muted: #292524;
+  --muted-foreground: #d97706;
+  --popover: #221f1d;
+  --popover-foreground: #fafaf9;
+  --card: #221f1d;
+  --card-foreground: #fafaf9;
+  --primary: #f59e0b;
+  --primary-foreground: #1c1917;
+  --secondary: #292524;
+  --secondary-foreground: #f59e0b;
+  --accent: #ea580c;
+  --accent-foreground: #ffffff;
+  --destructive: #9f1239;
+  --destructive-foreground: #fafaf9;
+  --border: #3c3633;
+  --input: #3c3633;
+  --ring: #f59e0b;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
+`;
+  }
+
+  if (themeOption === 'custom') {
+    const pri = customPrimary || '#6366f1';
+    const bg = customBg || '#09090b';
+
+    const darkBg = bg;
+    const darkFg = '#fafaf9';
+    const darkBorder = blend(darkBg, '#ffffff', 0.12);
+    const darkCard = blend(darkBg, '#ffffff', 0.06);
+    const darkMuted = blend(darkBg, '#ffffff', 0.08);
+    const darkPrimary = pri;
+    const darkPrimaryFg = getBrightness(pri) > 130 ? '#000000' : '#ffffff';
+    const darkSecondary = blend(darkBg, '#ffffff', 0.08);
+    const darkSecondaryFg = '#ffffff';
+
+    const lightBg = '#ffffff';
+    const lightFg = blend(pri, '#000000', 0.85);
+    const lightBorder = blend(pri, '#ffffff', 0.85);
+    const lightCard = '#ffffff';
+    const lightMuted = blend(pri, '#ffffff', 0.93);
+    const lightPrimary = pri;
+    const lightPrimaryFg = darkPrimaryFg;
+    const lightSecondary = blend(pri, '#ffffff', 0.9);
+    const lightSecondaryFg = pri;
+
+    return `
+/* ═══════════════════════════════════════════════════════════════
+   Kinetic UI — Design Tokens (CSS Variables) - Custom Theme
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --background: ${lightBg};
+  --foreground: ${lightFg};
+  --muted: ${lightMuted};
+  --muted-foreground: ${blend(pri, '#000000', 0.6)};
+  --popover: ${lightBg};
+  --popover-foreground: ${lightFg};
+  --card: ${lightCard};
+  --card-foreground: ${lightFg};
+  --primary: ${lightPrimary};
+  --primary-foreground: ${lightPrimaryFg};
+  --secondary: ${lightSecondary};
+  --secondary-foreground: ${lightSecondaryFg};
+  --accent: ${lightSecondary};
+  --accent-foreground: ${lightSecondaryFg};
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: ${lightBorder};
+  --input: ${lightBorder};
+  --ring: ${lightPrimary};
+}
+
+.dark {
+  --background: ${darkBg};
+  --foreground: ${darkFg};
+  --muted: ${darkMuted};
+  --muted-foreground: ${blend(pri, '#ffffff', 0.7)};
+  --popover: ${darkCard};
+  --popover-foreground: ${darkFg};
+  --card: ${darkCard};
+  --card-foreground: ${darkFg};
+  --primary: ${darkPrimary};
+  --primary-foreground: ${darkPrimaryFg};
+  --secondary: ${darkSecondary};
+  --secondary-foreground: ${darkSecondaryFg};
+  --accent: ${darkSecondary};
+  --accent-foreground: ${darkSecondaryFg};
+  --destructive: #7f1d1d;
+  --destructive-foreground: ${darkFg};
+  --border: ${darkBorder};
+  --input: ${darkBorder};
+  --ring: ${darkPrimary};
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
+`;
+  }
+}
 
 // ── Tailwind config content ─────────────────────────────────────────────────
 const TAILWIND_CONFIG_CONTENT = `/** @type {import('tailwindcss').Config} */
@@ -197,11 +494,38 @@ program
         name: 'utilsAlias',
         message: 'Configure the import alias for utils:',
         initial: '@/lib/utils'
+      },
+      {
+        type: 'select',
+        name: 'themeOption',
+        message: 'Choose a design token theme:',
+        choices: [
+          { title: 'Default Slate (Clean & Modern)', value: 'default' },
+          { title: 'Cyberpunk Neon (Vibrant Pink/Cyan/Purple)', value: 'cyberpunk' },
+          { title: 'Aurora Emerald (Deep Forest & Mint)', value: 'aurora' },
+          { title: 'Amber Rust (Warm Charcoal & Amber)', value: 'rust' },
+          { title: 'Custom Theme (Enter your own colors)', value: 'custom' }
+        ],
+        initial: 0
+      },
+      {
+        type: (prev, values) => values.themeOption === 'custom' ? 'text' : null,
+        name: 'customPrimary',
+        message: 'Enter your primary brand color (hex, e.g. #6366f1):',
+        initial: '#6366f1',
+        validate: val => /^#[0-9a-fA-F]{6}$/.test(val) ? true : 'Please enter a valid 6-character hex code starting with #'
+      },
+      {
+        type: (prev, values) => values.themeOption === 'custom' ? 'text' : null,
+        name: 'customBg',
+        message: 'Enter your dark background color (hex, e.g. #09090b):',
+        initial: '#09090b',
+        validate: val => /^#[0-9a-fA-F]{6}$/.test(val) ? true : 'Please enter a valid 6-character hex code starting with #'
       }
     ]);
 
     // Handle cancellation
-    if (Object.keys(response).length < 4) {
+    if (!response.utilsAlias || response.themeOption === undefined || (response.themeOption === 'custom' && (!response.customPrimary || !response.customBg))) {
       console.log(chalk.yellow('\nInitialization cancelled.'));
       process.exit(0);
     }
@@ -287,7 +611,8 @@ export function cn(...inputs) {
 
       // Only add variables if they aren't already there
       if (!existingCss.includes('--background')) {
-        newCss += CSS_VARIABLES;
+        const generatedCssVariables = getThemeCss(response.themeOption, response.customPrimary, response.customBg);
+        newCss += generatedCssVariables;
       }
 
       if (newCss) {
@@ -340,7 +665,7 @@ export function cn(...inputs) {
       console.log(chalk.blue('─────────────────────────────────────────\n'));
 
       console.log(chalk.blue('You can now add components using:'));
-      console.log(chalk.cyan('  npx kinetic-ui-cli add <component>\n'));
+      console.log(chalk.cyan('  npx @kinetic-ui/cli add <component>\n'));
       
     } catch (err) {
       spinner.fail(chalk.red('Failed to initialize project.'));
@@ -515,7 +840,7 @@ program
     }
 
     if (!componentName) {
-      console.log(chalk.yellow('\nPlease specify a component to update: npx kinetic-ui-cli update <component>'));
+      console.log(chalk.yellow('\nPlease specify a component to update: npx @kinetic-ui/cli update <component>'));
       process.exit(1);
     }
 

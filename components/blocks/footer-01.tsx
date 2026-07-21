@@ -1,6 +1,6 @@
 'use client';
 
-// Requires: npx kinetic-ui add magnetic-button
+// Requires: npx @kinetic-ui/cli add magnetic-button
 import React from 'react';
 import { MagneticButton } from '@/components/creative/magnetic-button';
 import { Sparkles, ArrowRight, Twitter, Github, Linkedin } from 'lucide-react';

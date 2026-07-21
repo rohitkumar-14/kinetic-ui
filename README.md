@@ -17,11 +17,11 @@ Kinetic UI provides copy-pasteable, highly interactive 3D and motion-driven comp
 Use our CLI to instantly add components to your project without bloating your dependencies:
 
 ```bash
-npx kinetic-ui-cli init
-npx kinetic-ui-cli add <component-name>
+npx @kinetic-ui/cli init
+npx @kinetic-ui/cli add <component-name>
 ```
 
-Alternatively, you can browse the [Documentation](https://kinetic.studio/docs) and simply copy-paste the component code directly into your project.
+Alternatively, you can browse the [Documentation](https://kinetiic-ui.netlify.app/docs) and simply copy-paste the component code directly into your project.
 
 ### 2. Local Development
 

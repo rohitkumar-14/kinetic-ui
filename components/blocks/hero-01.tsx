@@ -1,6 +1,6 @@
 'use client';
 
-// Requires: npx kinetic-ui add aurora-background liquid-button
+// Requires: npx @kinetic-ui/cli add aurora-background liquid-button
 import React from 'react';
 import { AuroraBackground } from '@/components/creative/aurora-background';
 import { LiquidButton } from '@/components/creative/liquid-button';

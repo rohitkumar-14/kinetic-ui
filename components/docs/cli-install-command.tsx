@@ -11,7 +11,7 @@ interface CliInstallCommandProps {
 
 export function CliInstallCommand({ componentName, className }: CliInstallCommandProps) {
   const [copied, setCopied] = useState(false);
-  const command = `npx kinetic-ui add ${componentName}`;
+  const command = `npx @kinetic-ui/cli add ${componentName}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(command);
@@ -25,7 +25,7 @@ export function CliInstallCommand({ componentName, className }: CliInstallComman
         <div className="flex items-center gap-3 overflow-x-auto text-sm">
           <Terminal className="w-4 h-4 text-muted-foreground shrink-0" />
           <code className="font-mono text-zinc-300 whitespace-nowrap">
-            <span className="text-indigo-400">npx</span> kinetic-ui add {componentName}
+            <span className="text-indigo-400">npx</span> @kinetic-ui/cli add {componentName}
           </code>
         </div>
         <button

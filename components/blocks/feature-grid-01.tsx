@@ -1,6 +1,6 @@
 'use client';
 
-// Requires: npx kinetic-ui add bento-grid tilt-card magnetic-button
+// Requires: npx @kinetic-ui/cli add bento-grid tilt-card magnetic-button
 import React from 'react';
 import { BentoGrid, BentoCard } from '@/components/creative/bento-grid';
 import { TiltCard } from '@/components/creative/tilt-card';
