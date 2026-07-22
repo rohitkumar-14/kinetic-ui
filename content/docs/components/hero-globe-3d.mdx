@@ -1,0 +1,44 @@
+---
+title: HeroGlobe3D
+description: A 3D WebGL rotating particle sphere with spatial rotation physics and luminous node highlights.
+category: Hero Components
+---
+
+<ComponentPreview name="hero-globe-3d" sourceFile="components/creative/hero/hero-globe-3d.tsx">
+  <HeroGlobe3DDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand slug="hero-globe-3d" />
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "badgeText",
+      type: "string",
+      default: '"3D WebGL Globe & Spatial Mesh"',
+      description: "Text displayed inside the top badge."
+    },
+    {
+      name: "title",
+      type: "string",
+      default: '"Global Connected Infrastructure"',
+      description: "Headline text of the hero section."
+    },
+    {
+      name: "description",
+      type: "string",
+      default: '"A real-time interactive 3D particle sphere..."',
+      description: "Subtitle text description."
+    },
+    {
+      name: "globeColor",
+      type: "string",
+      default: '"#6366f1"',
+      description: "Base color of the 3D sphere particle nodes."
+    }
+  ]}
+/>

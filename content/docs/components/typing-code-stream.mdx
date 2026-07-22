@@ -1,0 +1,32 @@
+---
+title: TypingCodeStream
+description: Streaming code block component with animated syntax cursor and completion status badges.
+category: AI & Generative
+---
+
+<ComponentPreview name="typing-code-stream" sourceFile="components/creative/typing-code-stream.tsx">
+  <TypingCodeStreamDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand slug="typing-code-stream" />
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "codeString",
+      type: "string",
+      default: '"import { HeroParticles }..."',
+      description: "Code string to stream char-by-char."
+    },
+    {
+      name: "speed",
+      type: "number",
+      default: "30",
+      description: "Interval delay (ms) per character."
+    }
+  ]}
+/>

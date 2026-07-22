@@ -1,0 +1,32 @@
+---
+title: SpotlightBorderCard
+description: Apple-style spatial card with a cursor-tracking radial spotlight border glow.
+category: Cards
+---
+
+<ComponentPreview name="spotlight-border-card" sourceFile="components/creative/spotlight-border-card.tsx">
+  <SpotlightBorderCardDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand slug="spotlight-border-card" />
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "children",
+      type: "ReactNode",
+      default: "-",
+      description: "Card content and internal layout."
+    },
+    {
+      name: "spotlightColor",
+      type: "string",
+      default: '"rgba(99, 102, 241, 0.45)"',
+      description: "Radial spotlight gradient color."
+    }
+  ]}
+/>

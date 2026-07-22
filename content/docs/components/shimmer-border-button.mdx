@@ -1,0 +1,32 @@
+---
+title: ShimmerBorderButton
+description: Continuous gradient border trace button with magnetic pull.
+category: Buttons
+---
+
+<ComponentPreview name="shimmer-border-button" sourceFile="components/creative/shimmer-border-button.tsx">
+  <ShimmerBorderButtonDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand slug="shimmer-border-button" />
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "children",
+      type: "ReactNode",
+      default: "-",
+      description: "Button text content."
+    },
+    {
+      name: "shimmerColor",
+      type: "string",
+      default: '"#818cf8"',
+      description: "Color of the border shimmer effect."
+    }
+  ]}
+/>

@@ -18,6 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://kinetiic-ui.netlify.app"),
   title: "Kinetic UI | The Creative Motion Component Library",
   description: "The ultimate motion design system for React developers. Build websites people remember with advanced scroll animations, 3D interactions, and GSAP powered components.",
   keywords: [

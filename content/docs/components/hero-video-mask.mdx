@@ -1,0 +1,32 @@
+---
+title: HeroVideoMask
+description: Bold headline text mask revealing a smooth background video on cursor hover.
+category: Hero Components
+---
+
+<ComponentPreview name="hero-video-mask" sourceFile="components/creative/hero/hero-video-mask.tsx">
+  <HeroVideoMaskDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand slug="hero-video-mask" />
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "headline",
+      type: "string",
+      default: '"CREATIVE MOTION"',
+      description: "Text displayed in the masked hero section."
+    },
+    {
+      name: "videoUrl",
+      type: "string",
+      default: '"https://..."',
+      description: "URL of the background video."
+    }
+  ]}
+/>

@@ -19,6 +19,7 @@ async function buildRegistry() {
           title: item.name,
           category: category.name,
           dependencies: item.dependencies || [],
+          registryDependencies: item.registryDependencies || [],
           files: item.files.map((filePath) => {
             try {
               const fullPath = path.join(process.cwd(), filePath);

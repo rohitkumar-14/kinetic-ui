@@ -1,0 +1,32 @@
+---
+title: AiPromptInput
+description: Floating AI prompt input container with animated glowing border, file attachment trigger, and smooth spring submit.
+category: AI & Generative
+---
+
+<ComponentPreview name="ai-prompt-input" sourceFile="components/creative/ai-prompt-input.tsx">
+  <AiPromptInputDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand slug="ai-prompt-input" />
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "placeholder",
+      type: "string",
+      default: '"Ask Kinetic AI anything..."',
+      description: "Textarea placeholder string."
+    },
+    {
+      name: "onSubmit",
+      type: "(prompt: string) => void",
+      default: "-",
+      description: "Callback function triggered on form submission."
+    }
+  ]}
+/>

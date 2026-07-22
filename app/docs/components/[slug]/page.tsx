@@ -261,9 +261,41 @@ import { BeatSyncedTypographyDemo } from '@/components/creative/docs/beat-synced
 import { WebcamShaderPortalDemo } from '@/components/creative/docs/webcam-shader-portal-demo';
 import { MultiplayerCursorEcosystemDemo } from '@/components/creative/docs/multiplayer-cursor-ecosystem-demo';
 import { InfiniteZoomCanvasDemo } from '@/components/creative/docs/infinite-zoom-canvas-demo';
+import { HeroGlobe3DDemo } from '@/components/creative/docs/hero-globe-3d-demo';
+import { ParticleExplosionButtonDemo } from '@/components/creative/docs/particle-explosion-button-demo';
+import { SpotlightBorderCardDemo } from '@/components/creative/docs/spotlight-border-card-demo';
+import { AiPromptInputDemo } from '@/components/creative/docs/ai-prompt-input-demo';
+import { HeroInfiniteCanvasDemo } from '@/components/creative/docs/hero-infinite-canvas-demo';
+import { HeroVideoMaskDemo } from '@/components/creative/docs/hero-video-mask-demo';
+import { HeroShimmerMeshDemo } from '@/components/creative/docs/hero-shimmer-mesh-demo';
+import { MorphingSvgButtonDemo } from '@/components/creative/docs/morphing-svg-button-demo';
+import { ShimmerBorderButtonDemo } from '@/components/creative/docs/shimmer-border-button-demo';
+import { PhysicsDropButtonDemo } from '@/components/creative/docs/physics-drop-button-demo';
+import { ParallaxCurtainRevealDemo } from '@/components/creative/docs/parallax-curtain-reveal-demo';
+import { StickySectionPinDemo } from '@/components/creative/docs/sticky-section-pin-demo';
+import { TypingCodeStreamDemo } from '@/components/creative/docs/typing-code-stream-demo';
+import { AiVoiceVisualizerDemo } from '@/components/creative/docs/ai-voice-visualizer-demo';
+import { InteractiveGridNoiseDemo } from '@/components/creative/docs/interactive-grid-noise-demo';
+import { ConstellationNetworkDemo } from '@/components/creative/docs/constellation-network-demo';
 
 // Define the custom components we want to use inside our MDX files
 const mdxComponents = {
+  HeroInfiniteCanvasDemo,
+  HeroVideoMaskDemo,
+  HeroShimmerMeshDemo,
+  MorphingSvgButtonDemo,
+  ShimmerBorderButtonDemo,
+  PhysicsDropButtonDemo,
+  ParallaxCurtainRevealDemo,
+  StickySectionPinDemo,
+  TypingCodeStreamDemo,
+  AiVoiceVisualizerDemo,
+  InteractiveGridNoiseDemo,
+  ConstellationNetworkDemo,
+  HeroGlobe3DDemo,
+  ParticleExplosionButtonDemo,
+  SpotlightBorderCardDemo,
+  AiPromptInputDemo,
   AnimatedPromptInputDemo,
   StreamingMarkdownRendererDemo,
   ThinkingVisualizerDemo,

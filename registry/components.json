@@ -29,8 +29,50 @@
           "@react-three/fiber",
           "@react-three/drei"
         ],
+        "registryDependencies": [
+          "magnetic-button"
+        ],
         "files": [
           "components/creative/hero/hero-3d.tsx"
+        ]
+      },
+      "hero-globe-3d": {
+        "name": "HeroGlobe3D",
+        "description": "3D WebGL rotating particle sphere with spatial rotation physics.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/hero/hero-globe-3d.tsx"
+        ]
+      },
+      "hero-infinite-canvas": {
+        "name": "HeroInfiniteCanvas",
+        "description": "Zoomable, draggable spatial canvas with interactive floating cards.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/hero/hero-infinite-canvas.tsx"
+        ]
+      },
+      "hero-video-mask": {
+        "name": "HeroVideoMask",
+        "description": "Bold headline text mask revealing a background video on hover.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/hero/hero-video-mask.tsx"
+        ]
+      },
+      "hero-shimmer-mesh": {
+        "name": "HeroShimmerMesh",
+        "description": "Dynamic fluid gradient canvas with cursor ripple physics.",
+        "dependencies": [],
+        "files": [
+          "components/creative/hero/hero-shimmer-mesh.tsx"
         ]
       }
     }
@@ -157,6 +199,46 @@
         "files": [
           "components/creative/liquid-button.tsx"
         ]
+      },
+      "particle-explosion-button": {
+        "name": "ParticleExplosionButton",
+        "description": "Motion button that bursts kinetic particles on click using canvas.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/particle-explosion-button.tsx"
+        ]
+      },
+      "morphing-svg-button": {
+        "name": "MorphingSvgButton",
+        "description": "Icon and border morphing action button powered by Framer Motion.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/morphing-svg-button.tsx"
+        ]
+      },
+      "shimmer-border-button": {
+        "name": "ShimmerBorderButton",
+        "description": "Continuous gradient border trace button with magnetic pull.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/shimmer-border-button.tsx"
+        ]
+      },
+      "physics-drop-button": {
+        "name": "PhysicsDropButton",
+        "description": "Button with a spring-loaded liquid fill level that sloshes on mouse move.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/physics-drop-button.tsx"
+        ]
       }
     }
   },
@@ -196,6 +278,24 @@
         ],
         "files": [
           "components/creative/bento-grid.tsx"
+        ]
+      },
+      "spotlight-border-card": {
+        "name": "SpotlightBorderCard",
+        "description": "Apple-style spatial card with a cursor-tracking radial spotlight border glow.",
+        "dependencies": [],
+        "files": [
+          "components/creative/spotlight-border-card.tsx"
+        ]
+      },
+      "parallax-curtain-reveal": {
+        "name": "ParallaxCurtainReveal",
+        "description": "Dual-layer curtain reveal image container driven by cursor position.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/parallax-curtain-reveal.tsx"
         ]
       }
     }
@@ -704,6 +804,10 @@
         ],
         "files": [
           "components/blocks/hero-01.tsx"
+        ],
+        "registryDependencies": [
+          "aurora-background",
+          "liquid-button"
         ]
       },
       "auth-01": {
@@ -715,6 +819,13 @@
         ],
         "files": [
           "components/blocks/auth-01.tsx"
+        ],
+        "registryDependencies": [
+          "glass-panel",
+          "magic-tabs",
+          "magnetic-button",
+          "input",
+          "button"
         ]
       },
       "pricing-section": {
@@ -766,6 +877,11 @@
           "components/ui/date-picker.tsx",
           "components/ui/calendar.tsx",
           "components/ui/popover.tsx"
+        ],
+        "registryDependencies": [
+          "button",
+          "calendar",
+          "popover"
         ]
       },
       "date-range-picker": {
@@ -780,6 +896,11 @@
           "components/ui/date-range-picker.tsx",
           "components/ui/calendar.tsx",
           "components/ui/popover.tsx"
+        ],
+        "registryDependencies": [
+          "button",
+          "calendar",
+          "popover"
         ]
       },
       "file-upload": {
@@ -804,6 +925,13 @@
           "components/ui/badge.tsx",
           "components/ui/command.tsx",
           "components/ui/popover.tsx"
+        ],
+        "registryDependencies": [
+          "badge",
+          "command",
+          "popover",
+          "button",
+          "dialog"
         ]
       }
     }
@@ -913,6 +1041,17 @@
         ],
         "files": [
           "components/creative/broken-grid.tsx"
+        ]
+      },
+      "sticky-section-pin": {
+        "name": "StickySectionPin",
+        "description": "Sticky feature walkthrough panel with smooth step indicator transitions.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/sticky-section-pin.tsx"
         ]
       }
     }
@@ -1090,6 +1229,11 @@
         ],
         "files": [
           "components/ui/ai-chat-bubble.tsx"
+        ],
+        "registryDependencies": [
+          "avatar",
+          "button",
+          "copy-button"
         ]
       },
       "animated-background": {
@@ -1142,6 +1286,9 @@
         ],
         "files": [
           "components/ui/calendar.tsx"
+        ],
+        "registryDependencies": [
+          "button"
         ]
       },
       "card": {
@@ -1173,6 +1320,9 @@
         ],
         "files": [
           "components/ui/command.tsx"
+        ],
+        "registryDependencies": [
+          "dialog"
         ]
       },
       "copy-button": {
@@ -1183,6 +1333,9 @@
         ],
         "files": [
           "components/ui/copy-button.tsx"
+        ],
+        "registryDependencies": [
+          "button"
         ]
       },
       "data-table": {
@@ -1191,6 +1344,10 @@
         "dependencies": [],
         "files": [
           "components/ui/data-table.tsx"
+        ],
+        "registryDependencies": [
+          "table",
+          "button"
         ]
       },
       "dialog": {
@@ -1233,6 +1390,13 @@
         ],
         "files": [
           "components/ui/filter.tsx"
+        ],
+        "registryDependencies": [
+          "badge",
+          "button",
+          "command",
+          "popover",
+          "separator"
         ]
       },
       "form": {
@@ -1303,6 +1467,9 @@
         ],
         "files": [
           "components/ui/pagination.tsx"
+        ],
+        "registryDependencies": [
+          "button"
         ]
       },
       "popover": {

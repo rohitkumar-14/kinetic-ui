@@ -7,6 +7,7 @@
       "gsap",
       "@gsap/react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/text-reveal.tsx",
@@ -19,6 +20,7 @@
     "title": "HeroParticles",
     "category": "Hero Components",
     "dependencies": [],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/hero/hero-particles.tsx",
@@ -35,10 +37,72 @@
       "@react-three/fiber",
       "@react-three/drei"
     ],
+    "registryDependencies": [
+      "magnetic-button"
+    ],
     "files": [
       {
         "path": "components/creative/hero/hero-3d.tsx",
         "content": "'use client';\n\nimport React, { useRef, useEffect, useState } from 'react';\nimport { Canvas, useFrame, extend } from '@react-three/fiber';\nimport { Float, Environment } from '@react-three/drei';\nimport * as THREE from 'three';\nimport { cn } from \"@/lib/utils\";\nimport { MagneticButton } from \"@/components/creative/magnetic-button\";\nimport { ArrowRight, Terminal } from \"lucide-react\";\n\n// Custom Shader Definition\nconst GlassFluidShader = {\n  uniforms: {\n    uTime: { value: 0 },\n    uMouse: { value: new THREE.Vector2(0, 0) },\n    uColor1: { value: new THREE.Color('#6366f1') }, // Indigo\n    uColor2: { value: new THREE.Color('#ec4899') }, // Pink\n    uColor3: { value: new THREE.Color('#06b6d4') }, // Cyan\n  },\n  vertexShader: `\n    uniform float uTime;\n    uniform vec2 uMouse;\n    varying vec2 vUv;\n    varying vec3 vNormal;\n    varying vec3 vViewPosition;\n    varying vec3 vModelPosition;\n\n    // Simple 3D sine-based noise for vertex waving\n    float wave(vec3 p) {\n      return sin(p.x * 2.0 + uTime * 1.5) * cos(p.y * 2.0 + uTime * 1.5) * sin(p.z * 2.0 + uTime * 1.0);\n    }\n\n    void main() {\n      vUv = uv;\n      vNormal = normalize(normalMatrix * normal);\n      \n      // Deform the position slightly like a liquid\n      vec3 pos = position;\n      float d = wave(pos * 1.2) * 0.18;\n      pos += normal * d;\n      \n      vModelPosition = pos;\n      vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);\n      vViewPosition = -mvPosition.xyz;\n      \n      gl_Position = projectionMatrix * mvPosition;\n    }\n  `,\n  fragmentShader: `\n    varying vec2 vUv;\n    varying vec3 vNormal;\n    varying vec3 vViewPosition;\n    varying vec3 vModelPosition;\n    uniform float uTime;\n    uniform vec3 uColor1;\n    uniform vec3 uColor2;\n    uniform vec3 uColor3;\n\n    void main() {\n      vec3 normal = normalize(vNormal);\n      vec3 viewDir = normalize(vViewPosition);\n      \n      // Fresnel effect for glowing edges (tighter power for more definition)\n      float fresnel = pow(1.0 - max(dot(normal, viewDir), 0.0), 4.0);\n      \n      // Create a shifting color palette using time and position\n      vec3 baseColor = mix(uColor1, uColor2, sin(vModelPosition.x + uTime * 0.5) * 0.5 + 0.5);\n      baseColor = mix(baseColor, uColor3, cos(vModelPosition.y + uTime * 0.3) * 0.5 + 0.5);\n      \n      // Tone down base color and use a colored fresnel glow instead of solid white\n      vec3 finalColor = baseColor * 0.65 + (fresnel * vec3(0.4, 0.7, 1.0) * 0.45);\n      \n      // Reduce alpha to prevent compounding exposure in additive blending\n      float alpha = 0.12 + fresnel * 0.38;\n      \n      gl_FragColor = vec4(finalColor, alpha);\n    }\n  `\n};\n\nfunction FluidMesh({ color, speed = 1, scale = 1 }: { color?: string; speed?: number; scale?: number }) {\n  const meshRef = useRef<THREE.Mesh>(null);\n  const shaderRef = useRef<THREE.ShaderMaterial>(null);\n  const targetRotation = useRef({ x: 0, y: 0 });\n\n  // Keep track of active speed-modified time\n  const timeRef = useRef(0);\n\n  useEffect(() => {\n    if (shaderRef.current && color) {\n      shaderRef.current.uniforms.uColor1.value.set(color);\n    }\n  }, [color]);\n\n  // Update uniform values & mouse-follow rotation on each frame\n  useFrame((state, delta) => {\n    const { pointer } = state;\n    timeRef.current += delta * speed;\n\n    if (shaderRef.current) {\n      shaderRef.current.uniforms.uTime.value = timeRef.current;\n      shaderRef.current.uniforms.uMouse.value.set(pointer.x, pointer.y);\n    }\n\n    if (meshRef.current) {\n      // Smoothly interpolate rotation to mouse position\n      targetRotation.current.y = (pointer.x * Math.PI) / 3;\n      targetRotation.current.x = (-pointer.y * Math.PI) / 3;\n\n      meshRef.current.rotation.y += (targetRotation.current.y - meshRef.current.rotation.y) * 0.05 * speed;\n      meshRef.current.rotation.x += (targetRotation.current.x - meshRef.current.rotation.x) * 0.05 * speed;\n      \n      // Add subtle constant spin\n      meshRef.current.rotation.z += 0.003 * speed;\n\n      meshRef.current.scale.set(scale, scale, scale);\n    }\n  });\n\n  return (\n    <Float speed={1.5 * speed} rotationIntensity={0.5} floatIntensity={1.5}>\n      <mesh ref={meshRef}>\n        <torusKnotGeometry args={[1.5, 0.55, 150, 20]} />\n        <shaderMaterial\n          ref={shaderRef}\n          args={[GlassFluidShader]}\n          transparent={true}\n          side={THREE.DoubleSide}\n          depthWrite={false}\n          blending={THREE.AdditiveBlending}\n        />\n      </mesh>\n    </Float>\n  );\n}\n\nexport interface Hero3DProps {\n  color?: string;\n  speed?: number;\n  scale?: number;\n  badgeText?: string;\n  title?: string;\n  description?: string;\n  primaryCtaText?: string;\n  primaryCtaHref?: string;\n  secondaryCtaText?: string;\n  secondaryCtaHref?: string;\n  className?: string;\n}\n\nexport function Hero3D({\n  color,\n  speed = 1,\n  scale = 1,\n  badgeText = \"Three.js & WebGL\",\n  title = \"Immersive 3D Experiences\",\n  description = \"A stunning WebGL hero section with custom GLSL shaders. Move your cursor to interact with the fluid physics in real-time.\",\n  primaryCtaText = \"Start Building\",\n  primaryCtaHref = \"#\",\n  secondaryCtaText = \"View Components\",\n  secondaryCtaHref = \"#\",\n  className\n}: Hero3DProps) {\n  const [mounted, setMounted] = useState(false);\n\n  useEffect(() => {\n    setMounted(true);\n  }, []);\n\n  if (!mounted) {\n    return (\n      <div className=\"w-full min-h-screen flex items-center justify-center bg-zinc-950\">\n        <div className=\"w-12 h-12 rounded-full border-2 border-indigo-500/20 border-t-indigo-500 animate-spin\" />\n      </div>\n    );\n  }\n\n  return (\n    <section className={cn(\"@container relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-zinc-950 text-white\", className)}>\n      {/* 3D Canvas Background */}\n      <div className=\"absolute inset-0 z-0 h-full w-full cursor-grab active:cursor-grabbing\">\n        <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>\n          <ambientLight intensity={0.3} />\n          <pointLight position={[10, 10, 10]} intensity={1.5} />\n          <pointLight position={[-10, -10, -10]} intensity={0.5} />\n          <FluidMesh color={color} speed={speed} scale={scale} />\n          <Environment preset=\"night\" />\n        </Canvas>\n      </div>\n\n      {/* Radial Mask to blend canvas edges */}\n      <div className=\"absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(9,9,11,0.8)_100%)] pointer-events-none\" />\n\n      {/* Content Overlay */}\n      <div className=\"z-10 flex flex-col items-center text-center px-4 max-w-4xl select-none pointer-events-none\">\n        <div className=\"pointer-events-auto inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-300 text-xs font-medium mb-8 backdrop-blur-md shadow-xl hover:bg-white/10 transition-colors\">\n          <span className=\"w-2 h-2 rounded-full bg-indigo-500 animate-pulse\" />\n          <span>{badgeText}</span>\n        </div>\n\n        <h1 className=\"text-5xl @md:text-7xl @2xl:text-8xl font-bold tracking-tighter leading-[1.1] mb-6 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40\">\n          {title}\n        </h1>\n\n        <p className=\"max-w-2xl text-lg @md:text-xl text-zinc-400 mb-10 font-light leading-relaxed\">\n          {description}\n        </p>\n\n        <div className=\"flex flex-wrap gap-4 items-center justify-center pointer-events-auto\">\n          <a href={primaryCtaHref}>\n            <MagneticButton className=\"h-12 px-8 rounded-full bg-white text-black font-semibold hover:bg-zinc-200 transition-colors\">\n              {primaryCtaText} <ArrowRight className=\"ml-2 h-4 w-4\" />\n            </MagneticButton>\n          </a>\n          <a href={secondaryCtaHref}>\n            <MagneticButton className=\"h-12 px-8 rounded-full border border-white/10 bg-black/20 backdrop-blur-sm text-white font-medium hover:bg-white/5 transition-colors\">\n              <Terminal className=\"mr-2 h-4 w-4\" /> {secondaryCtaText}\n            </MagneticButton>\n          </a>\n        </div>\n      </div>\n    </section>\n  );\n}\n"
+      }
+    ]
+  },
+  "hero-globe-3d": {
+    "name": "hero-globe-3d",
+    "title": "HeroGlobe3D",
+    "category": "Hero Components",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "components/creative/hero/hero-globe-3d.tsx",
+        "content": "'use client';\n\nimport React, { useEffect, useRef } from 'react';\nimport { cn } from '@/lib/utils';\nimport { motion } from 'framer-motion';\n\nexport interface HeroGlobe3DProps {\n  className?: string;\n  badgeText?: string;\n  title?: string;\n  description?: string;\n  globeColor?: string;\n  glowColor?: string;\n}\n\nexport function HeroGlobe3D({\n  className,\n  badgeText = \"3D WebGL Globe & Spatial Mesh\",\n  title = \"Global Connected Infrastructure\",\n  description = \"A real-time interactive 3D particle sphere with spatial rotation physics and luminous node highlights.\",\n  globeColor = \"#6366f1\",\n  glowColor = \"rgba(99, 102, 241, 0.4)\",\n}: HeroGlobe3DProps) {\n  const canvasRef = useRef<HTMLCanvasElement>(null);\n  const rotationRef = useRef({ x: 0, y: 0 });\n  const isDragging = useRef(false);\n  const previousMouse = useRef({ x: 0, y: 0 });\n\n  useEffect(() => {\n    const canvas = canvasRef.current;\n    if (!canvas) return;\n    const ctx = canvas.getContext('2d');\n    if (!ctx) return;\n\n    let animId: number;\n    let width = (canvas.width = canvas.parentElement?.clientWidth || 600);\n    let height = (canvas.height = canvas.parentElement?.clientHeight || 600);\n\n    const numPoints = 350;\n    const radius = Math.min(width, height) * 0.32;\n    const points: Array<{ x: number; y: number; z: number; baseR: number }> = [];\n\n    // Fibonacci sphere distribution for uniform 3D surface points\n    const phi = Math.PI * (3 - Math.sqrt(5));\n    for (let i = 0; i < numPoints; i++) {\n      const y = 1 - (i / (numPoints - 1)) * 2;\n      const r = Math.sqrt(1 - y * y);\n      const theta = phi * i;\n      const x = Math.cos(theta) * r;\n      const z = Math.sin(theta) * r;\n      points.push({ x: x * radius, y: y * radius, z: z * radius, baseR: radius });\n    }\n\n    const handleResize = () => {\n      if (!canvas.parentElement) return;\n      width = canvas.width = canvas.parentElement.clientWidth;\n      height = canvas.height = canvas.parentElement.clientHeight;\n    };\n\n    window.addEventListener('resize', handleResize);\n\n    const render = () => {\n      ctx.clearRect(0, 0, width, height);\n\n      // Auto-rotation around Y axis\n      if (!isDragging.current) {\n        rotationRef.current.y += 0.005;\n      }\n\n      const rx = rotationRef.current.x;\n      const ry = rotationRef.current.y;\n\n      const cosX = Math.cos(rx);\n      const sinX = Math.sin(rx);\n      const cosY = Math.cos(ry);\n      const sinY = Math.sin(ry);\n\n      const center = { x: width / 2, y: height / 2 };\n\n      // Render glowing atmosphere background\n      const grad = ctx.createRadialGradient(\n        center.x,\n        center.y,\n        radius * 0.2,\n        center.x,\n        center.y,\n        radius * 1.4\n      );\n      grad.addColorStop(0, glowColor);\n      grad.addColorStop(1, 'transparent');\n      ctx.fillStyle = grad;\n      ctx.beginPath();\n      ctx.arc(center.x, center.y, radius * 1.3, 0, Math.PI * 2);\n      ctx.fill();\n\n      // Transform and project points\n      const projected = points.map((p) => {\n        // Rotate around Y\n        let x1 = p.x * cosY - p.z * sinY;\n        let z1 = p.x * sinY + p.z * cosY;\n\n        // Rotate around X\n        let y2 = p.y * cosX - z1 * sinX;\n        let z2 = p.y * sinX + z1 * cosX;\n\n        const alpha = Math.max(0.1, (z2 + radius) / (2 * radius));\n        const px = center.x + x1;\n        const py = center.y + y2;\n\n        return { px, py, z: z2, alpha };\n      });\n\n      // Draw connecting mesh lines between close front-facing points\n      ctx.lineWidth = 0.5;\n      for (let i = 0; i < projected.length; i++) {\n        const p1 = projected[i];\n        if (p1.z < -20) continue;\n\n        for (let j = i + 1; j < projected.length; j++) {\n          const p2 = projected[j];\n          if (p2.z < -20) continue;\n\n          const dx = p1.px - p2.px;\n          const dy = p1.py - p2.py;\n          const distSq = dx * dx + dy * dy;\n\n          if (distSq < 3200) {\n            const lineAlpha = (1 - distSq / 3200) * 0.25 * p1.alpha;\n            ctx.strokeStyle = `rgba(99, 102, 241, ${lineAlpha})`;\n            ctx.beginPath();\n            ctx.moveTo(p1.px, p1.py);\n            ctx.lineTo(p2.px, p2.py);\n            ctx.stroke();\n          }\n        }\n      }\n\n      // Render 3D node points\n      projected.forEach((p) => {\n        const pRadius = (p.z + radius) / (2 * radius) * 2.5 + 0.8;\n        ctx.save();\n        ctx.globalAlpha = p.alpha;\n        ctx.fillStyle = globeColor;\n        ctx.beginPath();\n        ctx.arc(p.px, p.py, pRadius, 0, Math.PI * 2);\n        ctx.fill();\n\n        // Highlight brighter outer nodes\n        if (p.alpha > 0.75) {\n          ctx.shadowColor = globeColor;\n          ctx.shadowBlur = 8;\n          ctx.fillStyle = '#ffffff';\n          ctx.beginPath();\n          ctx.arc(p.px, p.py, pRadius * 0.8, 0, Math.PI * 2);\n          ctx.fill();\n        }\n        ctx.restore();\n      });\n\n      animId = requestAnimationFrame(render);\n    };\n\n    render();\n\n    const onMouseDown = (e: MouseEvent) => {\n      isDragging.current = true;\n      previousMouse.current = { x: e.clientX, y: e.clientY };\n    };\n\n    const onMouseMove = (e: MouseEvent) => {\n      if (!isDragging.current) return;\n      const dx = e.clientX - previousMouse.current.x;\n      const dy = e.clientY - previousMouse.current.y;\n\n      rotationRef.current.y += dx * 0.005;\n      rotationRef.current.x += dy * 0.005;\n\n      previousMouse.current = { x: e.clientX, y: e.clientY };\n    };\n\n    const onMouseUp = () => {\n      isDragging.current = false;\n    };\n\n    const targetCanvas = canvas;\n    targetCanvas.addEventListener('mousedown', onMouseDown);\n    window.addEventListener('mousemove', onMouseMove);\n    window.addEventListener('mouseup', onMouseUp);\n\n    return () => {\n      cancelAnimationFrame(animId);\n      window.removeEventListener('resize', handleResize);\n      targetCanvas.removeEventListener('mousedown', onMouseDown);\n      window.removeEventListener('mousemove', onMouseMove);\n      window.removeEventListener('mouseup', onMouseUp);\n    };\n  }, [globeColor, glowColor]);\n\n  return (\n    <section className={cn('relative min-h-[500px] w-full overflow-hidden bg-black text-white flex flex-col items-center justify-center p-6 rounded-3xl border border-zinc-800', className)}>\n      <canvas\n        ref={canvasRef}\n        className=\"absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing\"\n      />\n      <div className=\"relative z-10 max-w-xl text-center space-y-4 pointer-events-none\">\n        <span className=\"inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 rounded-full border border-indigo-500/20\">\n          {badgeText}\n        </span>\n        <h2 className=\"text-3xl sm:text-5xl font-black tracking-tight text-white\">\n          {title}\n        </h2>\n        <p className=\"text-zinc-400 text-sm font-light leading-relaxed\">\n          {description}\n        </p>\n      </div>\n    </section>\n  );\n}\n"
+      }
+    ]
+  },
+  "hero-infinite-canvas": {
+    "name": "hero-infinite-canvas",
+    "title": "HeroInfiniteCanvas",
+    "category": "Hero Components",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "components/creative/hero/hero-infinite-canvas.tsx",
+        "content": "'use client';\n\nimport React, { useRef } from 'react';\nimport { motion } from 'framer-motion';\nimport { cn } from '@/lib/utils';\nimport { Sparkles, Layers, MousePointer } from 'lucide-react';\n\nexport interface HeroInfiniteCanvasProps {\n  className?: string;\n  title?: string;\n  subtitle?: string;\n}\n\nexport function HeroInfiniteCanvas({\n  className,\n  title = \"Spatial Canvas Playground\",\n  subtitle = \"Drag anywhere to pan across the infinite canvas. Click or hover spatial nodes to interact.\",\n}: HeroInfiniteCanvasProps) {\n  const containerRef = useRef<HTMLDivElement>(null);\n\n  const cards = [\n    { id: 1, title: 'WebGL Shaders', tag: 'Shader Engine', icon: Sparkles, x: -220, y: -120 },\n    { id: 2, title: 'Spatial UI Nodes', tag: 'Interactions', icon: Layers, x: 180, y: -160 },\n    { id: 3, title: 'Physics Dock', tag: '2D Dynamics', icon: MousePointer, x: -160, y: 140 },\n    { id: 4, title: 'Motion Motion', tag: 'Framer Motion', icon: Sparkles, x: 200, y: 120 },\n  ];\n\n  return (\n    <section className={cn('relative h-[600px] w-full overflow-hidden bg-black text-white rounded-3xl border border-zinc-800 cursor-grab active:cursor-grabbing select-none', className)}>\n      {/* Background Dot Grid */}\n      <div className=\"absolute inset-0 bg-[radial-gradient(#27272a_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none\" />\n\n      {/* Draggable Canvas Layer */}\n      <motion.div\n        ref={containerRef}\n        drag\n        dragConstraints={{ left: -600, right: 600, top: -400, bottom: 400 }}\n        dragElastic={0.1}\n        className=\"absolute inset-0 flex items-center justify-center\"\n      >\n        {/* Center Intro Card */}\n        <div className=\"relative z-10 max-w-md text-center p-8 bg-zinc-950/80 backdrop-blur-2xl border border-zinc-800 rounded-3xl shadow-2xl pointer-events-none\">\n          <span className=\"inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 rounded-full border border-indigo-500/20 mb-4\">\n            Interactive Infinite Surface\n          </span>\n          <h2 className=\"text-3xl font-black text-white tracking-tight mb-2\">{title}</h2>\n          <p className=\"text-zinc-400 text-xs font-light leading-relaxed\">{subtitle}</p>\n        </div>\n\n        {/* Floating Spatial Cards */}\n        {cards.map((card) => {\n          const Icon = card.icon;\n          return (\n            <motion.div\n              key={card.id}\n              whileHover={{ scale: 1.08, zIndex: 30 }}\n              style={{ x: card.x, y: card.y }}\n              className=\"absolute p-5 w-60 rounded-2xl bg-zinc-900/90 border border-zinc-800 shadow-xl backdrop-blur-md cursor-pointer hover:border-indigo-500/50 transition-colors\"\n            >\n              <div className=\"flex items-center gap-2 mb-2\">\n                <Icon className=\"w-4 h-4 text-indigo-400\" />\n                <span className=\"text-[10px] font-semibold uppercase tracking-wider text-zinc-400\">{card.tag}</span>\n              </div>\n              <h4 className=\"text-sm font-bold text-white\">{card.title}</h4>\n            </motion.div>\n          );\n        })}\n      </motion.div>\n    </section>\n  );\n}\n"
+      }
+    ]
+  },
+  "hero-video-mask": {
+    "name": "hero-video-mask",
+    "title": "HeroVideoMask",
+    "category": "Hero Components",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "components/creative/hero/hero-video-mask.tsx",
+        "content": "'use client';\n\nimport React, { useState } from 'react';\nimport { motion } from 'framer-motion';\nimport { cn } from '@/lib/utils';\n\nexport interface HeroVideoMaskProps {\n  className?: string;\n  headline?: string;\n  videoUrl?: string;\n}\n\nexport function HeroVideoMask({\n  className,\n  headline = \"CREATIVE MOTION\",\n  videoUrl = \"https://assets.mixkit.co/videos/preview/mixkit-abstract-fast-flow-of-liquid-energy-42934-large.mp4\",\n}: HeroVideoMaskProps) {\n  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });\n  const [isHovered, setIsHovered] = useState(false);\n\n  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {\n    const rect = e.currentTarget.getBoundingClientRect();\n    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });\n  };\n\n  return (\n    <section\n      onMouseMove={handleMouseMove}\n      onMouseEnter={() => setIsHovered(true)}\n      onMouseLeave={() => setIsHovered(false)}\n      className={cn('relative min-h-[500px] w-full overflow-hidden bg-black text-white flex items-center justify-center p-8 rounded-3xl border border-zinc-800 select-none cursor-pointer', className)}\n    >\n      {/* Background Video (Revealed through cursor clip mask) */}\n      <div\n        className=\"absolute inset-0 transition-opacity duration-500 pointer-events-none\"\n        style={{\n          opacity: isHovered ? 1 : 0.25,\n          clipPath: isHovered\n            ? `circle(220px at ${mousePos.x}px ${mousePos.y}px)`\n            : 'circle(0px at 50% 50%)',\n        }}\n      >\n        <video\n          autoPlay\n          loop\n          muted\n          playsInline\n          src={videoUrl}\n          className=\"w-full h-full object-cover\"\n        />\n      </div>\n\n      {/* Headline Overlay */}\n      <div className=\"relative z-10 text-center\">\n        <h1 className=\"text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter uppercase text-white mix-blend-difference\">\n          {headline}\n        </h1>\n        <p className=\"mt-4 text-zinc-400 text-sm font-light tracking-widest uppercase\">\n          Hover to reveal dynamic liquid video mask\n        </p>\n      </div>\n    </section>\n  );\n}\n"
+      }
+    ]
+  },
+  "hero-shimmer-mesh": {
+    "name": "hero-shimmer-mesh",
+    "title": "HeroShimmerMesh",
+    "category": "Hero Components",
+    "dependencies": [],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "components/creative/hero/hero-shimmer-mesh.tsx",
+        "content": "'use client';\n\nimport React, { useEffect, useRef } from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface HeroShimmerMeshProps {\n  className?: string;\n  title?: string;\n  description?: string;\n}\n\nexport function HeroShimmerMesh({\n  className,\n  title = \"Fluid Shimmer Mesh\",\n  description = \"A real-time animated gradient canvas with cursor ripple distortion physics.\",\n}: HeroShimmerMeshProps) {\n  const canvasRef = useRef<HTMLCanvasElement>(null);\n  const mouseRef = useRef({ x: -1000, y: -1000 });\n\n  useEffect(() => {\n    const canvas = canvasRef.current;\n    if (!canvas) return;\n    const ctx = canvas.getContext('2d');\n    if (!ctx) return;\n\n    let animId: number;\n    let t = 0;\n\n    const resize = () => {\n      if (!canvas.parentElement) return;\n      canvas.width = canvas.parentElement.clientWidth;\n      canvas.height = canvas.parentElement.clientHeight;\n    };\n\n    resize();\n    window.addEventListener('resize', resize);\n\n    const render = () => {\n      t += 0.015;\n      const w = canvas.width;\n      const h = canvas.height;\n\n      ctx.clearRect(0, 0, w, h);\n\n      // Multi-layer animated gradient mesh\n      const g1 = ctx.createRadialGradient(\n        w * 0.3 + Math.sin(t) * 100,\n        h * 0.4 + Math.cos(t * 0.8) * 80,\n        50,\n        w * 0.3,\n        h * 0.4,\n        w * 0.6\n      );\n      g1.addColorStop(0, 'rgba(99, 102, 241, 0.4)');\n      g1.addColorStop(1, 'transparent');\n\n      const g2 = ctx.createRadialGradient(\n        w * 0.7 + Math.cos(t * 1.2) * 120,\n        h * 0.6 + Math.sin(t * 0.9) * 90,\n        50,\n        w * 0.7,\n        h * 0.6,\n        w * 0.6\n      );\n      g2.addColorStop(0, 'rgba(236, 72, 153, 0.35)');\n      g2.addColorStop(1, 'transparent');\n\n      ctx.fillStyle = g1;\n      ctx.fillRect(0, 0, w, h);\n      ctx.fillStyle = g2;\n      ctx.fillRect(0, 0, w, h);\n\n      // Cursor ripple glow\n      if (mouseRef.current.x > 0) {\n        const ripple = ctx.createRadialGradient(\n          mouseRef.current.x,\n          mouseRef.current.y,\n          0,\n          mouseRef.current.x,\n          mouseRef.current.y,\n          200\n        );\n        ripple.addColorStop(0, 'rgba(168, 85, 247, 0.5)');\n        ripple.addColorStop(1, 'transparent');\n        ctx.fillStyle = ripple;\n        ctx.fillRect(0, 0, w, h);\n      }\n\n      animId = requestAnimationFrame(render);\n    };\n\n    render();\n\n    const handleMouseMove = (e: MouseEvent) => {\n      const rect = canvas.getBoundingClientRect();\n      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };\n    };\n\n    const handleMouseLeave = () => {\n      mouseRef.current = { x: -1000, y: -1000 };\n    };\n\n    window.addEventListener('mousemove', handleMouseMove);\n    document.addEventListener('mouseleave', handleMouseLeave);\n\n    return () => {\n      cancelAnimationFrame(animId);\n      window.removeEventListener('resize', resize);\n      window.removeEventListener('mousemove', handleMouseMove);\n      document.removeEventListener('mouseleave', handleMouseLeave);\n    };\n  }, []);\n\n  return (\n    <section className={cn('relative min-h-[480px] w-full overflow-hidden bg-black text-white flex flex-col items-center justify-center p-8 rounded-3xl border border-zinc-800', className)}>\n      <canvas ref={canvasRef} className=\"absolute inset-0 w-full h-full pointer-events-none\" />\n      <div className=\"relative z-10 max-w-xl text-center space-y-4\">\n        <h2 className=\"text-4xl sm:text-6xl font-black tracking-tight text-white\">{title}</h2>\n        <p className=\"text-zinc-400 text-sm font-light leading-relaxed\">{description}</p>\n      </div>\n    </section>\n  );\n}\n"
       }
     ]
   },
@@ -52,6 +116,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/accordion.tsx",
@@ -68,6 +133,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/tabs.tsx",
@@ -82,6 +148,7 @@
     "dependencies": [
       "framer-motion"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/floating-navbar.tsx",
@@ -97,6 +164,7 @@
       "matter-js",
       "framer-motion"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/physics-dock.tsx",
@@ -112,6 +180,7 @@
       "cmdk",
       "lucide-react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/cyber-terminal.tsx",
@@ -128,6 +197,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/dynamic-island.tsx",
@@ -144,6 +214,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/glass-tabs.tsx",
@@ -160,6 +231,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/smart-navbar.tsx",
@@ -176,6 +248,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/magnetic-button.tsx",
@@ -190,10 +263,71 @@
     "dependencies": [
       "framer-motion"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/liquid-button.tsx",
         "content": "\"use client\";\n\nimport React from \"react\";\nimport { motion, Variants } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport type LiquidVariant = \"gooey\" | \"fill\" | \"swipe\";\n\ninterface LiquidButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  children: React.ReactNode;\n  className?: string;\n  color?: string;\n  speed?: number;\n  scale?: number;\n  withSound?: boolean;\n  variant?: LiquidVariant;\n}\n\nexport function LiquidButton({\n  children,\n  className,\n  color,\n  speed = 1,\n  scale = 1,\n  withSound = false,\n  variant = \"gooey\",\n  ...props\n}: LiquidButtonProps) {\n  const hasBg = className?.includes(\"bg-\");\n  const hasText = className?.includes(\"text-\");\n  const hoverDuration = 0.5 / speed;\n\n  const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {\n    if (props.onMouseEnter) props.onMouseEnter(e);\n  };\n\n  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {\n    if (props.onClick) props.onClick(e);\n  };\n\n  const getLiquidVariants = (): Variants => {\n    switch (variant) {\n      case \"swipe\":\n        return {\n          rest: { x: \"-100%\", y: \"0%\", scale: 1 },\n          hover: { x: \"0%\", y: \"0%\", scale: 1 },\n        };\n      case \"fill\":\n        return {\n          rest: { y: \"100%\", x: \"0%\", scale: 1 },\n          hover: { y: \"0%\", x: \"0%\", scale: 1 },\n        };\n      case \"gooey\":\n      default:\n        return {\n          rest: { scale: 0, x: \"0%\", y: \"0%\" },\n          hover: { scale: 1, x: \"0%\", y: \"0%\" },\n        };\n    }\n  };\n\n  const liquidVariants = getLiquidVariants();\n\n  return (\n    <>\n      {/* SVG gooey liquid filter definitions */}\n      <svg className=\"hidden w-0 h-0\" xmlns=\"http://www.w3.org/2000/svg\">\n        <defs>\n          <filter id=\"liquidGooey\">\n            <feGaussianBlur in=\"SourceGraphic\" stdDeviation=\"10\" result=\"blur\" />\n            <feColorMatrix\n              in=\"blur\"\n              mode=\"matrix\"\n              values=\"1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9\"\n              result=\"goo\"\n            />\n            <feComposite in=\"SourceGraphic\" in2=\"goo\" operator=\"atop\" />\n          </filter>\n        </defs>\n      </svg>\n\n      <motion.button\n        className={cn(\n          \"relative overflow-hidden px-8 py-3.5 rounded-full font-semibold text-sm transition-all active:scale-95\",\n          !hasBg && \"bg-white\",\n          !hasText && \"text-black\",\n          className\n        )}\n        style={{\n          filter: \"url(#liquidGooey)\",\n          transform: scale !== 1 ? `scale(${scale})` : undefined,\n          ...props.style,\n        }}\n        onMouseEnter={handleMouseEnter}\n        onClick={handleClick}\n        initial=\"rest\"\n        whileHover=\"hover\"\n        animate=\"rest\"\n        {...(props as any)}\n      >\n        <span className=\"relative z-10\">{children}</span>\n\n        {/* Floating background gooey liquid layer */}\n        <motion.span\n          className=\"absolute -inset-2 rounded-full -z-10\"\n          style={{\n            filter: \"blur(5px)\",\n            backgroundColor: color || \"#6366f1\", // indigo-500\n          }}\n          variants={liquidVariants}\n          transition={{ duration: hoverDuration, ease: \"easeOut\" }}\n        />\n      </motion.button>\n    </>\n  );\n}\n"
+      }
+    ]
+  },
+  "particle-explosion-button": {
+    "name": "particle-explosion-button",
+    "title": "ParticleExplosionButton",
+    "category": "Buttons",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "components/creative/particle-explosion-button.tsx",
+        "content": "'use client';\n\nimport React, { useRef } from 'react';\nimport { motion } from 'framer-motion';\nimport { cn } from '@/lib/utils';\n\nexport interface ParticleExplosionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  children: React.ReactNode;\n  className?: string;\n  particleColor?: string;\n  particleCount?: number;\n}\n\nexport function ParticleExplosionButton({\n  children,\n  className,\n  particleColor = '#818cf8',\n  particleCount = 30,\n  onClick,\n  ...props\n}: ParticleExplosionButtonProps) {\n  const canvasRef = useRef<HTMLCanvasElement>(null);\n\n  const triggerExplosion = (e: React.MouseEvent<HTMLButtonElement>) => {\n    const canvas = canvasRef.current;\n    if (!canvas) return;\n    const ctx = canvas.getContext('2d');\n    if (!ctx) return;\n\n    const rect = canvas.getBoundingClientRect();\n    canvas.width = rect.width;\n    canvas.height = rect.height;\n\n    const originX = e.clientX - rect.left;\n    const originY = e.clientY - rect.top;\n\n    const particles: Array<{\n      x: number;\n      y: number;\n      vx: number;\n      vy: number;\n      size: number;\n      alpha: number;\n      decay: number;\n    }> = [];\n\n    for (let i = 0; i < particleCount; i++) {\n      const angle = Math.random() * Math.PI * 2;\n      const speed = Math.random() * 6 + 2;\n      particles.push({\n        x: originX,\n        y: originY,\n        vx: Math.cos(angle) * speed,\n        vy: Math.sin(angle) * speed,\n        size: Math.random() * 4 + 2,\n        alpha: 1,\n        decay: Math.random() * 0.03 + 0.015,\n      });\n    }\n\n    let animId: number;\n    const render = () => {\n      ctx.clearRect(0, 0, canvas.width, canvas.height);\n      let alive = false;\n\n      particles.forEach((p) => {\n        if (p.alpha > 0) {\n          alive = true;\n          p.x += p.vx;\n          p.y += p.vy;\n          p.vy += 0.15; // Gravity acceleration\n          p.alpha -= p.decay;\n\n          ctx.save();\n          ctx.globalAlpha = Math.max(0, p.alpha);\n          ctx.fillStyle = particleColor;\n          ctx.shadowColor = particleColor;\n          ctx.shadowBlur = 6;\n          ctx.beginPath();\n          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);\n          ctx.fill();\n          ctx.restore();\n        }\n      });\n\n      if (alive) {\n        animId = requestAnimationFrame(render);\n      } else {\n        ctx.clearRect(0, 0, canvas.width, canvas.height);\n      }\n    };\n\n    render();\n    if (onClick) onClick(e);\n  };\n\n  return (\n    <div className=\"relative inline-block overflow-visible\">\n      <canvas\n        ref={canvasRef}\n        className=\"pointer-events-none absolute -inset-10 z-20 h-[calc(100%+80px)] w-[calc(100%+80px)]\"\n      />\n      <motion.button\n        whileHover={{ scale: 1.05 }}\n        whileTap={{ scale: 0.95 }}\n        onClick={triggerExplosion}\n        className={cn(\n          'relative z-10 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-8 py-3.5 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:shadow-indigo-500/40 focus:outline-none',\n          className\n        )}\n        {...(props as any)}\n      >\n        {children}\n      </motion.button>\n    </div>\n  );\n}\n"
+      }
+    ]
+  },
+  "morphing-svg-button": {
+    "name": "morphing-svg-button",
+    "title": "MorphingSvgButton",
+    "category": "Buttons",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "components/creative/morphing-svg-button.tsx",
+        "content": "'use client';\n\nimport React, { useState } from 'react';\nimport { motion } from 'framer-motion';\nimport { cn } from '@/lib/utils';\n\nexport interface MorphingSvgButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  label?: string;\n  className?: string;\n}\n\nexport function MorphingSvgButton({\n  label = \"Transform Action\",\n  className,\n  ...props\n}: MorphingSvgButtonProps) {\n  const [isHovered, setIsHovered] = useState(false);\n\n  return (\n    <motion.button\n      whileHover={{ scale: 1.04 }}\n      whileTap={{ scale: 0.96 }}\n      onMouseEnter={() => setIsHovered(true)}\n      onMouseLeave={() => setIsHovered(false)}\n      className={cn(\n        'relative inline-flex items-center gap-3 rounded-2xl bg-zinc-950 px-7 py-3.5 text-sm font-bold text-white border border-zinc-800 shadow-xl transition-colors hover:border-indigo-500/50',\n        className\n      )}\n      {...(props as any)}\n    >\n      {/* Morphing SVG Icon */}\n      <svg className=\"w-5 h-5 text-indigo-400\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2.5\" strokeLinecap=\"round\" strokeLinejoin=\"round\">\n        <motion.path\n          animate={{\n            d: isHovered\n              ? \"M5 12h14M12 5l7 7-7 7\" // Arrow Right\n              : \"M12 5v14M5 12h14\",      // Plus Icon\n          }}\n          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}\n        />\n      </svg>\n      <span>{label}</span>\n    </motion.button>\n  );\n}\n"
+      }
+    ]
+  },
+  "shimmer-border-button": {
+    "name": "shimmer-border-button",
+    "title": "ShimmerBorderButton",
+    "category": "Buttons",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "components/creative/shimmer-border-button.tsx",
+        "content": "'use client';\n\nimport React, { useRef, useState } from 'react';\nimport { motion } from 'framer-motion';\nimport { cn } from '@/lib/utils';\n\nexport interface ShimmerBorderButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  children: React.ReactNode;\n  className?: string;\n  shimmerColor?: string;\n}\n\nexport function ShimmerBorderButton({\n  children,\n  className,\n  shimmerColor = '#818cf8',\n  ...props\n}: ShimmerBorderButtonProps) {\n  const buttonRef = useRef<HTMLButtonElement>(null);\n  const [pos, setPos] = useState({ x: 0, y: 0 });\n\n  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {\n    if (!buttonRef.current) return;\n    const rect = buttonRef.current.getBoundingClientRect();\n    const x = (e.clientX - (rect.left + rect.width / 2)) * 0.25;\n    const y = (e.clientY - (rect.top + rect.height / 2)) * 0.25;\n    setPos({ x, y });\n  };\n\n  return (\n    <motion.button\n      ref={buttonRef}\n      onMouseMove={handleMouseMove}\n      onMouseLeave={() => setPos({ x: 0, y: 0 })}\n      animate={{ x: pos.x, y: pos.y }}\n      transition={{ type: 'spring', stiffness: 200, damping: 15 }}\n      className={cn(\n        'relative inline-flex items-center justify-center overflow-hidden rounded-full p-[1px] focus:outline-none',\n        className\n      )}\n      {...(props as any)}\n    >\n      {/* Rotating Shimmer Gradient */}\n      <span className=\"absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#000000_0%,#818cf8_50%,#000000_100%)]\" />\n      \n      <span className=\"inline-flex h-full w-full items-center justify-center rounded-full bg-zinc-950 px-8 py-3.5 text-sm font-bold text-white backdrop-blur-3xl transition-colors hover:bg-zinc-900\">\n        {children}\n      </span>\n    </motion.button>\n  );\n}\n"
+      }
+    ]
+  },
+  "physics-drop-button": {
+    "name": "physics-drop-button",
+    "title": "PhysicsDropButton",
+    "category": "Buttons",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "components/creative/physics-drop-button.tsx",
+        "content": "'use client';\n\nimport React, { useState } from 'react';\nimport { motion } from 'framer-motion';\nimport { cn } from '@/lib/utils';\n\nexport interface PhysicsDropButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  children: React.ReactNode;\n  className?: string;\n}\n\nexport function PhysicsDropButton({\n  children,\n  className,\n  ...props\n}: PhysicsDropButtonProps) {\n  const [tilt, setTilt] = useState(0);\n\n  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {\n    const rect = e.currentTarget.getBoundingClientRect();\n    const x = e.clientX - rect.left;\n    const norm = (x / rect.width - 0.5) * 30; // Tilt angle (-15 to 15 deg)\n    setTilt(norm);\n  };\n\n  return (\n    <motion.button\n      onMouseMove={handleMouseMove}\n      onMouseLeave={() => setTilt(0)}\n      whileHover={{ scale: 1.05 }}\n      whileTap={{ scale: 0.95 }}\n      className={cn(\n        'relative inline-flex items-center justify-center overflow-hidden rounded-2xl bg-zinc-950 px-8 py-3.5 text-sm font-bold text-white border border-zinc-800 shadow-xl select-none',\n        className\n      )}\n      {...(props as any)}\n    >\n      {/* Liquid Sloshing Layer */}\n      <motion.div\n        animate={{ rotate: tilt }}\n        transition={{ type: 'spring', stiffness: 120, damping: 12 }}\n        className=\"absolute -bottom-8 -left-4 -right-4 h-16 rounded-t-[50%] bg-gradient-to-r from-indigo-600 to-purple-600 opacity-60 pointer-events-none\"\n      />\n      <span className=\"relative z-10\">{children}</span>\n    </motion.button>\n  );\n}\n"
       }
     ]
   },
@@ -206,6 +340,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/tilt-card.tsx",
@@ -221,6 +356,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/spotlight-card.tsx",
@@ -237,10 +373,39 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/bento-grid.tsx",
         "content": "\"use client\";\n\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport type BentoVariant = \"standard\" | \"glow\" | \"scale\";\n\ninterface BentoGridProps {\n  children: React.ReactNode;\n  className?: string;\n  speed?: number;\n  scale?: number;\n  color?: string;\n  variant?: BentoVariant;\n}\n\nexport function BentoGrid({\n  children,\n  className,\n  speed = 1,\n  scale = 1,\n  color,\n  variant = \"standard\",\n}: BentoGridProps) {\n  // Pass playground props down to children\n  const childrenWithProps = React.Children.map(children, (child) => {\n    if (React.isValidElement(child)) {\n      return React.cloneElement(child, { speed, scale, color, variant } as any);\n    }\n    return child;\n  });\n\n  return (\n    <div className=\"@container w-full\">\n      <motion.div\n        initial=\"hidden\"\n        whileInView=\"visible\"\n        viewport={{ once: true, margin: \"-50px\" }}\n        variants={{\n          visible: {\n            transition: { staggerChildren: 0.1 / speed },\n          },\n        }}\n        className={cn(\"grid grid-cols-1 @md:grid-cols-3 gap-4 max-w-7xl mx-auto w-full\", className)}\n      >\n        {childrenWithProps}\n      </motion.div>\n    </div>\n  );\n}\n\ninterface BentoCardProps {\n  className?: string;\n  title?: string | React.ReactNode;\n  description?: string | React.ReactNode;\n  icon?: React.ReactNode;\n  header?: React.ReactNode;\n  children?: React.ReactNode;\n  speed?: number;\n  scale?: number;\n  color?: string;\n  variant?: BentoVariant;\n}\n\nexport function BentoCard({\n  className,\n  title,\n  description,\n  icon,\n  header,\n  children,\n  speed = 1,\n  scale = 1,\n  color,\n  variant = \"standard\",\n}: BentoCardProps) {\n  const [hovered, setHovered] = React.useState(false);\n\n  const hoverVariants = {\n    standard: { y: -5 * scale },\n    glow: { y: 0, boxShadow: color ? `0 0 25px ${color}30` : \"0 0 25px rgba(255,255,255,0.1)\" },\n    scale: { y: 0, scale: 1.02 * scale },\n  };\n\n  return (\n    <motion.div\n      variants={{\n        hidden: { opacity: 0, y: 20, filter: \"blur(10px)\" },\n        visible: {\n          opacity: 1,\n          y: 0,\n          filter: \"blur(0px)\",\n          transition: { duration: 0.7 / speed, ease: [0.16, 1, 0.3, 1] },\n        },\n      }}\n      whileHover={hoverVariants[variant]}\n      onMouseEnter={() => setHovered(true)}\n      onMouseLeave={() => setHovered(false)}\n      className={cn(\n        \"relative rounded-3xl group/bento p-6 flex flex-col space-y-4 overflow-hidden border border-border/50 bg-background/50 backdrop-blur-xl shadow-sm transition-all duration-300 hover:border-border\",\n        className\n      )}\n      style={{\n        borderColor: hovered && color && variant !== \"glow\" ? color : undefined,\n      }}\n    >\n      {/* Subtle hover gradient background */}\n      <div\n        className=\"absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover/bento:opacity-100 transition-opacity duration-500 pointer-events-none\"\n        style={{\n          background:\n            hovered && color\n              ? `linear-gradient(135deg, ${color}10 0%, ${color}00 70%)`\n              : undefined,\n        }}\n      />\n\n      {header && (\n        <div className=\"flex-1 w-full min-h-[8rem] rounded-2xl overflow-hidden bg-muted/50 border border-border/50 relative\">\n          {header}\n        </div>\n      )}\n\n      <div className=\"group-hover/bento:translate-x-1 transition-transform duration-300 z-10 flex flex-col h-full justify-end\">\n        {icon && <div className=\"mb-3 text-zinc-400\">{icon}</div>}\n        {title && (\n          <h3 className=\"font-semibold text-lg text-foreground tracking-tight mb-2\">\n            {title}\n          </h3>\n        )}\n        {description && (\n          <div className=\"font-light text-muted-foreground text-sm leading-relaxed\">\n            {description}\n          </div>\n        )}\n      </div>\n      {children}\n    </motion.div>\n  );\n}\n"
+      }
+    ]
+  },
+  "spotlight-border-card": {
+    "name": "spotlight-border-card",
+    "title": "SpotlightBorderCard",
+    "category": "Cards",
+    "dependencies": [],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "components/creative/spotlight-border-card.tsx",
+        "content": "'use client';\n\nimport React, { useRef, useState } from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface SpotlightBorderCardProps extends React.HTMLAttributes<HTMLDivElement> {\n  children: React.ReactNode;\n  className?: string;\n  spotlightColor?: string;\n}\n\nexport function SpotlightBorderCard({\n  children,\n  className,\n  spotlightColor = 'rgba(99, 102, 241, 0.45)',\n  ...props\n}: SpotlightBorderCardProps) {\n  const cardRef = useRef<HTMLDivElement>(null);\n  const [position, setPosition] = useState({ x: 0, y: 0 });\n  const [opacity, setOpacity] = useState(0);\n\n  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {\n    if (!cardRef.current) return;\n    const rect = cardRef.current.getBoundingClientRect();\n    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });\n  };\n\n  return (\n    <div\n      ref={cardRef}\n      onMouseMove={handleMouseMove}\n      onMouseEnter={() => setOpacity(1)}\n      onMouseLeave={() => setOpacity(0)}\n      className={cn(\n        'relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950 p-8 shadow-2xl transition-all duration-300',\n        className\n      )}\n      {...props}\n    >\n      {/* Spotlight Radial Border Glow */}\n      <div\n        className=\"pointer-events-none absolute -inset-px transition-opacity duration-300 rounded-3xl\"\n        style={{\n          opacity,\n          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 40%)`,\n        }}\n      />\n      <div className=\"relative z-10\">{children}</div>\n    </div>\n  );\n}\n"
+      }
+    ]
+  },
+  "parallax-curtain-reveal": {
+    "name": "parallax-curtain-reveal",
+    "title": "ParallaxCurtainReveal",
+    "category": "Cards",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "components/creative/parallax-curtain-reveal.tsx",
+        "content": "'use client';\n\nimport React, { useState } from 'react';\nimport { motion } from 'framer-motion';\nimport { cn } from '@/lib/utils';\n\nexport interface ParallaxCurtainRevealProps {\n  className?: string;\n  imageTop?: string;\n  imageBottom?: string;\n  title?: string;\n  subtitle?: string;\n}\n\nexport function ParallaxCurtainReveal({\n  className,\n  imageTop = \"https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop\",\n  imageBottom = \"https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1200&auto=format&fit=crop\",\n  title = \"Curtain Reveal\",\n  subtitle = \"Hover or drag slider to reveal the dual-layer background artwork\",\n}: ParallaxCurtainRevealProps) {\n  const [sliderPos, setSliderPos] = useState(50);\n\n  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {\n    const rect = e.currentTarget.getBoundingClientRect();\n    const pos = ((e.clientX - rect.left) / rect.width) * 100;\n    setSliderPos(Math.min(Math.max(pos, 0), 100));\n  };\n\n  return (\n    <div\n      onMouseMove={handleMouseMove}\n      className={cn('relative h-[450px] w-full max-w-4xl overflow-hidden rounded-3xl border border-zinc-800 bg-black select-none cursor-ew-resize', className)}\n    >\n      {/* Bottom Layer */}\n      <img src={imageBottom} alt=\"Bottom Layer\" className=\"absolute inset-0 w-full h-full object-cover\" />\n\n      {/* Top Curtain Layer with Clip Path */}\n      <div\n        className=\"absolute inset-0 overflow-hidden pointer-events-none\"\n        style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}\n      >\n        <img src={imageTop} alt=\"Top Layer\" className=\"absolute inset-0 w-full h-full object-cover\" />\n      </div>\n\n      {/* Divider Bar */}\n      <div\n        className=\"absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)] pointer-events-none\"\n        style={{ left: `${sliderPos}%` }}\n      />\n\n      {/* Title Overlay */}\n      <div className=\"absolute bottom-6 left-6 z-20 max-w-md p-4 rounded-2xl bg-black/60 backdrop-blur-md border border-white/10 text-white pointer-events-none\">\n        <h3 className=\"text-xl font-bold\">{title}</h3>\n        <p className=\"text-xs text-zinc-300 font-light mt-1\">{subtitle}</p>\n      </div>\n    </div>\n  );\n}\n"
       }
     ]
   },
@@ -252,6 +417,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/glyph-matrix.tsx",
@@ -269,6 +435,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/text-reveal.tsx",
@@ -286,6 +453,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/kinetic-loader.tsx",
@@ -302,6 +470,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/motion-primitives.tsx",
@@ -317,6 +486,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/text-scramble.tsx",
@@ -333,6 +503,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/kinetic-typography.tsx",
@@ -349,6 +520,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/odometer.tsx",
@@ -365,6 +537,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/flip-board.tsx",
@@ -381,6 +554,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/breathing-text.tsx",
@@ -397,6 +571,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/svg-liquid-distortion.tsx",
@@ -412,6 +587,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/ascii-renderer.tsx",
@@ -428,6 +604,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/animated-counter.tsx",
@@ -445,6 +622,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/scroll-progress.tsx",
@@ -459,6 +637,7 @@
     "dependencies": [
       "gsap"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/horizontal-scroll.tsx",
@@ -475,6 +654,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/scroll-video-scrub.tsx",
@@ -489,6 +669,7 @@
     "dependencies": [
       "lenis"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/smooth-scroll.tsx",
@@ -508,6 +689,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/tunnel-scroll.tsx",
@@ -524,6 +706,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/scroll-linked-split.tsx",
@@ -538,6 +721,7 @@
     "dependencies": [
       "three"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/magnetic-button.tsx",
@@ -553,6 +737,7 @@
       "three",
       "@react-three/fiber"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/fluid-background.tsx",
@@ -568,6 +753,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/noise-overlay.tsx",
@@ -582,6 +768,7 @@
     "dependencies": [
       "framer-motion"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/custom-cursor.tsx",
@@ -598,6 +785,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/hover-image-trails.tsx",
@@ -614,6 +802,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/gooey-menu.tsx",
@@ -630,6 +819,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/directional-hover.tsx",
@@ -646,6 +836,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/magnifying-glass.tsx",
@@ -660,6 +851,7 @@
     "dependencies": [
       "framer-motion"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/testimonials.tsx",
@@ -672,6 +864,7 @@
     "title": "LogoMarquee",
     "category": "Marquee Components",
     "dependencies": [],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/logo-marquee.tsx",
@@ -687,6 +880,7 @@
       "framer-motion",
       "lucide-react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/morph-transition.tsx",
@@ -703,6 +897,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/ai-stream-wrapper.tsx",
@@ -719,6 +914,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/scroll-reveal.tsx",
@@ -735,6 +931,7 @@
       "@react-three/fiber",
       "@react-three/drei"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/floating-3d-card.tsx",
@@ -750,6 +947,7 @@
       "cobe",
       "framer-motion"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/globe.tsx",
@@ -766,6 +964,7 @@
       "@react-three/fiber",
       "@react-three/drei"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/pixel-transition.tsx",
@@ -782,6 +981,7 @@
       "@react-three/fiber",
       "@react-three/drei"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/shader-image.tsx",
@@ -799,6 +999,7 @@
       "@react-three/drei",
       "lucide-react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/audio-visualizer-3d.tsx",
@@ -816,6 +1017,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/webgl-gallery.tsx",
@@ -830,6 +1032,7 @@
     "dependencies": [
       "framer-motion"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/video-reveal.tsx",
@@ -846,6 +1049,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/audio-visualizer.tsx",
@@ -859,6 +1063,10 @@
     "category": "Blocks",
     "dependencies": [
       "framer-motion"
+    ],
+    "registryDependencies": [
+      "aurora-background",
+      "liquid-button"
     ],
     "files": [
       {
@@ -875,6 +1083,13 @@
       "framer-motion",
       "lucide-react"
     ],
+    "registryDependencies": [
+      "glass-panel",
+      "magic-tabs",
+      "magnetic-button",
+      "input",
+      "button"
+    ],
     "files": [
       {
         "path": "components/blocks/auth-01.tsx",
@@ -889,6 +1104,7 @@
     "dependencies": [
       "framer-motion"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/pricing-cards.tsx",
@@ -904,6 +1120,7 @@
       "framer-motion",
       "lucide-react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/feature-section.tsx",
@@ -919,6 +1136,7 @@
       "framer-motion",
       "lucide-react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/floating-form.tsx",
@@ -934,6 +1152,11 @@
       "date-fns",
       "react-day-picker",
       "lucide-react"
+    ],
+    "registryDependencies": [
+      "button",
+      "calendar",
+      "popover"
     ],
     "files": [
       {
@@ -959,6 +1182,11 @@
       "react-day-picker",
       "lucide-react"
     ],
+    "registryDependencies": [
+      "button",
+      "calendar",
+      "popover"
+    ],
     "files": [
       {
         "path": "components/ui/date-range-picker.tsx",
@@ -982,6 +1210,7 @@
       "react-dropzone",
       "lucide-react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/file-upload.tsx",
@@ -995,6 +1224,13 @@
     "category": "Forms",
     "dependencies": [
       "lucide-react"
+    ],
+    "registryDependencies": [
+      "badge",
+      "command",
+      "popover",
+      "button",
+      "dialog"
     ],
     "files": [
       {
@@ -1022,6 +1258,7 @@
     "dependencies": [
       "@radix-ui/react-scroll-area"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/scroll-area.tsx",
@@ -1038,6 +1275,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/draggable-canvas.tsx",
@@ -1054,6 +1292,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/card-stack.tsx",
@@ -1070,6 +1309,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/magnetic-gallery.tsx",
@@ -1086,6 +1326,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/physics-canvas.tsx",
@@ -1101,6 +1342,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/minimap.tsx",
@@ -1116,6 +1358,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/split-screen-layout.tsx",
@@ -1132,6 +1375,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/masonry-grid.tsx",
@@ -1148,10 +1392,27 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/broken-grid.tsx",
         "content": "\"use client\";\n\nimport React, { Children } from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { motion, HTMLMotionProps, Variants } from \"framer-motion\";\n\nexport interface BrokenGridProps extends HTMLMotionProps<\"div\"> {\n  children: React.ReactNode;\n  columns?: number;\n  gap?: number;\n  animate?: boolean;\n}\n\nexport function BrokenGrid({\n  children,\n  columns = 12,\n  gap = 4,\n  animate = true,\n  className,\n  ...props\n}: BrokenGridProps) {\n  const childrenArray = Children.toArray(children);\n\n  const containerVariants: Variants = {\n    hidden: { opacity: 0 },\n    show: {\n      opacity: 1,\n      transition: { staggerChildren: 0.15 },\n    },\n  };\n\n  const itemVariants: Variants = {\n    hidden: { opacity: 0, y: 30, filter: \"blur(5px)\" },\n    show: { \n      opacity: 1, \n      y: 0, \n      filter: \"blur(0px)\",\n      transition: { type: \"spring\", stiffness: 200, damping: 20 } \n    },\n  };\n\n  return (\n    <motion.div\n      variants={animate ? containerVariants : undefined}\n      initial={animate ? \"hidden\" : undefined}\n      whileInView={animate ? \"show\" : undefined}\n      viewport={{ once: true, margin: \"-100px\" }}\n      className={cn(\n        \"grid\",\n        `grid-cols-${columns}`,\n        `gap-${gap}`,\n        className\n      )}\n      style={{\n        gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,\n      }}\n      {...props}\n    >\n      {childrenArray.map((child, i) => {\n        if (React.isValidElement(child)) {\n          return animate ? React.cloneElement(child, { variants: itemVariants } as any) : child;\n        }\n        return child;\n      })}\n    </motion.div>\n  );\n}\n\nexport interface BrokenGridItemProps extends HTMLMotionProps<\"div\"> {\n  children?: React.ReactNode;\n  colSpan?: number | { sm?: number; md?: number; lg?: number };\n  rowSpan?: number;\n  colStart?: number | { sm?: number; md?: number; lg?: number };\n  rowStart?: number;\n  offsetX?: string;\n  offsetY?: string;\n  zIndex?: number;\n}\n\nexport function BrokenGridItem({\n  children,\n  colSpan = 4,\n  rowSpan = 1,\n  colStart,\n  rowStart,\n  offsetX = \"0px\",\n  offsetY = \"0px\",\n  zIndex = 1,\n  className,\n  ...props\n}: BrokenGridItemProps) {\n  \n  // Helper to generate col-span classes based on responsive object or number\n  const getColSpanStyle = () => {\n    if (typeof colSpan === 'number') return { gridColumnEnd: `span ${colSpan}` };\n    return {\n      gridColumnEnd: `span ${colSpan.lg || colSpan.md || colSpan.sm || 4}`\n    }; // simplified for inline styles; in real world might need media queries if not using classes\n  };\n\n  const getColStartStyle = () => {\n    if (!colStart) return {};\n    if (typeof colStart === 'number') return { gridColumnStart: colStart };\n    return {\n      gridColumnStart: colStart.lg || colStart.md || colStart.sm || 1\n    };\n  };\n\n  return (\n    <motion.div\n      className={cn(\"relative w-full h-full\", className)}\n      style={{\n        ...getColSpanStyle(),\n        ...getColStartStyle(),\n        ...(rowSpan > 1 ? { gridRowEnd: `span ${rowSpan}` } : {}),\n        ...(rowStart ? { gridRowStart: rowStart } : {}),\n        transform: `translate(${offsetX}, ${offsetY})`,\n        zIndex,\n      }}\n      {...props}\n    >\n      {children}\n    </motion.div>\n  );\n}\n"
+      }
+    ]
+  },
+  "sticky-section-pin": {
+    "name": "sticky-section-pin",
+    "title": "StickySectionPin",
+    "category": "Layout",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "components/creative/sticky-section-pin.tsx",
+        "content": "'use client';\n\nimport React, { useState } from 'react';\nimport { motion, AnimatePresence } from 'framer-motion';\nimport { cn } from '@/lib/utils';\nimport { Sparkles, Zap, ShieldCheck } from 'lucide-react';\n\nexport interface StickySectionPinProps {\n  className?: string;\n}\n\nexport function StickySectionPin({ className }: StickySectionPinProps) {\n  const [activeStep, setActiveStep] = useState(0);\n\n  const steps = [\n    {\n      title: '01. Instant Shader Engine',\n      description: 'Zero-configuration WebGL shaders rendered directly into your React DOM with zero math boilerplates.',\n      icon: Sparkles,\n      color: '#6366f1',\n    },\n    {\n      title: '02. Real-Time Physics',\n      description: 'Integrated 2D collision, bounce, and gravity mechanics powered by Matter.js.',\n      icon: Zap,\n      color: '#ec4899',\n    },\n    {\n      title: '03. Enterprise Type Safety',\n      description: 'Fully typed TypeScript props and Next.js 16 Server Component compatible setup out of the box.',\n      icon: ShieldCheck,\n      color: '#22c55e',\n    },\n  ];\n\n  const current = steps[activeStep];\n  const Icon = current.icon;\n\n  return (\n    <div className={cn('relative w-full max-w-4xl mx-auto rounded-3xl border border-zinc-800 bg-zinc-950 p-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center', className)}>\n      {/* Left Navigation Steps */}\n      <div className=\"space-y-4\">\n        <span className=\"text-xs font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20\">\n          Feature Walkthrough\n        </span>\n        <h3 className=\"text-2xl font-black text-white\">Sticky Walkthrough System</h3>\n\n        <div className=\"space-y-2 pt-2\">\n          {steps.map((step, idx) => (\n            <button\n              key={idx}\n              onClick={() => setActiveStep(idx)}\n              className={cn(\n                'w-full text-left p-4 rounded-2xl border transition-all text-sm font-semibold flex items-center justify-between',\n                activeStep === idx\n                  ? 'bg-zinc-900 border-indigo-500/50 text-white shadow-lg'\n                  : 'bg-transparent border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/50'\n              )}\n            >\n              <span>{step.title}</span>\n              {activeStep === idx && <span className=\"w-2 h-2 rounded-full bg-indigo-500 animate-pulse\" />}\n            </button>\n          ))}\n        </div>\n      </div>\n\n      {/* Right Animated Display Card */}\n      <div className=\"relative h-64 rounded-2xl border border-zinc-800 bg-black/60 p-6 flex flex-col justify-between overflow-hidden\">\n        <AnimatePresence mode=\"wait\">\n          <motion.div\n            key={activeStep}\n            initial={{ opacity: 0, y: 20 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={{ opacity: 0, y: -20 }}\n            transition={{ duration: 0.3 }}\n            className=\"space-y-4\"\n          >\n            <div className=\"p-3 w-fit rounded-2xl bg-zinc-900 border border-zinc-800 text-white\">\n              <Icon className=\"w-6 h-6\" style={{ color: current.color }} />\n            </div>\n            <h4 className=\"text-lg font-bold text-white\">{current.title}</h4>\n            <p className=\"text-xs text-zinc-400 font-light leading-relaxed\">{current.description}</p>\n          </motion.div>\n        </AnimatePresence>\n      </div>\n    </div>\n  );\n}\n"
       }
     ]
   },
@@ -1164,6 +1425,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/parallax-footer.tsx",
@@ -1180,6 +1442,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/alert.tsx",
@@ -1196,6 +1459,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/badge.tsx",
@@ -1212,6 +1476,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/animated-circular-progress.tsx",
@@ -1226,6 +1491,7 @@
     "dependencies": [
       "recharts"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/chart.tsx",
@@ -1242,6 +1508,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/force-graph.tsx",
@@ -1258,6 +1525,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/horizontal-scroll-hijack.tsx",
@@ -1274,6 +1542,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/sticky-stacking-cards.tsx",
@@ -1290,6 +1559,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/text-mask-video-reveal.tsx",
@@ -1308,6 +1578,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/fluid-distortion-gallery.tsx",
@@ -1325,6 +1596,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/interactive-particle-swarm.tsx",
@@ -1343,6 +1615,7 @@
       "clsx",
       "tailwind-merge"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/creative/audio-reactive-visualizer.tsx",
@@ -1358,6 +1631,11 @@
       "framer-motion",
       "lucide-react"
     ],
+    "registryDependencies": [
+      "avatar",
+      "button",
+      "copy-button"
+    ],
     "files": [
       {
         "path": "components/ui/ai-chat-bubble.tsx",
@@ -1370,6 +1648,7 @@
     "title": "AnimatedBackground",
     "category": "UI Primitives",
     "dependencies": [],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/animated-background.tsx",
@@ -1384,6 +1663,7 @@
     "dependencies": [
       "@radix-ui/react-avatar"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/avatar.tsx",
@@ -1398,6 +1678,7 @@
     "dependencies": [
       "lucide-react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/breadcrumb.tsx",
@@ -1415,6 +1696,7 @@
       "lucide-react",
       "framer-motion"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/button.tsx",
@@ -1430,6 +1712,9 @@
       "lucide-react",
       "react-day-picker"
     ],
+    "registryDependencies": [
+      "button"
+    ],
     "files": [
       {
         "path": "components/ui/calendar.tsx",
@@ -1442,6 +1727,7 @@
     "title": "Card",
     "category": "UI Primitives",
     "dependencies": [],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/card.tsx",
@@ -1457,6 +1743,7 @@
       "@radix-ui/react-checkbox",
       "lucide-react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/checkbox.tsx",
@@ -1473,6 +1760,9 @@
       "cmdk",
       "lucide-react"
     ],
+    "registryDependencies": [
+      "dialog"
+    ],
     "files": [
       {
         "path": "components/ui/command.tsx",
@@ -1487,6 +1777,9 @@
     "dependencies": [
       "lucide-react"
     ],
+    "registryDependencies": [
+      "button"
+    ],
     "files": [
       {
         "path": "components/ui/copy-button.tsx",
@@ -1499,6 +1792,10 @@
     "title": "DataTable",
     "category": "UI Primitives",
     "dependencies": [],
+    "registryDependencies": [
+      "table",
+      "button"
+    ],
     "files": [
       {
         "path": "components/ui/data-table.tsx",
@@ -1514,6 +1811,7 @@
       "@radix-ui/react-dialog",
       "lucide-react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/dialog.tsx",
@@ -1529,6 +1827,7 @@
       "@radix-ui/react-dropdown-menu",
       "lucide-react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/dropdown-menu.tsx",
@@ -1543,6 +1842,7 @@
     "dependencies": [
       "lucide-react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/empty-state.tsx",
@@ -1556,6 +1856,13 @@
     "category": "UI Primitives",
     "dependencies": [
       "lucide-react"
+    ],
+    "registryDependencies": [
+      "badge",
+      "button",
+      "command",
+      "popover",
+      "separator"
     ],
     "files": [
       {
@@ -1571,6 +1878,7 @@
     "dependencies": [
       "@radix-ui/react-slot"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/form.tsx",
@@ -1583,6 +1891,7 @@
     "title": "GlassPanel",
     "category": "UI Primitives",
     "dependencies": [],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/glass-panel.tsx",
@@ -1597,6 +1906,7 @@
     "dependencies": [
       "framer-motion"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/input.tsx",
@@ -1612,6 +1922,7 @@
       "@radix-ui/react-label",
       "class-variance-authority"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/label.tsx",
@@ -1627,6 +1938,7 @@
       "lucide-react",
       "class-variance-authority"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/loader.tsx",
@@ -1641,6 +1953,7 @@
     "dependencies": [
       "framer-motion"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/magic-tabs.tsx",
@@ -1654,6 +1967,9 @@
     "category": "UI Primitives",
     "dependencies": [
       "lucide-react"
+    ],
+    "registryDependencies": [
+      "button"
     ],
     "files": [
       {
@@ -1669,6 +1985,7 @@
     "dependencies": [
       "@radix-ui/react-popover"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/popover.tsx",
@@ -1683,6 +2000,7 @@
     "dependencies": [
       "@radix-ui/react-progress"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/progress.tsx",
@@ -1698,6 +2016,7 @@
       "@radix-ui/react-radio-group",
       "lucide-react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/radio-group.tsx",
@@ -1713,6 +2032,7 @@
       "@radix-ui/react-select",
       "lucide-react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/select.tsx",
@@ -1725,6 +2045,7 @@
     "title": "Separator",
     "category": "UI Primitives",
     "dependencies": [],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/separator.tsx",
@@ -1741,6 +2062,7 @@
       "class-variance-authority",
       "lucide-react"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/sheet.tsx",
@@ -1753,6 +2075,7 @@
     "title": "Skeleton",
     "category": "UI Primitives",
     "dependencies": [],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/skeleton.tsx",
@@ -1767,6 +2090,7 @@
     "dependencies": [
       "@radix-ui/react-slider"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/slider.tsx",
@@ -1781,6 +2105,7 @@
     "dependencies": [
       "sonner"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/sonner.tsx",
@@ -1793,6 +2118,7 @@
     "title": "Stack",
     "category": "UI Primitives",
     "dependencies": [],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/stack.tsx",
@@ -1807,6 +2133,7 @@
     "dependencies": [
       "@radix-ui/react-switch"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/switch.tsx",
@@ -1819,6 +2146,7 @@
     "title": "Table",
     "category": "UI Primitives",
     "dependencies": [],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/table.tsx",
@@ -1833,6 +2161,7 @@
     "dependencies": [
       "framer-motion"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/textarea.tsx",
@@ -1845,6 +2174,7 @@
     "title": "Timeline",
     "category": "UI Primitives",
     "dependencies": [],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/timeline.tsx",
@@ -1859,6 +2189,7 @@
     "dependencies": [
       "@radix-ui/react-tooltip"
     ],
+    "registryDependencies": [],
     "files": [
       {
         "path": "components/ui/tooltip.tsx",

@@ -1,0 +1,38 @@
+---
+title: ParticleExplosionButton
+description: A motion button that bursts luminous kinetic particles on click using HTML5 canvas.
+category: Buttons
+---
+
+<ComponentPreview name="particle-explosion-button" sourceFile="components/creative/particle-explosion-button.tsx">
+  <ParticleExplosionButtonDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand slug="particle-explosion-button" />
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "children",
+      type: "ReactNode",
+      default: "-",
+      description: "Button text or internal nodes."
+    },
+    {
+      name: "particleColor",
+      type: "string",
+      default: '"#818cf8"',
+      description: "Color of the burst particles."
+    },
+    {
+      name: "particleCount",
+      type: "number",
+      default: "30",
+      description: "Number of particles emitted on click."
+    }
+  ]}
+/>

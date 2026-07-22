@@ -828,6 +828,40 @@ program
       console.log(`${chalk.green('CREATED')} ${targetPath}`);
     }
 
+    // Process internal registryDependencies
+    if (componentData.registryDependencies && componentData.registryDependencies.length > 0) {
+      console.log(chalk.yellow(`\n🔗 This component relies on internal component(s): ${componentData.registryDependencies.join(', ')}`));
+      for (const regDep of componentData.registryDependencies) {
+        const depData = registry[regDep];
+        if (depData && depData.files) {
+          for (const file of depData.files) {
+            let targetPath = file.path;
+            let content = file.content;
+            if (componentsConfig && componentsConfig.aliases) {
+              const compAlias = componentsConfig.aliases.components;
+              if (compAlias && targetPath.startsWith('components/')) {
+                let aliasPath = compAlias;
+                if (aliasPath.startsWith('@/') || aliasPath.startsWith('~/')) {
+                  const baseDir = aliasPath.substring(2);
+                  const hasSrcDir = fs.existsSync(path.join(process.cwd(), 'src'));
+                  aliasPath = hasSrcDir ? `src/${baseDir}` : baseDir;
+                }
+                targetPath = targetPath.replace('components/', aliasPath + '/');
+              }
+              const utilsAlias = componentsConfig.aliases.utils;
+              if (utilsAlias) content = content.replace(/@\/lib\/utils/g, utilsAlias);
+            }
+            const fullPath = path.join(process.cwd(), targetPath);
+            if (!fs.existsSync(fullPath)) {
+              fs.ensureDirSync(path.dirname(fullPath));
+              fs.writeFileSync(fullPath, content, 'utf8');
+              console.log(`${chalk.green('AUTO-INSTALLED DEPENDENCY')} ${targetPath}`);
+            }
+          }
+        }
+      }
+    }
+
     console.log(chalk.bold.green(`\n✅ Successfully added ${componentName} to your project!\n`));
   });
 

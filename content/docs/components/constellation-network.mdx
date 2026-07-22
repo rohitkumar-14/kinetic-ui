@@ -1,0 +1,32 @@
+---
+title: ConstellationNetwork
+description: Interconnected node network canvas with glowing energy pulses traveling along connecting lines.
+category: Background Effects
+---
+
+<ComponentPreview name="constellation-network" sourceFile="components/creative/constellation-network.tsx">
+  <ConstellationNetworkDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand slug="constellation-network" />
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "nodeColor",
+      type: "string",
+      default: '"#818cf8"',
+      description: "Color of the network node dots."
+    },
+    {
+      name: "lineColor",
+      type: "string",
+      default: '"rgba(99, 102, 241, 0.3)"',
+      description: "Color of connecting distance lines."
+    }
+  ]}
+/>

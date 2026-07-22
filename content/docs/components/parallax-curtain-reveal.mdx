@@ -1,0 +1,38 @@
+---
+title: ParallaxCurtainReveal
+description: Dual-layer curtain reveal image container driven by cursor hover position.
+category: Cards
+---
+
+<ComponentPreview name="parallax-curtain-reveal" sourceFile="components/creative/parallax-curtain-reveal.tsx">
+  <ParallaxCurtainRevealDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand slug="parallax-curtain-reveal" />
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "title",
+      type: "string",
+      default: '"Curtain Reveal"',
+      description: "Title text overlay."
+    },
+    {
+      name: "imageTop",
+      type: "string",
+      default: '"https://..."',
+      description: "Top layer image URL."
+    },
+    {
+      name: "imageBottom",
+      type: "string",
+      default: '"https://..."',
+      description: "Bottom revealed image URL."
+    }
+  ]}
+/>
