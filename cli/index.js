@@ -461,7 +461,7 @@ module.exports = {
 program
   .name('kinetic-ui')
   .description('CLI to add Kinetic UI components to your project')
-  .version('1.2.0');
+  .version('1.3.0');
 
 program
   .command('init')
