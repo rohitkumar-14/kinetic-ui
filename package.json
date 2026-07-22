@@ -1,7 +1,6 @@
 {
-  "name": "antigravity-ui",
-  "version": "1.0.0",
-  "private": true,
+  "name": "kinetic-ui",
+  "version": "1.2.0",
   "scripts": {
     "dev": "next dev",
     "registry:build": "node scripts/build-registry.js",
@@ -75,6 +74,6 @@
     "typescript": "^5"
   },
   "bin": {
-    "antigravity": "bin/cli.js"
+    "kinetic": "bin/cli.js"
   }
 }

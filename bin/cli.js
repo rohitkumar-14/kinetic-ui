@@ -7,13 +7,15 @@ import { execSync } from 'child_process';
 const args = process.argv.slice(2);
 
 if (args.length === 0 || args[0] !== 'add') {
-  console.log('Usage: npx @antigravity/cli add <component-name>');
+  console.log("Usage: npx @kinetic/cli add <component-name>");
   process.exit(1);
 }
 
 const componentName = args[1];
 if (!componentName) {
-  console.log('Please specify a component name. Example: npx @antigravity/cli add smooth-scroll');
+  console.log(
+    "Please specify a component name. Example: npx @kinetic/cli add smooth-scroll",
+  );
   process.exit(1);
 }
 
