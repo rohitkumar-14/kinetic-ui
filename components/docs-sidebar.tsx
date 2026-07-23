@@ -60,7 +60,11 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Hero Particles", href: "/docs/components/hero-particles", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Hero 3D", href: "/docs/components/hero-3d", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Gravity Grid Hero", href: "/docs/components/gravity-grid-hero", icon: <Sparkles className="w-3.5 h-3.5" /> },
-            { title: "Text Mask Hero", href: "/docs/components/text-mask-hero", icon: <Sparkles className="w-3.5 h-3.5" /> }
+            { title: "Text Mask Hero", href: "/docs/components/text-mask-hero", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "Hero Globe 3D", href: "/docs/components/hero-globe-3d", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "Hero Infinite Canvas", href: "/docs/components/hero-infinite-canvas", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "Hero Video Mask", href: "/docs/components/hero-video-mask", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "Hero Shimmer Mesh", href: "/docs/components/hero-shimmer-mesh", icon: <Sparkles className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -84,7 +88,9 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Radial Menu", href: "/docs/components/radial-menu", icon: <Compass className="w-3.5 h-3.5" /> },
             { title: "Scroll Spy", href: "/docs/components/scroll-spy", icon: <Compass className="w-3.5 h-3.5" /> },
             { title: "Mega Menu", href: "/docs/components/mega-menu", icon: <Compass className="w-3.5 h-3.5" /> },
-            { title: "Back To Top", href: "/docs/components/back-to-top", icon: <Compass className="w-3.5 h-3.5" /> }
+            { title: "Back To Top", href: "/docs/components/back-to-top", icon: <Compass className="w-3.5 h-3.5" /> },
+            { title: "Bento Island Nav", href: "/docs/components/bento-island-nav", icon: <Compass className="w-3.5 h-3.5" /> },
+            { title: "Morphing Breadcrumbs", href: "/docs/components/morphing-breadcrumbs", icon: <Compass className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -93,7 +99,11 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Button", href: "/docs/components/button", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Magnetic Button", href: "/docs/components/magnetic-button", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Liquid Button", href: "/docs/components/liquid-button", icon: <Layers className="w-3.5 h-3.5" /> },
-            { title: "Glow Button", href: "/docs/components/glow-button", icon: <Layers className="w-3.5 h-3.5" /> }
+            { title: "Glow Button", href: "/docs/components/glow-button", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Particle Explosion Button", href: "/docs/components/particle-explosion-button", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Morphing SVG Button", href: "/docs/components/morphing-svg-button", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Shimmer Border Button", href: "/docs/components/shimmer-border-button", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Physics Drop Button", href: "/docs/components/physics-drop-button", icon: <Layers className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -102,9 +112,11 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Card", href: "/docs/components/card", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
             { title: "Tilt Card", href: "/docs/components/tilt-card", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
             { title: "Spotlight Card", href: "/docs/components/spotlight-card", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
+            { title: "Spotlight Border Card", href: "/docs/components/spotlight-border-card", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
             { title: "Bento Grid", href: "/docs/components/bento-grid", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
             { title: "Card Stack", href: "/docs/components/card-stack", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
-            { title: "Swipeable Stack Deck", href: "/docs/components/swipeable-stack", icon: <LayoutGrid className="w-3.5 h-3.5" /> }
+            { title: "Swipeable Stack Deck", href: "/docs/components/swipeable-stack", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
+            { title: "Holographic Foil Card", href: "/docs/components/holographic-foil-card", icon: <LayoutGrid className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -130,7 +142,9 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Typewriter", href: "/docs/components/typewriter", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Animated Gradient Text", href: "/docs/components/animated-gradient-text", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Staggered Text", href: "/docs/components/staggered-text", icon: <Cpu className="w-3.5 h-3.5" /> },
-            { title: "Beat Synced Typography", href: "/docs/components/beat-synced-typography", icon: <Cpu className="w-3.5 h-3.5" /> }
+            { title: "Beat Synced Typography", href: "/docs/components/beat-synced-typography", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Variable Font Weight", href: "/docs/components/variable-font-weight", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Particle Dissolve", href: "/docs/components/particle-dissolve", icon: <Cpu className="w-3.5 h-3.5" /> }
           ]
         },
 
@@ -187,7 +201,9 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Noise Overlay", href: "/docs/components/noise-overlay", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Film Grain Overlay", href: "/docs/components/film-grain", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Animated Blob Background", href: "/docs/components/blob-background", icon: <Sparkles className="w-3.5 h-3.5" /> },
-            { title: "Grid Pattern", href: "/docs/components/grid-pattern", icon: <Sparkles className="w-3.5 h-3.5" /> }
+            { title: "Grid Pattern", href: "/docs/components/grid-pattern", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "Interactive Grid Noise", href: "/docs/components/interactive-grid-noise", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "Constellation Network", href: "/docs/components/constellation-network", icon: <Sparkles className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -205,6 +221,8 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Scroll Velocity Text", href: "/docs/components/scroll-velocity-text", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Sticky Image Mask", href: "/docs/components/sticky-image-mask", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Horizontal Scroll Pin", href: "/docs/components/horizontal-scroll-pin", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Parallax Curtain Reveal", href: "/docs/components/parallax-curtain-reveal", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Sticky Section Pin", href: "/docs/components/sticky-section-pin", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Parallax Depth Cards", href: "/docs/components/parallax-depth-cards", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Scroll Video Scrub", href: "/docs/components/scroll-video-scrub", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Tunnel Scroll", href: "/docs/components/tunnel-scroll", icon: <Layers className="w-3.5 h-3.5" /> },
@@ -225,7 +243,12 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Animated Prompt Input", href: "/docs/components/animated-prompt-input", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Streaming Markdown Renderer", href: "/docs/components/streaming-markdown-renderer", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Thinking Visualizer", href: "/docs/components/thinking-visualizer", icon: <Cpu className="w-3.5 h-3.5" /> },
-            { title: "Microphone Reactive Orb", href: "/docs/components/microphone-reactive-orb", icon: <Cpu className="w-3.5 h-3.5" /> }
+            { title: "Microphone Reactive Orb", href: "/docs/components/microphone-reactive-orb", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "AI Voice Visualizer", href: "/docs/components/ai-voice-visualizer", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Typing Code Stream", href: "/docs/components/typing-code-stream", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Agent Tool Inspector", href: "/docs/components/agent-tool-inspector", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Audio Waveform Studio", href: "/docs/components/audio-waveform-studio", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "AI Artifact Sandbox", href: "/docs/components/ai-artifact-sandbox", icon: <Cpu className="w-3.5 h-3.5" /> }
           ]
         },
         {

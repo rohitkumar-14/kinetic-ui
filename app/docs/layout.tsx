@@ -8,10 +8,7 @@ import { ThemeCustomizer } from '@/components/theme-customizer';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
-import { SmoothScroll } from '@/components/creative/smooth-scroll';
-
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
-  const mainRef = React.useRef<HTMLElement>(null);
 
   // Lock body scroll while on docs pages so only the panels scroll
   React.useEffect(() => {
@@ -48,12 +45,10 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         </aside>
 
         {/* Main Content */}
-        <main ref={mainRef} className="docs-main overflow-y-auto" data-lenis-prevent>
-          <SmoothScroll containerRef={mainRef as React.RefObject<any>}>
-            <div className="mx-auto w-full max-w-4xl px-4 pb-20 pt-8">
-              {children}
-            </div>
-          </SmoothScroll>
+        <main className="docs-main overflow-y-auto" data-lenis-prevent>
+          <div className="mx-auto w-full max-w-4xl px-4 pb-20 pt-8">
+            {children}
+          </div>
         </main>
 
         {/* Right Sidebar — Table of Contents */}

@@ -1,0 +1,37 @@
+---
+title: "Holographic Foil Card"
+description: "3D trading card component with dynamic iridescent foil reflections that shift depending on mouse tilt angle."
+category: "Cards"
+---
+
+<ComponentPreview 
+  name="Holographic Foil Card" 
+  componentName="HolographicFoilCard"
+  sourceFile="components/creative/holographic-foil-card.tsx"
+  playgroundControls={[
+    {
+      name: "title",
+      label: "Card Title",
+      type: "string",
+      default: "SPECIAL EDITION"
+    }
+  ]}
+  propsData={[
+    {
+      name: "title",
+      type: "string",
+      default: "'SPECIAL EDITION'",
+      description: "Card header title."
+    }
+  ]}
+>
+  <HolographicFoilCardDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="holographic-foil-card" />
+
+## Props
+
+Pass card titles, foil reflection colors, and tilt angle properties.

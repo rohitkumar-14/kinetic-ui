@@ -1,0 +1,40 @@
+---
+title: "Typing Code Stream"
+description: "Streaming code block component with animated syntax cursor and status badges."
+category: "AI & Generative"
+---
+
+<ComponentPreview 
+  name="Typing Code Stream" 
+  componentName="TypingCodeStream"
+  sourceFile="components/creative/typing-code-stream.tsx"
+  playgroundControls={[
+    {
+      name: "speed",
+      label: "Typing Speed",
+      type: "number",
+      min: 0.5,
+      max: 3,
+      step: 0.1,
+      default: 1
+    }
+  ]}
+  propsData={[
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Custom code block container styling classes."
+    }
+  ]}
+>
+  <TypingCodeStreamDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="typing-code-stream" />
+
+## Props
+
+Pass code snippet string, typing speed, and syntax theme options.

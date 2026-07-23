@@ -1,0 +1,37 @@
+---
+title: "Variable Font Weight"
+description: "Text component that dynamically morphs font weight, width, and slant based on cursor proximity."
+category: "Text Effects"
+---
+
+<ComponentPreview 
+  name="Variable Font Weight" 
+  componentName="VariableFontWeight"
+  sourceFile="components/creative/variable-font-weight.tsx"
+  playgroundControls={[
+    {
+      name: "text",
+      label: "Headline Text",
+      type: "string",
+      default: "KINETIC MOTION"
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      default: "'KINETIC MOTION'",
+      description: "Text string to morph dynamically."
+    }
+  ]}
+>
+  <VariableFontWeightDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="variable-font-weight" />
+
+## Props
+
+Pass headline text and font weight range bounds.

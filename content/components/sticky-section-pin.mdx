@@ -1,0 +1,40 @@
+---
+title: "Sticky Section Pin"
+description: "Sticky feature walkthrough panel with smooth step indicator transitions as the user scrolls."
+category: "Scrollytelling"
+---
+
+<ComponentPreview 
+  name="Sticky Section Pin" 
+  componentName="StickySectionPin"
+  sourceFile="components/creative/sticky-section-pin.tsx"
+  playgroundControls={[
+    {
+      name: "speed",
+      label: "Step Transition Speed",
+      type: "number",
+      min: 0.5,
+      max: 3,
+      step: 0.1,
+      default: 1
+    }
+  ]}
+  propsData={[
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Custom container styling classes."
+    }
+  ]}
+>
+  <StickySectionPinDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="sticky-section-pin" />
+
+## Props
+
+Provide walkthrough steps, sticky offset, and active step change callbacks.

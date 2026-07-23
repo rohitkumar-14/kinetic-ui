@@ -52,7 +52,7 @@ export function Interactive3DModel({
 }: Interactive3DModelProps) {
   return (
     <div className={cn("w-full h-[400px]", className)}>
-      <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 5], fov: 45 }}>
+      <Canvas shadows={{ type: 1 }} dpr={[1, 2]} camera={{ position: [0, 0, 5], fov: 45 }}>
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
         

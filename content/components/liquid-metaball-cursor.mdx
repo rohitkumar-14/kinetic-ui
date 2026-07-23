@@ -1,0 +1,37 @@
+---
+title: "Liquid Metaball Cursor"
+description: "Interactive fluid blob canvas that follows mouse movement with liquid merging physics."
+category: "Shaders & 3D"
+---
+
+<ComponentPreview 
+  name="Liquid Metaball Cursor" 
+  componentName="LiquidMetaballCursor"
+  sourceFile="components/creative/liquid-metaball-cursor.tsx"
+  playgroundControls={[
+    {
+      name: "color",
+      label: "Blob Color",
+      type: "string",
+      default: "#818cf8"
+    }
+  ]}
+  propsData={[
+    {
+      name: "color",
+      type: "string",
+      default: "'#818cf8'",
+      description: "Color accent of the liquid metaballs."
+    }
+  ]}
+>
+  <LiquidMetaballCursorDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="liquid-metaball-cursor" />
+
+## Props
+
+Configure metaball radius, blur strength, and fluid colors.

@@ -1,0 +1,40 @@
+---
+title: "Hero Infinite Canvas"
+description: "Zoomable, draggable spatial canvas with interactive floating cards."
+category: "Hero Components"
+---
+
+<ComponentPreview 
+  name="Hero Infinite Canvas" 
+  componentName="HeroInfiniteCanvas"
+  sourceFile="components/creative/hero/hero-infinite-canvas.tsx"
+  playgroundControls={[
+    {
+      name: "scale",
+      label: "Initial Scale",
+      type: "number",
+      min: 0.5,
+      max: 2,
+      step: 0.1,
+      default: 1
+    }
+  ]}
+  propsData={[
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Custom container styling classes."
+    }
+  ]}
+>
+  <HeroInfiniteCanvasDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="hero-infinite-canvas" />
+
+## Props
+
+The component accepts spatial canvas elements and gesture controls.

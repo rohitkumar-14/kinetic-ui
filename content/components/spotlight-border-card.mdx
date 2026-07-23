@@ -1,0 +1,37 @@
+---
+title: "Spotlight Border Card"
+description: "Cursor-tracking spotlight border effect for dark mode SaaS feature grids."
+category: "Cards"
+---
+
+<ComponentPreview 
+  name="Spotlight Border Card" 
+  componentName="SpotlightBorderCard"
+  sourceFile="components/creative/spotlight-border-card.tsx"
+  playgroundControls={[
+    {
+      name: "spotlightColor",
+      label: "Spotlight Color",
+      type: "string",
+      default: "rgba(99, 102, 241, 0.45)"
+    }
+  ]}
+  propsData={[
+    {
+      name: "spotlightColor",
+      type: "string",
+      default: "'rgba(99, 102, 241, 0.45)'",
+      description: "Color of the border spotlight on hover."
+    }
+  ]}
+>
+  <SpotlightBorderCardDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="spotlight-border-card" />
+
+## Props
+
+Configure border glow radius, spotlight color, and hover intensity.

@@ -1,0 +1,40 @@
+---
+title: "Constellation Network"
+description: "Interconnected node network with glowing energy pulses traveling along connecting lines."
+category: "Background Effects"
+---
+
+<ComponentPreview 
+  name="Constellation Network" 
+  componentName="ConstellationNetwork"
+  sourceFile="components/creative/constellation-network.tsx"
+  playgroundControls={[
+    {
+      name: "speed",
+      label: "Pulse Speed",
+      type: "number",
+      min: 0.5,
+      max: 3,
+      step: 0.1,
+      default: 1
+    }
+  ]}
+  propsData={[
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Custom canvas container styling classes."
+    }
+  ]}
+>
+  <ConstellationNetworkDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="constellation-network" />
+
+## Props
+
+Set node count, connection distance threshold, and node pulse speed.

@@ -1,0 +1,40 @@
+---
+title: "Parallax Curtain Reveal"
+description: "Dual-layer curtain reveal image container driven by scroll depth."
+category: "Scrollytelling"
+---
+
+<ComponentPreview 
+  name="Parallax Curtain Reveal" 
+  componentName="ParallaxCurtainReveal"
+  sourceFile="components/creative/parallax-curtain-reveal.tsx"
+  playgroundControls={[
+    {
+      name: "speed",
+      label: "Parallax Speed",
+      type: "number",
+      min: 0.5,
+      max: 3,
+      step: 0.1,
+      default: 1
+    }
+  ]}
+  propsData={[
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Custom container styling classes."
+    }
+  ]}
+>
+  <ParallaxCurtainRevealDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="parallax-curtain-reveal" />
+
+## Props
+
+Pass image URLs, reveal direction, and curtain parallax depth factor.

@@ -1,0 +1,52 @@
+---
+title: "Particle Explosion Button"
+description: "Button that fires glowing kinetic particles/confetti on click using a lightweight canvas layer."
+category: "Buttons"
+---
+
+<ComponentPreview 
+  name="Particle Explosion Button" 
+  componentName="ParticleExplosionButton"
+  sourceFile="components/creative/particle-explosion-button.tsx"
+  playgroundControls={[
+    {
+      name: "particleColor",
+      label: "Particle Color",
+      type: "string",
+      default: "#818cf8"
+    },
+    {
+      name: "particleCount",
+      label: "Particle Count",
+      type: "number",
+      min: 10,
+      max: 100,
+      step: 5,
+      default: 30
+    }
+  ]}
+  propsData={[
+    {
+      name: "particleColor",
+      type: "string",
+      default: "'#818cf8'",
+      description: "Hex or RGB color of kinetic particles."
+    },
+    {
+      name: "particleCount",
+      type: "number",
+      default: "30",
+      description: "Number of particles generated per click."
+    }
+  ]}
+>
+  <ParticleExplosionButtonDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="particle-explosion-button" />
+
+## Props
+
+Customize particle count, explosion velocity, and particle colors.

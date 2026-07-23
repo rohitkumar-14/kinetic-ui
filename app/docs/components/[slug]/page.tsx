@@ -17,6 +17,19 @@ import { TiltCard } from '@/components/creative/tilt-card';
 import { TiltCardDemo } from '@/components/creative/docs/tilt-card-demo';
 import { Floating3DCard } from '@/components/creative/floating-3d-card';
 import { Floating3DCardDemo } from '@/components/creative/docs/floating-3d-card-demo';
+import { AgentToolInspectorDemo } from '@/components/creative/docs/agent-tool-inspector-demo';
+import { AudioWaveformStudioDemo } from '@/components/creative/docs/audio-waveform-studio-demo';
+import { AiArtifactSandboxDemo } from '@/components/creative/docs/ai-artifact-sandbox-demo';
+import { GlassPrismDemo } from '@/components/creative/docs/glass-prism-demo';
+import { LiquidMetaballCursorDemo } from '@/components/creative/docs/liquid-metaball-cursor-demo';
+import { HolographicFoilCardDemo } from '@/components/creative/docs/holographic-foil-card-demo';
+import { VariableFontWeightDemo } from '@/components/creative/docs/variable-font-weight-demo';
+import { ParticleDissolveDemo } from '@/components/creative/docs/particle-dissolve-demo';
+import { ScratchCardRevealDemo } from '@/components/creative/docs/scratch-card-reveal-demo';
+import { BentoIslandNavDemo } from '@/components/creative/docs/bento-island-nav-demo';
+import { MorphingBreadcrumbsDemo } from '@/components/creative/docs/morphing-breadcrumbs-demo';
+import { InteractiveSandboxDemo } from '@/components/creative/docs/interactive-sandbox-demo';
+import { ThemeExporterDemo } from '@/components/creative/docs/theme-exporter-demo';
 import { TextReveal } from '@/components/creative/text-reveal';
 import { TextRevealDemo } from '@/components/creative/docs/text-reveal-demo';
 import { BentoGrid, BentoCard } from '@/components/creative/bento-grid';
@@ -559,6 +572,19 @@ const mdxComponents = {
   CartesianGrid,
   XAxis,
   ChartDemo,
+  AgentToolInspectorDemo,
+  AudioWaveformStudioDemo,
+  AiArtifactSandboxDemo,
+  GlassPrismDemo,
+  LiquidMetaballCursorDemo,
+  HolographicFoilCardDemo,
+  VariableFontWeightDemo,
+  ParticleDissolveDemo,
+  ScratchCardRevealDemo,
+  BentoIslandNavDemo,
+  MorphingBreadcrumbsDemo,
+  InteractiveSandboxDemo,
+  ThemeExporterDemo,
   FadeIn,
   SlideUp,
   StaggerContainer,

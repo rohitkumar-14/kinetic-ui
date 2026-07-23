@@ -1,0 +1,43 @@
+---
+title: "Agent Tool Inspector"
+description: "Visualizer for AI agent reasoning steps, tool invocation status, parameters, and log output."
+category: "AI & Generative"
+---
+
+<ComponentPreview 
+  name="Agent Tool Inspector" 
+  componentName="AgentToolInspector"
+  sourceFile="components/creative/agent-tool-inspector.tsx"
+  playgroundControls={[
+    {
+      name: "title",
+      label: "Trace Title",
+      type: "string",
+      default: "Agent Execution Trace"
+    }
+  ]}
+  propsData={[
+    {
+      name: "title",
+      type: "string",
+      default: "'Agent Execution Trace'",
+      description: "Header title for the trace inspector."
+    },
+    {
+      name: "steps",
+      type: "ToolCallStep[]",
+      default: "defaultSteps",
+      description: "Array of tool execution step objects."
+    }
+  ]}
+>
+  <AgentToolInspectorDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="agent-tool-inspector" />
+
+## Props
+
+The component accepts an array of step objects containing status, arguments, and JSON output logs.

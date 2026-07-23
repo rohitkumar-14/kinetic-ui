@@ -1,0 +1,37 @@
+---
+title: "Scratch Card Reveal"
+description: "Interactive canvas scratch surface revealing discount codes or secret content underneath."
+category: "Mouse Interactions"
+---
+
+<ComponentPreview 
+  name="Scratch Card Reveal" 
+  componentName="ScratchCardReveal"
+  sourceFile="components/creative/scratch-card-reveal.tsx"
+  playgroundControls={[
+    {
+      name: "code",
+      label: "Reward Code",
+      type: "string",
+      default: "KINETIC-50-OFF"
+    }
+  ]}
+  propsData={[
+    {
+      name: "code",
+      type: "string",
+      default: "'KINETIC-50-OFF'",
+      description: "Secret code string revealed on scratch."
+    }
+  ]}
+>
+  <ScratchCardRevealDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="scratch-card-reveal" />
+
+## Props
+
+Pass secret codes, cover scratch color, and brush radius properties.

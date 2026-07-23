@@ -1,0 +1,52 @@
+---
+title: "Audio Waveform Studio"
+description: "Real-time canvas audio wave visualizer simulating AI voice frequency pulses."
+category: "AI & Generative"
+---
+
+<ComponentPreview 
+  name="Audio Waveform Studio" 
+  componentName="AudioWaveformStudio"
+  sourceFile="components/creative/audio-waveform-studio.tsx"
+  playgroundControls={[
+    {
+      name: "barColor",
+      label: "Spectrum Color",
+      type: "string",
+      default: "#818cf8"
+    },
+    {
+      name: "barCount",
+      label: "Bar Count",
+      type: "number",
+      min: 16,
+      max: 64,
+      step: 4,
+      default: 48
+    }
+  ]}
+  propsData={[
+    {
+      name: "barColor",
+      type: "string",
+      default: "'#818cf8'",
+      description: "Color gradient accent of frequency bars."
+    },
+    {
+      name: "barCount",
+      type: "number",
+      default: "48",
+      description: "Number of audio frequency visualization bars."
+    }
+  ]}
+>
+  <AudioWaveformStudioDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="audio-waveform-studio" />
+
+## Props
+
+Configure frequency bar counts and spectrum color gradients.

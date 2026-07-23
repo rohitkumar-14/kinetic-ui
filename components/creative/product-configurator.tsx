@@ -92,7 +92,7 @@ export function ProductConfigurator({ className, modelUrl }: ProductConfigurator
             LOADING MODEL...
           </div>
         }>
-          <Canvas shadows camera={{ position: [0, 0, 5], fov: 45 }}>
+          <Canvas shadows={{ type: 1 }} camera={{ position: [0, 0, 5], fov: 45 }}>
             <ambientLight intensity={0.5} />
             <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
             <pointLight position={[-10, -10, -10]} intensity={0.5} />

@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+
 import { ArrowUp, Edit, ExternalLink, HelpCircle } from 'lucide-react';
 
 interface TocItem {
@@ -17,12 +18,31 @@ export function DocsRightSidebar() {
   const [activeId, setActiveId] = useState<string>('');
   
   // Track scroll progress of the page
-  const { scrollYProgress } = useScroll();
+  const scrollYProgress = useMotionValue(0);
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
+
+  useEffect(() => {
+    const el = document.querySelector('.docs-main');
+    if (!el) return;
+    
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = el;
+      // Prevent division by zero
+      const maxScroll = scrollHeight - clientHeight;
+      const progress = maxScroll > 0 ? scrollTop / maxScroll : 0;
+      scrollYProgress.set(Math.max(0, Math.min(1, progress)));
+    };
+
+    el.addEventListener('scroll', handleScroll);
+    // Initial calculation
+    handleScroll();
+    
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, [scrollYProgress]);
 
   // Extract headings from the page content dynamically on load or pathname changes
   useEffect(() => {
@@ -86,7 +106,12 @@ export function DocsRightSidebar() {
   };
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const el = document.querySelector('.docs-main');
+    if (el) {
+      el.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   if (headings.length === 0) return null;

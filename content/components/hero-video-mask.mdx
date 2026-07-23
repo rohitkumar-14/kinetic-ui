@@ -1,0 +1,37 @@
+---
+title: "Hero Video Mask"
+description: "Bold headline text mask revealing a smooth background abstract video on cursor hover."
+category: "Hero Components"
+---
+
+<ComponentPreview 
+  name="Hero Video Mask" 
+  componentName="HeroVideoMask"
+  sourceFile="components/creative/hero/hero-video-mask.tsx"
+  playgroundControls={[
+    {
+      name: "title",
+      label: "Headline Text",
+      type: "string",
+      default: "KINETIC"
+    }
+  ]}
+  propsData={[
+    {
+      name: "title",
+      type: "string",
+      default: "'KINETIC'",
+      description: "Mask headline text."
+    }
+  ]}
+>
+  <HeroVideoMaskDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="hero-video-mask" />
+
+## Props
+
+Configure title text, background video URL, and cursor mask intensity.

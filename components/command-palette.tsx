@@ -43,13 +43,22 @@ export function CommandPalette({ open, setOpen }: CommandPaletteProps) {
 
   const runCommand = React.useCallback((command: () => void) => {
     setOpen(false);
-    command();
+    setTimeout(() => {
+      React.startTransition(() => {
+        command();
+      });
+    }, 0);
   }, [setOpen]);
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
       <CommandInput placeholder="Search documentation, components, actions..." />
-      <CommandList className="bg-black/95 text-white border-t border-white/5 backdrop-blur-xl">
+      <CommandList
+        data-lenis-prevent
+        data-scroll-lock-ignore
+        onWheel={(e) => e.stopPropagation()}
+        className="bg-black/95 text-white border-t border-white/5 backdrop-blur-xl max-h-[360px] sm:max-h-[420px] overflow-y-auto overscroll-contain pointer-events-auto"
+      >
         <CommandEmpty>No results found.</CommandEmpty>
         
         {sidebarContent.map((group, groupIdx) => (
@@ -58,20 +67,24 @@ export function CommandPalette({ open, setOpen }: CommandPaletteProps) {
               <CommandGroup key={`${groupIdx}-${secIdx}`} heading={section.title}>
                 {section.items
                   .filter((item) => !item.soon)
-                  .map((item) => (
-                    <CommandItem
-                      key={item.href}
-                      value={item.title + " " + section.title + " " + group.label}
-                      onSelect={() => runCommand(() => router.push(item.href))}
-                      className="flex items-center gap-2 px-4 py-3 cursor-pointer rounded-lg transition-colors text-zinc-300 data-[selected=true]:bg-white/10 data-[selected=true]:text-white"
-                    >
-                      <div className="text-purple-400 [&>svg]:w-4 [&>svg]:h-4 flex items-center justify-center">
-                        {item.icon}
-                      </div>
-                      <span>{item.title}</span>
-                      <ChevronRight className="h-3.5 w-3.5 ml-auto text-zinc-500" />
-                    </CommandItem>
-                  ))}
+                  .map((item) => {
+                    const slug = item.href.replace('/docs/components/', '');
+                    return (
+                      <CommandItem
+                        key={item.href}
+                        value={`${item.title} ${slug} ${section.title} ${group.label}`}
+                        keywords={[item.title, slug, section.title]}
+                        onSelect={() => runCommand(() => router.push(item.href))}
+                        className="flex items-center gap-2 px-4 py-3 cursor-pointer rounded-lg transition-colors text-zinc-300 data-[selected=true]:bg-white/10 data-[selected=true]:text-white"
+                      >
+                        <div className="text-purple-400 [&>svg]:w-4 [&>svg]:h-4 flex items-center justify-center">
+                          {item.icon}
+                        </div>
+                        <span>{item.title}</span>
+                        <ChevronRight className="h-3.5 w-3.5 ml-auto text-zinc-500" />
+                      </CommandItem>
+                    );
+                  })}
               </CommandGroup>
             ))}
           </React.Fragment>

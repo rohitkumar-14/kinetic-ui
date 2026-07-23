@@ -1,0 +1,40 @@
+---
+title: "Hero Shimmer Mesh"
+description: "Dynamic fluid gradient canvas with cursor ripple physics."
+category: "Hero Components"
+---
+
+<ComponentPreview 
+  name="Hero Shimmer Mesh" 
+  componentName="HeroShimmerMesh"
+  sourceFile="components/creative/hero/hero-shimmer-mesh.tsx"
+  playgroundControls={[
+    {
+      name: "speed",
+      label: "Mesh Speed",
+      type: "number",
+      min: 0.5,
+      max: 3,
+      step: 0.1,
+      default: 1
+    }
+  ]}
+  propsData={[
+    {
+      name: "speed",
+      type: "number",
+      default: "1",
+      description: "Fluid mesh animation speed."
+    }
+  ]}
+>
+  <HeroShimmerMeshDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="hero-shimmer-mesh" />
+
+## Props
+
+Pass custom color palettes, wave frequency, and ripple damping properties.

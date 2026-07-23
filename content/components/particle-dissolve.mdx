@@ -1,0 +1,37 @@
+---
+title: "Particle Dissolve"
+description: "Text or image component that breaks into floating physical kinetic particles on hover."
+category: "Text Effects"
+---
+
+<ComponentPreview 
+  name="Particle Dissolve" 
+  componentName="ParticleDissolve"
+  sourceFile="components/creative/particle-dissolve.tsx"
+  playgroundControls={[
+    {
+      name: "text",
+      label: "Text Payload",
+      type: "string",
+      default: "DISSOLVE ME"
+    }
+  ]}
+  propsData={[
+    {
+      name: "text",
+      type: "string",
+      default: "'DISSOLVE ME'",
+      description: "Text string to dissolve into particles."
+    }
+  ]}
+>
+  <ParticleDissolveDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="particle-dissolve" />
+
+## Props
+
+Configure particle explosion radius, particle colors, and speed.

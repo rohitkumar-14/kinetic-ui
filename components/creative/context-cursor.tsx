@@ -75,8 +75,10 @@ export function ContextCursor({ containerRef, className }: ContextCursorProps) {
 
       if (containerRef?.current) {
         const rect = containerRef.current.getBoundingClientRect();
-        cursorX.set(clientX - rect.left);
-        cursorY.set(clientY - rect.top);
+        const scaleX = rect.width ? containerRef.current.offsetWidth / rect.width : 1;
+        const scaleY = rect.height ? containerRef.current.offsetHeight / rect.height : 1;
+        cursorX.set((clientX - rect.left) * scaleX);
+        cursorY.set((clientY - rect.top) * scaleY);
       } else {
         cursorX.set(clientX);
         cursorY.set(clientY);
@@ -122,7 +124,7 @@ export function ContextCursor({ containerRef, className }: ContextCursorProps) {
   return (
     <motion.div
       className={cn(
-        "pointer-events-none z-[100] flex items-center justify-center rounded-full overflow-hidden hidden md:flex",
+        "pointer-events-none z-[100] flex items-center justify-center rounded-full overflow-hidden hidden md:flex top-0 left-0",
         containerRef ? "absolute" : "fixed",
         cursor.variant === "invisible" ? "opacity-0" : "opacity-100",
         className

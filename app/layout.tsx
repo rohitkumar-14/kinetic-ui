@@ -62,6 +62,7 @@ import { CustomCursor } from "@/components/creative/custom-cursor";
 import { GlobalLoader } from "@/components/global-loader";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { FilmGrain } from "@/components/creative/film-grain";
+import { ThreeConfig } from "@/components/three-config";
 
 export default function RootLayout({
   children,
@@ -74,6 +75,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased transition-colors duration-300 min-h-screen overflow-x-hidden flex flex-col bg-background text-foreground cursor-none`}
       >
+        <ThreeConfig />
         <FilmGrain />
         <SmoothScrollProvider>
           <GlobalLoader />

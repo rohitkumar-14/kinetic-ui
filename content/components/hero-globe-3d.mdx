@@ -1,0 +1,37 @@
+---
+title: "Hero Globe 3D"
+description: "Interactive 3D WebGL rotating particle globe with clickable node highlights."
+category: "Hero Components"
+---
+
+<ComponentPreview 
+  name="Hero Globe 3D" 
+  componentName="HeroGlobe3D"
+  sourceFile="components/creative/hero/hero-globe-3d.tsx"
+  playgroundControls={[
+    {
+      name: "color",
+      label: "Node Color",
+      type: "string",
+      default: "#818cf8"
+    }
+  ]}
+  propsData={[
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Custom CSS styling classes."
+    }
+  ]}
+>
+  <HeroGlobe3DDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="hero-globe-3d" />
+
+## Props
+
+The component accepts standard configuration props for globe rotation, speed, and particle colors.

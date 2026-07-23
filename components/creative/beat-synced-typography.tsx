@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useAnimation, useAnimationFrame } from "framer-motion";
+import { motion, useAnimation, useAnimationFrame, useMotionValue, useMotionTemplate } from "framer-motion";
 import { Play, Square } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -27,6 +27,7 @@ export function BeatSyncedTypography({
   const containerControls = useAnimation();
   const textControls = useAnimation();
   const glitchControls = useAnimation();
+  const wasActiveRef = useRef(false);
 
   useEffect(() => {
     // If audioUrl is provided, initialize Audio element (but don't play yet)
@@ -52,6 +53,7 @@ export function BeatSyncedTypography({
     if (isPlaying) {
       if (audioRef.current) audioRef.current.pause();
       setIsPlaying(false);
+      wasActiveRef.current = false;
       // Reset animations
       containerControls.start({ scale: 1, rotate: 0 });
       textControls.start({ opacity: 1, x: 0, filter: "blur(0px)" });
@@ -110,6 +112,7 @@ export function BeatSyncedTypography({
     const BEAT_THRESHOLD = 0.7;
 
     if (bassLevel > BEAT_THRESHOLD) {
+      wasActiveRef.current = true;
       // High bass: trigger scaling and glitch effects
       const intensity = (bassLevel - BEAT_THRESHOLD) / (1 - BEAT_THRESHOLD); // 0 to 1 based on how far past threshold
       
@@ -131,7 +134,8 @@ export function BeatSyncedTypography({
         clipPath: `inset(${Math.random() * 40}% 0 ${Math.random() * 40}% 0)`
       });
 
-    } else {
+    } else if (wasActiveRef.current) {
+      wasActiveRef.current = false;
       // Decay back to normal
       containerControls.start({ scale: 1, rotate: 0, transition: { duration: 0.1 } });
       textControls.start({ filter: "blur(0px)", x: 0, transition: { duration: 0.1 } });
@@ -160,8 +164,8 @@ export function BeatSyncedTypography({
           {/* Glitch Overlay (Red) */}
           <motion.h1 
             animate={glitchControls}
-            className="text-6xl md:text-9xl font-black uppercase tracking-tighter absolute top-0 left-0 pointer-events-none"
             style={{ color: glitchColor, mixBlendMode: "screen" }}
+            className="text-6xl md:text-9xl font-black uppercase tracking-tighter absolute top-0 left-0 pointer-events-none"
           >
             {text}
           </motion.h1>
@@ -169,8 +173,8 @@ export function BeatSyncedTypography({
           {/* Glitch Overlay (Cyan) - Opposite direction */}
           <motion.h1 
             animate={glitchControls}
-            className="text-6xl md:text-9xl font-black uppercase tracking-tighter absolute top-0 left-0 pointer-events-none text-cyan-400"
             style={{ mixBlendMode: "screen", x: "-10px", scale: 1.02 }}
+            className="text-6xl md:text-9xl font-black uppercase tracking-tighter absolute top-0 left-0 pointer-events-none text-cyan-400"
           >
             {text}
           </motion.h1>

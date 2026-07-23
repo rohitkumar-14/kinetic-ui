@@ -1,0 +1,40 @@
+---
+title: "AI Voice Visualizer"
+description: "Real-time canvas audio wave visualizer simulating AI voice frequency pulses."
+category: "AI & Generative"
+---
+
+<ComponentPreview 
+  name="AI Voice Visualizer" 
+  componentName="AiVoiceVisualizer"
+  sourceFile="components/creative/ai-voice-visualizer.tsx"
+  playgroundControls={[
+    {
+      name: "speed",
+      label: "Pulse Speed",
+      type: "number",
+      min: 0.5,
+      max: 3,
+      step: 0.1,
+      default: 1
+    }
+  ]}
+  propsData={[
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Custom visualizer container styling classes."
+    }
+  ]}
+>
+  <AiVoiceVisualizerDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="ai-voice-visualizer" />
+
+## Props
+
+Pass wave amplitude, frequency, and bar color options.

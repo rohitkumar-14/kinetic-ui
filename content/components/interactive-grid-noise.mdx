@@ -1,0 +1,40 @@
+---
+title: "Interactive Grid Noise"
+description: "Retro film grain + reactive grid mesh that warps toward cursor coordinates."
+category: "Background Effects"
+---
+
+<ComponentPreview 
+  name="Interactive Grid Noise" 
+  componentName="InteractiveGridNoise"
+  sourceFile="components/creative/interactive-grid-noise.tsx"
+  playgroundControls={[
+    {
+      name: "scale",
+      label: "Grid Scale",
+      type: "number",
+      min: 0.5,
+      max: 2,
+      step: 0.1,
+      default: 1
+    }
+  ]}
+  propsData={[
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Custom grid container styling classes."
+    }
+  ]}
+>
+  <InteractiveGridNoiseDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="interactive-grid-noise" />
+
+## Props
+
+Configure grid spacing, warp intensity, and grain opacity.

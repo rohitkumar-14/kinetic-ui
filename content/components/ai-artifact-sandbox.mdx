@@ -1,0 +1,38 @@
+---
+title: "AI Artifact Sandbox"
+description: "Split-view dynamic preview box that renders generated UI, code, or markdown with live sandbox toggles."
+category: "AI & Generative"
+---
+
+<ComponentPreview 
+  name="AI Artifact Sandbox" 
+  componentName="AiArtifactSandbox"
+  sourceFile="components/creative/ai-artifact-sandbox.tsx"
+  playgroundControls={[
+    {
+      name: "initialMode",
+      label: "Initial Tab",
+      type: "select",
+      options: ["preview", "code"],
+      default: "preview"
+    }
+  ]}
+  propsData={[
+    {
+      name: "initialMode",
+      type: "'preview' | 'code'",
+      default: "'preview'",
+      description: "Default active view mode on render."
+    }
+  ]}
+>
+  <AiArtifactSandboxDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="ai-artifact-sandbox" />
+
+## Props
+
+Accepts initial view state and custom artifact payload contents.

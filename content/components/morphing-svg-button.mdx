@@ -1,0 +1,37 @@
+---
+title: "Morphing SVG Button"
+description: "Icon and border morphing action button powered by Framer Motion."
+category: "Buttons"
+---
+
+<ComponentPreview 
+  name="Morphing SVG Button" 
+  componentName="MorphingSvgButton"
+  sourceFile="components/creative/morphing-svg-button.tsx"
+  playgroundControls={[
+    {
+      name: "color",
+      label: "Accent Color",
+      type: "string",
+      default: "#6366f1"
+    }
+  ]}
+  propsData={[
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Custom styling classes."
+    }
+  ]}
+>
+  <MorphingSvgButtonDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="morphing-svg-button" />
+
+## Props
+
+Pass SVG paths and active morph state values.
