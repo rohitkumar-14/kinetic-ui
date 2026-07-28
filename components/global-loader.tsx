@@ -38,7 +38,7 @@ export function GlobalLoader() {
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-zinc-950 text-white"
         >
           {/* Logo / Brand Spinner */}
-          <div className="relative flex items-center justify-center">
+          <div className="relative flex items-center justify-center w-16 h-16">
             <motion.div
               animate={{ rotate: 360 }}
               transition={{

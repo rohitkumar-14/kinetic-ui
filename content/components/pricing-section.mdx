@@ -10,10 +10,55 @@ The `PricingSection` arranges premium package cards inside dark-glass surfaces. 
 
 <ComponentPreview 
   name="Pricing Section" 
+  componentName="PricingCards"
+  playgroundControls={[
+    {
+      name: "variant",
+      label: "Variant",
+      type: "select",
+      options: ["grid", "spotlight", "focus"],
+      default: "grid"
+    },
+    {
+      name: "color",
+      label: "Accent Color",
+      type: "string",
+      default: "#ec4899"
+    },
+    {
+      name: "speed",
+      label: "Animation Speed",
+      type: "number",
+      min: 0.1,
+      max: 3,
+      step: 0.1,
+      default: 1
+    },
+    {
+      name: "scale",
+      label: "Hover Scale",
+      type: "number",
+      min: 0.8,
+      max: 1.5,
+      step: 0.05,
+      default: 1
+    }
+  ]}
   variants={[
     {
       name: "Default",
-      code: `import { PricingCards } from '@/components/creative/pricing-cards';\n\nexport default function Example() {\n  return (\n    <PricingCards \n      variant="grid"\n      color="#ec4899"\n    />\n  );\n}`
+      code: `import { PricingCards } from '@/components/creative/pricing-cards';\n\nexport default function Example() {\n  return (\n    <PricingCards \n      variant="grid"\n      color="#ec4899"\n    />\n  );\n}`,
+      params: { variant: "grid", color: "#ec4899" }
+    },
+    {
+      name: "Spotlight",
+      code: `import { PricingCards } from '@/components/creative/pricing-cards';\n\nexport default function Example() {\n  return (\n    <PricingCards \n      variant="spotlight"\n      color="#10b981"\n    />\n  );\n}`,
+      params: { variant: "spotlight", color: "#10b981" }
+    },
+    {
+      name: "Focus",
+      code: `import { PricingCards } from '@/components/creative/pricing-cards';\n\nexport default function Example() {\n  return (\n    <PricingCards \n      variant="focus"\n      color="#6366f1"\n    />\n  );\n}`,
+      params: { variant: "focus", color: "#6366f1" }
     }
   ]}
 >

@@ -247,6 +247,8 @@ import { GalleryLightboxDemo } from '@/components/creative/docs/gallery-lightbox
 import { ImageRevealDemo } from '@/components/creative/docs/image-reveal-demo';
 import { DraggableCarouselDemo } from '@/components/creative/docs/draggable-carousel-demo';
 import { StatsSectionDemo } from '@/components/creative/docs/stats-section-demo';
+import { LighthouseAudits } from '@/components/creative/lighthouse-audits';
+import { BundleFootprint } from '@/components/creative/bundle-footprint';
 import { TestimonialCarouselDemo } from '@/components/creative/docs/testimonial-carousel-demo';
 import { ProjectCardDemo } from '@/components/creative/docs/project-card-demo';
 import { ClientLogoGridDemo } from '@/components/creative/docs/client-logo-grid-demo';
@@ -359,6 +361,8 @@ const mdxComponents = {
   ImageRevealDemo,
   DraggableCarouselDemo,
   StatsSectionDemo,
+  LighthouseAudits,
+  BundleFootprint,
   TestimonialCarouselDemo,
   ProjectCardDemo,
   ClientLogoGridDemo,

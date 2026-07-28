@@ -1,0 +1,118 @@
+---
+title: LighthouseAudits
+description: A beautiful animated dashboard widget displaying Google Lighthouse audit scores with circular progress dials.
+category: Sections
+---
+
+The \`LighthouseAudits\` component uses Framer Motion to create smooth, satisfying SVG circular progress animations for performance metrics. It's fully customizable and can dynamically adapt its accent color.
+
+## Live Preview
+
+<ComponentPreview 
+  name="Lighthouse Audits" 
+  componentName="LighthouseAudits"
+  playgroundControls={[
+    {
+      name: "auditCount",
+      label: "Audit Count",
+      type: "number",
+      min: 1,
+      max: 4,
+      step: 1,
+      default: 4
+    },
+    {
+      name: "performance",
+      label: "Performance",
+      type: "number",
+      min: 0,
+      max: 100,
+      step: 1,
+      default: 99
+    },
+    {
+      name: "accessibility",
+      label: "Accessibility",
+      type: "number",
+      min: 0,
+      max: 100,
+      step: 1,
+      default: 100
+    },
+    {
+      name: "bestPractices",
+      label: "Best Practices",
+      type: "number",
+      min: 0,
+      max: 100,
+      step: 1,
+      default: 100
+    },
+    {
+      name: "seo",
+      label: "SEO",
+      type: "number",
+      min: 0,
+      max: 100,
+      step: 1,
+      default: 100
+    },
+    {
+      name: "color",
+      label: "Accent Color",
+      type: "string",
+      default: "#10b981"
+    }
+  ]}
+>
+  <div className="w-full flex items-center justify-center p-8 bg-black rounded-xl">
+    <LighthouseAudits />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="lighthouse-audits" />
+
+## Props
+
+<PropsTable 
+  props={[
+    {
+      name: "auditCount",
+      type: "number",
+      default: "4",
+      description: "Number of audits to display (1-4). Adjusts layout dynamically."
+    },
+    {
+      name: "performance",
+      type: "number",
+      default: "99",
+      description: "Performance score to display (0-100)."
+    },
+    {
+      name: "accessibility",
+      type: "number",
+      default: "100",
+      description: "Accessibility score to display (0-100)."
+    },
+    {
+      name: "bestPractices",
+      type: "number",
+      default: "100",
+      description: "Best Practices score to display (0-100)."
+    },
+    {
+      name: "seo",
+      type: "number",
+      default: "100",
+      description: "SEO score to display (0-100)."
+    },
+    {
+      name: "color",
+      type: "string",
+      default: "'#10b981'",
+      description: "The primary accent color for the SVG progress circles and glowing effects."
+    }
+  ]} 
+/>

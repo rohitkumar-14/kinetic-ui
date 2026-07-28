@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { Terminal } from "lucide-react";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 export interface TerminalFooterLink {
@@ -103,7 +102,7 @@ export function TerminalFooter({
               <ul className="flex flex-col gap-3">
                 {category.links.map((link, linkIdx) => (
                   <li key={linkIdx}>
-                    <Link 
+                    <a 
                       href={link.href}
                       className="text-zinc-400 hover:text-emerald-400 transition-colors text-sm"
                       onMouseEnter={() => {
@@ -114,7 +113,7 @@ export function TerminalFooter({
                       }}
                     >
                       {link.label}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>

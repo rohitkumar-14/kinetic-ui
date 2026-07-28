@@ -4,7 +4,6 @@ import React, { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { MagneticButton } from "@/components/creative/magnetic-button";
 import { ArrowRight, Terminal } from "lucide-react";
-import Link from "next/link";
 
 export type GravityGridHeroVariant = "dots" | "lines";
 
@@ -254,16 +253,16 @@ export function GravityGridHero({
         </p>
 
         <div className="flex flex-wrap gap-4 items-center justify-center pointer-events-auto">
-          <Link href={primaryCtaHref}>
+          <a href={primaryCtaHref}>
             <MagneticButton className="h-12 px-8 rounded-full bg-white text-black font-semibold hover:bg-zinc-200 transition-colors">
               {primaryCtaText} <ArrowRight className="ml-2 h-4 w-4" />
             </MagneticButton>
-          </Link>
-          <Link href={secondaryCtaHref}>
+          </a>
+          <a href={secondaryCtaHref}>
             <MagneticButton className="h-12 px-8 rounded-full border border-white/10 bg-transparent text-white font-medium hover:bg-white/5 transition-colors">
               <Terminal className="mr-2 h-4 w-4" /> {secondaryCtaText}
             </MagneticButton>
-          </Link>
+          </a>
         </div>
       </div>
     </section>

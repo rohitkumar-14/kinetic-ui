@@ -195,7 +195,7 @@ export function ComponentPreview({
   }, [activeVariantIdx, variants]);
 
   const hasControls = controls.length > 0;
-  const hasPlayground = playgroundControls.length > 0;
+  const hasPlayground = playgroundControls.length > 0 || (variants && variants.length > 0);
   const activeCode = variants && variants.length > 0 ? variants[activeVariantIdx].code : code;
   const childrenArray = React.Children.toArray(children);
 
@@ -233,8 +233,8 @@ export function ComponentPreview({
     if (!React.isValidElement(element)) return element;
 
     const elementProps = (element.props as any) || {};
-    const propsToInject: any = { ...params };
     const isDOMElement = typeof element.type === 'string';
+    const propsToInject: any = isDOMElement ? {} : { ...params };
 
     if (!isDOMElement) {
       if (controls.includes('speed')) {
@@ -512,6 +512,14 @@ export function ComponentPreview({
                       controls={playgroundControls} 
                       values={params} 
                       onChange={handleParamChange} 
+                      variants={variants}
+                      activeVariantIdx={activeVariantIdx}
+                      onVariantChange={(idx) => {
+                        setActiveVariantIdx(idx);
+                        setActiveVariant(variants![idx].name);
+                      }}
+                      onCopyJSX={handleCopy}
+                      copiedJSX={copied}
                     />
                   </div>
                 )}
@@ -636,11 +644,21 @@ export function ComponentPreview({
 function PlaygroundPanel({ 
   controls, 
   values, 
-  onChange 
+  onChange,
+  variants,
+  activeVariantIdx,
+  onVariantChange,
+  onCopyJSX,
+  copiedJSX
 }: { 
   controls: PlaygroundControl[]; 
   values: Record<string, any>; 
   onChange: (name: string, value: any) => void;
+  variants?: ComponentVariant[];
+  activeVariantIdx?: number;
+  onVariantChange?: (idx: number) => void;
+  onCopyJSX?: () => void;
+  copiedJSX?: boolean;
 }) {
   return (
     <div className="p-6 rounded-xl border border-border/50 bg-zinc-950/70 backdrop-blur-md space-y-6 h-full min-h-[400px]">
@@ -648,6 +666,24 @@ function PlaygroundPanel({
         <h4 className="font-semibold text-xs tracking-wider uppercase text-indigo-400">Live Parameters</h4>
       </div>
       <div className="space-y-5">
+        {variants && variants.length > 0 && onVariantChange && activeVariantIdx !== undefined && (
+          <div className="space-y-2 border-b border-white/10 pb-5 mb-5">
+            <div className="flex justify-between text-xs font-mono">
+              <span className="text-zinc-300">Variant</span>
+            </div>
+            <select
+              value={activeVariantIdx}
+              onChange={(e) => onVariantChange(parseInt(e.target.value))}
+              className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors"
+            >
+              {variants.map((v, idx) => (
+                <option key={v.name} value={idx}>
+                  {v.name.charAt(0).toUpperCase() + v.name.slice(1)}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
         {controls.map((ctrl) => {
           const val = values[ctrl.name] !== undefined ? values[ctrl.name] : ctrl.default;
           
@@ -668,7 +704,7 @@ function PlaygroundPanel({
                 >
                   {ctrl.options?.map((opt) => (
                     <option key={opt} value={opt}>
-                      {opt}
+                      {opt.charAt(0).toUpperCase() + opt.slice(1)}
                     </option>
                   ))}
                 </select>
@@ -711,6 +747,18 @@ function PlaygroundPanel({
           );
         })}
       </div>
+
+      {onCopyJSX && (
+        <div className="pt-4 border-t border-white/10 mt-6">
+          <button
+            onClick={onCopyJSX}
+            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg text-sm font-medium transition-colors"
+          >
+            {copiedJSX ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+            {copiedJSX ? "Copied JSX!" : "Copy Tweaked Component"}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

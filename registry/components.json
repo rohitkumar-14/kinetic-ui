@@ -1210,6 +1210,28 @@
         "files": [
           "components/creative/audio-reactive-visualizer.tsx"
         ]
+      },
+      "lighthouse-audits": {
+        "name": "LighthouseAudits",
+        "description": "A beautiful animated dashboard widget displaying Google Lighthouse audit scores with circular progress dials.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/lighthouse-audits.tsx"
+        ]
+      },
+      "bundle-footprint": {
+        "name": "BundleFootprint",
+        "description": "An animated bar chart component used to display import footprint sizes and comparisons.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/bundle-footprint.tsx"
+        ]
       }
     }
   },

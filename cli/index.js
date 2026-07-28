@@ -9,6 +9,7 @@ const path = require("path");
 const { execSync } = require("child_process");
 const https = require("https");
 const http = require("http");
+const { transform } = require("sucrase");
 const REGISTRY_URL =
   process.env.REGISTRY_URL || "https://kinetiic-ui.netlify.app/registry.json";
 
@@ -93,7 +94,7 @@ function getBrightness(hex) {
   return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
 }
 
-function getThemeCss(themeOption, customPrimary, customBg) {
+function _getThemeCss(themeOption, customPrimary, customBg) {
   if (themeOption === "default") {
     return `
 /* ═══════════════════════════════════════════════════════════════
@@ -613,6 +614,7 @@ program
         "tailwindcss",
         "postcss",
         "autoprefixer",
+        "@tailwindcss/container-queries",
       ];
       // Use ignore to not spam the console
       execSync(`npm install ${deps.join(" ")}`, { stdio: "ignore" });
@@ -695,37 +697,48 @@ export function cn(...inputs) {
         );
       }
 
-      // 5. Create or patch tailwind.config.js
+      // 5. Tailwind Configuration Checks
       spinner.text = "Configuring Tailwind CSS...";
-      const twConfigPath = path.join(process.cwd(), "tailwind.config.js");
-
-      if (fs.existsSync(twConfigPath)) {
-        const existingConfig = fs.readFileSync(twConfigPath, "utf8");
-        // Only overwrite if it doesn't already have our color mappings
-        if (!existingConfig.includes("var(--background)")) {
-          // Back up the existing config
-          fs.copyFileSync(twConfigPath, twConfigPath + ".bak");
-          console.log(`${chalk.yellow("BACKUP")} tailwind.config.js.bak`);
-          fs.writeFileSync(twConfigPath, TAILWIND_CONFIG_CONTENT, "utf8");
-          console.log(
-            `${chalk.green("UPDATED")} tailwind.config.js — added semantic color mappings`,
-          );
-        } else {
-          console.log(
-            `${chalk.yellow("SKIPPED")} tailwind.config.js — already configured`,
-          );
+      
+      let isTailwindV4 = false;
+      try {
+        const pkgJson = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"));
+        const twVersion = pkgJson.dependencies?.tailwindcss || pkgJson.devDependencies?.tailwindcss || "";
+        if (twVersion.includes("^4") || twVersion.includes("4.")) {
+          isTailwindV4 = true;
         }
-      } else {
-        fs.writeFileSync(twConfigPath, TAILWIND_CONFIG_CONTENT, "utf8");
-        console.log(`${chalk.green("CREATED")} tailwind.config.js`);
-      }
+      } catch(e) {}
 
-      // 6. Create postcss.config.js if missing
-      const postcssPath = path.join(process.cwd(), "postcss.config.js");
-      if (!fs.existsSync(postcssPath)) {
-        const postcssContent = `module.exports = {\n  plugins: {\n    tailwindcss: {},\n    autoprefixer: {},\n  },\n};\n`;
-        fs.writeFileSync(postcssPath, postcssContent, "utf8");
-        console.log(`${chalk.green("CREATED")} postcss.config.js`);
+      if (isTailwindV4) {
+        console.log(`${chalk.green("DETECTED")} Tailwind v4 (skipping legacy tailwind.config.js)`);
+      } else {
+        const twConfigPath = path.join(process.cwd(), "tailwind.config.js");
+        if (fs.existsSync(twConfigPath)) {
+          const existingConfig = fs.readFileSync(twConfigPath, "utf8");
+          if (!existingConfig.includes("var(--background)")) {
+            fs.copyFileSync(twConfigPath, twConfigPath + ".bak");
+            console.log(`${chalk.yellow("BACKUP")} tailwind.config.js.bak`);
+            fs.writeFileSync(twConfigPath, TAILWIND_CONFIG_CONTENT, "utf8");
+            console.log(
+              `${chalk.green("UPDATED")} tailwind.config.js — added semantic color mappings`,
+            );
+          } else {
+            console.log(
+              `${chalk.yellow("SKIPPED")} tailwind.config.js — already configured`,
+            );
+          }
+        } else {
+          fs.writeFileSync(twConfigPath, TAILWIND_CONFIG_CONTENT, "utf8");
+          console.log(`${chalk.green("CREATED")} tailwind.config.js`);
+        }
+
+        // Create postcss.config.js if missing
+        const postcssPath = path.join(process.cwd(), "postcss.config.js");
+        if (!fs.existsSync(postcssPath)) {
+          const postcssContent = `module.exports = {\n  plugins: {\n    tailwindcss: {},\n    autoprefixer: {},\n  },\n};\n`;
+          fs.writeFileSync(postcssPath, postcssContent, "utf8");
+          console.log(`${chalk.green("CREATED")} postcss.config.js`);
+        }
       }
 
       spinner.succeed(chalk.green("Project initialized successfully!"));
@@ -752,7 +765,8 @@ program
   .command("add")
   .description("add a component to your project")
   .argument("[component]", "the component to add (e.g. magnetic-button)")
-  .action(async (componentName) => {
+  .option("-y, --yes", "skip confirmation prompt")
+  .action(async (componentName, options) => {
     console.log(chalk.bold.blue("\n✨ Kinetic UI CLI\n"));
 
     const spinner = ora("Fetching component registry...").start();
@@ -836,14 +850,18 @@ program
       }
 
       if (missingDeps.length > 0) {
-        const res = await prompts({
-          type: "confirm",
-          name: "install",
-          message: `This component requires ${missingDeps.join(", ")}. Install them now?`,
-          initial: true,
-        });
+        let installDeps = options.yes;
+        if (!installDeps) {
+          const res = await prompts({
+            type: "confirm",
+            name: "install",
+            message: `This component requires ${missingDeps.join(", ")}. Install them now?`,
+            initial: true,
+          });
+          installDeps = res.install;
+        }
 
-        if (res.install) {
+        if (installDeps) {
           console.log(
             chalk.blue(
               `\n📦 Installing missing dependencies: ${missingDeps.join(", ")}...`,
@@ -873,6 +891,9 @@ program
       const configPath = path.join(process.cwd(), "components.json");
       if (fs.existsSync(configPath)) {
         componentsConfig = JSON.parse(fs.readFileSync(configPath, "utf8"));
+      } else {
+        console.log(chalk.yellow("\n⚠️  Warning: components.json not found."));
+        console.log(chalk.yellow("It is highly recommended to run 'npx kinetic-ui-cli init' first to generate required utility files (like lib/utils.ts) and core dependencies."));
       }
     } catch (err) {
       console.log(
@@ -887,6 +908,16 @@ program
     for (const file of componentData.files) {
       let targetPath = file.path;
       let content = file.content;
+
+      // Handle TypeScript stripping using sucrase
+      if (componentsConfig && componentsConfig.typescript === false) {
+        try {
+          content = transform(content, { transforms: ["typescript", "jsx"] }).code;
+          targetPath = targetPath.replace(/\.tsx$/, ".jsx").replace(/\.ts$/, ".js");
+        } catch (e) {
+          console.error(chalk.red(`Failed to transpile ${targetPath} to JavaScript.`));
+        }
+      }
 
       if (componentsConfig && componentsConfig.aliases) {
         // Adjust component file path based on alias
@@ -933,6 +964,14 @@ program
           for (const file of depData.files) {
             let targetPath = file.path;
             let content = file.content;
+            
+            // Handle TypeScript stripping using sucrase
+            if (componentsConfig && componentsConfig.typescript === false) {
+              try {
+                content = transform(content, { transforms: ["typescript", "jsx"] }).code;
+                targetPath = targetPath.replace(/\.tsx$/, ".jsx").replace(/\.ts$/, ".js");
+              } catch (e) {}
+            }
             if (componentsConfig && componentsConfig.aliases) {
               const compAlias = componentsConfig.aliases.components;
               if (compAlias && targetPath.startsWith("components/")) {
@@ -974,7 +1013,8 @@ program
   .command("update")
   .description("update an existing component to the latest version")
   .argument("[component]", "the component to update (e.g. magnetic-button)")
-  .action(async (componentName) => {
+  .option("-y, --yes", "skip confirmation prompt")
+  .action(async (componentName, options) => {
     console.log(chalk.bold.blue("\n✨ Kinetic UI CLI (Update)\n"));
 
     const spinner = ora("Fetching component registry...").start();
@@ -1018,14 +1058,18 @@ program
       }
 
       if (missingDeps.length > 0) {
-        const res = await prompts({
-          type: "confirm",
-          name: "install",
-          message: `This component requires ${missingDeps.join(", ")}. Install them now?`,
-          initial: true,
-        });
+        let installDeps = options.yes;
+        if (!installDeps) {
+          const res = await prompts({
+            type: "confirm",
+            name: "install",
+            message: `This component requires ${missingDeps.join(", ")}. Install them now?`,
+            initial: true,
+          });
+          installDeps = res.install;
+        }
 
-        if (res.install) {
+        if (installDeps) {
           console.log(
             chalk.blue(
               `\n📦 Installing missing dependencies: ${missingDeps.join(", ")}...`,
@@ -1055,6 +1099,16 @@ program
     for (const file of componentData.files) {
       let targetPath = file.path;
       let content = file.content;
+
+      // Handle TypeScript stripping using sucrase
+      if (componentsConfig && componentsConfig.typescript === false) {
+        try {
+          content = transform(content, { transforms: ["typescript", "jsx"] }).code;
+          targetPath = targetPath.replace(/\.tsx$/, ".jsx").replace(/\.ts$/, ".js");
+        } catch (e) {
+          console.error(chalk.red(`Failed to transpile ${targetPath} to JavaScript.`));
+        }
+      }
 
       if (componentsConfig && componentsConfig.aliases) {
         const compAlias = componentsConfig.aliases.components;

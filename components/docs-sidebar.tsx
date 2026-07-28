@@ -310,6 +310,8 @@ export const sidebarContent: SidebarGroup[] = [
           title: "Data Display & Social Proof",
           items: [
             { title: "Stats Section", href: "/docs/components/stats-section", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Lighthouse Audits", href: "/docs/components/lighthouse-audits", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Bundle Footprint", href: "/docs/components/bundle-footprint", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Testimonial Carousel", href: "/docs/components/testimonial-carousel", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Project Card", href: "/docs/components/project-card", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Client Logo Grid", href: "/docs/components/client-logo-grid", icon: <Layers className="w-3.5 h-3.5" /> },
@@ -402,56 +404,9 @@ export const sidebarContent: SidebarGroup[] = [
 
 export function DocsSidebar() {
   const pathname = usePathname();
-  const [version, setVersion] = React.useState('v1.0.0');
-  const [isOpen, setIsOpen] = React.useState(false);
 
   return (
     <div className="w-full h-full flex flex-col bg-background text-foreground py-6 pr-6 lg:py-8 select-none transition-colors duration-300">
-      
-      {/* Version Switcher Popover */}
-      <div className="relative mb-8 px-2">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-muted/50 border border-border text-xs font-semibold hover:border-border/80 transition-colors"
-        >
-          <span className="flex items-center gap-2 text-indigo-500">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>{version}</span>
-            <span className="text-[10px] bg-indigo-500/10 text-indigo-500 px-1.5 py-0.25 rounded font-light uppercase">
-              latest
-            </span>
-          </span>
-          <ChevronDown className={cn("w-3 h-3 text-muted-foreground transition-transform duration-200", isOpen && "rotate-180")} />
-        </button>
-
-        <AnimatePresence>
-          {isOpen && (
-            <>
-              <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
-              <motion.div
-                initial={{ opacity: 0, y: -5 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -5 }}
-                transition={{ duration: 0.15 }}
-                className="absolute top-full left-0 right-0 z-20 mt-1.5 p-1 rounded-xl bg-popover border border-border shadow-2xl text-xs"
-              >
-                {['v1.0.0', 'v0.9.0 (beta)'].map((v) => (
-                  <button
-                    key={v}
-                    onClick={() => {
-                      setVersion(v.split(' ')[0]);
-                      setIsOpen(false);
-                    }}
-                    className="w-full text-left px-3 py-2 hover:bg-accent rounded-lg transition-colors font-medium text-muted-foreground hover:text-foreground"
-                  >
-                    {v}
-                  </button>
-                ))}
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
-      </div>
 
       {/* Sidebar Sections */}
       <div className="flex-1 overflow-y-auto overscroll-contain space-y-8 sidebar-scrollbar">
