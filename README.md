@@ -19,7 +19,7 @@ Use our official CLI to instantly initialize design tokens and add components di
 Run `init` to automatically set up `components.json`, Tailwind CSS design tokens (CSS variables), `lib/utils.ts`, and core dependencies:
 
 ```bash
-npx kinetic-ui init
+npx kinetic-ui-cli@latest init
 ```
 
 ### 2. Add Components
@@ -28,12 +28,12 @@ Install specific creative or UI components along with their dependencies:
 
 ```bash
 # Add specific component
-npx kinetic-ui add hero-particles
-npx kinetic-ui add floating-navbar
-npx kinetic-ui add magnetic-button
+npx kinetic-ui-cli@latest add hero-particles
+npx kinetic-ui-cli@latest add floating-navbar
+npx kinetic-ui-cli@latest add magnetic-button
 
 # Or run interactive selector
-npx kinetic-ui add
+npx kinetic-ui-cli@latest add
 ```
 
 ### 3. Update Components
@@ -41,7 +41,7 @@ npx kinetic-ui add
 Update existing components to the latest registry version (with automated file backup):
 
 ```bash
-npx kinetic-ui update hero-particles
+npx kinetic-ui-cli@latest update hero-particles
 ```
 
 ---

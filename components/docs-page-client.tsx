@@ -26,7 +26,7 @@ interface DocsPageClientProps {
 export function DocsPageClient({ slug, title, category, children }: DocsPageClientProps) {
   const [copiedCLI, setCopiedCLI] = useState(false);
 
-  const cliCommand = `npx @kinetic-ui/cli add ${slug}`;
+  const cliCommand = `npx kinetic-ui-cli@latest add ${slug}`;
 
   const handleCopyCLI = () => {
     navigator.clipboard.writeText(cliCommand);

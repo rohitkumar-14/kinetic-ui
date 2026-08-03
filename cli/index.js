@@ -604,21 +604,39 @@ program
       fs.writeFileSync(configPath, JSON.stringify(config, null, 2), "utf8");
       console.log(`\n${chalk.green("CREATED")} components.json`);
 
-      // 2. Install dependencies
+      // 2. Check for Tailwind version BEFORE installing dependencies to avoid force-upgrading v3
+      let isTailwindV4 = false;
+      let hasTailwind = false;
+      try {
+        const pkgJson = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"));
+        const twVersion = pkgJson.dependencies?.tailwindcss || pkgJson.devDependencies?.tailwindcss || "";
+        if (twVersion) hasTailwind = true;
+        if (twVersion.includes("^4") || twVersion.includes("4.")) {
+          isTailwindV4 = true;
+        }
+      } catch(e) {}
+
+      // 3. Install dependencies
       spinner.text = "Installing dependencies...";
       const deps = [
         "clsx",
         "tailwind-merge",
         "lucide-react",
         "class-variance-authority",
-        "tailwindcss",
-        "postcss",
-        "autoprefixer",
-        "@tailwindcss/container-queries",
       ];
-      // Use ignore to not spam the console
-      execSync(`npm install ${deps.join(" ")}`, { stdio: "ignore" });
-      console.log(`${chalk.green("INSTALLED")} ${deps.join(", ")}`);
+      
+      if (!hasTailwind) {
+        deps.push("tailwindcss", "postcss", "autoprefixer");
+      }
+      
+      if (!isTailwindV4) {
+        deps.push("@tailwindcss/container-queries");
+      }
+
+      if (deps.length > 0) {
+        execSync(`npm install ${deps.join(" ")}`, { stdio: "ignore" });
+        console.log(`${chalk.green("INSTALLED")} ${deps.join(", ")}`);
+      }
 
       // 3. Create utils file
       spinner.text = "Creating utils file...";
@@ -700,14 +718,7 @@ export function cn(...inputs) {
       // 5. Tailwind Configuration Checks
       spinner.text = "Configuring Tailwind CSS...";
       
-      let isTailwindV4 = false;
-      try {
-        const pkgJson = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"));
-        const twVersion = pkgJson.dependencies?.tailwindcss || pkgJson.devDependencies?.tailwindcss || "";
-        if (twVersion.includes("^4") || twVersion.includes("4.")) {
-          isTailwindV4 = true;
-        }
-      } catch(e) {}
+      // isTailwindV4 was already calculated in step 2
 
       if (isTailwindV4) {
         console.log(`${chalk.green("DETECTED")} Tailwind v4 (skipping legacy tailwind.config.js)`);

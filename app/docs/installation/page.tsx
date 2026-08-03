@@ -1,11 +1,11 @@
 import { CodeBlock } from '@/components/code-block';
 
 export default function InstallationPage() {
-  const initCode = `npx kinetic-ui init`;
-  const addCode = `npx kinetic-ui add hero-particles
-npx kinetic-ui add floating-navbar
-npx kinetic-ui add magnetic-button`;
-  const updateCode = `npx kinetic-ui update hero-particles`;
+  const initCode = `npx kinetic-ui-cli@latest init`;
+  const addCode = `npx kinetic-ui-cli@latest add hero-particles
+npx kinetic-ui-cli@latest add floating-navbar
+npx kinetic-ui-cli@latest add magnetic-button`;
+  const updateCode = `npx kinetic-ui-cli@latest update hero-particles`;
 
   const manualDeps = `npm install lucide-react clsx tailwind-merge @radix-ui/react-slot
 npm install @radix-ui/react-accordion @radix-ui/react-dialog @radix-ui/react-dropdown-menu @radix-ui/react-tabs`;
@@ -40,7 +40,7 @@ npm install @radix-ui/react-accordion @radix-ui/react-dialog @radix-ui/react-dro
         </p>
         <CodeBlock code={addCode} language="bash" />
         <p className="text-xs text-zinc-500 font-mono mt-1">
-          Tip: Running <code>npx kinetic-ui add</code> without arguments opens an interactive category & component selector.
+          Tip: Running <code>npx kinetic-ui-cli@latest add</code> without arguments opens an interactive category & component selector.
         </p>
       </div>
 
