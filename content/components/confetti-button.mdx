@@ -1,0 +1,22 @@
+---
+title: "Confetti Button"
+description: "A highly customizable button that triggers a physics-based particle confetti explosion."
+category: "Buttons"
+---
+
+<ComponentPreview 
+  name="Confetti Button"
+  componentName="ConfettiButton"
+  sourceFile="components/creative/confetti-button.tsx"
+>
+  <ConfettiButtonDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add confetti-button
+```
+
+## How It Works
+The `ConfettiButton` utilizes `canvas-confetti` to create a massive, performant particle explosion that triggers directly from the click coordinates of the button itself. You can easily customize the particle colors, count, velocity, and spread by passing standard confetti options into the component.

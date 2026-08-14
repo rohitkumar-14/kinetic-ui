@@ -1,0 +1,27 @@
+---
+title: "Infinite Panning Grid"
+description: "A 2D masonry grid that pans infinitely in all directions based on cursor position."
+category: "Advanced Grids"
+---
+
+<ComponentPreview 
+  name="Infinite Panning Grid"
+  componentName="InfinitePanningGrid"
+  sourceFile="components/creative/infinite-panning-grid.tsx"
+>
+  <InfinitePanningGridDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add infinite-panning-grid
+```
+
+## How It Works
+
+To achieve a true "infinite" pan without complex WebGL shaders, we utilize a 2x2 grid of identical cloned "tiles". 
+
+Inside a `requestAnimationFrame` loop, we accumulate X and Y translation based on the distance of the cursor from the center of the screen. When the translation offset exceeds the width/height of a single tile, we use modulo logic to seamlessly snap it back to 0. 
+
+Because we render a 2x2 grid, this sudden snap is completely invisible to the user, creating the illusion of infinite space.

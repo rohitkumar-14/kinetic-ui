@@ -1,0 +1,26 @@
+---
+title: "Isometric Grid"
+description: "A 3D isometric grid of cards that tilts collectively based on mouse position."
+category: "Advanced Grids"
+---
+
+<ComponentPreview 
+  name="Isometric Grid"
+  componentName="IsometricGrid"
+  sourceFile="components/creative/isometric-grid.tsx"
+>
+  <IsometricGridDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add isometric-grid
+```
+
+## How It Works
+
+This component relies on CSS 3D transforms (`perspective` and `transform-style: preserve-3d`) combined with Framer Motion. 
+We track the mouse position relative to the container and map those X/Y coordinates to the grid's `rotateX` and `rotateZ` values using `useTransform`.
+
+Each individual card inside the grid then utilizes simple CSS hover states to lift upwards (`-translate-y`) and cast a larger drop shadow, enhancing the 3D depth effect.

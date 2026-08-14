@@ -1,0 +1,29 @@
+---
+title: "Spatial Portal Scroll"
+description: "A 3D spatial portal ring that smoothly rotates to reveal your embedded content on scroll."
+category: "Hero Animations"
+---
+
+<ComponentPreview 
+  name="Spatial Portal Scroll"
+  componentName="PortalScroll"
+  sourceFile="components/creative/portal-scroll.tsx"
+>
+  <PortalScrollDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npm install @react-three/fiber @react-three/drei three
+npx kinetic-ui-cli@latest add portal-scroll
+```
+
+## How It Works
+
+This component leverages `@react-three/fiber` and `@react-three/drei` to load a GLTF model of a MacBook. Using `ScrollControls` and `useScroll` from Drei, we map the user's scroll position (`scroll.range(0, 1)`) to the rotation and camera position of the 3D scene.
+
+As you scroll, the camera zooms into the screen, which utilizes Drei's `<Html>` component to render a full HTML DOM inside the 3D world (in this case, an `iframe`).
+
+> [!WARNING]
+> This component uses a remote `.gltf` asset for the MacBook model (`https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf`). For production applications, it is highly recommended to download this `.glb` file, place it in your `public` directory, and update the URL in the `useGLTF` hook to ensure reliability and faster load times.

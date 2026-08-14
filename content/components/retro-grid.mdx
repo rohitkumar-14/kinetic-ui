@@ -1,0 +1,22 @@
+---
+title: "Retro Grid Background"
+description: "A glowing, animated 3D perspective grid floor, perfect for modern SaaS hero sections."
+category: "Backgrounds"
+---
+
+<ComponentPreview 
+  name="Retro Grid Background"
+  componentName="RetroGrid"
+  sourceFile="components/creative/retro-grid.tsx"
+>
+  <RetroGridDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add retro-grid
+```
+
+## How It Works
+The `RetroGrid` component uses pure CSS backgrounds (linear gradients) and 3D transforms (`rotateX` with `perspective`) to create an infinitely panning 3D floor grid. It is highly performant because it relies solely on CSS hardware-accelerated animations rather than canvas or WebGL.

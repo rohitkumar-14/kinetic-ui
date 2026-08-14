@@ -74,6 +74,18 @@
         "files": [
           "components/creative/hero/hero-shimmer-mesh.tsx"
         ]
+      },
+      "portal-scroll": {
+        "name": "MonolithScroll",
+        "description": "An Apple-style 3D Portal Scroll experience.",
+        "dependencies": [
+          "@react-three/fiber",
+          "@react-three/drei",
+          "three"
+        ],
+        "files": [
+          "components/creative/portal-scroll.tsx"
+        ]
       }
     }
   },
@@ -172,6 +184,44 @@
         "files": [
           "components/creative/smart-navbar.tsx"
         ]
+      },
+      "infinite-marquee": {
+        "name": "InfiniteMarquee",
+        "description": "A buttery-smooth, infinitely scrolling ticker.",
+        "dependencies": [],
+        "files": [
+          "components/creative/infinite-marquee.tsx"
+        ]
+      },
+      "liquid-glass-nav": {
+        "name": "LiquidGlassNav",
+        "description": "A gooey liquid morphing navigation bar.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/liquid-glass-nav.tsx"
+        ]
+      },
+      "elastic-gooey-menu": {
+        "name": "ElasticGooeyMenu",
+        "description": "A full-screen menu that pulls open like stretching rubber.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/elastic-gooey-menu.tsx"
+        ]
+      },
+      "vision-glass-dock": {
+        "name": "VisionGlassDock",
+        "description": "A mac OS / Vision OS style navigation dock where icons physically magnify when hovered.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/vision-glass-dock.tsx"
+        ]
       }
     }
   },
@@ -239,6 +289,38 @@
         "files": [
           "components/creative/physics-drop-button.tsx"
         ]
+      },
+      "3d-add-to-cart-button": {
+        "name": "ThreeDAddToCartButton",
+        "description": "A micro-interaction where clicking Add to Cart spawns a 3D physical object that flies across the screen.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/3d-add-to-cart-button.tsx"
+        ]
+      },
+      "confetti-button": {
+        "name": "ConfettiButton",
+        "description": "A button that triggers a physics-based particle confetti explosion.",
+        "dependencies": [
+          "canvas-confetti",
+          "@types/canvas-confetti"
+        ],
+        "files": [
+          "components/creative/confetti-button.tsx"
+        ]
+      },
+      "morphing-state-button": {
+        "name": "MorphingStateButton",
+        "description": "A button that fluidly morphs its shape during async operations.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/morphing-state-button.tsx"
+        ]
       }
     }
   },
@@ -296,6 +378,26 @@
         ],
         "files": [
           "components/creative/parallax-curtain-reveal.tsx"
+        ]
+      },
+      "conference-ticket": {
+        "name": "ConferenceTicket",
+        "description": "Interactive 3D conference ticket with holographic foil.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/conference-ticket.tsx"
+        ]
+      },
+      "3d-card-peel": {
+        "name": "ThreeDCardPeel",
+        "description": "An interactive card that can be grabbed and peeled off its background layer.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/3d-card-peel.tsx"
         ]
       }
     }
@@ -445,6 +547,69 @@
         "files": [
           "components/creative/animated-counter.tsx"
         ]
+      },
+      "magnetic-text": {
+        "name": "MagneticText",
+        "description": "Text where each letter is magnetically pulled towards the cursor.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/magnetic-text.tsx"
+        ]
+      },
+      "text-shatter": {
+        "name": "TextShatter",
+        "description": "Text that explodes with physics.",
+        "dependencies": [
+          "matter-js",
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/text-shatter.tsx"
+        ]
+      },
+      "sparkles-text": {
+        "name": "SparklesText",
+        "description": "Delightful SVG sparkles that dynamically generate around text.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/sparkles-text.tsx"
+        ]
+      },
+      "cinematic-text-reveal": {
+        "name": "CinematicTextReveal",
+        "description": "A breathtaking text reveal where characters reconstruct from 3D space.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/cinematic-text-reveal.tsx"
+        ]
+      },
+      "generative-ai-shimmer": {
+        "name": "GenerativeAiShimmer",
+        "description": "A breathtaking text loading state where characters materialize out of glowing dust.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/generative-ai-shimmer.tsx"
+        ]
+      },
+      "magnetic-repulsion-text": {
+        "name": "MagneticRepulsionText",
+        "description": "Interactive typography that physically scatters and runs away from your cursor.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/magnetic-repulsion-text.tsx"
+        ]
       }
     }
   },
@@ -522,6 +687,140 @@
         "files": [
           "components/creative/scroll-linked-split.tsx"
         ]
+      },
+      "apple-style-scrollytelling": {
+        "name": "AppleStyleScrollytelling",
+        "description": "A full-page GSAP scroll-jacking template that unwraps a product as the user scrolls.",
+        "dependencies": [
+          "gsap",
+          "@gsap/react"
+        ],
+        "files": [
+          "components/creative/apple-style-scrollytelling.tsx"
+        ]
+      }
+    }
+  },
+  "sliders": {
+    "name": "Sliders & Carousels",
+    "items": {
+      "parallax-slider": {
+        "name": "ParallaxSlider",
+        "description": "Draggable slider with independent image parallax displacement.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/parallax-slider.tsx"
+        ]
+      },
+      "coverflow-slider": {
+        "name": "CoverflowSlider",
+        "description": "3D Apple Music style coverflow carousel.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/coverflow-slider.tsx"
+        ]
+      },
+      "infinite-circular-slider": {
+        "name": "InfiniteCircularSlider",
+        "description": "Infinitely rotating 3D Ferris wheel of images.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/infinite-circular-slider.tsx"
+        ]
+      }
+    }
+  },
+  "advanced-grids": {
+    "name": "Advanced Grids",
+    "items": {
+      "isometric-grid": {
+        "name": "IsometricGrid",
+        "description": "A 3D isometric grid of cards that tilts collectively based on mouse position.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/isometric-grid.tsx"
+        ]
+      },
+      "infinite-panning-grid": {
+        "name": "InfinitePanningGrid",
+        "description": "A 2D masonry grid that pans infinitely in 4 directions based on cursor position.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/infinite-panning-grid.tsx"
+        ]
+      },
+      "staggered-masonry": {
+        "name": "StaggeredMasonry",
+        "description": "A grid where scrolling into view triggers a staggered nested animation.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/staggered-masonry.tsx"
+        ]
+      }
+    }
+  },
+  "svg-animations": {
+    "name": "SVG Animations",
+    "items": {
+      "svg-path-tracing": {
+        "name": "SvgPathTracing",
+        "description": "Complex SVG line-art that draws itself based on scroll progress.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/svg-path-tracing.tsx"
+        ]
+      },
+      "morphing-divider": {
+        "name": "MorphingDivider",
+        "description": "Organically morphing SVG wave divider between sections.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/morphing-divider.tsx"
+        ]
+      },
+      "gooey-cursor": {
+        "name": "GooeyCursor",
+        "description": "SVG filter cursor with a trailing liquid blob effect.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/gooey-cursor.tsx"
+        ]
       }
     }
   },
@@ -558,6 +857,17 @@
         ],
         "files": [
           "components/creative/noise-overlay.tsx"
+        ]
+      },
+      "webgl-ribbon-bg": {
+        "name": "WebGLRibbonBg",
+        "description": "Dynamic WebGL ribbon background.",
+        "dependencies": [
+          "@react-three/fiber",
+          "three"
+        ],
+        "files": [
+          "components/creative/webgl-ribbon-bg.tsx"
         ]
       }
     }
@@ -651,39 +961,40 @@
   "page-transitions": {
     "name": "Page Transitions",
     "items": {
-      "morph-transition": {
-        "name": "MorphTransition",
-        "description": "Elastic layout morph transitions between grid and focus views.",
-        "dependencies": [
-          "framer-motion",
-          "lucide-react"
-        ],
-        "files": [
-          "components/creative/morph-transition.tsx"
-        ]
-      },
-      "ai-stream-wrapper": {
-        "name": "AIStreamWrapper",
-        "description": "AI-style generative UI wrapper with staggered skeleton dissolve effects.",
+      "liquid-curtain-transition": {
+        "name": "LiquidCurtainTransition",
+        "description": "An SVG path that animates a liquid curtain dropping to mask content.",
         "dependencies": [
           "framer-motion",
           "clsx",
           "tailwind-merge"
         ],
         "files": [
-          "components/creative/ai-stream-wrapper.tsx"
+          "components/creative/liquid-curtain-transition.tsx"
         ]
       },
-      "scroll-reveal": {
-        "name": "ScrollReveal",
-        "description": "Foundational wrapper for entrance animations.",
+      "zoom-to-fill-transition": {
+        "name": "ZoomToFillTransition",
+        "description": "Expands a thumbnail seamlessly using layoutId.",
         "dependencies": [
           "framer-motion",
           "clsx",
           "tailwind-merge"
         ],
         "files": [
-          "components/creative/scroll-reveal.tsx"
+          "components/creative/zoom-to-fill-transition.tsx"
+        ]
+      },
+      "pixel-dissolve-transition": {
+        "name": "PixelDissolveTransition",
+        "description": "Transition by breaking the screen into a chunky grid that dissolves.",
+        "dependencies": [
+          "framer-motion",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "files": [
+          "components/creative/pixel-dissolve-transition.tsx"
         ]
       }
     }
@@ -789,6 +1100,77 @@
         ],
         "files": [
           "components/creative/audio-visualizer.tsx"
+        ]
+      },
+      "diffusion-image-reveal": {
+        "name": "DiffusionImageReveal",
+        "description": "A WebGL shader component that loads images with an AI-like watercolor diffusion effect.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber"
+        ],
+        "files": [
+          "components/creative/diffusion-image-reveal.tsx"
+        ]
+      },
+      "before-after-slider": {
+        "name": "BeforeAfterSlider",
+        "description": "An interactive before/after image comparison slider.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/before-after-slider.tsx"
+        ]
+      },
+      "css-device-mockup": {
+        "name": "CssDeviceMockup",
+        "description": "A fully interactive, 3D rotating smartphone frame built entirely out of CSS.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/css-device-mockup.tsx"
+        ]
+      },
+      "svg-path-draw": {
+        "name": "SvgPathDraw",
+        "description": "An animated SVG path tracing component.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/svg-path-draw.tsx"
+        ]
+      },
+      "svg-gooey-filter": {
+        "name": "SvgGooeyFilter",
+        "description": "An SVG filter that causes overlapping DOM elements to merge together like liquid slime.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/svg-gooey-filter.tsx"
+        ]
+      },
+      "svg-shape-morph": {
+        "name": "SvgShapeMorph",
+        "description": "A component that physically morphs between two SVG paths.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/svg-shape-morph.tsx"
+        ]
+      },
+      "svg-flashlight-mask": {
+        "name": "SvgFlashlightMask",
+        "description": "A dual-layer component that uses a dynamic radial mask to reveal hidden content.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/svg-flashlight-mask.tsx"
         ]
       }
     }
@@ -932,6 +1314,16 @@
           "popover",
           "button",
           "dialog"
+        ]
+      },
+      "physics-auth-form": {
+        "name": "PhysicsAuthForm",
+        "description": "An interactive authentication form powered by matter.js that drops physical blocks representing password strength as you type.",
+        "dependencies": [
+          "matter-js"
+        ],
+        "files": [
+          "components/creative/physics-auth-form.tsx"
         ]
       }
     }
@@ -1231,6 +1623,28 @@
         ],
         "files": [
           "components/creative/bundle-footprint.tsx"
+        ]
+      },
+      "webgl-line-chart": {
+        "name": "WebGLLineChart",
+        "description": "A glowing neon line chart built in React Three Fiber.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei"
+        ],
+        "files": [
+          "components/creative/webgl-line-chart.tsx"
+        ]
+      },
+      "magnetic-tooltip": {
+        "name": "MagneticTooltip",
+        "description": "A physics-based tooltip that magnetizes to your cursor.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/magnetic-tooltip.tsx"
         ]
       }
     }
@@ -1636,6 +2050,141 @@
         ],
         "files": [
           "components/ui/tooltip.tsx"
+        ]
+      }
+    }
+  },
+  "backgrounds": {
+    "name": "Backgrounds",
+    "items": {
+      "retro-grid": {
+        "name": "RetroGrid",
+        "description": "A glowing 3D perspective grid floor.",
+        "dependencies": [],
+        "files": [
+          "components/creative/retro-grid.tsx"
+        ]
+      },
+      "svg-isometric-grid": {
+        "name": "SvgIsometricGrid",
+        "description": "A mathematical pseudo-3D grid floor built with SVG elements that ripples when interacted with.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/svg-isometric-grid.tsx"
+        ]
+      }
+    }
+  },
+  "3d-components": {
+    "name": "3D Components",
+    "items": {
+      "hologram-display": {
+        "name": "HologramDisplay",
+        "description": "A volumetric 3D hologram projector with interactive HTML.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei"
+        ],
+        "files": [
+          "components/creative/hologram-display.tsx"
+        ]
+      }
+    }
+  },
+  "image-effects": {
+    "name": "Image Effects",
+    "items": {
+      "displacement-hover": {
+        "name": "DisplacementHover",
+        "description": "A WebGL-style fluid displacement transition between two images on hover.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/displacement-hover.tsx"
+        ]
+      }
+    }
+  },
+  "inputs": {
+    "name": "Inputs",
+    "items": {
+      "ai-generative-input": {
+        "name": "AIGenerativeInput",
+        "description": "A polished prompt interface with expanding states and animated borders.",
+        "dependencies": [
+          "framer-motion",
+          "canvas-confetti"
+        ],
+        "files": [
+          "components/creative/ai-generative-input.tsx"
+        ]
+      }
+    }
+  },
+  "cursor-effects": {
+    "name": "Cursor Effects",
+    "items": {
+      "fluid-cursor-trail": {
+        "name": "FluidCursorTrail",
+        "description": "A lightweight, performant HTML5 canvas fluid/smoke particle simulation.",
+        "dependencies": [],
+        "files": [
+          "components/creative/fluid-cursor-trail.tsx"
+        ]
+      }
+    }
+  },
+  "interactive": {
+    "name": "Interactive",
+    "items": {
+      "soft-body-jelly": {
+        "name": "SoftBodyJelly",
+        "description": "A drag-and-drop component that deforms and jiggles using complex SVG path manipulation and physics.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/soft-body-jelly.tsx"
+        ]
+      },
+      "generative-audio-btn": {
+        "name": "GenerativeAudioBtn",
+        "description": "A button that synthesizes satisfying physical sound effects in real-time.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/generative-audio-btn.tsx"
+        ]
+      },
+      "pluckable-string": {
+        "name": "PluckableString",
+        "description": "An SVG line that acts like a physical guitar string when dragged.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/pluckable-string.tsx"
+        ]
+      }
+    }
+  },
+  "modals": {
+    "name": "Modals",
+    "items": {
+      "multi-step-island": {
+        "name": "MultiStepIsland",
+        "description": "A dynamic pill button that morphs into a complex, multi-step modal container.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/multi-step-island.tsx"
         ]
       }
     }

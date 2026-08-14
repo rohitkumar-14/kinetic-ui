@@ -1,209 +1,131 @@
 "use client";
 
-import React, { useRef } from "react";
-import { SmoothScroll } from "@/components/creative/smooth-scroll";
-import { SmartNavbar } from "@/components/creative/smart-navbar";
-import { AnimatedGradientText } from "@/components/creative/animated-gradient-text";
-import { InteractiveFluid } from "@/components/creative/interactive-fluid";
-import { BentoGrid } from "@/components/creative/bento-grid";
-import { SpotlightCard } from "@/components/creative/spotlight-card";
-import { StatsSection } from "@/components/creative/stats-section";
-import { ClientLogoGrid } from "@/components/creative/client-logo-grid";
-import { ComparisonTable } from "@/components/creative/comparison-table";
-import { CookieConsent } from "@/components/creative/cookie-consent";
-import { NotificationCenter } from "@/components/creative/notification-center";
-import { MagneticButton } from "@/components/creative/magnetic-button";
-import { BarChart3, Shield, Zap, Cloud, ArrowRight, Check, Activity, Users, Database, Globe } from "lucide-react";
+import React from "react";
+import { RetroGrid } from "@/components/creative/retro-grid";
+import { SparklesText } from "@/components/creative/sparkles-text";
+import { InfiniteMarquee } from "@/components/creative/infinite-marquee";
+import { ConfettiButton } from "@/components/creative/confetti-button";
+import { BentoGrid, BentoCard } from "@/components/creative/bento-grid";
+import { Shield, Zap, Globe, Cpu } from "lucide-react";
 
-// Dummy data for components
-const STATS_DATA = [
-  { value: 99.99, label: "Uptime", suffix: "%", decimals: 2, icon: <Activity className="w-6 h-6" /> },
-  { value: 50, label: "Queries/sec", suffix: "k+", icon: <Zap className="w-6 h-6" /> },
-  { value: 2, label: "Users", prefix: "M+", icon: <Users className="w-6 h-6" /> },
-  { value: 10, label: "Data Centers", icon: <Globe className="w-6 h-6" /> },
-];
-
-const LOGOS_DATA = [
-  { id: 1, name: "Acme Corp", src: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
-  { id: 2, name: "Global Tech", src: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
-  { id: 3, name: "Innovate Inc", src: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" },
-  { id: 4, name: "Future Solutions", src: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
-  { id: 5, name: "NextGen Systems", src: "https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" },
-];
-
-const PLANS_DATA = [
-  { id: "starter", name: "Starter", price: "$49/mo", description: "Perfect for small teams." },
-  { id: "pro", name: "Pro", price: "$99/mo", description: "Everything in Starter plus advanced analytics.", isPopular: true },
-  { id: "enterprise", name: "Enterprise", price: "Custom", description: "Dedicated support and SLAs." },
-];
-
-const FEATURES_DATA = [
-  {
-    category: "Core Features",
-    items: [
-      { name: "Real-time Sync", tooltip: "Sync latency under 50ms", values: { starter: true, pro: true, enterprise: true } },
-      { name: "Data Retention", values: { starter: "7 Days", pro: "30 Days", enterprise: "Unlimited" } },
-      { name: "Custom Dashboards", values: { starter: false, pro: true, enterprise: true } },
-    ]
-  }
-];
+const LOGOS = ["Acme Corp", "Globex", "Soylent", "Initech", "Umbrella", "Stark", "Wayne", "Cyberdyne"];
 
 export default function SaasTemplate() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
   return (
-    <div className="bg-zinc-950 text-white min-h-screen font-sans" ref={containerRef}>
-      <SmoothScroll containerRef={containerRef}>
-        
-        {/* Navigation */}
-        <SmartNavbar>
-          <div className="flex items-center justify-between w-full">
-            <span className="text-xl font-bold tracking-tight">VibeData</span>
-            <div className="hidden md:flex items-center gap-6">
-              <a href="#features" className="text-sm font-medium hover:text-white text-zinc-400 transition-colors">Features</a>
-              <a href="#customers" className="text-sm font-medium hover:text-white text-zinc-400 transition-colors">Customers</a>
-              <a href="#pricing" className="text-sm font-medium hover:text-white text-zinc-400 transition-colors">Pricing</a>
-            </div>
-          </div>
-        </SmartNavbar>
-        
-        {/* Notification Bell (Absolute top right) */}
-        <div className="fixed top-4 right-4 md:top-6 md:right-8 z-50 mix-blend-difference hidden md:block">
-          <NotificationCenter 
-            notifications={[
-              { id: "1", title: "New Feature", description: "Bento Grids are now available in your dashboard.", time: "2m ago", unread: true },
-              { id: "2", title: "System Update", description: "Maintenance scheduled for tonight at 2AM UTC.", time: "1h ago", unread: false },
-            ]}
-          />
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground overflow-hidden">
+      
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 h-16 border-b border-border/40 bg-background/50 backdrop-blur-md z-50 flex items-center justify-between px-6 md:px-12">
+        <div className="font-black text-xl tracking-tighter flex items-center gap-2">
+          <div className="w-6 h-6 rounded-md bg-gradient-to-br from-primary to-purple-600" />
+          KINETIC<span className="text-muted-foreground font-normal">SaaS</span>
         </div>
+        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-muted-foreground">
+          <a href="#" className="hover:text-foreground transition-colors">Features</a>
+          <a href="#" className="hover:text-foreground transition-colors">Testimonials</a>
+          <a href="#" className="hover:text-foreground transition-colors">Pricing</a>
+        </div>
+        <div className="flex items-center gap-4">
+          <button className="text-sm font-medium hover:text-primary transition-colors">Log in</button>
+          <button className="px-4 py-2 bg-foreground text-background text-sm font-bold rounded-full hover:scale-105 transition-transform">
+            Sign Up
+          </button>
+        </div>
+      </nav>
 
-        {/* Hero Section */}
-        <section className="relative min-h-[90vh] w-full flex flex-col items-center justify-center pt-20 overflow-hidden">
-          {/* Background Fluid */}
-          <div className="absolute inset-0 z-0 opacity-40">
-            <InteractiveFluid />
+      {/* Hero Section */}
+      <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-20">
+        <RetroGrid className="opacity-50" />
+        
+        <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto">
+          <div className="px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm font-medium mb-8 backdrop-blur-md flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            Introducing Kinetic UI v2.0
           </div>
           
-          <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm font-medium mb-8 backdrop-blur-md">
-              <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              VibeData v2.0 is live
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-6">
-              Data analytics that <br/>
-              <AnimatedGradientText className="from-indigo-400 via-purple-400 to-pink-400">
-                actually make sense
-              </AnimatedGradientText>
-            </h1>
-            
-            <p className="text-lg md:text-xl text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Connect your databases in seconds and visualize billions of rows in real-time. Built for modern teams who need answers, not complex SQL queries.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <MagneticButton className="px-8 py-4 bg-white text-black rounded-xl font-semibold hover:bg-zinc-200 transition-colors flex items-center gap-2">
-                Start for free <ArrowRight className="w-5 h-5" />
-              </MagneticButton>
-              <button className="px-8 py-4 bg-white/5 text-white border border-white/10 rounded-xl font-semibold hover:bg-white/10 transition-colors">
-                Book a demo
-              </button>
-            </div>
+          <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-[1.1]">
+            Build landing pages <br/>
+            with <SparklesText text="pure magic" className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600" />.
+          </h1>
+          
+          <p className="mt-6 text-xl text-muted-foreground max-w-2xl leading-relaxed">
+            Stop wasting time writing standard UI components. Copy, paste, and ship world-class creative experiences in minutes, not months.
+          </p>
+          
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 items-center">
+            <ConfettiButton className="px-8 py-4 text-lg">
+              Start Building Free
+            </ConfettiButton>
+            <button className="px-8 py-4 text-lg font-bold rounded-full border border-border bg-background/50 backdrop-blur-sm hover:bg-muted transition-colors">
+              Book a Demo
+            </button>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Logo Cloud */}
-        <section id="customers" className="py-20 border-t border-white/5 bg-black">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <p className="text-sm font-semibold text-zinc-500 uppercase tracking-widest mb-10">
-              Trusted by innovative teams worldwide
-            </p>
-            <ClientLogoGrid logos={LOGOS_DATA} />
-          </div>
-        </section>
-
-        {/* Stats Section */}
-        <section className="py-24 bg-zinc-950">
-          <StatsSection stats={STATS_DATA} layout="grid" className="max-w-7xl mx-auto px-6" />
-        </section>
-
-        {/* Features Bento Grid */}
-        <section id="features" className="py-32 bg-black border-t border-white/5">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-20 max-w-2xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">Everything you need, nothing you don't.</h2>
-              <p className="text-zinc-400 text-lg">We stripped away the clutter of legacy BI tools and built a lightning-fast experience.</p>
+      {/* Social Proof */}
+      <section className="py-12 border-y border-border/40 bg-muted/20">
+        <p className="text-center text-sm font-semibold text-muted-foreground mb-8 uppercase tracking-widest">
+          Trusted by the best teams worldwide
+        </p>
+        <InfiniteMarquee speed="normal" pauseOnHover>
+          {LOGOS.map((logo, i) => (
+            <div key={i} className="px-8 font-black text-2xl text-foreground/20 hover:text-foreground/80 transition-colors cursor-default select-none">
+              {logo.toUpperCase()}
             </div>
-            
-            <BentoGrid className="max-w-6xl mx-auto">
-              {/* Large item */}
-              <div className="md:col-span-2 md:row-span-2">
-                <SpotlightCard className="h-full p-8 flex flex-col justify-between">
-                  <div>
-                    <div className="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center mb-6">
-                      <Zap className="w-6 h-6 text-indigo-400" />
-                    </div>
-                    <h3 className="text-2xl font-bold mb-3">Real-time Sync</h3>
-                    <p className="text-zinc-400 leading-relaxed">
-                      Your data updates in milliseconds. No more waiting for nightly batch jobs or complex ETL pipelines. Connect Postgres, MySQL, or MongoDB in two clicks.
-                    </p>
-                  </div>
-                  <div className="mt-8 h-40 rounded-xl bg-zinc-900 border border-white/5 flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 opacity-50" />
-                    <BarChart3 className="w-16 h-16 text-indigo-500/50" />
-                  </div>
-                </SpotlightCard>
-              </div>
-              
-              {/* Small items */}
-              <div>
-                <SpotlightCard className="h-full p-8">
-                  <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-6">
-                    <Shield className="w-6 h-6 text-emerald-400" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">Enterprise Security</h3>
-                  <p className="text-zinc-400 text-sm leading-relaxed">
-                    SOC2 Type II certified. Your data never leaves your VPC. End-to-end encryption by default.
-                  </p>
-                </SpotlightCard>
-              </div>
-              
-              <div>
-                <SpotlightCard className="h-full p-8">
-                  <div className="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center mb-6">
-                    <Cloud className="w-6 h-6 text-pink-400" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">Cloud Native</h3>
-                  <p className="text-zinc-400 text-sm leading-relaxed">
-                    Built for the modern edge. Deploys seamlessly across AWS, GCP, and Azure with zero config.
-                  </p>
-                </SpotlightCard>
-              </div>
-            </BentoGrid>
-          </div>
-        </section>
+          ))}
+        </InfiniteMarquee>
+      </section>
 
-        {/* Pricing Comparison */}
-        <section id="pricing" className="py-32 bg-zinc-950 border-t border-white/5">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-20 max-w-2xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">Simple, transparent pricing.</h2>
-              <p className="text-zinc-400 text-lg">No hidden fees. No surprise overages. Just honest pricing that scales with you.</p>
-            </div>
-            
-            <ComparisonTable plans={PLANS_DATA} features={FEATURES_DATA} />
-          </div>
-        </section>
+      {/* Features (Bento Grid) */}
+      <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
+        <div className="text-center mb-20">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Everything you need to scale</h2>
+          <p className="text-muted-foreground mt-4 text-lg">A complete toolkit for modern creative developers.</p>
+        </div>
 
-        {/* Footer */}
-        <footer className="py-12 border-t border-white/5 bg-black text-center text-zinc-500 text-sm">
-          <p>© {new Date().getFullYear()} VibeData Inc. All rights reserved.</p>
-        </footer>
+        <BentoGrid className="max-w-5xl mx-auto">
+          <BentoCard 
+            name="Blazing Fast Performance"
+            description="Hardware accelerated CSS animations that never drop a frame."
+            Icon={Zap}
+            href="#"
+            cta="Learn more"
+            background={<div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent" />}
+            className="md:col-span-2 md:row-span-2"
+          />
+          <BentoCard 
+            name="Global Edge Network"
+            description="Deploy your sites to 150+ edge nodes instantly."
+            Icon={Globe}
+            href="#"
+            cta="View map"
+            background={<div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent" />}
+          />
+          <BentoCard 
+            name="Bank-grade Security"
+            description="SOC2 compliant infrastructure out of the box."
+            Icon={Shield}
+            href="#"
+            cta="Read docs"
+            background={<div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent" />}
+          />
+          <BentoCard 
+            name="Serverless Compute"
+            description="Run heavy workloads instantly."
+            Icon={Cpu}
+            href="#"
+            cta="Compute"
+            background={<div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent" />}
+          />
+        </BentoGrid>
+      </section>
 
-        {/* Trust/Compliance */}
-        <CookieConsent variant="modal" />
-        
-      </SmoothScroll>
+      {/* Footer */}
+      <footer className="border-t border-border/40 py-12 text-center text-muted-foreground">
+        <p>© 2026 Kinetic UI. Built with cursor and next.js.</p>
+      </footer>
+
     </div>
   );
 }

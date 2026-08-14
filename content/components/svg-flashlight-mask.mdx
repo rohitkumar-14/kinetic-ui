@@ -1,0 +1,22 @@
+---
+title: "SVG Flashlight Mask"
+description: "A dual-layer component that uses a dynamic SVG/CSS radial gradient mask to reveal hidden content underneath your cursor."
+category: "Media"
+---
+
+<ComponentPreview 
+  name="SVG Flashlight Mask"
+  componentName="SvgFlashlightMask"
+  sourceFile="components/creative/svg-flashlight-mask.tsx"
+>
+  <SvgFlashlightMaskDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add svg-flashlight-mask
+```
+
+## How It Works
+The `SvgFlashlightMask` allows you to stack two completely different React layouts on top of one another. The top layout (the `revealChildren`) is completely clipped out of existence using the `maskImage` CSS property. By feeding the X and Y coordinates of your cursor from `framer-motion` into a `radial-gradient` mask via CSS custom variables (`--x` and `--y`), it creates a "hole" in the clipping mask, causing the top layer to peek through precisely where your mouse is pointing, acting like a flashlight in the dark.

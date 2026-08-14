@@ -1,0 +1,25 @@
+---
+title: "Magnetic Text"
+description: "Text where each letter is magnetically pulled towards the cursor."
+category: "Text Effects"
+---
+
+<ComponentPreview 
+  name="Magnetic Text"
+  componentName="MagneticText"
+  sourceFile="components/creative/magnetic-text.tsx"
+>
+  <MagneticTextDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add magnetic-text
+```
+
+## How It Works
+
+This component uses Framer Motion's `useMotionValue` and `useSpring` hooks to track the cursor's position across the parent container.
+
+We split the string into individual characters and render them as separate `motion.span` elements. By applying a slight modulus variance `(index % 3) * 50` to the `stiffness` parameter of each character's spring physics, we ensure they pull towards the mouse at slightly different speeds. This results in a dynamic, organic elastic stretching effect rather than a rigid block movement.

@@ -1,0 +1,27 @@
+---
+title: "Gooey Cursor"
+description: "A liquid blob cursor effect powered by SVG filters and Framer Motion."
+category: "SVG Animations"
+---
+
+<ComponentPreview 
+  name="Gooey Cursor"
+  componentName="GooeyCursor"
+  sourceFile="components/creative/gooey-cursor.tsx"
+>
+  <GooeyCursorDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add gooey-cursor
+```
+
+## Anatomy
+
+This effect relies on a fundamental SVG filter technique:
+1. `feGaussianBlur`: First, we blur multiple circular `div`s so their edges overlap.
+2. `feColorMatrix`: Then, we sharply increase the alpha contrast to solidify the blurred intersections into a gooey liquid bridge.
+
+We use Framer Motion's `useSpring` with varying levels of `stiffness` and `damping` for each blob to create a natural delayed trailing effect.

@@ -1,0 +1,27 @@
+---
+title: "Pixel Dissolve Transition"
+description: "Transition by breaking the screen into a chunky grid that dissolves in a scattered pattern."
+category: "Page Transitions"
+---
+
+<ComponentPreview 
+  name="Pixel Dissolve Transition"
+  componentName="PixelDissolveTransition"
+  sourceFile="components/creative/pixel-dissolve-transition.tsx"
+>
+  <PixelDissolveTransitionDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add pixel-dissolve-transition
+```
+
+## How It Works
+
+This component generates an absolute-positioned CSS Grid overlay matching the dimensions of the screen. Inside the grid, we render an array of square `<motion.div>` "pixels".
+
+When triggered, we animate the scale and opacity of these pixels. By pre-calculating a randomized array of stagger delays (`Math.random()`), each block animates at a slightly different time. 
+
+Once the blocks have fully covered the screen (creating a solid color), we instantly swap the underlying page content, and then the blocks reverse their animation to scatter away.

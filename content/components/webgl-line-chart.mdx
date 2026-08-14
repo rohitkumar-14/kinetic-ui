@@ -1,0 +1,62 @@
+---
+title: WebGL Line Chart
+description: A glowing neon line chart built in React Three Fiber. Data is rendered as a 3D glowing tube with particle emissions.
+category: Data Visualization
+subcategory: Charts
+date: 2026-08-08
+---
+
+<ComponentPreview 
+  name="WebGL Line Chart" 
+  componentName="WebGLLineChart"
+  sourceFile="components/creative/webgl-line-chart.tsx"
+>
+  <WebGLLineChartDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="webgl-line-chart" />
+
+## Usage
+
+This chart uses \`@react-three/fiber\` and \`@react-three/drei\` to draw a 3D line in space, providing a highly immersive alternative to standard 2D SVG charts.
+
+```tsx
+import { WebGLLineChart } from "@/components/creative/webgl-line-chart";
+
+export function Dashboard() {
+  const data = [10, 20, 15, 30, 25, 40, 50, 45, 60];
+
+  return (
+    <div className="w-full">
+      <WebGLLineChart data={data} color="#10b981" />
+    </div>
+  );
+}
+```
+
+## Props
+
+<PropsTable 
+  props={[
+    {
+      name: "data",
+      type: "number[]",
+      description: "Array of numerical data points to plot.",
+      default: "[]"
+    },
+    {
+      name: "color",
+      type: "string",
+      description: "Hex color for the neon line and particles.",
+      default: "'#8b5cf6'"
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Additional CSS classes for the chart container.",
+      default: "undefined"
+    }
+  ]}
+/>

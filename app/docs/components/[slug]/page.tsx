@@ -68,7 +68,7 @@ import { FloatingFormDemo } from '@/components/creative/docs/floating-form-demo'
 
 import { MorphTransition } from '@/components/creative/morph-transition';
 import { Testimonials } from '@/components/creative/testimonials';
-import { InfiniteMarqueeDemo } from '@/components/creative/docs/infinite-marquee-demo';
+
 import { PricingCards } from '@/components/creative/pricing-cards';
 import { PricingCardsDemo } from '@/components/creative/docs/pricing-cards-demo';
 import { FeatureSection } from '@/components/creative/feature-section';
@@ -137,6 +137,51 @@ import { MagneticGalleryDemo } from '@/components/creative/docs/magnetic-gallery
 import { AudioVisualizer } from '@/components/creative/audio-visualizer';
 import { AudioVisualizerDemo } from '@/components/creative/docs/audio-visualizer-demo';
 import { AccordionDemo } from '@/components/creative/docs/accordion-demo';
+import ParallaxSliderDemo from '@/components/creative/docs/parallax-slider-demo';
+import CoverflowSliderDemo from '@/components/creative/docs/coverflow-slider-demo';
+import InfiniteCircularSliderDemo from '@/components/creative/docs/infinite-circular-slider-demo';
+import SvgPathTracingDemo from '@/components/creative/docs/svg-path-tracing-demo';
+import MorphingDividerDemo from '@/components/creative/docs/morphing-divider-demo';
+import GooeyCursorDemo from '@/components/creative/docs/gooey-cursor-demo';
+import IsometricGridDemo from '@/components/creative/docs/isometric-grid-demo';
+import InfinitePanningGridDemo from '@/components/creative/docs/infinite-panning-grid-demo';
+import StaggeredMasonryDemo from '@/components/creative/docs/staggered-masonry-demo';
+import LiquidCurtainTransitionDemo from '@/components/creative/docs/liquid-curtain-transition-demo';
+import ZoomToFillTransitionDemo from '@/components/creative/docs/zoom-to-fill-transition-demo';
+import PixelDissolveTransitionDemo from '@/components/creative/docs/pixel-dissolve-transition-demo';
+import PortalScrollDemo from '@/components/creative/docs/portal-scroll-demo';
+import WebGLRibbonBgDemo from '@/components/creative/docs/webgl-ribbon-bg-demo';
+import InfiniteMarqueeDemo from "@/components/creative/docs/infinite-marquee-demo";
+import BeforeAfterSliderDemo from "@/components/creative/docs/before-after-slider-demo";
+import RetroGridDemo from "@/components/creative/docs/retro-grid-demo";
+import SparklesTextDemo from "@/components/creative/docs/sparkles-text-demo";
+import ConfettiButtonDemo from "@/components/creative/docs/confetti-button-demo";
+import LiquidGlassNavDemo from "@/components/creative/docs/liquid-glass-nav-demo";
+import HologramDisplayDemo from "@/components/creative/docs/hologram-display-demo";
+import TextShatterDemo from '@/components/creative/docs/text-shatter-demo';
+import ConferenceTicketDemo from '@/components/creative/docs/conference-ticket-demo';
+import MagneticTextDemo from '@/components/creative/docs/magnetic-text-demo';
+import DisplacementHoverDemo from '@/components/creative/docs/displacement-hover-demo';
+import MagneticTooltipDemo from '@/components/creative/docs/magnetic-tooltip-demo';
+import AIGenerativeInputDemo from '@/components/creative/docs/ai-generative-input-demo';
+import MorphingStateButtonDemo from '@/components/creative/docs/morphing-state-button-demo';
+import CinematicTextRevealDemo from '@/components/creative/docs/cinematic-text-reveal-demo';
+import ElasticGooeyMenuDemo from '@/components/creative/docs/elastic-gooey-menu-demo';
+import VisionGlassDockDemo from '@/components/creative/docs/vision-glass-dock-demo';
+import FluidCursorTrailDemo from '@/components/creative/docs/fluid-cursor-trail-demo';
+import SoftBodyJellyDemo from '@/components/creative/docs/soft-body-jelly-demo';
+import GenerativeAiShimmerDemo from '@/components/creative/docs/generative-ai-shimmer-demo';
+import ThreeDCardPeelDemo from '@/components/creative/docs/3d-card-peel-demo';
+import GenerativeAudioBtnDemo from '@/components/creative/docs/generative-audio-btn-demo';
+import MagneticRepulsionTextDemo from '@/components/creative/docs/magnetic-repulsion-text-demo';
+import CssDeviceMockupDemo from '@/components/creative/docs/css-device-mockup-demo';
+import PluckableStringDemo from '@/components/creative/docs/pluckable-string-demo';
+import MultiStepIslandDemo from '@/components/creative/docs/multi-step-island-demo';
+import SvgPathDrawDemo from '@/components/creative/docs/svg-path-draw-demo';
+import SvgGooeyFilterDemo from '@/components/creative/docs/svg-gooey-filter-demo';
+import SvgShapeMorphDemo from '@/components/creative/docs/svg-shape-morph-demo';
+import SvgFlashlightMaskDemo from '@/components/creative/docs/svg-flashlight-mask-demo';
+import SvgIsometricGridDemo from '@/components/creative/docs/svg-isometric-grid-demo';
 import { AlertDemo } from '@/components/creative/docs/alert-demo';
 import { BadgeDemo } from '@/components/creative/docs/badge-demo';
 import { TabsDemo } from '@/components/creative/docs/tabs-demo';
@@ -242,7 +287,7 @@ import { DragReorderDemo } from '@/components/creative/docs/drag-reorder-demo';
 import { TypewriterDemo } from '@/components/creative/docs/typewriter-demo';
 import { AnimatedGradientTextDemo } from '@/components/creative/docs/animated-gradient-text-demo';
 import { StaggeredTextDemo } from '@/components/creative/docs/staggered-text-demo';
-import { BeforeAfterSliderDemo } from '@/components/creative/docs/before-after-slider-demo';
+
 import { GalleryLightboxDemo } from '@/components/creative/docs/gallery-lightbox-demo';
 import { ImageRevealDemo } from '@/components/creative/docs/image-reveal-demo';
 import { DraggableCarouselDemo } from '@/components/creative/docs/draggable-carousel-demo';
@@ -292,6 +337,11 @@ import { TypingCodeStreamDemo } from '@/components/creative/docs/typing-code-str
 import { AiVoiceVisualizerDemo } from '@/components/creative/docs/ai-voice-visualizer-demo';
 import { InteractiveGridNoiseDemo } from '@/components/creative/docs/interactive-grid-noise-demo';
 import { ConstellationNetworkDemo } from '@/components/creative/docs/constellation-network-demo';
+import { AppleStyleScrollytellingDemo } from '@/components/creative/docs/apple-style-scrollytelling-demo';
+import { PhysicsAuthFormDemo } from '@/components/creative/docs/physics-auth-form-demo';
+import { WebGLLineChartDemo } from '@/components/creative/docs/webgl-line-chart-demo';
+import { ThreeDAddToCartButtonDemo } from '@/components/creative/docs/3d-add-to-cart-button-demo';
+import { DiffusionImageRevealDemo } from '@/components/creative/docs/diffusion-image-reveal-demo';
 
 // Define the custom components we want to use inside our MDX files
 const mdxComponents = {
@@ -307,6 +357,11 @@ const mdxComponents = {
   AiVoiceVisualizerDemo,
   InteractiveGridNoiseDemo,
   ConstellationNetworkDemo,
+  AppleStyleScrollytellingDemo,
+  PhysicsAuthFormDemo,
+  WebGLLineChartDemo,
+  ThreeDAddToCartButtonDemo,
+  DiffusionImageRevealDemo,
   HeroGlobe3DDemo,
   ParticleExplosionButtonDemo,
   SpotlightBorderCardDemo,
@@ -569,6 +624,19 @@ const mdxComponents = {
   FileUploadDemo,
   MultiSelect,
   MultiSelectDemo,
+  ParallaxSliderDemo,
+  CoverflowSliderDemo,
+  InfiniteCircularSliderDemo,
+  SvgPathTracingDemo,
+  MorphingDividerDemo,
+  GooeyCursorDemo,
+  IsometricGridDemo,
+  InfinitePanningGridDemo,
+  StaggeredMasonryDemo,
+  LiquidCurtainTransitionDemo,
+  ZoomToFillTransitionDemo,
+  PixelDissolveTransitionDemo,
+  MagneticTextDemo,
   ChartContainer,
   ChartTooltipContent,
   BarChart,
@@ -653,6 +721,38 @@ export default async function ComponentPage(props: { params: Promise<{ slug: str
   }
 
   const customMdxComponents = {
+    PortalScrollDemo: PortalScrollDemo,
+    WebGLRibbonBgDemo: WebGLRibbonBgDemo,
+    DisplacementHoverDemo: DisplacementHoverDemo,
+    MagneticTooltipDemo: MagneticTooltipDemo,
+    AIGenerativeInputDemo: AIGenerativeInputDemo,
+    MorphingStateButtonDemo: MorphingStateButtonDemo,
+    CinematicTextRevealDemo: CinematicTextRevealDemo,
+    ElasticGooeyMenuDemo: ElasticGooeyMenuDemo,
+    VisionGlassDockDemo: VisionGlassDockDemo,
+    FluidCursorTrailDemo: FluidCursorTrailDemo,
+    SoftBodyJellyDemo: SoftBodyJellyDemo,
+    GenerativeAiShimmerDemo: GenerativeAiShimmerDemo,
+    ThreeDCardPeelDemo: ThreeDCardPeelDemo,
+    GenerativeAudioBtnDemo: GenerativeAudioBtnDemo,
+    MagneticRepulsionTextDemo: MagneticRepulsionTextDemo,
+    CssDeviceMockupDemo: CssDeviceMockupDemo,
+    PluckableStringDemo: PluckableStringDemo,
+    MultiStepIslandDemo: MultiStepIslandDemo,
+    SvgPathDrawDemo: SvgPathDrawDemo,
+    SvgGooeyFilterDemo: SvgGooeyFilterDemo,
+    SvgShapeMorphDemo: SvgShapeMorphDemo,
+    SvgFlashlightMaskDemo: SvgFlashlightMaskDemo,
+    SvgIsometricGridDemo: SvgIsometricGridDemo,
+    TextShatterDemo: TextShatterDemo,
+    ConferenceTicketDemo: ConferenceTicketDemo,
+    InfiniteMarqueeDemo: InfiniteMarqueeDemo,
+    BeforeAfterSliderDemo: BeforeAfterSliderDemo,
+    RetroGridDemo: RetroGridDemo,
+    SparklesTextDemo: SparklesTextDemo,
+    ConfettiButtonDemo: ConfettiButtonDemo,
+    LiquidGlassNavDemo: LiquidGlassNavDemo,
+    HologramDisplayDemo: HologramDisplayDemo,
     ...mdxComponents,
     ComponentPreview: (previewProps: any) => {
       const code = previewProps.code || doc.code;

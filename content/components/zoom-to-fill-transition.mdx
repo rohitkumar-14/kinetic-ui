@@ -1,0 +1,27 @@
+---
+title: "Zoom to Fill Transition"
+description: "Expands a thumbnail seamlessly using layoutId."
+category: "Page Transitions"
+---
+
+<ComponentPreview 
+  name="Zoom to Fill Transition"
+  componentName="ZoomToFillTransition"
+  sourceFile="components/creative/zoom-to-fill-transition.tsx"
+>
+  <ZoomToFillTransitionDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add zoom-to-fill-transition
+```
+
+## Anatomy
+
+This component relies entirely on the magic of Framer Motion's `layoutId` prop. 
+
+By applying the same `layoutId` string to two entirely different elements in the React tree (in this case, the small thumbnail div and the large full-screen modal div), Framer Motion automatically calculates the bounding boxes of both and animates the scale, position, and border-radius smoothly between them.
+
+The transition seamlessly handles swapping out the child contents, allowing an image to stretch into a hero banner while text fades in underneath.

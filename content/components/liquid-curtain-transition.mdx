@@ -1,0 +1,25 @@
+---
+title: "Liquid Curtain Transition"
+description: "An SVG path that animates a liquid curtain dropping to mask content."
+category: "Page Transitions"
+---
+
+<ComponentPreview 
+  name="Liquid Curtain Transition"
+  componentName="LiquidCurtainTransition"
+  sourceFile="components/creative/liquid-curtain-transition.tsx"
+>
+  <LiquidCurtainTransitionDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add liquid-curtain-transition
+```
+
+## How It Works
+
+This component uses Framer Motion to interpolate the `d` attribute of an SVG `<path>`. The path morphs from a flat line at the top of the screen into a curved quadratic Bezier shape (`Q` command), creating a fluid "liquid" curtain that sweeps downward to mask the current content.
+
+Once the screen is fully masked by a solid SVG rectangle, the new content is swapped in beneath it. The curtain then continues its sweep downward, morphing back into a curve before disappearing off the bottom of the screen.

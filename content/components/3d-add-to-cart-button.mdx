@@ -1,0 +1,73 @@
+---
+title: 3D Add-To-Cart Button
+description: A micro-interaction where clicking "Add to Cart" spawns a 3D physical object that flies across the screen into a cart icon.
+category: E-Commerce
+subcategory: Buttons
+date: 2026-08-08
+---
+
+<ComponentPreview 
+  name="3D Add-To-Cart Button" 
+  componentName="ThreeDAddToCartButton"
+  sourceFile="components/creative/3d-add-to-cart-button.tsx"
+  playgroundControls={[
+    {
+      name: "productColor",
+      label: "Product Color",
+      type: "string",
+      default: "#6366f1"
+    }
+  ]}
+>
+  <ThreeDAddToCartButtonDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="3d-add-to-cart-button" />
+
+## Usage
+
+This button elevates standard e-commerce interactions. When clicked, it uses \`framer-motion\` to physically throw a representation of the product directly into the user's cart at the top right of the screen.
+
+```tsx
+import { ThreeDAddToCartButton } from "@/components/creative/3d-add-to-cart-button";
+
+export function ProductPage() {
+  const handleAdd = () => {
+    // Fire your cart state update
+    console.log("Item added!");
+  };
+
+  return (
+    <div className="w-full flex justify-center py-10">
+      <ThreeDAddToCartButton onClick={handleAdd} productColor="#3b82f6" />
+    </div>
+  );
+}
+```
+
+## Props
+
+<PropsTable 
+  props={[
+    {
+      name: "className",
+      type: "string",
+      description: "Additional CSS classes for the button.",
+      default: "undefined"
+    },
+    {
+      name: "onClick",
+      type: "() => void",
+      description: "Callback function triggered when the button is clicked.",
+      default: "undefined"
+    },
+    {
+      name: "productColor",
+      type: "string",
+      description: "The hex color of the 3D flying object.",
+      default: "'#6366f1'"
+    }
+  ]}
+/>

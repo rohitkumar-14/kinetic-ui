@@ -1,0 +1,22 @@
+---
+title: "3D Card Peeling"
+description: "An interactive card that can be grabbed and peeled off its background layer using advanced 3D transforms."
+category: "Cards"
+---
+
+<ComponentPreview 
+  name="3D Card Peeling"
+  componentName="ThreeDCardPeel"
+  sourceFile="components/creative/3d-card-peel.tsx"
+>
+  <ThreeDCardPeelDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add 3d-card-peel
+```
+
+## How It Works
+The `ThreeDCardPeel` component uses advanced CSS 3D transforms (`preserve-3d`, `perspective`, `rotateX`, `rotateY`) combined with `framer-motion`'s `whileHover` spring physics. It layers two separate DIVs (a foreground and a background). When hovered, the foreground dynamically alters its `origin-top-right` rotation to peel away from the container, while injecting a glossy linear-gradient overlay to simulate the lighting change on the sticker's surface.

@@ -1,0 +1,29 @@
+---
+title: "Text Shatter Physics"
+description: "Interactive typography that physically shatters and drops when clicked, before magically reassembling."
+category: "Physics Effects"
+---
+
+<ComponentPreview 
+  name="Text Shatter Physics"
+  componentName="TextShatter"
+  sourceFile="components/creative/text-shatter.tsx"
+>
+  <TextShatterDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npm install matter-js framer-motion
+npm install --save-dev @types/matter-js
+npx kinetic-ui-cli@latest add text-shatter
+```
+
+## How It Works
+
+We split the string into individual character `<span>` elements. When the user interacts with the container, we map the DOM coordinates of each character to a new `Matter.js` rigid body.
+
+An explosive force is applied from the center outwards, sending the letters flying and bouncing against the walls of the invisible physics engine boundaries. 
+
+Because React prefers to control the DOM, we listen to the Matter.js `afterUpdate` event and manually update the `transform: translate()` of each DOM node to match the physics simulation. Clicking again destroys the engine and uses CSS transitions to seamlessly snap the letters back into their original places.

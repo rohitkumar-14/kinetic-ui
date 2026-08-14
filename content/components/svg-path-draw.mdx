@@ -1,0 +1,22 @@
+---
+title: "SVG Path Draw"
+description: "An animated SVG path tracing component that automatically plays when scrolled into view."
+category: "Media"
+---
+
+<ComponentPreview 
+  name="SVG Path Draw"
+  componentName="SvgPathDraw"
+  sourceFile="components/creative/svg-path-draw.tsx"
+>
+  <SvgPathDrawDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add svg-path-draw
+```
+
+## How It Works
+The `SvgPathDraw` component leverages `framer-motion`'s ability to natively animate SVG attributes. Specifically, it manipulates the `stroke-dasharray` and `stroke-dashoffset` CSS properties behind the scenes via the `pathLength` motion value. We wrap the container in a `useInView` hook with a negative margin so that the drawing animation triggers precisely when the component enters the user's viewport, making it perfect for hero sections or storytelling graphics.

@@ -1,0 +1,22 @@
+---
+title: "Displacement Hover"
+description: "A WebGL-style fluid displacement transition between two images on hover, built purely with performant SVG filters."
+category: "Image Effects"
+---
+
+<ComponentPreview 
+  name="Displacement Hover"
+  componentName="DisplacementHover"
+  sourceFile="components/creative/displacement-hover.tsx"
+>
+  <DisplacementHoverDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add displacement-hover
+```
+
+## How It Works
+Instead of using heavy canvas or Three.js dependencies, the `DisplacementHover` component uses a powerful SVG `<feDisplacementMap>` coupled with `<feTurbulence>`. By animating the `scale` property of the displacement map via React state, it creates a true physics-based liquid distortion effect that seamlessly morphs between two images.

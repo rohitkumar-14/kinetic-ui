@@ -1,0 +1,22 @@
+---
+title: "Soft Body Jelly"
+description: "A drag-and-drop component that deforms and jiggles using complex SVG path manipulation and physics."
+category: "Interactive"
+---
+
+<ComponentPreview 
+  name="Soft Body Jelly"
+  componentName="SoftBodyJelly"
+  sourceFile="components/creative/soft-body-jelly.tsx"
+>
+  <SoftBodyJellyDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add soft-body-jelly
+```
+
+## How It Works
+Usually, soft-body physics requires heavy WebGL libraries like `matter.js` or `three.js`. This component achieves a gelatinous, soft-body effect natively using purely SVG paths and `framer-motion`. By mapping the drag values (`x` and `y`) into a `useTransform` hook, we mathematically deform the Bezier curve control points (`C`) of a circle on the fly, creating a 0-dependency, high-performance physical reaction.

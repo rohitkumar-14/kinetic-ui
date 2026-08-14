@@ -1,46 +1,22 @@
 ---
-title: Before/After Slider
-description: A drag-to-reveal image comparison component for showing transformations.
+title: "Before & After Slider"
+description: "An interactive, draggable slider to effortlessly compare two overlapping images side by side."
+category: "Media"
 ---
 
 <ComponentPreview 
-  name="before-after-slider"
+  name="Before & After Slider"
   componentName="BeforeAfterSlider"
   sourceFile="components/creative/before-after-slider.tsx"
-  playgroundControls={[
-    {
-      name: "defaultValue",
-      label: "Initial Position (%)",
-      type: "number",
-      default: 50,
-      min: 0,
-      max: 100,
-      step: 1
-    }
-  ]}
 >
   <BeforeAfterSliderDemo />
 </ComponentPreview>
 
-## Overview
-The `BeforeAfterSlider` is an essential component for portfolios in architecture, interior design, photography retouching, and product design. It uses Framer Motion's high-performance `useMotionValue` to bind pointer drag events directly to a CSS `clip-path` mask, ensuring silky smooth, 60fps dragging mechanics on both desktop and touch devices.
+## Installation
 
-## Usage
-
-```tsx
-import { BeforeAfterSlider } from "@/components/creative/before-after-slider"
-
-export default function CaseStudy() {
-  return (
-    <section className="py-20 max-w-5xl mx-auto">
-      <BeforeAfterSlider 
-        beforeImage="/projects/wireframe.jpg"
-        afterImage="/projects/final-design.jpg"
-        beforeLabel="Wireframe"
-        afterLabel="Final Product"
-        className="w-full aspect-video rounded-2xl shadow-2xl"
-      />
-    </section>
-  )
-}
+```bash
+npx kinetic-ui-cli@latest add before-after-slider
 ```
+
+## How It Works
+The `BeforeAfterSlider` relies on a pure CSS `clip-path: inset(...)` to perfectly mask the foreground image. State tracking for mouse and touch events dynamically updates the position of the clip-path mask and the slider handle in real time without lag.

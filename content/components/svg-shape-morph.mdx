@@ -1,0 +1,22 @@
+---
+title: "SVG Shape Morph"
+description: "A component that physically morphs between two SVG paths using vector interpolation."
+category: "Media"
+---
+
+<ComponentPreview 
+  name="SVG Shape Morph"
+  componentName="SvgShapeMorph"
+  sourceFile="components/creative/svg-shape-morph.tsx"
+>
+  <SvgShapeMorphDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add svg-shape-morph
+```
+
+## How It Works
+Morphing SVGs is notoriously tricky because you usually have to interpolate between two drastically different mathematical paths. The `SvgShapeMorph` component utilizes `framer-motion`'s native SVG path interpolation. By ensuring that `pathA` and `pathB` possess the exact same structure (the same number of `M` and `L` plotting commands), Framer Motion is able to Tween between the point coordinates flawlessly, allowing a "Play" icon to organically reshape into a "Pause" icon.

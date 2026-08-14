@@ -1,0 +1,29 @@
+---
+title: "Staggered Masonry"
+description: "A masonry grid where scrolling into view triggers a staggered nested animation."
+category: "Advanced Grids"
+---
+
+<ComponentPreview 
+  name="Staggered Masonry"
+  componentName="StaggeredMasonry"
+  sourceFile="components/creative/staggered-masonry.tsx"
+>
+  <StaggeredMasonryDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add staggered-masonry
+```
+
+## Anatomy
+
+This component uses Framer Motion's `useInView` hook attached to the parent container. Once the container scrolls into view, it triggers a `visible` variant state.
+
+Using `staggerChildren: 0.1` on the parent container's variant, we automatically stagger the entrance animation of each grid item. 
+
+Each individual grid item actually consists of two nested animations:
+1. **The Wrapper**: Slides up and reveals itself using `clipPath: inset()`.
+2. **The Inner Image**: Scales down from `1.2` to `1` slightly slower than the wrapper, creating an elegant parallax entrance effect.

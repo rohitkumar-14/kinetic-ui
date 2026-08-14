@@ -1,0 +1,22 @@
+---
+title: "Multi-Step Island"
+description: "A dynamic pill button that uses layout animations to seamlessly morph into a complex, multi-step modal container."
+category: "Modals"
+---
+
+<ComponentPreview 
+  name="Multi-Step Island"
+  componentName="MultiStepIsland"
+  sourceFile="components/creative/multi-step-island.tsx"
+>
+  <MultiStepIslandDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add multi-step-island
+```
+
+## How It Works
+Traditional web design uses standard "Popup Dialogs" which abruptly appear in the center of the screen. The `MultiStepIsland` bypasses this by utilizing `framer-motion`'s powerful `layoutId` prop. When the user clicks the pill button, React unmounts the button and mounts the large modal container, but because they share the same `layoutId="island-container"`, Framer Motion intercepts the DOM change and automatically calculates a flawless FLIP (First, Last, Invert, Play) animation to physically stretch and morph the button into the modal.

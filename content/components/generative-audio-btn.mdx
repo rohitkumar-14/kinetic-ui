@@ -1,0 +1,22 @@
+---
+title: "Generative Audio Button"
+description: "A button that synthesizes satisfying physical sound effects in real-time using the Web Audio API."
+category: "Interactive"
+---
+
+<ComponentPreview 
+  name="Generative Audio Button"
+  componentName="GenerativeAudioBtn"
+  sourceFile="components/creative/generative-audio-btn.tsx"
+>
+  <GenerativeAudioBtnDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add generative-audio-btn
+```
+
+## How It Works
+Most UI is completely silent, or relies on `.mp3` files which bloat bundle sizes and can have latency issues. This component leverages the browser's native `AudioContext` API to generate waveforms (sine, sawtooth) mathematically in real-time. By connecting an Oscillator Node to a Gain Node (for volume enveloping) and modulating the frequency across a few milliseconds, we can synthesize crisp, high-tech physical haptic sounds exactly when the pointer presses down and lifts up.

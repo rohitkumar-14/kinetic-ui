@@ -1,0 +1,26 @@
+---
+title: "WebGL Dynamic Ribbon Background"
+description: "A beautifully fluid, wave-like iridescent ribbon background powered by WebGL and custom shaders."
+category: "Background Animations"
+---
+
+<ComponentPreview 
+  name="WebGL Dynamic Ribbon Background"
+  componentName="WebGLRibbonBg"
+  sourceFile="components/creative/webgl-ribbon-bg.tsx"
+>
+  <WebGLRibbonBgDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npm install @react-three/fiber three
+npx kinetic-ui-cli@latest add webgl-ribbon-bg
+```
+
+## How It Works
+
+This component uses `react-three-fiber` to render a high-density `planeGeometry`. We apply a custom `shaderMaterial` that displaces the vertices on the Z-axis using a 3D Simplex noise function mixed with a sine wave to create flowing, organic ribbons.
+
+The fragment shader mixes three distinct colors based on the displaced Z height and time to create an iridescent, glowing specular effect.

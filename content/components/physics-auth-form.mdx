@@ -1,0 +1,58 @@
+---
+title: Physics Auth Form
+description: An interactive authentication form powered by matter.js that drops physical blocks representing password strength as you type.
+category: Forms
+subcategory: Authentication
+date: 2026-08-08
+---
+
+<ComponentPreview 
+  name="Physics Auth Form" 
+  componentName="PhysicsAuthForm"
+  sourceFile="components/creative/physics-auth-form.tsx"
+>
+  <PhysicsAuthFormDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="physics-auth-form" />
+
+## Usage
+
+This form uses \`matter-js\` to create a physical environment that reacts to user input. It is highly engaging and gamifies the process of choosing a strong password.
+
+```tsx
+import { PhysicsAuthForm } from "@/components/creative/physics-auth-form";
+
+export function AuthPage() {
+  const handleLogin = (email: string, pass: string) => {
+    console.log("Authenticating...", email);
+  };
+
+  return (
+    <div className="w-full flex justify-center p-8">
+      <PhysicsAuthForm onLogin={handleLogin} />
+    </div>
+  );
+}
+```
+
+## Props
+
+<PropsTable 
+  props={[
+    {
+      name: "className",
+      type: "string",
+      description: "Additional CSS classes for the form wrapper.",
+      default: "undefined"
+    },
+    {
+      name: "onLogin",
+      type: "(email: string, pass: string) => void",
+      description: "Callback function triggered when the form is submitted.",
+      default: "undefined"
+    }
+  ]}
+/>

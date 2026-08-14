@@ -1,0 +1,18 @@
+---
+title: "Infinite Circular Slider"
+description: "An infinitely rotating 3D Ferris wheel of images powered by Framer Motion."
+---
+
+<ComponentPreview slug="infinite-circular-slider" />
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add infinite-circular-slider
+```
+
+## How It Works
+
+We arrange elements in a 3D circle by calculating the necessary angle and `translateZ` distance for each item based on the total number of images in the array. 
+
+Framer Motion then infinitely rotates the entire container along the Y-axis. The `preserve-3d` CSS property ensures that the children maintain their 3D positions in global space rather than being flattened.

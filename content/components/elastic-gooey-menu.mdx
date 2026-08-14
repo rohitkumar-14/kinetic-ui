@@ -1,0 +1,22 @@
+---
+title: "Elastic Gooey Menu"
+description: "A full-screen navigation menu that pulls open like stretching rubber before snapping into place with a satisfying bounce."
+category: "Navigation"
+---
+
+<ComponentPreview 
+  name="Elastic Gooey Menu"
+  componentName="ElasticGooeyMenu"
+  sourceFile="components/creative/elastic-gooey-menu.tsx"
+>
+  <ElasticGooeyMenuDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add elastic-gooey-menu
+```
+
+## How It Works
+The `ElasticGooeyMenu` utilizes an advanced technique where a standard HTML `<div>` is combined with an SVG `<path>` acting as its leading edge. Using `framer-motion`, we animate the SVG's `d` attribute from a deeply curved bezier curve (`Q` command) into a straight vertical line as the menu slides into view. This creates the optical illusion that the menu is made of stretching rubber.

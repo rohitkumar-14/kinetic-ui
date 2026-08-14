@@ -1,0 +1,22 @@
+---
+title: "Parallax Slider"
+description: "A draggable slider with independent image parallax displacement for added depth."
+---
+
+<ComponentPreview slug="parallax-slider" />
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add parallax-slider
+```
+
+## Anatomy
+
+This component uses Framer Motion's `useScroll` and `useTransform` to map the scroll position of the drag container to the horizontal translation of the inner images.
+
+## Features
+- Native horizontal scroll snapping on mobile.
+- Draggable on desktop using Framer Motion.
+- Individual image parallax displacement.
+- Seamless loop bounds.

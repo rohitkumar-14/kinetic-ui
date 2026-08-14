@@ -1,0 +1,22 @@
+---
+title: "Cinematic Text Reveal"
+description: "A breathtaking text reveal animation where individual characters reconstruct themselves from a 3D perspective using spring physics."
+category: "Text Effects"
+---
+
+<ComponentPreview 
+  name="Cinematic Text Reveal"
+  componentName="CinematicTextReveal"
+  sourceFile="components/creative/cinematic-text-reveal.tsx"
+>
+  <CinematicTextRevealDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add cinematic-text-reveal
+```
+
+## How It Works
+The `CinematicTextReveal` component automatically splits any string into words, and words into individual characters. When the component scrolls into view (`useInView`), it fires a staggered `framer-motion` sequence. Each character animates from an offset `rotateX` and `rotateY` angle in 3D space, dropping in with a satisfying spring bounce to create a highly polished, cinematic introduction.

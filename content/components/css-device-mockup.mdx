@@ -1,0 +1,22 @@
+---
+title: "CSS Device Mockup"
+description: "A fully interactive, 3D rotating smartphone frame built entirely out of CSS and Framer Motion—no WebGL required."
+category: "Media"
+---
+
+<ComponentPreview 
+  name="CSS Device Mockup"
+  componentName="CssDeviceMockup"
+  sourceFile="components/creative/css-device-mockup.tsx"
+>
+  <CssDeviceMockupDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add css-device-mockup
+```
+
+## How It Works
+Traditionally, high-fidelity 3D device mockups require heavy libraries like `three.js`. The `CssDeviceMockup` component bypasses this by stacking layers of CSS `div`s with `translate-z` offsets and `preserve-3d` wrappers. It dynamically tracks the mouse pointer to rotate the entire chassis using `framer-motion` springs. Best of all, because it's just CSS, you can pass standard React children directly into the screen container and they remain fully interactive!

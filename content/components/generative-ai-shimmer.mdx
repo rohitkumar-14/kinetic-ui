@@ -1,0 +1,22 @@
+---
+title: "Generative AI Shimmer"
+description: "A breathtaking text loading state where characters materialize out of glowing, out-of-focus dust."
+category: "Text Effects"
+---
+
+<ComponentPreview 
+  name="Generative AI Shimmer"
+  componentName="GenerativeAiShimmer"
+  sourceFile="components/creative/generative-ai-shimmer.tsx"
+>
+  <GenerativeAiShimmerDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add generative-ai-shimmer
+```
+
+## How It Works
+The `GenerativeAiShimmer` component splits text into words and applies a heavily staggered `framer-motion` animation. The secret to the "materialization" effect is animating the CSS `filter` property from a massive `blur(20px)` down to `0px`, combined with a subtle scale-down and a custom bouncy easing curve. This perfectly simulates the aesthetic of a generative AI engine writing text in real-time.

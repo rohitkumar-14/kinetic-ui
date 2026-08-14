@@ -1,0 +1,22 @@
+---
+title: "SVG Gooey Filter"
+description: "A mathematical SVG filter that causes overlapping DOM elements to stretch, bridge, and merge together like liquid slime."
+category: "Media"
+---
+
+<ComponentPreview 
+  name="SVG Gooey Filter"
+  componentName="SvgGooeyFilter"
+  sourceFile="components/creative/svg-gooey-filter.tsx"
+>
+  <SvgGooeyFilterDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add svg-gooey-filter
+```
+
+## How It Works
+The "Gooey" effect is a classic vector mathematics trick. The `SvgGooeyFilter` component renders an invisible `<svg>` block containing a complex `<filter>`. Inside this filter, it applies an `<feGaussianBlur>` to soften the edges of all child elements. Then, it immediately pipes that blurred output into an `<feColorMatrix>` that drastically increases the contrast of the alpha channel. This math forces the soft, overlapping blurred edges to become sharp again, creating the illusion of a physical liquid bridge snapping between the shapes as they get close to one another!

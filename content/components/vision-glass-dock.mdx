@@ -1,0 +1,22 @@
+---
+title: "Vision OS Glass Dock"
+description: "A mac OS / Vision OS style navigation dock where icons physically magnify when hovered, set against a glassmorphic blurred backdrop."
+category: "Navigation"
+---
+
+<ComponentPreview 
+  name="Vision OS Glass Dock"
+  componentName="VisionGlassDock"
+  sourceFile="components/creative/vision-glass-dock.tsx"
+>
+  <VisionGlassDockDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add vision-glass-dock
+```
+
+## How It Works
+The `VisionGlassDock` uses `framer-motion`'s `useMotionValue` to track the mouse's X coordinate across the entire dock container. For each individual icon, a `useTransform` hook calculates its exact distance to the mouse cursor. Based on this distance, the width and height of the icon are smoothly interpolated, creating that iconic magnification effect without any jitter.

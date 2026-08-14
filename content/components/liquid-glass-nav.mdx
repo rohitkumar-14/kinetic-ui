@@ -1,0 +1,22 @@
+---
+title: "Liquid Glass Navigation"
+description: "A highly advanced gooey navigation bar where the active indicator morphs and splits like liquid droplets."
+category: "Navigation"
+---
+
+<ComponentPreview 
+  name="Liquid Glass Navigation"
+  componentName="LiquidGlassNav"
+  sourceFile="components/creative/liquid-glass-nav.tsx"
+>
+  <LiquidGlassNavDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add liquid-glass-nav
+```
+
+## How It Works
+The `LiquidGlassNav` utilizes an advanced SVG `<filter>` layer (`feGaussianBlur` + `feColorMatrix`) applied directly over a `framer-motion` layout projection. When the active state changes, the layout projection mathematically calculates the distance between the elements, and the SVG filter merges the pixels to create a true physics-based liquid morphing effect.

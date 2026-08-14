@@ -1,6 +1,6 @@
 {
   "name": "kinetic-ui",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "scripts": {
     "dev": "next dev",
     "registry:build": "node scripts/build-registry.js",
@@ -34,7 +34,9 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
     "@tanstack/react-table": "^8.21.3",
+    "@types/canvas-confetti": "^1.9.0",
     "@use-gesture/react": "^10.3.1",
+    "canvas-confetti": "^1.9.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",

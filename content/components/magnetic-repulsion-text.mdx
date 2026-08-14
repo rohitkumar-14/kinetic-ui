@@ -1,0 +1,22 @@
+---
+title: "Magnetic Repulsion Text"
+description: "Interactive typography that physically scatters and runs away from your cursor using collision math and spring physics."
+category: "Text Effects"
+---
+
+<ComponentPreview 
+  name="Magnetic Repulsion Text"
+  componentName="MagneticRepulsionText"
+  sourceFile="components/creative/magnetic-repulsion-text.tsx"
+>
+  <MagneticRepulsionTextDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add magnetic-repulsion-text
+```
+
+## How It Works
+The `MagneticRepulsionText` component breaks a string down into individual letter `<span>`s. It uses a single container-level `onMouseMove` event to track the global cursor coordinates using `framer-motion`'s `useMotionValue` (to prevent massive React re-renders). Each individual letter calculates its own Pythagorean distance to the cursor on every frame. If the cursor breaches the `threshold` radius, an inverse translation force is applied, pushing the letter away. As soon as the cursor leaves, a high-tension spring snaps the letter violently back into place.

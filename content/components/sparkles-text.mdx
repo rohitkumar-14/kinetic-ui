@@ -1,0 +1,22 @@
+---
+title: "Sparkles Text"
+description: "Delightful SVG sparkles that dynamically generate and animate around your text."
+category: "Text Effects"
+---
+
+<ComponentPreview 
+  name="Sparkles Text"
+  componentName="SparklesText"
+  sourceFile="components/creative/sparkles-text.tsx"
+>
+  <SparklesTextDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add sparkles-text
+```
+
+## How It Works
+The `SparklesText` component uses React state and intervals to continuously generate random SVG "star" paths around a bounding box. `framer-motion`'s `AnimatePresence` handles the smooth pop-in and fade-out animations of each sparkle individually.

@@ -1,0 +1,28 @@
+---
+title: "Interactive 3D Conference Ticket"
+description: "A highly detailed, interactive digital pass with holographic foil reflections, barcode, and realistic 3D tilt physics."
+category: "Hover Effects"
+---
+
+<ComponentPreview 
+  name="Interactive 3D Conference Ticket"
+  componentName="ConferenceTicket"
+  sourceFile="components/creative/conference-ticket.tsx"
+>
+  <ConferenceTicketDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npm install framer-motion
+npx kinetic-ui-cli@latest add conference-ticket
+```
+
+## How It Works
+
+This component uses `framer-motion`'s `useMotionValue` and `useSpring` to smoothly track the mouse position. The mouse coordinates are mapped to the `rotateX` and `rotateY` properties to simulate 3D rotation (using CSS `perspective` and `transform-style: preserve-3d`).
+
+The holographic glare is achieved by mapping the same X and Y mouse coordinates to the center points of radial CSS gradients using `useTransform`. These gradients are overlaid using `mix-blend-color-dodge` and `mix-blend-overlay` to dynamically lighten and colorize the ticket base exactly where the light would reflect.
+
+The edge cutouts are created using advanced CSS `mask-image` with radial gradients, allowing the background to show through seamlessly.

@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { usePreviewStore } from '@/hooks/use-preview-store';
-import { Settings2, Monitor, Tablet, Smartphone, Copy, Check, ExternalLink, Sliders, Terminal, FolderGit } from 'lucide-react';
+import { Settings2, Monitor, Tablet, Smartphone, Copy, Check, ExternalLink, Sliders, Terminal, FolderGit, RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { PropsTable, PropDef } from '@/components/docs/props-table';
 
@@ -160,6 +160,7 @@ export function ComponentPreview({
   const [copiedSource, setCopiedSource] = useState(false);
   const [copiedCLI, setCopiedCLI] = useState(false);
   const [activeTab, setActiveTab] = useState<'preview' | 'code' | 'install'>('preview');
+  const [refreshKey, setRefreshKey] = useState(0);
   
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -332,7 +333,7 @@ export function ComponentPreview({
   };
 
   const handleCopyCLI = () => {
-    const cliCommand = `npx @kinetic-ui/cli add ${slug || 'component'}`;
+    const cliCommand = `npx kinetic-ui-cli@latest add ${slug || 'component'}`;
     navigator.clipboard.writeText(cliCommand);
     setCopiedCLI(true);
     setTimeout(() => setCopiedCLI(false), 2000);
@@ -433,13 +434,22 @@ export function ComponentPreview({
             </button>
           )}
 
+          {/* Reload Animation */}
+          <button 
+            onClick={() => setRefreshKey(prev => prev + 1)}
+            className="p-1.5 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+            title="Reload Animation"
+          >
+            <RefreshCw className="h-3.5 w-3.5" />
+          </button>
+
           {/* External Link */}
-          {previewLink && (
+          {(previewLink || slug) && (
             <a 
-              href={previewLink} 
+              href={previewLink || `/preview/${slug}`} 
               target="_blank" 
               rel="noreferrer"
-              title="Expand in new window"
+              title="Open in Full Window"
               className="p-1.5 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
             >
               <ExternalLink className="h-3.5 w-3.5" />
@@ -488,7 +498,7 @@ export function ComponentPreview({
                         />
                       )}
 
-                      <div className={cn(
+                      <div key={refreshKey} className={cn(
                         "p-6",
                         !isResponsiveMode && "md:p-8"
                       )}>
@@ -558,7 +568,7 @@ export function ComponentPreview({
                 </div>
                 <div className="flex items-center justify-between rounded-lg border border-border bg-black/60 px-4 py-3">
                   <code className="font-mono text-xs text-zinc-300">
-                    <span className="text-indigo-400">npx</span> @kinetic-ui/cli add {slug || 'component'}
+                    <span className="text-indigo-400">npx</span> kinetic-ui-cli@latest add {slug || 'component'}
                   </code>
                   <button
                     onClick={handleCopyCLI}

@@ -1,0 +1,22 @@
+---
+title: "Fluid Cursor Trail"
+description: "A lightweight, performant HTML5 canvas fluid/smoke particle simulation that tracks your cursor velocity."
+category: "Cursor Effects"
+---
+
+<ComponentPreview 
+  name="Fluid Cursor Trail"
+  componentName="FluidCursorTrail"
+  sourceFile="components/creative/fluid-cursor-trail.tsx"
+>
+  <FluidCursorTrailDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add fluid-cursor-trail
+```
+
+## How It Works
+Instead of using an incredibly heavy WebGL Navier-Stokes fluid simulation solver (which can kill battery life and framerates), this component achieves a near-identical aesthetic using the native HTML5 Canvas 2D API. It spawns soft-edged radial gradients that inherit cursor momentum. By overlapping these gradients with `globalCompositeOperation = "screen"`, they optically blend together to create the illusion of illuminated smoke.

@@ -1,0 +1,22 @@
+---
+title: "Morphing State Button"
+description: "A button that fluidly morphs its physical shape during async operations, moving from a pill to a circle to a success checkmark."
+category: "Buttons"
+---
+
+<ComponentPreview 
+  name="Morphing State Button"
+  componentName="MorphingStateButton"
+  sourceFile="components/creative/morphing-state-button.tsx"
+>
+  <MorphingStateButtonDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add morphing-state-button
+```
+
+## How It Works
+The `MorphingStateButton` uses `framer-motion`'s magical `layout` prop. Instead of awkwardly swapping CSS classes, the component physically mathematically calculates the difference between its idle pill shape and its loading circular shape, and animates the width, height, and border-radius flawlessly. It also manages its own async state natively.

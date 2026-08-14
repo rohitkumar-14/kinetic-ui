@@ -1,0 +1,22 @@
+---
+title: "AI Generative Input"
+description: "A highly polished prompt interface with expanding states, animated gradient borders, and particle explosions."
+category: "Inputs"
+---
+
+<ComponentPreview 
+  name="AI Generative Input"
+  componentName="AIGenerativeInput"
+  sourceFile="components/creative/ai-generative-input.tsx"
+>
+  <AIGenerativeInputDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add ai-generative-input
+```
+
+## How It Works
+The `AIGenerativeInput` component wraps a standard `<textarea>` in a `framer-motion` layout container to smoothly handle auto-expanding heights. When submitted, it renders an absolute-positioned animated gradient border to simulate "thinking", and utilizes `canvas-confetti` to trigger a subtle micro-interaction explosion at the exact coordinates of the submit button.

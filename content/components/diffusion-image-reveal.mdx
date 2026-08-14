@@ -1,0 +1,57 @@
+---
+title: Diffusion Image Reveal
+description: A WebGL shader component that loads images with an AI-like watercolor diffusion effect instead of a boring blur or skeleton.
+category: Media
+subcategory: Images
+date: 2026-08-08
+---
+
+<ComponentPreview 
+  name="Diffusion Image Reveal" 
+  componentName="DiffusionImageReveal"
+  sourceFile="components/creative/diffusion-image-reveal.tsx"
+>
+  <DiffusionImageRevealDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="diffusion-image-reveal" />
+
+## Usage
+
+This component takes a standard image source and renders it onto a WebGL plane using \`@react-three/fiber\`. It uses an intersection observer to trigger a custom simplex-noise fragment shader when the image scrolls into view.
+
+```tsx
+import { DiffusionImageReveal } from "@/components/creative/diffusion-image-reveal";
+
+export function HeroSection() {
+  return (
+    <div className="w-full">
+      <DiffusionImageReveal 
+        src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop" 
+        className="w-full max-w-lg mx-auto"
+      />
+    </div>
+  );
+}
+```
+
+## Props
+
+<PropsTable 
+  props={[
+    {
+      name: "src",
+      type: "string",
+      description: "The URL of the image to reveal.",
+      default: "undefined"
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Additional CSS classes for the container. Make sure it has a width and height.",
+      default: "undefined"
+    }
+  ]}
+/>

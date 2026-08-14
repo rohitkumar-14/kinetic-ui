@@ -1,0 +1,25 @@
+---
+title: "Morphing Divider"
+description: "An organically morphing SVG wave divider to seamlessly transition between page sections."
+category: "SVG Animations"
+---
+
+<ComponentPreview 
+  name="Morphing Divider"
+  componentName="MorphingDivider"
+  sourceFile="components/creative/morphing-divider.tsx"
+>
+  <MorphingDividerDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add morphing-divider
+```
+
+## How It Works
+
+Instead of a static SVG divider, we supply an array of different SVG `path` data strings that share the same anchor points (e.g., corners are pinned to the bottom left/right). 
+
+We use a simple `setInterval` to cycle through the paths, and Framer Motion handles the complex path tweening/interpolation automatically using the `animate={{ d: currentPath }}` property.

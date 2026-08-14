@@ -1,0 +1,22 @@
+---
+title: "Pluckable String"
+description: "An SVG line that acts like a physical guitar string. Dragging it builds tension, and releasing it triggers a highly underdamped vibration."
+category: "Interactive"
+---
+
+<ComponentPreview 
+  name="Pluckable String"
+  componentName="PluckableString"
+  sourceFile="components/creative/pluckable-string.tsx"
+>
+  <PluckableStringDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add pluckable-string
+```
+
+## How It Works
+The `PluckableString` is an incredibly satisfying micro-interaction. It uses `framer-motion` to track the relative Y coordinate of your mouse as it drags across a container. We map this Y coordinate directly into the control point of an SVG Quadratic Bezier Curve (`Q`). When the mouse leaves the container, the Y coordinate is snapped back to the center using a spring configuration with extremely low `damping`, causing the control point to rapidly oscillate and simulate a vibrating string.

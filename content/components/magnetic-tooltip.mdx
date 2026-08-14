@@ -1,0 +1,22 @@
+---
+title: "Magnetic Tooltip"
+description: "A physics-based tooltip that magnetizes to your cursor and dynamically stretches based on velocity."
+category: "Data Display"
+---
+
+<ComponentPreview 
+  name="Magnetic Tooltip"
+  componentName="MagneticTooltip"
+  sourceFile="components/creative/magnetic-tooltip.tsx"
+>
+  <MagneticTooltipDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add magnetic-tooltip
+```
+
+## How It Works
+The `MagneticTooltip` leverages `framer-motion`'s `useSpring` and `useMotionValue` to track cursor position inside a bounding box. We then calculate the mathematical derivative (velocity) of the cursor's movement in real-time, and pass that value into a `useTransform` to dynamically scale, rotate, and squash the tooltip, giving it a true physical presence.

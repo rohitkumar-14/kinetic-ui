@@ -1,0 +1,26 @@
+---
+title: "Coverflow Slider"
+description: "A 3D Apple Music style coverflow carousel using Framer Motion."
+---
+
+<ComponentPreview slug="coverflow-slider" />
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add coverflow-slider
+```
+
+## Usage
+
+This component utilizes CSS 3D transforms (`perspective` and `transform-style: preserve-3d`) alongside Framer Motion's robust spring animations to create a fluid, depth-of-field carousel.
+
+```tsx
+import { CoverflowSlider } from "@/components/creative/coverflow-slider";
+
+const images = ["/image1.jpg", "/image2.jpg"];
+
+export default function MyComponent() {
+  return <CoverflowSlider images={images} />;
+}
+```

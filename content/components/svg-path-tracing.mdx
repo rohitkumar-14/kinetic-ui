@@ -1,0 +1,26 @@
+---
+title: "SVG Path Tracing"
+description: "A complex SVG path that draws itself progressively based on scroll position."
+category: "SVG Animations"
+---
+
+<ComponentPreview 
+  name="SVG Path Tracing"
+  componentName="SvgPathTracing"
+  sourceFile="components/creative/svg-path-tracing.tsx"
+>
+  <SvgPathTracingDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add svg-path-tracing
+```
+
+## How It Works
+
+This component uses Framer Motion's `useScroll` to track the user's vertical scroll progress within the container. 
+It then maps that progress `[0, 1]` to the `pathLength` style property of the SVG `<motion.path>`.
+
+We pass the `scrollYProgress` value through a `useSpring` hook to give the drawing animation a smooth, fluid feeling instead of rigidly locking to the exact scroll pixel.

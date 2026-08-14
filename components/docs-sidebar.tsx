@@ -16,7 +16,15 @@ import {
   GitBranch,
   LayoutGrid,
   MousePointer2,
-  Layout
+  Layout,
+  Image,
+  FormInput,
+  BarChart2,
+  PackageSearch,
+  Wand2,
+  Lock,
+  Search,
+  Copy
 } from 'lucide-react';
 export type SidebarItem = { title: string; href: string; icon: React.ReactNode; soon?: boolean };
 export type SidebarSection = { title: string; items: SidebarItem[] };
@@ -31,6 +39,23 @@ export const sidebarContent: SidebarGroup[] = [
           items: [
             { title: "Introduction", href: "/docs", icon: <BookOpen className="w-3.5 h-3.5" /> },
             { title: "Installation", href: "/docs/installation", icon: <Terminal className="w-3.5 h-3.5" /> },
+          ]
+        },
+        {
+          title: "Interactive",
+          items: [
+            { title: "Draggable Canvas", href: "/docs/components/draggable-canvas", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Physics Canvas", href: "/docs/components/physics-canvas", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Interactive 360 Viewer", href: "/docs/components/interactive-360-viewer", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Product Customizer", href: "/docs/components/product-customizer", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Drag Reorder", href: "/docs/components/drag-reorder", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Interactive Fluid", href: "/docs/components/interactive-fluid", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Scratch To Reveal", href: "/docs/components/scratch-to-reveal", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Magnifying Glass", href: "/docs/components/magnifying-glass", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Interactive 3D Model", href: "/docs/components/interactive-3d-model", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Soft Body Jelly", href: "/docs/components/soft-body-jelly", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Generative Audio Button", href: "/docs/components/generative-audio-btn", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Pluckable String", href: "/docs/components/pluckable-string", icon: <Layout className="w-3.5 h-3.5" /> }
           ]
         }
       ]
@@ -52,6 +77,19 @@ export const sidebarContent: SidebarGroup[] = [
       ]
     },
     {
+      label: "Templates",
+      sections: [
+        {
+          title: "Full Page Templates",
+          items: [
+            { title: "SaaS Landing Page", href: "/templates/saas", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Creative Agency", href: "/templates/agency", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Web3 / Enterprise", href: "/templates/enterprise", icon: <Layout className="w-3.5 h-3.5" /> }
+          ]
+        }
+      ]
+    },
+    {
       label: "Components",
       sections: [
         {
@@ -64,7 +102,8 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Hero Globe 3D", href: "/docs/components/hero-globe-3d", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Hero Infinite Canvas", href: "/docs/components/hero-infinite-canvas", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Hero Video Mask", href: "/docs/components/hero-video-mask", icon: <Sparkles className="w-3.5 h-3.5" /> },
-            { title: "Hero Shimmer Mesh", href: "/docs/components/hero-shimmer-mesh", icon: <Sparkles className="w-3.5 h-3.5" /> }
+            { title: "Hero Shimmer Mesh", href: "/docs/components/hero-shimmer-mesh", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "Portal Scroll Reveal", href: "/docs/components/portal-scroll", icon: <Sparkles className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -87,10 +126,15 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Smart Navbar", href: "/docs/components/smart-navbar", icon: <Compass className="w-3.5 h-3.5" /> },
             { title: "Radial Menu", href: "/docs/components/radial-menu", icon: <Compass className="w-3.5 h-3.5" /> },
             { title: "Scroll Spy", href: "/docs/components/scroll-spy", icon: <Compass className="w-3.5 h-3.5" /> },
+            { title: "Apple Scrollytelling", href: "/docs/components/apple-style-scrollytelling", icon: <Compass className="w-3.5 h-3.5" /> },
             { title: "Mega Menu", href: "/docs/components/mega-menu", icon: <Compass className="w-3.5 h-3.5" /> },
             { title: "Back To Top", href: "/docs/components/back-to-top", icon: <Compass className="w-3.5 h-3.5" /> },
             { title: "Bento Island Nav", href: "/docs/components/bento-island-nav", icon: <Compass className="w-3.5 h-3.5" /> },
-            { title: "Morphing Breadcrumbs", href: "/docs/components/morphing-breadcrumbs", icon: <Compass className="w-3.5 h-3.5" /> }
+            { title: "Morphing Breadcrumbs", href: "/docs/components/morphing-breadcrumbs", icon: <Compass className="w-3.5 h-3.5" /> },
+            { title: "Infinite Marquee", href: "/docs/components/infinite-marquee", icon: <Compass className="w-3.5 h-3.5" /> },
+            { title: "Liquid Glass Nav", href: "/docs/components/liquid-glass-nav", icon: <Compass className="w-3.5 h-3.5" /> },
+            { title: "Elastic Gooey Menu", href: "/docs/components/elastic-gooey-menu", icon: <Compass className="w-3.5 h-3.5" /> },
+            { title: "Vision OS Glass Dock", href: "/docs/components/vision-glass-dock", icon: <Compass className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -103,7 +147,10 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Particle Explosion Button", href: "/docs/components/particle-explosion-button", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Morphing SVG Button", href: "/docs/components/morphing-svg-button", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Shimmer Border Button", href: "/docs/components/shimmer-border-button", icon: <Layers className="w-3.5 h-3.5" /> },
-            { title: "Physics Drop Button", href: "/docs/components/physics-drop-button", icon: <Layers className="w-3.5 h-3.5" /> }
+            { title: "Physics Drop Button", href: "/docs/components/physics-drop-button", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "3D Add To Cart", href: "/docs/components/3d-add-to-cart-button", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Confetti Button", href: "/docs/components/confetti-button", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Morphing State Button", href: "/docs/components/morphing-state-button", icon: <Layers className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -116,7 +163,9 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Bento Grid", href: "/docs/components/bento-grid", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
             { title: "Card Stack", href: "/docs/components/card-stack", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
             { title: "Swipeable Stack Deck", href: "/docs/components/swipeable-stack", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
-            { title: "Holographic Foil Card", href: "/docs/components/holographic-foil-card", icon: <LayoutGrid className="w-3.5 h-3.5" /> }
+            { title: "Holographic Foil Card", href: "/docs/components/holographic-foil-card", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
+            { title: "Interactive 3D Ticket", href: "/docs/components/conference-ticket", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
+            { title: "3D Card Peeling", href: "/docs/components/3d-card-peel", icon: <LayoutGrid className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -139,21 +188,47 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "SVG Liquid Distortion", href: "/docs/components/svg-liquid-distortion", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "ASCII Renderer", href: "/docs/components/ascii-renderer", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Animated Counter", href: "/docs/components/animated-counter", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Magnetic Text", href: "/docs/components/magnetic-text", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Typewriter", href: "/docs/components/typewriter", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Animated Gradient Text", href: "/docs/components/animated-gradient-text", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Staggered Text", href: "/docs/components/staggered-text", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Beat Synced Typography", href: "/docs/components/beat-synced-typography", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Variable Font Weight", href: "/docs/components/variable-font-weight", icon: <Cpu className="w-3.5 h-3.5" /> },
-            { title: "Particle Dissolve", href: "/docs/components/particle-dissolve", icon: <Cpu className="w-3.5 h-3.5" /> }
+            { title: "Particle Dissolve", href: "/docs/components/particle-dissolve", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Text Shatter Physics", href: "/docs/components/text-shatter", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Sparkles Text", href: "/docs/components/sparkles-text", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Cinematic Text Reveal", href: "/docs/components/cinematic-text-reveal", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Generative AI Shimmer", href: "/docs/components/generative-ai-shimmer", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Magnetic Repulsion Text", href: "/docs/components/magnetic-repulsion-text", icon: <Cpu className="w-3.5 h-3.5" /> }
           ]
         },
 
         {
+          title: "SVG Animations",
+          items: [
+            { title: "SVG Path Tracing", href: "/docs/components/svg-path-tracing", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "Morphing Divider", href: "/docs/components/morphing-divider", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "Gooey Cursor", href: "/docs/components/gooey-cursor", icon: <Sparkles className="w-3.5 h-3.5" /> }
+          ]
+        },
+        {
+          title: "Cursor Effects",
+          items: [
+            { title: "Custom Cursor", href: "/docs/components/custom-cursor", icon: <MousePointer2 className="w-3.5 h-3.5" /> },
+            { title: "Spotlight Cursor", href: "/docs/components/spotlight-cursor", icon: <MousePointer2 className="w-3.5 h-3.5" /> },
+            { title: "Magnetic Cursor", href: "/docs/components/magnetic-cursor", icon: <MousePointer2 className="w-3.5 h-3.5" /> },
+            { title: "Cursor Trail", href: "/docs/components/cursor-trail", icon: <MousePointer2 className="w-3.5 h-3.5" /> },
+            { title: "Context Cursor", href: "/docs/components/context-cursor", icon: <MousePointer2 className="w-3.5 h-3.5" /> },
+            { title: "Refraction Cursor", href: "/docs/components/refraction-cursor", icon: <MousePointer2 className="w-3.5 h-3.5" /> },
+            { title: "Fluid Cursor Trail", href: "/docs/components/fluid-cursor-trail", icon: <MousePointer2 className="w-3.5 h-3.5" /> }
+          ]
+        },
+        {
           title: "Mouse Interactions",
           items: [
             { title: "Cursor Follower", href: "/docs/components/cursor-follower", icon: <Sparkles className="w-3.5 h-3.5" /> },
-            { title: "Spotlight Cursor", href: "/docs/components/spotlight-cursor", icon: <MousePointer2 className="w-3.5 h-3.5" /> },
-            { title: "Hover Image Trails", href: "/docs/components/hover-image-trails", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "Hover Image Trails", href: "/docs/components/hover-image-trails", icon: <Image className="w-3.5 h-3.5" /> },
+            { title: "Diffusion Image Reveal", href: "/docs/components/diffusion-image-reveal", icon: <Image className="w-3.5 h-3.5" /> },
             { title: "Liquid Image Distortion", href: "/docs/components/liquid-distortion", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Scratch to Reveal", href: "/docs/components/scratch-to-reveal", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Refraction Cursor", href: "/docs/components/refraction-cursor", icon: <Sparkles className="w-3.5 h-3.5" /> },
@@ -180,6 +255,7 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Pixel Transition", href: "/docs/components/pixel-transition", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "3D Audio Visualizer", href: "/docs/components/audio-visualizer-3d", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "WebGL Gallery", href: "/docs/components/webgl-gallery", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Hologram Display", href: "/docs/components/hologram-display", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Interactive 3D Customizer", href: "/docs/components/product-customizer", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Fluid Distortion Gallery", href: "/docs/components/fluid-distortion-gallery", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Interactive Particle Swarm", href: "/docs/components/particle-swarm", icon: <Layers className="w-3.5 h-3.5" /> },
@@ -197,13 +273,15 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Fluid Background", href: "/docs/components/fluid-background", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Interactive Fluid Background", href: "/docs/components/interactive-fluid", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Boids Simulation", href: "/docs/components/boids-canvas", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "SVG Isometric Grid", href: "/docs/components/svg-isometric-grid", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Fluid Canvas", href: "/docs/components/fluid-canvas", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Noise Overlay", href: "/docs/components/noise-overlay", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Film Grain Overlay", href: "/docs/components/film-grain", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Animated Blob Background", href: "/docs/components/blob-background", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Grid Pattern", href: "/docs/components/grid-pattern", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Interactive Grid Noise", href: "/docs/components/interactive-grid-noise", icon: <Sparkles className="w-3.5 h-3.5" /> },
-            { title: "Constellation Network", href: "/docs/components/constellation-network", icon: <Sparkles className="w-3.5 h-3.5" /> }
+            { title: "Constellation Network", href: "/docs/components/constellation-network", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "WebGL Dynamic Ribbon", href: "/docs/components/webgl-ribbon-bg", icon: <Sparkles className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -272,7 +350,10 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Shutter Transition", href: "/docs/components/shutter-transition", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Glitch Transition", href: "/docs/components/glitch-transition", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Scroll Reveal", href: "/docs/components/scroll-reveal", icon: <Cpu className="w-3.5 h-3.5" /> },
-            { title: "Clip Path Transition", href: "/docs/components/clip-path-transition", icon: <Cpu className="w-3.5 h-3.5" /> }
+            { title: "Clip Path Transition", href: "/docs/components/clip-path-transition", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Liquid Curtain", href: "/docs/components/liquid-curtain-transition", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Zoom to Fill", href: "/docs/components/zoom-to-fill-transition", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Pixel Dissolve", href: "/docs/components/pixel-dissolve-transition", icon: <Cpu className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -282,6 +363,14 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "3D Cylinder Marquee", href: "/docs/components/cylinder-marquee", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Mouse-Driven Marquee", href: "/docs/components/mouse-marquee", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Vertical Ticker Wall", href: "/docs/components/vertical-ticker", icon: <Sparkles className="w-3.5 h-3.5" /> }
+          ]
+        },
+        {
+          title: "Sliders & Carousels",
+          items: [
+            { title: "Parallax Slider", href: "/docs/components/parallax-slider", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Coverflow Slider", href: "/docs/components/coverflow-slider", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Infinite Circular Slider", href: "/docs/components/infinite-circular-slider", icon: <Layers className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -299,6 +388,27 @@ export const sidebarContent: SidebarGroup[] = [
           ]
         },
         {
+          title: "Backgrounds",
+          items: [
+            { title: "Background Rays", href: "/docs/components/background-rays", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "Retro Grid", href: "/docs/components/retro-grid", icon: <Sparkles className="w-3.5 h-3.5" /> }
+          ]
+        },
+        {
+          title: "Media",
+          items: [
+            { title: "Expandable Video", href: "/docs/components/expandable-video", icon: <Image className="w-3.5 h-3.5" /> },
+            { title: "Image Accordion", href: "/docs/components/image-accordion", icon: <Image className="w-3.5 h-3.5" /> },
+            { title: "Before & After Slider", href: "/docs/components/before-after-slider", icon: <Image className="w-3.5 h-3.5" /> },
+            { title: "Displacement Hover", href: "/docs/components/displacement-hover", icon: <Image className="w-3.5 h-3.5" /> },
+            { title: "CSS Device Mockup", href: "/docs/components/css-device-mockup", icon: <Image className="w-3.5 h-3.5" /> },
+            { title: "SVG Path Draw", href: "/docs/components/svg-path-draw", icon: <Image className="w-3.5 h-3.5" /> },
+            { title: "SVG Gooey Filter", href: "/docs/components/svg-gooey-filter", icon: <Image className="w-3.5 h-3.5" /> },
+            { title: "SVG Shape Morph", href: "/docs/components/svg-shape-morph", icon: <Image className="w-3.5 h-3.5" /> },
+            { title: "SVG Flashlight Mask", href: "/docs/components/svg-flashlight-mask", icon: <Image className="w-3.5 h-3.5" /> }
+          ]
+        },
+        {
           title: "Footers",
           items: [
             { title: "Terminal Footer", href: "/docs/components/terminal-footer", icon: <Layout className="w-3.5 h-3.5" /> },
@@ -309,13 +419,15 @@ export const sidebarContent: SidebarGroup[] = [
         {
           title: "Data Display & Social Proof",
           items: [
-            { title: "Stats Section", href: "/docs/components/stats-section", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Stats Section", href: "/docs/components/stats-section", icon: <BarChart2 className="w-3.5 h-3.5" /> },
+            { title: "WebGL Line Chart", href: "/docs/components/webgl-line-chart", icon: <BarChart2 className="w-3.5 h-3.5" /> },
             { title: "Lighthouse Audits", href: "/docs/components/lighthouse-audits", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Bundle Footprint", href: "/docs/components/bundle-footprint", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Testimonial Carousel", href: "/docs/components/testimonial-carousel", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Project Card", href: "/docs/components/project-card", icon: <Layers className="w-3.5 h-3.5" /> },
-            { title: "Client Logo Grid", href: "/docs/components/client-logo-grid", icon: <Layers className="w-3.5 h-3.5" /> },
-            { title: "Comparison Table", href: "/docs/components/comparison-table", icon: <Layers className="w-3.5 h-3.5" /> }
+            { title: "Data Table", href: "/docs/components/data-table", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Comparison Table", href: "/docs/components/comparison-table", icon: <Layout className="w-3.5 h-3.5" /> },
+            { title: "Magnetic Tooltip", href: "/docs/components/magnetic-tooltip", icon: <Layout className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -332,14 +444,24 @@ export const sidebarContent: SidebarGroup[] = [
           items: [
             { title: "Input", href: "/docs/components/input", icon: <Terminal className="w-3.5 h-3.5" /> },
             { title: "Textarea", href: "/docs/components/textarea", icon: <Terminal className="w-3.5 h-3.5" /> },
-            { title: "Select", href: "/docs/components/select", icon: <Terminal className="w-3.5 h-3.5" /> },
-            { title: "Checkbox", href: "/docs/components/checkbox", icon: <Terminal className="w-3.5 h-3.5" /> },
-            { title: "Switch", href: "/docs/components/switch", icon: <Terminal className="w-3.5 h-3.5" /> },
+            { title: "Select", href: "/docs/components/select", icon: <MousePointer2 className="w-3.5 h-3.5" /> },
+            { title: "Checkbox", href: "/docs/components/checkbox", icon: <MousePointer2 className="w-3.5 h-3.5" /> },
+            { title: "Switch", href: "/docs/components/switch", icon: <MousePointer2 className="w-3.5 h-3.5" /> },
+            { title: "AI Generative Input", href: "/docs/components/ai-generative-input", icon: <MousePointer2 className="w-3.5 h-3.5" /> },
             { title: "Floating Form", href: "/docs/components/floating-form", icon: <Terminal className="w-3.5 h-3.5" /> },
             { title: "Date Picker", href: "/docs/components/date-picker", icon: <Terminal className="w-3.5 h-3.5" /> },
             { title: "Date Range Picker", href: "/docs/components/date-range-picker", icon: <Terminal className="w-3.5 h-3.5" /> },
             { title: "File Upload", href: "/docs/components/file-upload", icon: <Terminal className="w-3.5 h-3.5" /> },
-            { title: "Multi Select", href: "/docs/components/multi-select", icon: <Terminal className="w-3.5 h-3.5" /> }
+            { title: "Multi Select", href: "/docs/components/multi-select", icon: <FormInput className="w-3.5 h-3.5" /> },
+            { title: "Physics Auth Form", href: "/docs/components/physics-auth-form", icon: <FormInput className="w-3.5 h-3.5" /> }
+          ]
+        },
+        {
+          title: "Modals",
+          items: [
+            { title: "Dialog", href: "/docs/components/dialog", icon: <Copy className="w-3.5 h-3.5" /> },
+            { title: "Drawer", href: "/docs/components/drawer", icon: <Copy className="w-3.5 h-3.5" /> },
+            { title: "Multi-Step Island", href: "/docs/components/multi-step-island", icon: <Copy className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -370,6 +492,14 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Split Screen Layout", href: "/docs/components/split-screen-layout", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
             { title: "Masonry Grid", href: "/docs/components/masonry-grid", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
             { title: "Broken Grid", href: "/docs/components/broken-grid", icon: <LayoutGrid className="w-3.5 h-3.5" /> }
+          ]
+        },
+        {
+          title: "Advanced Grids",
+          items: [
+            { title: "Isometric Grid", href: "/docs/components/isometric-grid", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
+            { title: "Infinite Panning Grid", href: "/docs/components/infinite-panning-grid", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
+            { title: "Staggered Masonry", href: "/docs/components/staggered-masonry", icon: <LayoutGrid className="w-3.5 h-3.5" /> }
           ]
         },
         {

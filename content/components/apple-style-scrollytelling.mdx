@@ -1,0 +1,82 @@
+---
+title: Apple-Style Scrollytelling
+description: A full-page GSAP scroll-jacking template that unwraps a product as the user scrolls, featuring sticky sections, text reveals, and model scaling.
+category: Layout
+subcategory: Scrollytelling
+date: 2026-08-08
+---
+
+<ComponentPreview 
+  name="Apple-Style Scrollytelling" 
+  componentName="AppleStyleScrollytelling"
+  sourceFile="components/creative/apple-style-scrollytelling.tsx"
+>
+  <AppleStyleScrollytellingDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="apple-style-scrollytelling" />
+
+## Usage
+
+This component acts as a wrapper. It pins its container to the screen and uses GSAP's `ScrollTrigger` to scrub through animations based on the scroll position.
+
+You can easily orchestrate complex animations by using the built-in generic classes:
+- \`.scrolly-hero\`: The central element that scales and moves.
+- \`.scrolly-section\`: Sections that correspond to scroll depth.
+- \`.scrolly-text\`: Text elements within sections that fade in and out.
+
+```tsx
+import { AppleStyleScrollytelling } from "@/components/creative/apple-style-scrollytelling";
+
+export function ScrollytellingPage() {
+  return (
+    <AppleStyleScrollytelling totalSections={4}>
+      {/* Central hero element */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="scrolly-hero bg-indigo-500 w-64 h-64 rounded-xl" />
+      </div>
+
+      {/* Sections */}
+      <div className="absolute inset-0 w-full h-full">
+        <div className="scrolly-section absolute inset-0 flex items-end justify-center pb-32">
+          <div className="scrolly-text text-center px-6">
+            <h1 className="text-4xl font-bold">First Section</h1>
+          </div>
+        </div>
+        <div className="scrolly-section absolute inset-0 flex items-end justify-center pb-32">
+          <div className="scrolly-text text-center px-6 opacity-0">
+            <h2 className="text-4xl font-bold">Second Section</h2>
+          </div>
+        </div>
+      </div>
+    </AppleStyleScrollytelling>
+  );
+}
+```
+
+## Props
+
+<PropsTable 
+  props={[
+    {
+      name: "children",
+      type: "ReactNode",
+      description: "The content to be rendered inside the sticky container.",
+      default: "undefined"
+    },
+    {
+      name: "totalSections",
+      type: "number",
+      description: "The number of scroll height viewport units (100vh) the container will stay pinned for.",
+      default: "4"
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Additional CSS classes for the outer wrapper.",
+      default: "undefined"
+    }
+  ]}
+/>

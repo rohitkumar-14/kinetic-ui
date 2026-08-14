@@ -1,0 +1,22 @@
+---
+title: "SVG Isometric Grid"
+description: "A mathematical pseudo-3D grid floor built with SVG elements that ripples dynamically when interacted with."
+category: "Backgrounds"
+---
+
+<ComponentPreview 
+  name="SVG Isometric Grid"
+  componentName="SvgIsometricGrid"
+  sourceFile="components/creative/svg-isometric-grid.tsx"
+>
+  <SvgIsometricGridDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npx kinetic-ui-cli@latest add svg-isometric-grid
+```
+
+## How It Works
+Rendering 3D scenes is normally reserved for WebGL/Canvas, but we can achieve stunning pseudo-3D effects using SVG by applying an isometric projection matrix algorithm to standard X/Y Cartesian coordinates. The `SvgIsometricGrid` mathematically calculates a grid of dots in isometric space `(isoX, isoY)`. When a dot is clicked, it records that coordinate as an epicenter, and every other dot calculates its Pythagorean distance from that epicenter to mathematically stagger a Framer Motion `delay`, causing a perfectly smooth, physical ripple effect across the terrain.

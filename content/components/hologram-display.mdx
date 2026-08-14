@@ -1,0 +1,23 @@
+---
+title: "Hologram Display"
+description: "A 3D hologram projector that emits a volumetric light cone, rendering interactive HTML content inside the projection."
+category: "3D Components"
+---
+
+<ComponentPreview 
+  name="Hologram Display"
+  componentName="HologramDisplay"
+  sourceFile="components/creative/hologram-display.tsx"
+>
+  <HologramDisplayDemo />
+</ComponentPreview>
+
+## Installation
+
+```bash
+npm install @react-three/fiber @react-three/drei three
+npx kinetic-ui-cli@latest add hologram-display
+```
+
+## How It Works
+The `HologramDisplay` uses `@react-three/fiber` to render the metallic projector base and an open cylinder with `AdditiveBlending` for the volumetric light cone. The `<Html>` component from `@react-three/drei` is used to perfectly place standard DOM elements inside the 3D projection, complete with CSS filters to simulate the glowing holographic scanlines.

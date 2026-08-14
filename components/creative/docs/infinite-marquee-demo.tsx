@@ -1,111 +1,49 @@
 "use client";
 
-import React, { useState } from "react";
-import { InfiniteMovingCards } from "@/components/creative/infinite-moving-cards";
-import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
+import { InfiniteMarquee } from "@/components/creative/infinite-marquee";
 
-const VARIANTS = [
-  { id: "single", label: "Single Row", accent: "#3b82f6" },
-  { id: "double", label: "Staggered Rows", accent: "#10b981" },
-  { id: "fast", label: "Hyper Speed", accent: "#f43f5e" },
-] as const;
-
-type VariantId = (typeof VARIANTS)[number]["id"];
-
-const TESTIMONIALS = [
-  {
-    quote: "The attention to detail in these components is unmatched. It feels like magic.",
-    name: "Alex Rivera",
-    title: "Lead Engineer",
-  },
-  {
-    quote: "We deployed our new landing page in hours instead of weeks. Absolute game changer.",
-    name: "Sarah Jenkins",
-    title: "Product Designer",
-  },
-  {
-    quote: "I've tried every UI library out there. This is the only one that truly feels premium.",
-    name: "Marcus Cole",
-    title: "Founder",
-  },
-  {
-    quote: "Smooth animations, perfect dark mode, and incredible accessibility. 10/10.",
-    name: "Emily Chen",
-    title: "Frontend Developer",
-  },
-  {
-    quote: "It's not just a UI kit, it's a complete masterclass in motion design.",
-    name: "David Kim",
-    title: "Design Director",
-  },
+const LOGOS = [
+  "Acme Corp", "Globex", "Soylent Corp", "Initech", "Umbrella Corp", 
+  "Stark Industries", "Wayne Enterprises", "Cyberdyne Systems", "Massive Dynamic",
 ];
 
-export interface InfiniteMarqueeDemoProps {
-  variant?: VariantId;
-}
-
-export function InfiniteMarqueeDemo({
-  variant = "single"
-}: InfiniteMarqueeDemoProps) {
-  const activeVariant = variant;
-  const v = VARIANTS.find(variantConfig => variantConfig.id === activeVariant) || VARIANTS[0];
-
+export default function InfiniteMarqueeDemo() {
   return (
-    <div className="w-full flex flex-col gap-6 mb-12">
-      <div className="w-full rounded-2xl border border-white/10 bg-zinc-950 min-h-[500px] flex items-center justify-center relative overflow-hidden py-12">
-        {/* Ambient Glow */}
-        <div 
-          className="absolute inset-0 opacity-10 pointer-events-none transition-colors duration-500" 
-          style={{
-            background: `radial-gradient(circle at center, ${v.accent} 0%, transparent 60%)`
-          }}
-        />
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeVariant}
-            initial={{ opacity: 0, filter: "blur(10px)" }}
-            animate={{ opacity: 1, filter: "blur(0px)" }}
-            exit={{ opacity: 0, filter: "blur(10px)" }}
-            transition={{ duration: 0.3 }}
-            className="w-full h-full flex flex-col justify-center relative z-10"
-          >
-            {activeVariant === "single" && (
-              <InfiniteMovingCards
-                items={TESTIMONIALS}
-                direction="left"
-                speed="normal"
-              />
-            )}
-
-            {activeVariant === "double" && (
-              <div className="flex flex-col gap-8 antialiased">
-                <InfiniteMovingCards
-                  items={TESTIMONIALS}
-                  direction="right"
-                  speed="slow"
-                />
-                <InfiniteMovingCards
-                  items={TESTIMONIALS}
-                  direction="left"
-                  speed="slow"
-                />
-              </div>
-            )}
-
-            {activeVariant === "fast" && (
-              <div className="flex flex-col gap-4 pb-4">
-                <InfiniteMovingCards
-                  items={TESTIMONIALS}
-                  direction="left"
-                  speed="fast"
-                />
-              </div>
-            )}
-          </motion.div>
-        </AnimatePresence>
+    <div className="w-full flex flex-col items-center justify-center py-20 bg-background border border-border rounded-xl gap-8 overflow-hidden">
+      
+      {/* Top Marquee (Right to Left) */}
+      <div className="w-full relative">
+        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
+        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
+        <InfiniteMarquee speed="normal" direction="left" pauseOnHover>
+          {LOGOS.map((logo, i) => (
+            <div 
+              key={i} 
+              className="px-8 py-4 bg-secondary/50 backdrop-blur-sm rounded-xl border border-white/5 shadow-sm text-foreground/80 font-bold tracking-tight whitespace-nowrap"
+            >
+              {logo}
+            </div>
+          ))}
+        </InfiniteMarquee>
       </div>
+
+      {/* Bottom Marquee (Left to Right, Slower) */}
+      <div className="w-full relative">
+        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
+        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
+        <InfiniteMarquee speed="slow" direction="right" pauseOnHover>
+          {LOGOS.map((logo, i) => (
+            <div 
+              key={i} 
+              className="px-8 py-4 opacity-50 font-serif italic tracking-widest text-foreground whitespace-nowrap"
+            >
+              {logo.toUpperCase()}
+            </div>
+          ))}
+        </InfiniteMarquee>
+      </div>
+
     </div>
   );
 }
