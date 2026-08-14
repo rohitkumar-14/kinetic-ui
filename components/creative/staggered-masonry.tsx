@@ -19,7 +19,7 @@ const containerVariants = {
   }
 };
 
-const itemVariants = {
+const itemVariants: any = {
   hidden: { 
     opacity: 0, 
     y: 50,
@@ -38,7 +38,7 @@ const itemVariants = {
   }
 };
 
-const innerImageVariants = {
+const innerImageVariants: any = {
   hidden: { scale: 1.2 },
   visible: { 
     scale: 1,

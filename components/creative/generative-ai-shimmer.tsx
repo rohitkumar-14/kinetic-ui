@@ -24,7 +24,7 @@ export function GenerativeAiShimmer({ text, className }: GenerativeAiShimmerProp
     },
   };
 
-  const wordVariants = {
+  const wordVariants: any = {
     hidden: {
       opacity: 0,
       filter: "blur(20px)",

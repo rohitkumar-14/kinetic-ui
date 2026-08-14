@@ -23,7 +23,7 @@ export function SvgPathDraw({
   // Trigger animation once when it enters the viewport
   const isInView = useInView(containerRef, { once: true, margin: "-100px 0px" });
 
-  const pathVariants = {
+  const pathVariants: any = {
     hidden: { 
       pathLength: 0,
       opacity: 0,

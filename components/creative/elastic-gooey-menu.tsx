@@ -19,7 +19,7 @@ export function ElasticGooeyMenu({ links, className }: ElasticGooeyMenuProps) {
   
   // Note: For a right-side drawer opening left, the path math is slightly different.
   // We'll use a simpler layout: the menu slides in, but the SVG acts as a stretchy overlay.
-  const curveVariants = {
+  const curveVariants: any = {
     initial: {
       d: "M100 0 L100 100 L100 100 Q100 50 100 0",
     },
@@ -33,7 +33,7 @@ export function ElasticGooeyMenu({ links, className }: ElasticGooeyMenuProps) {
     }
   };
 
-  const menuVariants = {
+  const menuVariants: any = {
     initial: { x: "100%" },
     enter: { 
       x: "0%",
@@ -45,7 +45,7 @@ export function ElasticGooeyMenu({ links, className }: ElasticGooeyMenuProps) {
     }
   };
 
-  const linkVariants = {
+  const linkVariants: any = {
     initial: { x: 50, opacity: 0 },
     enter: (i: number) => ({
       x: 0,

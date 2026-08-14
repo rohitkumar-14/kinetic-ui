@@ -86,38 +86,38 @@ export default function SaasTemplate() {
 
         <BentoGrid className="max-w-5xl mx-auto">
           <BentoCard 
-            name="Blazing Fast Performance"
+            title="Blazing Fast Performance"
             description="Hardware accelerated CSS animations that never drop a frame."
-            Icon={Zap}
-            href="#"
-            cta="Learn more"
-            background={<div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent" />}
+            icon={<Zap className="w-5 h-5" />}
+            header={<div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent" />}
             className="md:col-span-2 md:row-span-2"
-          />
+          >
+            <a href="#" className="mt-4 inline-block text-sm font-medium text-blue-400 hover:text-blue-300">Learn more &rarr;</a>
+          </BentoCard>
           <BentoCard 
-            name="Global Edge Network"
+            title="Global Edge Network"
             description="Deploy your sites to 150+ edge nodes instantly."
-            Icon={Globe}
-            href="#"
-            cta="View map"
-            background={<div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent" />}
-          />
+            icon={<Globe className="w-5 h-5" />}
+            header={<div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent" />}
+          >
+            <a href="#" className="mt-4 inline-block text-sm font-medium text-emerald-400 hover:text-emerald-300">View map &rarr;</a>
+          </BentoCard>
           <BentoCard 
-            name="Bank-grade Security"
+            title="Bank-grade Security"
             description="SOC2 compliant infrastructure out of the box."
-            Icon={Shield}
-            href="#"
-            cta="Read docs"
-            background={<div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent" />}
-          />
+            icon={<Shield className="w-5 h-5" />}
+            header={<div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent" />}
+          >
+            <a href="#" className="mt-4 inline-block text-sm font-medium text-purple-400 hover:text-purple-300">Read docs &rarr;</a>
+          </BentoCard>
           <BentoCard 
-            name="Serverless Compute"
+            title="Serverless Compute"
             description="Run heavy workloads instantly."
-            Icon={Cpu}
-            href="#"
-            cta="Compute"
-            background={<div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent" />}
-          />
+            icon={<Cpu className="w-5 h-5" />}
+            header={<div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent" />}
+          >
+            <a href="#" className="mt-4 inline-block text-sm font-medium text-orange-400 hover:text-orange-300">Explore compute &rarr;</a>
+          </BentoCard>
         </BentoGrid>
       </section>
 

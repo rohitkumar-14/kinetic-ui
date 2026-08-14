@@ -99,7 +99,20 @@ export default function EnterpriseTemplate() {
           </div>
 
           <div className="lg:w-2/3">
-            <CyberTerminal className="w-full h-[400px]" />
+            <CyberTerminal 
+              className="w-full h-[400px]" 
+              commands={[
+                {
+                  heading: "Cluster Operations",
+                  items: [
+                    { id: "1", title: "Deploy Production", onSelect: () => {} },
+                    { id: "2", title: "Scale Node Pool", onSelect: () => {} },
+                  ]
+                }
+              ]}
+              open={true}
+              onOpenChange={() => {}}
+            />
           </div>
         </div>
       </section>

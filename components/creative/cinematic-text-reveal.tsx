@@ -24,7 +24,7 @@ export function CinematicTextReveal({ text, className }: CinematicTextRevealProp
     },
   };
 
-  const letterVariants = {
+  const letterVariants: any = {
     hidden: {
       opacity: 0,
       y: 100,
