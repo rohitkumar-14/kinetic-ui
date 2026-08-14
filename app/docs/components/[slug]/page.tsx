@@ -746,8 +746,6 @@ export default async function ComponentPage(props: { params: Promise<{ slug: str
     SvgIsometricGridDemo: SvgIsometricGridDemo,
     TextShatterDemo: TextShatterDemo,
     ConferenceTicketDemo: ConferenceTicketDemo,
-
-
     RetroGridDemo: RetroGridDemo,
     SparklesTextDemo: SparklesTextDemo,
     ConfettiButtonDemo: ConfettiButtonDemo,
