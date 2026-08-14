@@ -94,7 +94,7 @@ function getBrightness(hex) {
   return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
 }
 
-function _getThemeCss(themeOption, customPrimary, customBg) {
+function getThemeCss(themeOption, customPrimary, customBg) {
   if (themeOption === "default") {
     return `
 /* ═══════════════════════════════════════════════════════════════
