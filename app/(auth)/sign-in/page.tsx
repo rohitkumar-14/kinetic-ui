@@ -14,9 +14,8 @@ export default function SignInPage() {
         
         {/* Animated abstract geometric shapes could go here in the future */}
         <div className="relative z-10 p-12 text-center">
-          <div className="w-20 h-20 bg-foreground text-background rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
-             {/* Logo placeholder */}
-             <span className="text-4xl font-bold tracking-tighter">A</span>
+          <div className="w-20 h-20 bg-foreground text-background rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl overflow-hidden p-3 border border-white/10">
+             <img src="/logo.png" alt="Kinetic Logo" className="w-full h-full object-contain" />
           </div>
           <h2 className="text-3xl font-medium tracking-tight mb-4">Kinetic UI</h2>
           <p className="text-muted-foreground font-light max-w-sm mx-auto">

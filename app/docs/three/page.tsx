@@ -3,6 +3,8 @@
 import React from 'react';
 import { Layers, Lightbulb, Box } from 'lucide-react';
 
+import { DocsPager } from '@/components/docs-pager';
+
 export default function ThreeDocsPage() {
   return (
     <div className="space-y-12">
@@ -61,6 +63,8 @@ export default function ThreeDocsPage() {
           </p>
         </div>
       </div>
+
+      <DocsPager />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from 'react';
-import { Sparkles, Github } from 'lucide-react';
+import Link from 'next/link';
+import { Sparkles, Github, Twitter } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 export function Footer() {
@@ -24,31 +25,63 @@ export function Footer() {
                  <span className="text-2xl font-bold tracking-tighter text-white">KINETIC</span>
                </div>
                <p className="text-white/50 max-w-sm leading-relaxed font-light">
-                  Handcrafted premium components for React developers who care about design, motion, and high-end performance.
+                  Handcrafted premium motion components for React developers who care about physics, craft, and 60fps performance.
                </p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-16">
                <div className="space-y-4">
                   <h4 className="font-semibold text-white">Library</h4>
                   <ul className="space-y-3 text-sm text-white/50">
-                     <li className="hover:text-white transition-colors cursor-pointer">Components</li>
-                     <li className="hover:text-white transition-colors cursor-pointer">Theming</li>
-                     <li className="hover:text-white transition-colors cursor-pointer">Animations</li>
+                     <li>
+                       <Link href="/docs/components/magnetic-button" className="hover:text-white transition-colors">
+                         Components
+                       </Link>
+                     </li>
+                     <li>
+                       <Link href="/templates" className="hover:text-white transition-colors">
+                         Templates
+                       </Link>
+                     </li>
+                     <li>
+                       <Link href="/docs/animations" className="hover:text-white transition-colors">
+                         Animations & Physics
+                       </Link>
+                     </li>
                   </ul>
                </div>
                <div className="space-y-4">
-                  <h4 className="font-semibold text-white">Support</h4>
+                  <h4 className="font-semibold text-white">Resources</h4>
                   <ul className="space-y-3 text-sm text-white/50">
-                     <li className="hover:text-white transition-colors cursor-pointer">Docs</li>
-                     <li className="hover:text-white transition-colors cursor-pointer">Changelog</li>
-                     <li className="hover:text-white transition-colors cursor-pointer">GitHub</li>
+                     <li>
+                       <Link href="/docs" className="hover:text-white transition-colors">
+                         Documentation
+                       </Link>
+                     </li>
+                     <li>
+                       <Link href="/docs/installation" className="hover:text-white transition-colors">
+                         CLI Installation
+                       </Link>
+                     </li>
+                     <li>
+                       <Link href="/docs/changelog" className="hover:text-white transition-colors">
+                         Changelog
+                       </Link>
+                     </li>
                   </ul>
                </div>
                <div className="space-y-4 hidden sm:block">
-                  <h4 className="font-semibold text-white">Legal</h4>
+                  <h4 className="font-semibold text-white">Playground</h4>
                   <ul className="space-y-3 text-sm text-white/50">
-                     <li className="hover:text-white transition-colors cursor-pointer">MIT License</li>
-                     <li className="hover:text-white transition-colors cursor-pointer">Privacy</li>
+                     <li>
+                       <Link href="/playground" className="hover:text-white transition-colors">
+                         Canvas Playground
+                       </Link>
+                     </li>
+                     <li>
+                       <Link href="/pricing" className="hover:text-white transition-colors">
+                         Pricing & Licensing
+                       </Link>
+                     </li>
                   </ul>
                </div>
             </div>
@@ -62,9 +95,11 @@ export function Footer() {
          </div>
          
          <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-white/40">
-            <p>© {new Date().getFullYear()} Kinetic UI. Crafted with Next.js & GSAP.</p>
-            <div className="flex gap-6">
-               <a href="#" className="hover:text-white transition-colors"><Github className="h-5 w-5" /></a>
+            <p>© {new Date().getFullYear()} Kinetic UI. Open Source under MIT License.</p>
+            <div className="flex gap-6 items-center">
+               <Link href="https://github.com/kinetic/ui" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+                 <Github className="h-5 w-5" />
+               </Link>
             </div>
          </div>
       </div>

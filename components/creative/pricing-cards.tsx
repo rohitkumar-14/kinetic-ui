@@ -239,19 +239,21 @@ export function PricingCards({
               </div>
 
               <div className="mt-4 relative z-10">
-                <MagneticButton
-                  className={`w-full h-12 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all border ${tier.popular
-                      ? 'bg-foreground text-background border-transparent hover:opacity-90'
-                      : 'border-border/60 bg-transparent text-foreground hover:bg-muted/30'
-                    }`}
-                  style={{
-                    borderColor: tier.popular && color ? color : undefined,
-                    backgroundColor: tier.popular && color ? color : undefined,
-                    color: tier.popular && color ? '#000000' : undefined
-                  }}
-                >
-                  {tier.cta}
-                </MagneticButton>
+                <a href={tier.name === 'Starter' ? '/docs/installation' : '/pricing'} className="block w-full">
+                  <MagneticButton
+                    className={`w-full h-12 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all border ${tier.popular
+                        ? 'bg-foreground text-background border-transparent hover:opacity-90'
+                        : 'border-border/60 bg-transparent text-foreground hover:bg-muted/30'
+                      }`}
+                    style={{
+                      borderColor: tier.popular && color ? color : undefined,
+                      backgroundColor: tier.popular && color ? color : undefined,
+                      color: tier.popular && color ? '#000000' : undefined
+                    }}
+                  >
+                    {tier.cta}
+                  </MagneticButton>
+                </a>
               </div>
             </motion.div>
           );

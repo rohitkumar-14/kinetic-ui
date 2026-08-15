@@ -764,7 +764,7 @@ export function cn(...inputs) {
       console.log(chalk.blue("─────────────────────────────────────────\n"));
 
       console.log(chalk.blue("You can now add components using:"));
-      console.log(chalk.cyan("  npx @kinetic-ui/cli add <component>\n"));
+      console.log(chalk.cyan("  npx kinetic-ui-cli add <component>\n"));
     } catch (err) {
       spinner.fail(chalk.red("Failed to initialize project."));
       console.error(err);
@@ -1041,7 +1041,7 @@ program
     if (!componentName) {
       console.log(
         chalk.yellow(
-          "\nPlease specify a component to update: npx @kinetic-ui/cli update <component>",
+          "\nPlease specify a component to update: npx kinetic-ui-cli update <component>",
         ),
       );
       process.exit(1);

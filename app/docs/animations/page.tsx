@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { Cpu, Zap, Settings, Play } from 'lucide-react';
 import { MagneticButton } from '@/components/creative/magnetic-button';
 
+import { DocsPager } from '@/components/docs-pager';
+
 export default function AnimationsPage() {
   return (
     <div className="space-y-12">
@@ -57,6 +59,8 @@ export default function AnimationsPage() {
           </p>
         </div>
       </div>
+
+      <DocsPager />
     </div>
   );
 }

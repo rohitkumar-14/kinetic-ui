@@ -3,6 +3,8 @@
 import React from 'react';
 import { GitBranch, Star } from 'lucide-react';
 
+import { DocsPager } from '@/components/docs-pager';
+
 export default function ChangelogPage() {
   const versions = [
     {
@@ -65,6 +67,8 @@ export default function ChangelogPage() {
           </div>
         ))}
       </div>
+
+      <DocsPager />
     </div>
   );
 }

@@ -21,8 +21,8 @@ export default function Home() {
         title="Kinetic UI" 
         description="Production-ready motion components inspired by award-winning experiences. Powered by React, Tailwind CSS, GSAP, and Canvas physics." 
         primaryCtaHref="/docs" 
-        secondaryCtaText="Source Code"
-        secondaryCtaHref="https://github.com"
+        secondaryCtaText="CLI Setup"
+        secondaryCtaHref="/docs/installation"
       />
 
       {/* 2. Interactive Component Showcase */}

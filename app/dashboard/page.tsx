@@ -99,12 +99,12 @@ export default function DashboardPage() {
             ))}
             
             {/* Explore More Card */}
-            <div className="flex flex-col items-center justify-center p-6 rounded-2xl border border-dashed border-border/50 bg-transparent hover:bg-muted/10 transition-colors cursor-pointer min-h-[220px]">
+            <a href="/docs" className="flex flex-col items-center justify-center p-6 rounded-2xl border border-dashed border-border/50 bg-transparent hover:bg-muted/10 transition-colors cursor-pointer min-h-[220px]">
               <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center mb-4">
                 <ComponentIcon className="h-5 w-5 text-muted-foreground" />
               </div>
               <p className="font-medium text-muted-foreground">Explore more components</p>
-            </div>
+            </a>
           </div>
         </section>
 
