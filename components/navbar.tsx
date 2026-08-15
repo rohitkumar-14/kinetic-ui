@@ -4,10 +4,11 @@ import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
-import { Sparkles, Sun, Moon, Github, Search, Command as CommandIcon } from 'lucide-react';
+import { Sparkles, Sun, Moon, Github, Search, Command as CommandIcon, Activity } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { CommandPalette } from '@/components/command-palette';
+import { FPSMonitor } from '@/components/fps-monitor';
 import { cn } from '@/lib/utils';
 
 export function Navbar() {
@@ -15,6 +16,7 @@ export function Navbar() {
   const pathname = usePathname();
   const [mounted, setMounted] = React.useState(false);
   const [paletteOpen, setPaletteOpen] = React.useState(false);
+  const [fpsOpen, setFpsOpen] = React.useState(false);
 
   React.useEffect(() => {
     setMounted(true);
@@ -72,6 +74,20 @@ export function Navbar() {
                   <Button
                     variant="ghost"
                     size="icon"
+                    onClick={() => setFpsOpen(!fpsOpen)}
+                    className={cn("rounded-xl hover:bg-muted", fpsOpen && "text-emerald-400 bg-muted")}
+                  >
+                    <Activity className="h-4 w-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Toggle FPS Monitor</TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
                     onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                     className="rounded-xl hover:bg-muted"
                   >
@@ -93,6 +109,7 @@ export function Navbar() {
 
         {/* Global Command Palette dialog */}
         <CommandPalette open={paletteOpen} setOpen={setPaletteOpen} />
+        {fpsOpen && <FPSMonitor onClose={() => setFpsOpen(false)} />}
       </header>
     );
   }
@@ -110,6 +127,16 @@ export function Navbar() {
           </Link>
           
           <div className="flex items-center gap-4">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" onClick={() => setFpsOpen(!fpsOpen)} className={cn("rounded-full hover:bg-accent", fpsOpen && "text-emerald-400")}>
+                  <Activity className="h-4 w-4" />
+                  <span className="sr-only">Toggle FPS</span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Toggle FPS Monitor</TooltipContent>
+            </Tooltip>
+
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="ghost" size="icon" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="rounded-full hover:bg-accent">
@@ -138,6 +165,7 @@ export function Navbar() {
 
       {/* Make sure we can trigger command palette via keyboard shortcuts even on landing page */}
       <CommandPalette open={paletteOpen} setOpen={setPaletteOpen} />
+      {fpsOpen && <FPSMonitor onClose={() => setFpsOpen(false)} />}
     </>
   );
 }

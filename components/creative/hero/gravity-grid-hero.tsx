@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { MagneticButton } from "@/components/creative/magnetic-button";
-import { ArrowRight, Terminal } from "lucide-react";
+import { ArrowRight, Terminal, Copy, Check } from "lucide-react";
 
 export type GravityGridHeroVariant = "dots" | "lines";
 
@@ -33,6 +33,13 @@ export function GravityGridHero({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0, radius: 150 });
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText("npx kinetic-ui-cli@latest init");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -252,17 +259,32 @@ export function GravityGridHero({
           {description}
         </p>
 
-        <div className="flex flex-wrap gap-4 items-center justify-center pointer-events-auto">
-          <a href={primaryCtaHref}>
-            <MagneticButton className="h-12 px-8 rounded-full bg-white text-black font-semibold hover:bg-zinc-200 transition-colors">
-              {primaryCtaText} <ArrowRight className="ml-2 h-4 w-4" />
-            </MagneticButton>
-          </a>
-          <a href={secondaryCtaHref}>
-            <MagneticButton className="h-12 px-8 rounded-full border border-white/10 bg-transparent text-white font-medium hover:bg-white/5 transition-colors">
-              <Terminal className="mr-2 h-4 w-4" /> {secondaryCtaText}
-            </MagneticButton>
-          </a>
+        <div className="flex flex-col items-center gap-6 pointer-events-auto mt-2">
+          <div className="flex flex-wrap gap-4 items-center justify-center">
+            <a href={primaryCtaHref}>
+              <MagneticButton className="h-12 px-8 rounded-full bg-white text-black font-semibold hover:bg-zinc-200 transition-colors">
+                {primaryCtaText} <ArrowRight className="ml-2 h-4 w-4" />
+              </MagneticButton>
+            </a>
+            <a href={secondaryCtaHref}>
+              <MagneticButton className="h-12 px-8 rounded-full border border-white/10 bg-transparent text-white font-medium hover:bg-white/5 transition-colors">
+                <Terminal className="mr-2 h-4 w-4" /> {secondaryCtaText}
+              </MagneticButton>
+            </a>
+          </div>
+
+          <button 
+            onClick={handleCopy}
+            className="flex items-center gap-3 px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all group"
+          >
+            <span className="text-zinc-400 font-mono text-sm group-hover:text-zinc-300 transition-colors">npx kinetic-ui-cli@latest init</span>
+            <div className="w-px h-4 bg-white/20" />
+            {copied ? (
+              <Check className="w-4 h-4 text-emerald-400" />
+            ) : (
+              <Copy className="w-4 h-4 text-zinc-500 group-hover:text-zinc-300 transition-colors" />
+            )}
+          </button>
         </div>
       </div>
     </section>

@@ -10,7 +10,7 @@ import { PropsTable, PropDef } from '@/components/docs/props-table';
 export interface PlaygroundControl {
   name: string;
   label: string;
-  type: 'select' | 'number' | 'boolean' | 'string';
+  type: 'select' | 'number' | 'boolean' | 'string' | 'color';
   options?: string[];
   min?: number;
   max?: number;
@@ -752,6 +752,25 @@ function PlaygroundPanel({
                   className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors"
                   placeholder={`Enter ${ctrl.label.toLowerCase()}...`}
                 />
+              )}
+              
+              {ctrl.type === 'color' && (
+                <div className="flex items-center gap-3">
+                  <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/20 shadow-sm shrink-0">
+                    <input
+                      type="color"
+                      value={val}
+                      onChange={(e) => onChange(ctrl.name, e.target.value)}
+                      className="absolute inset-[-10px] w-12 h-12 cursor-pointer"
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    value={val}
+                    onChange={(e) => onChange(ctrl.name, e.target.value)}
+                    className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-1.5 text-sm font-mono text-white focus:outline-none focus:border-indigo-500 transition-colors uppercase"
+                  />
+                </div>
               )}
             </div>
           );

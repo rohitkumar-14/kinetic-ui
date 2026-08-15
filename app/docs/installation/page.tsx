@@ -1,5 +1,6 @@
 import { CodeBlock } from '@/components/code-block';
 import { DocsPager } from '@/components/docs-pager';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function InstallationPage() {
   const initCode = `npx kinetic-ui-cli@latest init`;
@@ -62,31 +63,96 @@ npm install @radix-ui/react-accordion @radix-ui/react-dialog @radix-ui/react-dro
           </p>
         </div>
 
-        <div className="space-y-3">
-          <h3 id="dependencies" className="text-lg font-semibold text-zinc-200">Install Dependencies</h3>
-          <p className="text-zinc-400 font-light leading-relaxed text-sm">
-            Install the required motion primitives and helpers used under the hood by Kinetic UI components:
-          </p>
-          <CodeBlock code={manualDeps} language="bash" />
-        </div>
+        <Tabs defaultValue="nextjs" className="w-full">
+          <TabsList className="w-full justify-start overflow-x-auto rounded-none border-b border-border bg-transparent p-0 mb-6">
+            <TabsTrigger value="nextjs" className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground">Next.js</TabsTrigger>
+            <TabsTrigger value="vite" className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground">Vite + React</TabsTrigger>
+            <TabsTrigger value="astro" className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground">Astro + React</TabsTrigger>
+            <TabsTrigger value="remix" className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground">Remix</TabsTrigger>
+          </TabsList>
 
-        <div className="space-y-3">
-          <h3 id="utils" className="text-lg font-semibold text-zinc-200">Add Utils Helper</h3>
-          <p className="text-zinc-400 font-light leading-relaxed text-sm">
-            Create <code>lib/utils.ts</code> and paste the <code>cn</code> class merging utility:
-          </p>
-          <CodeBlock code={`import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+          {/* NEXT.JS */}
+          <TabsContent value="nextjs" className="space-y-6 outline-none">
+            <div className="space-y-3">
+              <h3 id="dependencies" className="text-lg font-semibold text-zinc-200">Install Dependencies</h3>
+              <p className="text-zinc-400 font-light leading-relaxed text-sm">
+                Install the required motion primitives and helpers used under the hood by Kinetic UI components:
+              </p>
+              <CodeBlock code={manualDeps} language="bash" />
+            </div>
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}`} language="typescript" />
-        </div>
+            <div className="space-y-3">
+              <h3 id="utils" className="text-lg font-semibold text-zinc-200">Add Utils Helper</h3>
+              <p className="text-zinc-400 font-light leading-relaxed text-sm">
+                Create <code>lib/utils.ts</code> and paste the <code>cn</code> class merging utility:
+              </p>
+              <CodeBlock code={`import { clsx, type ClassValue } from "clsx"\nimport { twMerge } from "tailwind-merge"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}`} language="typescript" />
+            </div>
+          </TabsContent>
 
-        <div className="space-y-3">
+          {/* VITE */}
+          <TabsContent value="vite" className="space-y-6 outline-none">
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold text-zinc-200">Configure Path Aliases</h3>
+              <p className="text-zinc-400 font-light leading-relaxed text-sm">
+                Kinetic UI components use the <code>@/</code> alias. Configure it in <code>vite.config.ts</code> and <code>tsconfig.json</code>:
+              </p>
+              <CodeBlock code={`// vite.config.ts\nimport path from "path"\nimport { defineConfig } from "vite"\n\nexport default defineConfig({\n  resolve: {\n    alias: {\n      "@": path.resolve(__dirname, "./src"),\n    },\n  },\n})`} language="typescript" />
+            </div>
+            
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold text-zinc-200">Install Dependencies</h3>
+              <CodeBlock code={manualDeps} language="bash" />
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold text-zinc-200">Add Utils Helper</h3>
+              <p className="text-zinc-400 font-light leading-relaxed text-sm">Create <code>src/lib/utils.ts</code> with the <code>cn</code> function.</p>
+              <CodeBlock code={`import { clsx, type ClassValue } from "clsx"\nimport { twMerge } from "tailwind-merge"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}`} language="typescript" />
+            </div>
+          </TabsContent>
+
+          {/* ASTRO */}
+          <TabsContent value="astro" className="space-y-6 outline-none">
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold text-zinc-200">Astro Setup</h3>
+              <p className="text-zinc-400 font-light leading-relaxed text-sm">
+                Ensure you have the React and Tailwind integrations installed:
+              </p>
+              <CodeBlock code={`npx astro add react tailwind`} language="bash" />
+            </div>
+            
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold text-zinc-200">Install Dependencies</h3>
+              <CodeBlock code={manualDeps} language="bash" />
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold text-zinc-200">Add Utils Helper</h3>
+              <p className="text-zinc-400 font-light leading-relaxed text-sm">Create <code>src/lib/utils.ts</code> with the <code>cn</code> function.</p>
+              <CodeBlock code={`import { clsx, type ClassValue } from "clsx"\nimport { twMerge } from "tailwind-merge"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}`} language="typescript" />
+            </div>
+          </TabsContent>
+
+          {/* REMIX */}
+          <TabsContent value="remix" className="space-y-6 outline-none">
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold text-zinc-200">Install Dependencies</h3>
+              <CodeBlock code={manualDeps} language="bash" />
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold text-zinc-200">Add Utils Helper</h3>
+              <p className="text-zinc-400 font-light leading-relaxed text-sm">Create <code>app/lib/utils.ts</code> with the <code>cn</code> function.</p>
+              <CodeBlock code={`import { clsx, type ClassValue } from "clsx"\nimport { twMerge } from "tailwind-merge"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}`} language="typescript" />
+            </div>
+          </TabsContent>
+        </Tabs>
+
+        <div className="space-y-3 pt-6">
           <h3 id="adding-components" className="text-lg font-semibold text-zinc-200">Copy Component Code</h3>
           <p className="text-zinc-400 font-light leading-relaxed text-sm">
-            Select components from the sidebar, click the <strong>Copy Code</strong> tab, and paste them directly into your <code>components/</code> directory.
+            Select components from the sidebar, click the <strong>Usage</strong> tab, and paste them directly into your project.
           </p>
         </div>
       </div>
@@ -94,4 +160,3 @@ export function cn(...inputs: ClassValue[]) {
     </div>
   );
 }
-

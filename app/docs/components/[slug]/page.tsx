@@ -3,6 +3,8 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getComponentDocBySlug, getComponentSlugs } from '@/lib/mdx';
 import fs from 'fs';
 import path from 'path';
+import { MicroActions } from '@/components/creative/docs/micro-actions';
+import { ComponentPairings } from '@/components/creative/docs/component-pairings';
 import { ComponentPreview } from '@/components/creative/docs/component-preview';
 import { CodeHighlight } from '@/components/creative/code-highlight';
 import { PropsTable } from '@/components/docs/props-table';
@@ -789,6 +791,8 @@ export default async function ComponentPage(props: { params: Promise<{ slug: str
         </div>
         <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4 text-white">{doc.title}</h1>
         <p className="text-base text-zinc-400 font-light max-w-2xl leading-relaxed">{doc.description}</p>
+        
+        <MicroActions slug={slug} dependencies={dependencies} />
       </div>
 
       <DocsPageClient slug={slug} title={doc.title} category={doc.category}>
@@ -802,6 +806,8 @@ export default async function ComponentPage(props: { params: Promise<{ slug: str
             blockDangerousJS: true
           }}
         />
+
+        <ComponentPairings currentSlug={slug} />
       </DocsPageClient>
     </div>
   );

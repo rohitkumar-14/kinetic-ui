@@ -15,6 +15,9 @@ interface MagneticButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
   color?: string;
   withSound?: boolean;
   variant?: MagneticVariant;
+  stiffness?: number;
+  damping?: number;
+  mass?: number;
 }
 
 export function MagneticButton({
@@ -26,6 +29,9 @@ export function MagneticButton({
   color,
   withSound = false,
   variant = "standard",
+  stiffness,
+  damping,
+  mass,
   ...props
 }: MagneticButtonProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -76,15 +82,25 @@ export function MagneticButton({
 
   const getPhysics = () => {
     const baseSpeed = speed || 1;
+    let basePhysics = { stiffness: 150 * baseSpeed, damping: 15 / baseSpeed, mass: 0.1 };
+    
     switch (variant) {
       case "heavy":
-        return { stiffness: 100 * baseSpeed, damping: 30 / baseSpeed, mass: 2 };
+        basePhysics = { stiffness: 100 * baseSpeed, damping: 30 / baseSpeed, mass: 2 };
+        break;
       case "bouncy":
-        return { stiffness: 400 * baseSpeed, damping: 10 / baseSpeed, mass: 0.5 };
+        basePhysics = { stiffness: 400 * baseSpeed, damping: 10 / baseSpeed, mass: 0.5 };
+        break;
       case "standard":
       default:
-        return { stiffness: 150 * baseSpeed, damping: 15 / baseSpeed, mass: 0.1 };
+        break;
     }
+    
+    return {
+      stiffness: stiffness ?? basePhysics.stiffness,
+      damping: damping ?? basePhysics.damping,
+      mass: mass ?? basePhysics.mass
+    };
   };
 
   const physics = getPhysics();

@@ -39,6 +39,7 @@ export const sidebarContent: SidebarGroup[] = [
           items: [
             { title: "Introduction", href: "/docs", icon: <BookOpen className="w-3.5 h-3.5" /> },
             { title: "Installation", href: "/docs/installation", icon: <Terminal className="w-3.5 h-3.5" /> },
+            { title: "Theme Studio", href: "/docs/theme", icon: <Wand2 className="w-3.5 h-3.5" /> },
           ]
         },
         {

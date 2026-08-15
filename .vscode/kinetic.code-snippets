@@ -1,0 +1,74 @@
+{
+  "Kinetic Component Import": {
+    "prefix": "ki-import",
+    "body": [
+      "import { ${1:Component} } from \"@/components/creative/${2:slug}\";"
+    ],
+    "description": "Import a Kinetic UI Component"
+  },
+  "Kinetic Component Usage": {
+    "prefix": "ki-use",
+    "body": [
+      "<${1:Component}",
+      "  ${2:prop}=\"${3:value}\"",
+      ">",
+      "  $4",
+      "</${1:Component}>"
+    ],
+    "description": "Use a Kinetic UI Component"
+  },
+  "Kinetic Button": {
+    "prefix": "ki-btn",
+    "body": [
+      "import { Button } from \"@/components/ui/button\";",
+      "",
+      "<Button variant=\"${1|default,secondary,destructive,outline,ghost,link|}\" size=\"${2|default,sm,lg,icon|}\">",
+      "  $3",
+      "</Button>"
+    ],
+    "description": "Insert a UI Button"
+  },
+  "Kinetic Magnetic Button": {
+    "prefix": "ki-magnetic",
+    "body": [
+      "import { MagneticButton } from \"@/components/creative/magnetic-button\";",
+      "",
+      "<MagneticButton",
+      "  stiffness={${1:150}}",
+      "  damping={${2:15}}",
+      "  mass={${3:0.1}}",
+      ">",
+      "  $4",
+      "</MagneticButton>"
+    ],
+    "description": "Insert a Magnetic Button"
+  },
+  "Kinetic Spotlight Card": {
+    "prefix": "ki-spotlight",
+    "body": [
+      "import { SpotlightCard } from \"@/components/creative/spotlight-card\";",
+      "",
+      "<SpotlightCard className=\"${1:p-6}\">",
+      "  $2",
+      "</SpotlightCard>"
+    ],
+    "description": "Insert a Spotlight Card"
+  },
+  "Kinetic Text Reveal": {
+    "prefix": "ki-text-reveal",
+    "body": [
+      "import { TextReveal } from \"@/components/creative/text-reveal\";",
+      "",
+      "<TextReveal text=\"${1:Your animated text here}\" delay={${2:0.2}} />"
+    ],
+    "description": "Insert Text Reveal Animation"
+  },
+  "Kinetic Use Client": {
+    "prefix": "ki-client",
+    "body": [
+      "'use client';",
+      ""
+    ],
+    "description": "Add 'use client' directive"
+  }
+}
