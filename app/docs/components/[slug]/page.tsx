@@ -746,6 +746,11 @@ export default async function ComponentPage(props: { params: Promise<{ slug: str
     SvgIsometricGridDemo: SvgIsometricGridDemo,
     TextShatterDemo: TextShatterDemo,
     ConferenceTicketDemo: ConferenceTicketDemo,
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 6661bd3 (feat: complete pre-launch polish, a11y, docs pager, and registry update)
     RetroGridDemo: RetroGridDemo,
     SparklesTextDemo: SparklesTextDemo,
     ConfettiButtonDemo: ConfettiButtonDemo,

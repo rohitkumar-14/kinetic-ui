@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { FlipBoard } from '@/components/creative/flip-board';
 import { FlipBoardDemo } from '@/components/creative/docs/flip-board-demo';
+import { DocsPager } from '@/components/docs-pager';
 
 interface DocsPageClientProps {
   slug: string;
@@ -120,6 +121,7 @@ export function DocsPageClient({ slug, title, category, children }: DocsPageClie
 
       </div>
       
+      <DocsPager />
     </motion.div>
   );
 }

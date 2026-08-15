@@ -99,7 +99,7 @@ export function MagneticButton({
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", ...physics }}
       className={cn(
-        "relative inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+        "relative inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/80 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
         !hasBg && "bg-primary hover:bg-primary/90",
         !hasText && "text-primary-foreground",
         className

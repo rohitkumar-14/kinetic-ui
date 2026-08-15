@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { DynamicIsland, DynamicIslandContent } from "@/components/creative/dynamic-island";
 import { Phone, PhoneCall, PhoneOff, Music, Play, Pause, FastForward, Rewind, UploadCloud, CheckCircle2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 type State = "idle" | "incoming-call" | "active-call" | "music" | "upload";
 
@@ -14,6 +14,7 @@ export function DynamicIslandDemo({
 }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
 
   React.useEffect(() => {
     if (variant === "upload") {
@@ -81,9 +82,9 @@ export function DynamicIslandDemo({
                 <span className="text-sm font-medium">12:45</span>
               </div>
               <div className="flex gap-1 items-center h-4">
-                <motion.div animate={{ height: [4, 12, 4] }} transition={{ repeat: Infinity, duration: 1 }} className="w-1 bg-green-500 rounded-full" />
-                <motion.div animate={{ height: [8, 16, 8] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-1 bg-green-500 rounded-full" />
-                <motion.div animate={{ height: [4, 10, 4] }} transition={{ repeat: Infinity, duration: 1.2 }} className="w-1 bg-green-500 rounded-full" />
+                <motion.div animate={{ height: [4, 12, 4] }} transition={{ repeat: shouldReduceMotion ? 0 : Infinity, duration: 1 }} className="w-1 bg-green-500 rounded-full" />
+                <motion.div animate={{ height: [8, 16, 8] }} transition={{ repeat: shouldReduceMotion ? 0 : Infinity, duration: 0.8 }} className="w-1 bg-green-500 rounded-full" />
+                <motion.div animate={{ height: [4, 10, 4] }} transition={{ repeat: shouldReduceMotion ? 0 : Infinity, duration: 1.2 }} className="w-1 bg-green-500 rounded-full" />
               </div>
             </DynamicIslandContent>
           )}

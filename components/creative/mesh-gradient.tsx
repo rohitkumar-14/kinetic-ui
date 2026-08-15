@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 interface MeshGradientProps extends React.HTMLAttributes<HTMLDivElement> {
   color1?: string;
@@ -21,10 +21,11 @@ export function MeshGradient({
   speed = 'normal',
   ...props
 }: MeshGradientProps) {
+  const shouldReduceMotion = useReducedMotion();
   const durationMap = {
-    slow: 20,
-    normal: 12,
-    fast: 6
+    slow: 30,
+    normal: 20,
+    fast: 10
   };
   
   const d = durationMap[speed];
@@ -37,14 +38,14 @@ export function MeshGradient({
       )}
       {...props}
     >
-      <div className="absolute inset-0 filter blur-[80px] opacity-70">
+      <div className="absolute inset-0 filter blur-[40px] md:blur-[80px] opacity-70">
         <motion.div
           animate={{
             x: ['0%', '20%', '-20%', '0%'],
             y: ['0%', '-20%', '20%', '0%'],
             scale: [1, 1.2, 0.8, 1],
           }}
-          transition={{ duration: d, repeat: Infinity, ease: 'linear' }}
+          transition={{ duration: d, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'linear' }}
           className="absolute top-0 left-0 w-[50%] h-[50%] rounded-full mix-blend-screen"
           style={{ backgroundColor: color1 }}
         />
@@ -54,7 +55,7 @@ export function MeshGradient({
             y: ['0%', '20%', '-10%', '0%'],
             scale: [1, 0.9, 1.3, 1],
           }}
-          transition={{ duration: d * 1.2, repeat: Infinity, ease: 'linear' }}
+          transition={{ duration: d * 1.2, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'linear' }}
           className="absolute top-0 right-0 w-[60%] h-[50%] rounded-full mix-blend-screen"
           style={{ backgroundColor: color2 }}
         />
@@ -64,7 +65,7 @@ export function MeshGradient({
             y: ['0%', '-10%', '30%', '0%'],
             scale: [1, 1.4, 0.9, 1],
           }}
-          transition={{ duration: d * 0.8, repeat: Infinity, ease: 'linear' }}
+          transition={{ duration: d * 0.8, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'linear' }}
           className="absolute bottom-0 left-0 w-[50%] h-[60%] rounded-full mix-blend-screen"
           style={{ backgroundColor: color3 }}
         />
@@ -74,7 +75,7 @@ export function MeshGradient({
             y: ['0%', '20%', '-20%', '0%'],
             scale: [1, 0.8, 1.2, 1],
           }}
-          transition={{ duration: d * 1.4, repeat: Infinity, ease: 'linear' }}
+          transition={{ duration: d * 1.4, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'linear' }}
           className="absolute bottom-0 right-0 w-[50%] h-[50%] rounded-full mix-blend-screen"
           style={{ backgroundColor: color4 }}
         />

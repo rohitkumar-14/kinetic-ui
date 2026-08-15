@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export interface BlobBackgroundProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -14,11 +14,12 @@ export interface BlobBackgroundProps extends React.HTMLAttributes<HTMLDivElement
 export function BlobBackground({
   colors = ["#ffaa40", "#9c40ff", "#00c6ff"],
   blur = 60,
-  animationSpeed = 20,
+  animationSpeed = 40,
   blobOpacity = 0.5,
   className,
   ...props
 }: BlobBackgroundProps) {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <div
       className={cn("absolute inset-0 overflow-hidden pointer-events-none z-0", className)}
@@ -39,7 +40,7 @@ export function BlobBackground({
           }}
           transition={{
             duration: animationSpeed,
-            repeat: Infinity,
+            repeat: shouldReduceMotion ? 0 : Infinity,
             ease: "easeInOut",
           }}
         />
@@ -55,7 +56,7 @@ export function BlobBackground({
           }}
           transition={{
             duration: animationSpeed * 1.2,
-            repeat: Infinity,
+            repeat: shouldReduceMotion ? 0 : Infinity,
             ease: "easeInOut",
           }}
         />
@@ -72,7 +73,7 @@ export function BlobBackground({
             }}
             transition={{
               duration: animationSpeed * 0.9,
-              repeat: Infinity,
+              repeat: shouldReduceMotion ? 0 : Infinity,
               ease: "easeInOut",
             }}
           />

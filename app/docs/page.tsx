@@ -1,4 +1,5 @@
-// Trigger rebuild
+import { DocsPager } from "@/components/docs-pager";
+
 export default function DocsPage() {
   return (
     <div className="max-w-3xl space-y-10">
@@ -32,6 +33,7 @@ export default function DocsPage() {
           To start compiling the components, read our <a href="/docs/installation" className="font-semibold text-indigo-400 underline underline-offset-4 hover:text-indigo-300 transition-colors">Installation</a> guide or navigate straight to component previews in the left sidebar.
         </p>
       </div>
+      <DocsPager />
     </div>
   );
 }

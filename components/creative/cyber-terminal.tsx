@@ -210,7 +210,7 @@ export function CyberTerminal({
         open={open} 
         onOpenChange={onOpenChange}
         className={cn(
-          "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl bg-[#022c22] border-2 border-emerald-500/30 rounded-xl overflow-hidden shadow-[0_0_50px_rgba(4,120,87,0.5)] z-50 animate-crt",
+          "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[95vw] sm:w-[90vw] md:w-full max-w-2xl bg-[#022c22] border-2 border-emerald-500/30 rounded-xl overflow-hidden shadow-lg md:shadow-[0_0_50px_rgba(4,120,87,0.5)] z-50 md:animate-crt",
           className
         )}
       >

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export interface GooeyFooterLink {
@@ -27,6 +27,7 @@ export function GooeyFooter({
   className,
   color = "#a855f7", // Purple-500
 }: GooeyFooterProps) {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <footer className={cn("relative w-full overflow-hidden bg-slate-950 py-24", className)}>
       
@@ -63,7 +64,7 @@ export function GooeyFooter({
               animate={{
                 scale: [1, 1.1, 0.9, 1],
               }}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              transition={{ repeat: shouldReduceMotion ? 0 : Infinity, duration: 8, ease: "easeInOut" }}
             />
             
             {/* Orbiting blobs */}

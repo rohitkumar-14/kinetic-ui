@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { GlassTabs } from "@/components/creative/glass-tabs";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Globe, Shield, Sparkles, Zap } from "lucide-react";
 
 const TABS = [
@@ -18,6 +18,7 @@ export function GlassTabsDemo({
   defaultTab?: string;
 }) {
   const [activeTab, setActiveTab] = useState(defaultTab);
+  const shouldReduceMotion = useReducedMotion();
 
   React.useEffect(() => {
     setActiveTab(defaultTab);
@@ -33,7 +34,7 @@ export function GlassTabsDemo({
             rotate: 360,
             scale: [1, 1.2, 1],
           }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 20, repeat: shouldReduceMotion ? 0 : Infinity, ease: "linear" }}
           className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-indigo-600 rounded-full mix-blend-screen filter blur-[80px]"
         />
         <motion.div 
@@ -41,7 +42,7 @@ export function GlassTabsDemo({
             rotate: -360,
             scale: [1, 1.5, 1],
           }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 25, repeat: shouldReduceMotion ? 0 : Infinity, ease: "linear" }}
           className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-pink-600 rounded-full mix-blend-screen filter blur-[100px]"
         />
       </div>

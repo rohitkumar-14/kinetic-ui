@@ -1,4 +1,5 @@
 import { CodeBlock } from '@/components/code-block';
+import { DocsPager } from '@/components/docs-pager';
 
 export default function InstallationPage() {
   const initCode = `npx kinetic-ui-cli@latest init`;
@@ -89,6 +90,7 @@ export function cn(...inputs: ClassValue[]) {
           </p>
         </div>
       </div>
+      <DocsPager />
     </div>
   );
 }
