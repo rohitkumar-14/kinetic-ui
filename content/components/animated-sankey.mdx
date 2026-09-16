@@ -1,0 +1,28 @@
+---
+title: Animated Sankey
+description: Fluid ribbon diagram visualizing user conversion funnels or financial transaction distribution.
+category: Data Display
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Animated Sankey" 
+  componentName="AnimatedSankey"
+  sourceFile="components/creative/animated-sankey.tsx"
+>
+  <div className="w-full">
+    <AnimatedSankeyDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="animated-sankey" />
+
+## Mechanics
+
+This component blends HTML DOM nodes with an underlying SVG Canvas:
+
+1. **DOM Nodes**: The columns of boxes are standard flexbox HTML elements, allowing for easy responsive design and rich content inside the nodes.
+2. **SVG Ribbons**: The connections between nodes are drawn using SVG cubic bezier paths (`d="M x1 y1 C x2 y2, x3 y3, x4 y4"`). The `vectorEffect="non-scaling-stroke"` property ensures the paths scale responsively when the container shrinks without the stroke width becoming distorted.
+3. **Animated Packets**: Using Framer Motion, we animate a secondary stroke path over the ribbons. By animating `pathLength` and `pathOffset`, we create the illusion of glowing data packets traveling along the conversion funnel.

@@ -1,0 +1,28 @@
+---
+title: Scratch to Reveal
+description: Realistic physics-based scratchable gold foil revealing discount codes or confidential content.
+category: Physics & Micro-Interactions
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Scratch Reveal" 
+  componentName="PaperTearReveal"
+  sourceFile="components/creative/paper-tear-reveal.tsx"
+>
+  <div className="w-full">
+    <PaperTearRevealDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="paper-tear-reveal" />
+
+## Mechanics
+
+This effect leverages the HTML5 `<canvas>` element and its powerful `globalCompositeOperation` property:
+
+1. **Cover Generation**: When mounted, the canvas draws a procedural metallic gold foil gradient over its context using `createLinearGradient()`.
+2. **Scratching**: As the user drags their cursor/finger over the canvas, we set `ctx.globalCompositeOperation = "destination-out"`. This turns any subsequent `arc()` drawing commands into an "eraser", clearing the pixels where the mouse moved and revealing the DOM elements layered beneath the canvas.
+3. **Threshold Checking**: Periodically, we read the `getImageData` pixel array to check the alpha channel. If a certain percentage of the pixels have become transparent (e.g. 50%), we trigger a full reveal and fade the canvas out via CSS opacity transitions.

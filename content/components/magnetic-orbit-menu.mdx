@@ -1,0 +1,28 @@
+---
+title: Magnetic Planetary Menu
+description: Orbiting circular icons that dynamically pull towards the cursor when hovered and snap into elliptical paths.
+category: Physics & Micro-Interactions
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Magnetic Planetary Menu" 
+  componentName="MagneticOrbitMenu"
+  sourceFile="components/creative/magnetic-orbit-menu.tsx"
+>
+  <div className="w-full">
+    <MagneticOrbitMenuDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="magnetic-orbit-menu" />
+
+## Mechanics
+
+This component merges continuous trigonometric animation with reactive physics:
+
+1. **Orbit Paths**: A global `requestAnimationFrame` loop increments a `time` variable. Each planetary node calculates its Cartesian `(x, y)` position relative to the center using `Math.cos()` and `Math.sin()`.
+2. **Hover Pause**: When any node (or the center avatar) is hovered, the global time loop halts, pausing the orbit so the user can comfortably click the target.
+3. **Magnetic Core**: The center avatar maps its translation to `cursorX` and `cursorY` via `useSpring`, creating a subtle parallax pull effect as you move your mouse across the container.

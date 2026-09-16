@@ -1,0 +1,29 @@
+---
+title: Slot Machine Reel
+description: Mechanical tumbling reels that spin and decelerate on random numbers, coupon reveals, or stats.
+category: Physics & Micro-Interactions
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Slot Machine Reel" 
+  componentName="SlotMachineReel"
+  sourceFile="components/creative/slot-machine-reel.tsx"
+>
+  <div className="w-full">
+    <SlotMachineReelDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="slot-machine-reel" />
+
+## Mechanics
+
+Each character in the target string is rendered as its own isolated `<SingleReel />` component. 
+
+1. When initialized, the component generates an array of 30 randomized characters, inserting the true `targetChar` at the very end of the array.
+2. During the `spinning=true` phase, Framer Motion loops a very fast linear Y-translation to create mechanical motion blur.
+3. When `spinning=false`, it interrupts the loop and triggers a spring physics animation targeting `y: -(length - 1) * 100%`, which perfectly aligns the final target character in the viewport clip window.
+4. An inset CSS shadow simulates the curved depth of a physical casino barrel.

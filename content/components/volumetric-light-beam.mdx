@@ -1,0 +1,56 @@
+---
+title: Volumetric Light Beam
+description: An atmospheric 3D god ray effect that tracks the cursor, illuminating dust motes and casting realistic volumetric shadows.
+category: 3D Components
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Volumetric Light Beam" 
+  componentName="VolumetricLightBeam"
+  sourceFile="components/creative/volumetric-light-beam.tsx"
+  playgroundControls={[
+    { name: "beamIntensity", type: "number", min: 0.5, max: 3, step: 0.1, default: 1.6, label: "Beam Intensity" },
+    { name: "coneAngle", type: "number", min: 0.2, max: 0.8, step: 0.05, default: 0.45, label: "Cone Angle" },
+    { name: "dustCount", type: "number", min: 50, max: 500, step: 10, default: 180, label: "Dust Particles" },
+    { name: "beamColor", type: "select", options: ["#60a5fa", "#f59e0b", "#ec4899", "#22c55e", "#ffffff"], default: "#60a5fa", label: "Light Color" }
+  ]}
+  propsData={[
+    { name: "beamIntensity", type: "number", default: "1.6", description: "Brightness and opacity of the volumetric light shaft." },
+    { name: "beamColor", type: "string", default: "'#60a5fa'", description: "Color of the god ray and dynamic spotlight." },
+    { name: "coneAngle", type: "number", default: "0.45", description: "Radial spread angle of the light cone geometry." },
+    { name: "dustCount", type: "number", default: "180", description: "Number of floating dust particle motes in the air." },
+    { name: "className", type: "string", description: "Tailwind CSS classes for the outer viewer container." }
+  ]}
+  variants={[
+    {
+      name: "Cyber Blue",
+      code: `import { VolumetricLightBeam } from "@/components/creative/volumetric-light-beam";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[500px]">\n      <VolumetricLightBeam\n        beamIntensity={1.6}\n        beamColor="#60a5fa"\n        coneAngle={0.45}\n      />\n    </div>\n  );\n}`,
+      params: { beamIntensity: 1.6, beamColor: "#60a5fa", coneAngle: 0.45 }
+    },
+    {
+      name: "Sunset Gold",
+      code: `import { VolumetricLightBeam } from "@/components/creative/volumetric-light-beam";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[500px]">\n      <VolumetricLightBeam\n        beamIntensity={2.0}\n        beamColor="#f59e0b"\n        coneAngle={0.5}\n        dustCount={300}\n      />\n    </div>\n  );\n}`,
+      params: { beamIntensity: 2.0, beamColor: "#f59e0b", coneAngle: 0.5, dustCount: 300 }
+    },
+    {
+      name: "Neon Pink",
+      code: `import { VolumetricLightBeam } from "@/components/creative/volumetric-light-beam";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[500px]">\n      <VolumetricLightBeam\n        beamIntensity={1.8}\n        beamColor="#ec4899"\n        coneAngle={0.4}\n      />\n    </div>\n  );\n}`,
+      params: { beamIntensity: 1.8, beamColor: "#ec4899", coneAngle: 0.4 }
+    }
+  ]}
+>
+  <VolumetricLightBeamDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="volumetric-light-beam" />
+
+## Architecture & Rendering
+
+**Volumetric Light Beam** implements a performant approximation of atmospheric light scattering (Mie scattering):
+
+1. **Light Cone Shader**: Instead of expensive raymarching, the light shaft is rendered as a double-sided cylinder geometry. The custom fragment shader calculates the rim-angle (Fresnel) and axial height falloff to create a soft, gradient-faded cone of light that blends additively (`THREE.AdditiveBlending`) with the scene.
+2. **Dynamic Target Tracking**: A hidden dummy `Object3D` interpolates smoothly towards the 2D cursor coordinates projected into 3D space. The spotlight and volumetric cone continuously invoke `lookAt(target)` to follow the mouse effortlessly.
+3. **Suspended Dust Motes**: Instanced `THREE.Points` float gently through the scene. Because the volumetric beam is rendered additively, particles appear brightly illuminated when floating inside the light shaft.

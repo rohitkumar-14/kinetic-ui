@@ -1,0 +1,28 @@
+---
+title: Elastic Pull Drawer
+description: An iOS-inspired bottom sheet with elastic overscroll resistance and spring momentum physics.
+category: Physics & Micro-Interactions
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Elastic Pull Drawer" 
+  componentName="ElasticDrawer"
+  sourceFile="components/creative/elastic-drawer.tsx"
+>
+  <div className="w-full">
+    <ElasticDrawerDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="elastic-drawer" />
+
+## Mechanics
+
+This component implements fluid, native-feeling physics using `framer-motion`:
+
+1. **Rubber-band Resistance**: The `dragElastic={0.4}` property maps cursor movement beyond the `dragConstraints` boundaries to a dampened logarithm, making it feel like pulling against a heavy rubber band.
+2. **Velocity Snapping**: By listening to `onDragEnd` and analyzing `info.velocity.y`, we can determine if the user flicked the drawer down quickly enough to close it, even if they didn't drag it very far.
+3. **Handle Isolation**: `useDragControls` is applied so that dragging the main scrollable content doesn't accidentally move the drawer; dragging is strictly bound to the top handlebar.

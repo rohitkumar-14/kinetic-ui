@@ -1,0 +1,28 @@
+---
+title: Cyber Speedometer
+description: High-precision automotive/SaaS metric dial with glowing ticks, animated sweeps, and peak warning indicators.
+category: Data Display
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Cyber Speedometer" 
+  componentName="CyberSpeedometer"
+  sourceFile="components/creative/cyber-speedometer.tsx"
+>
+  <div className="w-full">
+    <CyberSpeedometerDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="cyber-speedometer" />
+
+## Mechanics
+
+This dashboard widget utilizes pure SVG for crisp, scalable graphics combined with Framer Motion for the fluid physics:
+
+1. **Stroke Dasharray Math**: The `circumference` of the `<circle>` is calculated using `2 * Math.PI * r`. We constrain the gauge to a 270-degree arc (`arcSpan`), then map the `value` prop (0-100) to a `strokeDashoffset` to fill the meter.
+2. **Neon Glow Filter**: We apply an SVG `<filter>` containing `feGaussianBlur` and `feMerge` directly to the active stroke path to create a performant bloom effect that perfectly tracks the animated stroke.
+3. **Number Interpolation**: The large center text isn't just updated reactively; we use a `requestAnimationFrame` loop with an `easeOutExpo` easing function to animate the digits rolling up and down, matching the speed of the physical dial.

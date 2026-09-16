@@ -1,0 +1,27 @@
+---
+title: Activity Matrix
+description: GitHub-style interactive heatmap with live ripple effects on click and micro-sparkline popovers.
+category: Data Display
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Activity Matrix" 
+  componentName="ActivityHeatmap"
+  sourceFile="components/creative/activity-heatmap.tsx"
+>
+  <div className="w-full">
+    <ActivityHeatmapDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="activity-heatmap" />
+
+## Mechanics
+
+This component elevates the classic GitHub contribution graph using Framer Motion for interactive physics:
+
+1. **Spotlight Hover**: By tracking the `hoveredCell` coordinate `(r, c)`, we can calculate the Euclidean distance to every other cell. Cells within a radius of 2.5 receive a slight scale boost, creating a localized magnifying-glass effect around the cursor.
+2. **Click Ripples**: On click, we log the `rippleOrigin` and the exact timestamp. We recalculate the distance from the click origin to all cells, mapping that distance to an animation `delay`. This creates a fluid shockwave traveling outward through the grid.

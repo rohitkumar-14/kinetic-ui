@@ -1,0 +1,34 @@
+---
+title: Voice Agent Aura
+description: A Siri/Gemini Live style 3D audio-reactive iridescent orb that reacts smoothly to speech volume inputs.
+category: AI & Generative
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Voice Agent Aura" 
+  componentName="VoiceAgentAura"
+  sourceFile="components/creative/voice-agent-aura.tsx"
+  playgroundControls={[
+    { name: "color1", type: "select", options: ["#4f46e5", "#10b981", "#ef4444", "#f59e0b"], default: "#4f46e5", label: "Core Color" },
+    { name: "color2", type: "select", options: ["#c026d3", "#3b82f6", "#ec4899", "#8b5cf6"], default: "#c026d3", label: "Ripple Color" },
+    { name: "color3", type: "select", options: ["#38bdf8", "#a7f3d0", "#fca5a5", "#fde047"], default: "#38bdf8", label: "Rim Color" },
+    { name: "speed", type: "number", min: 0.1, max: 3, step: 0.1, default: 1.0, label: "Animation Speed" }
+  ]}
+>
+  <div className="w-full">
+    <VoiceAgentAuraDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="voice-agent-aura" />
+
+## Architecture
+
+This component is a classic example of **Vertex Displacement** combined with a **Fresnel (Rim Lighting) Shader**. 
+
+- **GLSL Vertex Shader**: We use Stefan Gustavson's classic 3D Perlin noise implementation to displace the vertices of a high-resolution sphere (`<sphereGeometry args={[1.2, 128, 128]} />`). As the `volume` prop increases, the amplitude of the noise increases, causing the orb to warp violently.
+- **GLSL Fragment Shader**: We calculate the dot product between the surface normal and the view direction to create an iridescent fresnel effect around the rim. The colors (`uColor1`, `uColor2`, `uColor3`) are interpolated based on the displacement height and the fresnel intensity.
+- **React-Three-Fiber**: The `volume` uniform is continuously smoothly interpolated in a `useFrame` loop using `THREE.MathUtils.lerp` to ensure that sudden jumps in audio volume don't cause the mesh geometry to snap violently.

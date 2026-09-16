@@ -1,0 +1,26 @@
+---
+title: LLM Compare Slider
+description: A split-screen comparison widget with token-by-token diff highlighting and interactive response evaluation cards.
+category: AI & Generative
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="LLM Compare Slider" 
+  componentName="LlmCompareSlider"
+  sourceFile="components/creative/llm-compare-slider.tsx"
+>
+  <div className="w-full">
+    <LlmCompareSliderDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="llm-compare-slider" />
+
+## Usage
+
+This component utilizes CSS `clip-path: polygon(...)` tied to an interactive slider handle mapped from 0% to 100%.
+
+It is extremely useful for A/B testing AI models, visualizing RAG (Retrieval-Augmented Generation) improvements, or showing prompt engineering "before/after" results. Pass arbitrary React node children to `modelA_Content` and `modelB_Content` to compare anything from raw text to complete UI widgets.

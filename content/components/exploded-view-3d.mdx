@@ -1,0 +1,56 @@
+---
+title: 3D Exploded View
+description: An interactive 3D product disassembly model that expands internal hardware layers outwards with spatial 3D annotation pins.
+category: 3D Components
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="3D Exploded View" 
+  componentName="ExplodedView3D"
+  sourceFile="components/creative/exploded-view-3d.tsx"
+  playgroundControls={[
+    { name: "explosionProgress", type: "number", min: 0, max: 1, step: 0.05, default: 0.6, label: "Explosion Progress" },
+    { name: "autoRotate", type: "boolean", default: false, label: "Auto Rotate" },
+    { name: "showPins", type: "boolean", default: true, label: "Show Annotation Pins" },
+    { name: "accentColor", type: "select", options: ["#6366f1", "#38bdf8", "#ec4899", "#22c55e", "#f59e0b"], default: "#6366f1", label: "Accent Color" }
+  ]}
+  propsData={[
+    { name: "explosionProgress", type: "number", default: "0.6", description: "Interpolation progress from 0 (compact assembled) to 1 (full component separation)." },
+    { name: "autoRotate", type: "boolean", default: "false", description: "Enables continuous gentle spatial oscillation and orbit." },
+    { name: "accentColor", type: "string", default: "'#6366f1'", description: "Color theme for the display dial graphics and crown dial button." },
+    { name: "showPins", type: "boolean", default: "true", description: "Toggles interactive 3D spatial HTML annotation callout markers." },
+    { name: "className", type: "string", description: "Tailwind CSS classes for the outer viewer container." }
+  ]}
+  variants={[
+    {
+      name: "Cyber Indigo",
+      code: `import { ExplodedView3D } from "@/components/creative/exploded-view-3d";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[520px]">\n      <ExplodedView3D\n        explosionProgress={0.6}\n        accentColor="#6366f1"\n        showPins={true}\n      />\n    </div>\n  );\n}`,
+      params: { explosionProgress: 0.6, accentColor: "#6366f1", showPins: true }
+    },
+    {
+      name: "Emerald Green",
+      code: `import { ExplodedView3D } from "@/components/creative/exploded-view-3d";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[520px]">\n      <ExplodedView3D\n        explosionProgress={0.8}\n        accentColor="#22c55e"\n        showPins={true}\n      />\n    </div>\n  );\n}`,
+      params: { explosionProgress: 0.8, accentColor: "#22c55e", showPins: true }
+    },
+    {
+      name: "Compact Assembled",
+      code: `import { ExplodedView3D } from "@/components/creative/exploded-view-3d";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[520px]">\n      <ExplodedView3D\n        explosionProgress={0}\n        accentColor="#38bdf8"\n        showPins={false}\n      />\n    </div>\n  );\n}`,
+      params: { explosionProgress: 0, accentColor: "#38bdf8", showPins: false }
+    }
+  ]}
+>
+  <ExplodedView3DDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="exploded-view-3d" />
+
+## Architecture & Disassembly Mechanics
+
+**3D Exploded View** decomposes physical industrial design into individual procedural layers:
+
+1. **Layer Separation Kinetics**: Each sub-assembly (Sapphire glass, bezel, AMOLED screen, neural PCB, battery, chassis, and biosensor array) receives individual proportional displacement factors with smooth spring damping (`THREE.MathUtils.damp`).
+2. **Spatial 3D HTML Pins**: Powered by `@react-three/drei`'s `<Html>`, annotation pins maintain spatial anchor coordinates in 3D world space while rendering high-DPI HTML callouts and responsive hover cards.
+3. **Interactive Control Modes**: Can be driven externally via props (e.g. scroll progress or state) or directly manipulated through the built-in slider and orbit controls.

@@ -1,0 +1,59 @@
+---
+title: Liquid Mercury Droplet
+description: An interactive 3D liquid metal chrome droplet that ripples dynamically on cursor interaction using custom GLSL shaders.
+category: 3D Components
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Liquid Mercury Droplet" 
+  componentName="LiquidMercuryDroplet"
+  sourceFile="components/creative/liquid-mercury-droplet.tsx"
+  playgroundControls={[
+    { name: "viscosity", type: "number", min: 0.2, max: 2, step: 0.1, default: 1, label: "Viscosity (Fluidity)" },
+    { name: "distortion", type: "number", min: 0.1, max: 2, step: 0.1, default: 1, label: "Ripple Distortion" },
+    { name: "metalness", type: "number", min: 0, max: 1, step: 0.05, default: 0.95, label: "Metalness" },
+    { name: "roughness", type: "number", min: 0, max: 0.5, step: 0.05, default: 0.1, label: "Roughness" },
+    { name: "tintColor", type: "select", options: ["#f1f5f9", "#ffd700", "#38bdf8", "#ec4899", "#22c55e"], default: "#f1f5f9", label: "Chrome Tint" }
+  ]}
+  propsData={[
+    { name: "viscosity", type: "number", default: "1", description: "Controls the surface tension and fluid flow speed of the liquid mercury." },
+    { name: "distortion", type: "number", default: "1", description: "Magnitude of 3D Perlin noise and wave displacements on the droplet surface." },
+    { name: "metalness", type: "number", default: "0.95", description: "Metallic reflectance coefficient of the chrome shader." },
+    { name: "roughness", type: "number", default: "0.1", description: "Micro-facet roughness determining specular highlight spread and reflections." },
+    { name: "tintColor", type: "string", default: "'#f1f5f9'", description: "Base tint color applied to the reflective metal surface." },
+    { name: "scale", type: "number", default: "1.4", description: "Overall 3D geometric scale of the droplet mesh." },
+    { name: "className", type: "string", description: "Tailwind CSS classes for the outer canvas container." }
+  ]}
+  variants={[
+    {
+      name: "Chrome Liquid",
+      code: `import { LiquidMercuryDroplet } from "@/components/creative/liquid-mercury-droplet";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[450px]">\n      <LiquidMercuryDroplet\n        viscosity={1}\n        distortion={1}\n        metalness={0.95}\n        roughness={0.1}\n        tintColor="#f1f5f9"\n      />\n    </div>\n  );\n}`,
+      params: { viscosity: 1, distortion: 1, metalness: 0.95, roughness: 0.1, tintColor: "#f1f5f9" }
+    },
+    {
+      name: "Liquid Gold",
+      code: `import { LiquidMercuryDroplet } from "@/components/creative/liquid-mercury-droplet";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[450px]">\n      <LiquidMercuryDroplet\n        viscosity={1.4}\n        distortion={1.2}\n        metalness={0.9}\n        roughness={0.15}\n        tintColor="#ffd700"\n      />\n    </div>\n  );\n}`,
+      params: { viscosity: 1.4, distortion: 1.2, metalness: 0.9, roughness: 0.15, tintColor: "#ffd700" }
+    },
+    {
+      name: "Cyber Neon Blue",
+      code: `import { LiquidMercuryDroplet } from "@/components/creative/liquid-mercury-droplet";\n\nexport default function Example() {\n  return (\n    <div className="w-full h-[450px]">\n      <LiquidMercuryDroplet\n        viscosity={0.8}\n        distortion={1.5}\n        metalness={0.95}\n        roughness={0.05}\n        tintColor="#38bdf8"\n      />\n    </div>\n  );\n}`,
+      params: { viscosity: 0.8, distortion: 1.5, metalness: 0.95, roughness: 0.05, tintColor: "#38bdf8" }
+    }
+  ]}
+>
+  <LiquidMercuryDropletDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="liquid-mercury-droplet" />
+
+## Architecture & Shaders
+
+**Liquid Mercury Droplet** runs entirely on the GPU via **Three.js** and **React Three Fiber**.
+
+1. **Vertex Displacement**: Evaluates a classic 3D Simplex noise field combined with mouse pointer screen-space distance. As the user interacts with the canvas, exponential damping propagates concentric ripples across the sphere mesh surface.
+2. **Metallic Reflection Fragment**: Uses dynamic normal matrix calculations to evaluate a double Blinn-Phong specular lobe, a cubic Fresnel rim equation, and simulated horizon environment reflections with subtle chromatic aberration at grazing angles.
+3. **Spring Inertia & Presentation Controls**: Supports drag and touch orbiting with automatic spring-back snapping.

@@ -1,0 +1,26 @@
+---
+title: Chain of Thought Tree
+description: An animated branching tree component that visualizes step-by-step model reasoning, collapsible thought paths, tool calls, and execution times.
+category: AI & Generative
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Reasoning Tree" 
+  componentName="ReasoningTree"
+  sourceFile="components/creative/reasoning-tree.tsx"
+>
+  <div className="w-full">
+    <ReasoningTreeDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="reasoning-tree" />
+
+## Usage & Integration
+
+The **Reasoning Tree** component uses a recursive `TreeNode` sub-component to render infinitely nestable levels of thought processes. 
+
+It pairs beautifully with LLM architectures that emit structured logging (like LangChain callbacks or Vercel AI SDK `onToolCall` streams). The collapsible nature is powered by `framer-motion`'s `AnimatePresence` applying height transitions.

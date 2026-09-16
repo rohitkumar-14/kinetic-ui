@@ -1,0 +1,27 @@
+---
+title: 3D Book Flip
+description: Realistic 3D turning pages with natural curl, cast shadows, and paper sound/texture.
+category: Scrollytelling
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="3D Book Flip" 
+  componentName="ThreeDBookFlip"
+  sourceFile="components/creative/3d-book-flip.tsx"
+>
+  <ThreeDBookFlipDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="3d-book-flip" />
+
+## Mechanics
+
+Creating a realistic 3D book entirely in the DOM is a masterclass in CSS `transform-style: preserve-3d` and `backface-visibility`.
+
+1. **Hierarchy**: We establish a parent container with `perspective: 1500px` to give depth. Inside it, a container has `transform-style-3d`.
+2. **Page Stacking**: Every page is absolutely positioned on top of each other. We use `z-index` manipulation to ensure the right page is always on top. When a page turns left, its `z-index` must invert relative to the other turned pages so that the most recently turned page sits on top of the left stack.
+3. **Rotation**: Pages rotate around their `origin-left` on the Y-axis (`rotateY: -180`).
+4. **Double-Sided Geometry**: Each page contains a Front and a Back div. The Back div starts flipped (`rotateY(180deg)`) and both have `backfaceVisibility: "hidden"`. As the parent container flips, the front vanishes and the back appears natively.

@@ -1,0 +1,28 @@
+---
+title: Infinite Fractal Zoom
+description: An endless zoom sequence through geometric gateways driven by scroll velocity.
+category: Scrollytelling
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Infinite Fractal Zoom" 
+  componentName="InfiniteFractalZoom"
+  sourceFile="components/creative/infinite-fractal-zoom.tsx"
+>
+  <div className="w-full">
+    <InfiniteFractalZoomDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="infinite-fractal-zoom" />
+
+## Mechanics
+
+This component implements a Stargate or "Doctor Who" style infinite zoom sequence using Framer Motion's `useScroll` and `useTransform`:
+
+1. **Sticky Context**: The wrapper div is set to `300vh` tall, while the inner viewport is `100vh` and `sticky top-0`. This traps the user in a scrolling context for a long duration.
+2. **Exponential Scale**: We generate multiple `<ZoomLayer />` concentric squares. We map the global `scrollYProgress` (0 to 1) to an exponential curve (`Math.pow`) modifying the `scale` CSS property of each layer. 
+3. **Opacity Clipping**: As a layer's scale becomes massively huge (passing the camera) or incredibly small (fading into the void), its opacity drops to `0`. This gives the illusion of infinite procedural generation.

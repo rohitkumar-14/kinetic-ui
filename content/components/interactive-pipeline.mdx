@@ -1,0 +1,28 @@
+---
+title: Interactive Pipeline
+description: An animated roadmap that draws glowing pipes and illuminates sequential milestone stations as the user scrolls down.
+category: Scrollytelling
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="Interactive Pipeline" 
+  componentName="InteractivePipeline"
+  sourceFile="components/creative/interactive-pipeline.tsx"
+>
+  <div className="w-full">
+    <InteractivePipelineDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="interactive-pipeline" />
+
+## Mechanics
+
+This component uses Framer Motion's `useScroll` and `useTransform` hooks.
+
+1. **Scroll Tracking**: `useScroll` creates a `MotionValue` (`scrollYProgress`) ranging from `0` to `1` as the target container passes through the viewport.
+2. **Path Tracing**: We map `scrollYProgress` directly to the `scaleY` CSS transform of an absolutely positioned vertical div to create the glowing pipe line.
+3. **Milestone Activation**: Each milestone node has a hardcoded `yPosition` threshold. We use `useTransform` to convert the global `scrollYProgress` into boolean activation flags. When the line crosses the node's threshold, it triggers opacity, scale, and color spring animations.

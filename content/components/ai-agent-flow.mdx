@@ -1,0 +1,28 @@
+---
+title: AI Agent Flow
+description: An interactive node-based canvas visualizing LLM reasoning, routing, and tool execution with animated packet flows.
+category: AI & Generative
+author: Kinetic
+---
+
+<ComponentPreview 
+  name="AI Agent Flow" 
+  componentName="AIAgentFlow"
+  sourceFile="components/creative/ai-agent-flow.tsx"
+>
+  <div className="w-full">
+    <AIAgentFlowDemo />
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand componentName="ai-agent-flow" />
+
+## Architecture
+
+This component is built using a hybrid approach of HTML DOM nodes layered over an SVG canvas for drawing Bezier curves (`<path>`).
+
+- **DOM Nodes**: The nodes are standard React `div` elements, absolutely positioned using Framer Motion (`<motion.div>`) to allow for smooth layout shifts, continuous floating animations, and hardware-accelerated CSS filters like backdrop-blur and glowing drop-shadows.
+- **SVG Canvas**: An overlay SVG handles the Bezier curves. We map through a predefined set of directed edges to draw the connections.
+- **Animated Flows**: To simulate "packets" of data moving through the LLM pipeline, we use `framer-motion` to animate the `pathLength` property of glowing gradient paths, accompanied by an `<animateMotion>` SMIL animation on a glowing white dot that traces the curve perfectly.
