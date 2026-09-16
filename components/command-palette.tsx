@@ -51,15 +51,45 @@ export function CommandPalette({ open, setOpen }: CommandPaletteProps) {
   }, [setOpen]);
 
   return (
-    <CommandDialog open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder="Search documentation, components, actions..." />
+    <CommandDialog 
+      open={open} 
+      onOpenChange={setOpen}
+      filter={(value, search) => {
+        if (!search) return 1;
+        const searchTerms = search.toLowerCase().split(/\s+/).filter(Boolean);
+        let matches = 0;
+        
+        // Remove common stop words for better "AI-like" natural language querying
+        const stopWords = ['a', 'an', 'the', 'i', 'want', 'need', 'looking', 'for', 'type', 'of', 'component', 'that', 'with', 'like'];
+        const meaningfulTerms = searchTerms.filter(term => !stopWords.includes(term));
+        
+        if (meaningfulTerms.length === 0) return 0;
+
+        meaningfulTerms.forEach(term => {
+          const valLower = value.toLowerCase();
+          if (valLower.includes(term)) {
+            matches += 1;
+          } else {
+            // allow partial/stem matches (e.g. "glowing" matches "glow")
+            const valWords = valLower.split(/\s+/);
+            if (valWords.some(w => (w.length > 3 && term.includes(w)) || (term.length > 3 && w.includes(term)))) {
+              matches += 0.8;
+            }
+          }
+        });
+        
+        // Return a score between 0 and 1
+        return matches > 0 ? (matches / meaningfulTerms.length) : 0;
+      }}
+    >
+      <CommandInput placeholder="What are you looking for? (e.g. 'a glowing button', '3d model')" />
       <CommandList
         data-lenis-prevent
         data-scroll-lock-ignore
         onWheel={(e) => e.stopPropagation()}
         className="bg-black/95 text-white border-t border-white/5 backdrop-blur-xl max-h-[360px] sm:max-h-[420px] overflow-y-auto overscroll-contain pointer-events-auto"
       >
-        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandEmpty>No matches found. Try different keywords.</CommandEmpty>
         
         {sidebarContent.map((group, groupIdx) => (
           <React.Fragment key={groupIdx}>
@@ -72,8 +102,8 @@ export function CommandPalette({ open, setOpen }: CommandPaletteProps) {
                     return (
                       <CommandItem
                         key={item.href}
-                        value={`${item.title} ${slug} ${section.title} ${group.label}`}
-                        keywords={[item.title, slug, section.title]}
+                        value={`${item.title} ${slug} ${section.title} ${group.label} ${item.keywords || ''}`}
+                        keywords={[item.title, slug, section.title, ...(item.keywords ? item.keywords.split(' ') : [])]}
                         onSelect={() => runCommand(() => router.push(item.href))}
                         className="flex items-center gap-2 px-4 py-3 cursor-pointer rounded-lg transition-colors text-zinc-300 data-[selected=true]:bg-white/10 data-[selected=true]:text-white"
                       >

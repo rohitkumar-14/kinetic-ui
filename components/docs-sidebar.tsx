@@ -26,7 +26,7 @@ import {
   Search,
   Copy
 } from 'lucide-react';
-export type SidebarItem = { title: string; href: string; icon: React.ReactNode; soon?: boolean };
+export type SidebarItem = { title: string; href: string; icon: React.ReactNode; soon?: boolean; keywords?: string; };
 export type SidebarSection = { title: string; items: SidebarItem[] };
 export type SidebarGroup = { label: string; sections: SidebarSection[] };
 
@@ -141,15 +141,15 @@ export const sidebarContent: SidebarGroup[] = [
         {
           title: "Buttons",
           items: [
-            { title: "Button", href: "/docs/components/button", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Button", href: "/docs/components/button", icon: <Layers className="w-3.5 h-3.5" />, keywords: "click action press submit interact ui" },
             { title: "Magnetic Button", href: "/docs/components/magnetic-button", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Liquid Button", href: "/docs/components/liquid-button", icon: <Layers className="w-3.5 h-3.5" /> },
-            { title: "Glow Button", href: "/docs/components/glow-button", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Glow Button", href: "/docs/components/glow-button", icon: <Layers className="w-3.5 h-3.5" />, keywords: "neon light shine bright cyber modern" },
             { title: "Particle Explosion Button", href: "/docs/components/particle-explosion-button", icon: <Layers className="w-3.5 h-3.5" /> },
-            { title: "Morphing SVG Button", href: "/docs/components/morphing-svg-button", icon: <Layers className="w-3.5 h-3.5" /> },
-            { title: "Shimmer Border Button", href: "/docs/components/shimmer-border-button", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Morphing SVG Button", href: "/docs/components/morphing-svg-button", icon: <Layers className="w-3.5 h-3.5" />, keywords: "vector animate change shape transition" },
+            { title: "Shimmer Border Button", href: "/docs/components/shimmer-border-button", icon: <Layers className="w-3.5 h-3.5" />, keywords: "outline shine loading skeleton premium" },
             { title: "Physics Drop Button", href: "/docs/components/physics-drop-button", icon: <Layers className="w-3.5 h-3.5" /> },
-            { title: "3D Add To Cart", href: "/docs/components/3d-add-to-cart-button", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "3D Add To Cart", href: "/docs/components/3d-add-to-cart-button", icon: <Layers className="w-3.5 h-3.5" />, keywords: "ecommerce shop buy spin 3d depth" },
             { title: "Confetti Button", href: "/docs/components/confetti-button", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Morphing State Button", href: "/docs/components/morphing-state-button", icon: <Layers className="w-3.5 h-3.5" /> }
           ]
@@ -274,7 +274,7 @@ export const sidebarContent: SidebarGroup[] = [
           title: "Background Effects",
           items: [
             { title: "Mesh Gradient", href: "/docs/components/mesh-gradient", icon: <Sparkles className="w-3.5 h-3.5" /> },
-            { title: "Aurora Background", href: "/docs/components/aurora-background", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "Aurora Background", href: "/docs/components/aurora-background", icon: <Sparkles className="w-3.5 h-3.5" />, keywords: "lights sky gradient color beautiful aesthetic" },
             { title: "Fluid Background", href: "/docs/components/fluid-background", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Interactive Fluid Background", href: "/docs/components/interactive-fluid", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Boids Simulation", href: "/docs/components/boids-canvas", icon: <Sparkles className="w-3.5 h-3.5" /> },
@@ -282,8 +282,8 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Fluid Canvas", href: "/docs/components/fluid-canvas", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Noise Overlay", href: "/docs/components/noise-overlay", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Film Grain Overlay", href: "/docs/components/film-grain", icon: <Sparkles className="w-3.5 h-3.5" /> },
-            { title: "Animated Blob Background", href: "/docs/components/blob-background", icon: <Sparkles className="w-3.5 h-3.5" /> },
-            { title: "Grid Pattern", href: "/docs/components/grid-pattern", icon: <Sparkles className="w-3.5 h-3.5" /> },
+            { title: "Animated Blob Background", href: "/docs/components/blob-background", icon: <Sparkles className="w-3.5 h-3.5" />, keywords: "organic shape move float smooth" },
+            { title: "Grid Pattern", href: "/docs/components/grid-pattern", icon: <Sparkles className="w-3.5 h-3.5" />, keywords: "lines squares dots background subtle" },
             { title: "Interactive Grid Noise", href: "/docs/components/interactive-grid-noise", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Constellation Network", href: "/docs/components/constellation-network", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "WebGL Dynamic Ribbon", href: "/docs/components/webgl-ribbon-bg", icon: <Sparkles className="w-3.5 h-3.5" /> }
@@ -349,7 +349,7 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Physics Canvas", href: "/docs/components/physics-canvas", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Force Graph", href: "/docs/components/force-graph", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Falling Elements", href: "/docs/components/falling-elements", icon: <Cpu className="w-3.5 h-3.5" /> },
-            { title: "Multiplayer Cursor Ecosystem", href: "/docs/components/multiplayer-cursor-ecosystem", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Multiplayer Cursor Ecosystem", href: "/docs/components/multiplayer-cursor-ecosystem", icon: <Cpu className="w-3.5 h-3.5" />, keywords: "collaboration many users real-time live" },
             { title: "Infinite Zoom Canvas", href: "/docs/components/infinite-zoom-canvas", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Elastic Pull Drawer", href: "/docs/components/elastic-drawer", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Slot Machine Reel", href: "/docs/components/slot-machine-reel", icon: <Cpu className="w-3.5 h-3.5" /> },
@@ -496,9 +496,9 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Timeline", href: "/docs/components/timeline", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Animated Circular Progress", href: "/docs/components/animated-circular-progress", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Badge", href: "/docs/components/badge", icon: <Layers className="w-3.5 h-3.5" /> },
-            { title: "Scroll Progress", href: "/docs/components/scroll-progress", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Scroll Progress", href: "/docs/components/scroll-progress", icon: <Layers className="w-3.5 h-3.5" />, keywords: "reading bar indicator timeline height" },
             { title: "Horizontal Scroll", href: "/docs/components/horizontal-scroll", icon: <Layers className="w-3.5 h-3.5" /> },
-            { title: "Chart", href: "/docs/components/chart", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Chart", href: "/docs/components/chart", icon: <Layers className="w-3.5 h-3.5" />, keywords: "data graph bar line visual statistics chart" },
             { title: "Force Graph", href: "/docs/components/force-graph", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
             { title: "Draggable Canvas", href: "/docs/components/draggable-canvas", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
             { title: "Physics Canvas", href: "/docs/components/physics-canvas", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
