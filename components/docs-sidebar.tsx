@@ -247,6 +247,10 @@ export const sidebarContent: SidebarGroup[] = [
         {
           title: "3D Components",
           items: [
+            { title: "Liquid Mercury Droplet", href: "/docs/components/liquid-mercury-droplet", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "3D Exploded View", href: "/docs/components/exploded-view-3d", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Volumetric Light Beam", href: "/docs/components/volumetric-light-beam", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Chromatic Glass Prism", href: "/docs/components/chromatic-glass-prism", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Interactive 3D Model", href: "/docs/components/interactive-3d-model", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Liquid Fluid Shader", href: "/docs/components/liquid-fluid-shader", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Particle System", href: "/docs/components/particle-system", icon: <Layers className="w-3.5 h-3.5" /> },
@@ -309,7 +313,10 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Sticky Stacking Cards", href: "/docs/components/sticky-stacking-cards", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Text Mask Video Reveal", href: "/docs/components/text-mask-video-reveal", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Smooth Scroll", href: "/docs/components/smooth-scroll", icon: <Layers className="w-3.5 h-3.5" /> },
-            { title: "Scroll Linked Split", href: "/docs/components/scroll-linked-split", icon: <Layers className="w-3.5 h-3.5" /> }
+            { title: "Scroll Linked Split", href: "/docs/components/scroll-linked-split", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Interactive Pipeline", href: "/docs/components/interactive-pipeline", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "3D Book Flip", href: "/docs/components/3d-book-flip", icon: <Layers className="w-3.5 h-3.5" /> },
+            { title: "Infinite Fractal Zoom", href: "/docs/components/infinite-fractal-zoom", icon: <Layers className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -327,7 +334,11 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Typing Code Stream", href: "/docs/components/typing-code-stream", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Agent Tool Inspector", href: "/docs/components/agent-tool-inspector", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Audio Waveform Studio", href: "/docs/components/audio-waveform-studio", icon: <Cpu className="w-3.5 h-3.5" /> },
-            { title: "AI Artifact Sandbox", href: "/docs/components/ai-artifact-sandbox", icon: <Cpu className="w-3.5 h-3.5" /> }
+            { title: "AI Artifact Sandbox", href: "/docs/components/ai-artifact-sandbox", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "AI Agent Flow", href: "/docs/components/ai-agent-flow", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Voice Agent Aura", href: "/docs/components/voice-agent-aura", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Reasoning Tree", href: "/docs/components/reasoning-tree", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "LLM Compare Slider", href: "/docs/components/llm-compare-slider", icon: <Cpu className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -339,7 +350,11 @@ export const sidebarContent: SidebarGroup[] = [
             { title: "Force Graph", href: "/docs/components/force-graph", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Falling Elements", href: "/docs/components/falling-elements", icon: <Cpu className="w-3.5 h-3.5" /> },
             { title: "Multiplayer Cursor Ecosystem", href: "/docs/components/multiplayer-cursor-ecosystem", icon: <Cpu className="w-3.5 h-3.5" /> },
-            { title: "Infinite Zoom Canvas", href: "/docs/components/infinite-zoom-canvas", icon: <Cpu className="w-3.5 h-3.5" /> }
+            { title: "Infinite Zoom Canvas", href: "/docs/components/infinite-zoom-canvas", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Elastic Pull Drawer", href: "/docs/components/elastic-drawer", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Slot Machine Reel", href: "/docs/components/slot-machine-reel", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Magnetic Planetary Menu", href: "/docs/components/magnetic-orbit-menu", icon: <Cpu className="w-3.5 h-3.5" /> },
+            { title: "Scratch Reveal", href: "/docs/components/paper-tear-reveal", icon: <Cpu className="w-3.5 h-3.5" /> }
           ]
         },
         {
@@ -422,6 +437,9 @@ export const sidebarContent: SidebarGroup[] = [
           items: [
             { title: "Stats Section", href: "/docs/components/stats-section", icon: <BarChart2 className="w-3.5 h-3.5" /> },
             { title: "WebGL Line Chart", href: "/docs/components/webgl-line-chart", icon: <BarChart2 className="w-3.5 h-3.5" /> },
+            { title: "Cyber Speedometer", href: "/docs/components/cyber-speedometer", icon: <BarChart2 className="w-3.5 h-3.5" /> },
+            { title: "Animated Sankey", href: "/docs/components/animated-sankey", icon: <BarChart2 className="w-3.5 h-3.5" /> },
+            { title: "Activity Matrix", href: "/docs/components/activity-heatmap", icon: <BarChart2 className="w-3.5 h-3.5" /> },
             { title: "Lighthouse Audits", href: "/docs/components/lighthouse-audits", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Bundle Footprint", href: "/docs/components/bundle-footprint", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Testimonial Carousel", href: "/docs/components/testimonial-carousel", icon: <Layers className="w-3.5 h-3.5" /> },

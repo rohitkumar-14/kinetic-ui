@@ -6,6 +6,7 @@ import { usePreviewStore } from '@/hooks/use-preview-store';
 import { Settings2, Monitor, Tablet, Smartphone, Copy, Check, ExternalLink, Sliders, Terminal, FolderGit, RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { PropsTable, PropDef } from '@/components/docs/props-table';
+import { PlaygroundContext } from './playground-context';
 
 export interface PlaygroundControl {
   name: string;
@@ -359,6 +360,7 @@ export function ComponentPreview({
                   onClick={() => {
                     setActiveVariantIdx(i);
                     setActiveVariant(v.name);
+                    if (v.params) setParams(prev => ({ ...prev, ...v.params }));
                   }}
                   className={cn(
                     "px-3 py-1 text-xs font-medium rounded-full transition-colors",
@@ -502,7 +504,9 @@ export function ComponentPreview({
                         "p-6",
                         !isResponsiveMode && "md:p-8"
                       )}>
-                        {activeComponent}
+                        <PlaygroundContext.Provider value={params}>
+                          {activeComponent}
+                        </PlaygroundContext.Provider>
                       </div>
 
                       {/* Drag handle */}

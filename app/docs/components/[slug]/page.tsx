@@ -344,6 +344,24 @@ import { PhysicsAuthFormDemo } from '@/components/creative/docs/physics-auth-for
 import { WebGLLineChartDemo } from '@/components/creative/docs/webgl-line-chart-demo';
 import { ThreeDAddToCartButtonDemo } from '@/components/creative/docs/3d-add-to-cart-button-demo';
 import { DiffusionImageRevealDemo } from '@/components/creative/docs/diffusion-image-reveal-demo';
+import { LiquidMercuryDropletDemo } from '@/components/creative/docs/liquid-mercury-droplet-demo';
+import { ExplodedView3DDemo } from '@/components/creative/docs/exploded-view-3d-demo';
+import { VolumetricLightBeamDemo } from '@/components/creative/docs/volumetric-light-beam-demo';
+import { ChromaticGlassPrismDemo } from '@/components/creative/docs/chromatic-glass-prism-demo';
+import { AIAgentFlowDemo } from '@/components/creative/docs/ai-agent-flow-demo';
+import { VoiceAgentAuraDemo } from '@/components/creative/docs/voice-agent-aura-demo';
+import { ReasoningTreeDemo } from '@/components/creative/docs/reasoning-tree-demo';
+import { LlmCompareSliderDemo } from '@/components/creative/docs/llm-compare-slider-demo';
+import { ElasticDrawerDemo } from '@/components/creative/docs/elastic-drawer-demo';
+import { SlotMachineReelDemo } from '@/components/creative/docs/slot-machine-reel-demo';
+import { MagneticOrbitMenuDemo } from '@/components/creative/docs/magnetic-orbit-menu-demo';
+import { PaperTearRevealDemo } from '@/components/creative/docs/paper-tear-reveal-demo';
+import { InteractivePipelineDemo } from '@/components/creative/docs/interactive-pipeline-demo';
+import { ThreeDBookFlipDemo } from '@/components/creative/docs/3d-book-flip-demo';
+import { InfiniteFractalZoomDemo } from '@/components/creative/docs/infinite-fractal-zoom-demo';
+import { CyberSpeedometerDemo } from '@/components/creative/docs/cyber-speedometer-demo';
+import { AnimatedSankeyDemo } from '@/components/creative/docs/animated-sankey-demo';
+import { ActivityHeatmapDemo } from '@/components/creative/docs/activity-heatmap-demo';
 
 // Define the custom components we want to use inside our MDX files
 const mdxComponents = {
@@ -364,6 +382,24 @@ const mdxComponents = {
   WebGLLineChartDemo,
   ThreeDAddToCartButtonDemo,
   DiffusionImageRevealDemo,
+  LiquidMercuryDropletDemo,
+  ExplodedView3DDemo,
+  VolumetricLightBeamDemo,
+  ChromaticGlassPrismDemo,
+  AIAgentFlowDemo,
+  VoiceAgentAuraDemo,
+  ReasoningTreeDemo,
+  LlmCompareSliderDemo,
+  ElasticDrawerDemo,
+  SlotMachineReelDemo,
+  MagneticOrbitMenuDemo,
+  PaperTearRevealDemo,
+  InteractivePipelineDemo,
+  ThreeDBookFlipDemo,
+  InfiniteFractalZoomDemo,
+  CyberSpeedometerDemo,
+  AnimatedSankeyDemo,
+  ActivityHeatmapDemo,
   HeroGlobe3DDemo,
   ParticleExplosionButtonDemo,
   SpotlightBorderCardDemo,

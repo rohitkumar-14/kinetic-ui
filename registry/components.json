@@ -1002,6 +1002,57 @@
   "three-d": {
     "name": "3D Components",
     "items": {
+      "liquid-mercury-droplet": {
+        "name": "LiquidMercuryDroplet",
+        "description": "An interactive liquid metal surface that ripples on cursor movement using custom GLSL matcap shaders.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei"
+        ],
+        "files": [
+          "components/creative/liquid-mercury-droplet.tsx"
+        ]
+      },
+      "exploded-view-3d": {
+        "name": "ExplodedView3D",
+        "description": "An interactive 3D model where scrolling or clicking expands components outward with dynamic floating annotation pins.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei",
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/exploded-view-3d.tsx"
+        ]
+      },
+      "volumetric-light-beam": {
+        "name": "VolumetricLightBeam",
+        "description": "Atmospheric mouse-tracking light cone casting shadows and illuminating frosted-glass cards.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei",
+          "maath"
+        ],
+        "files": [
+          "components/creative/volumetric-light-beam.tsx"
+        ]
+      },
+      "chromatic-glass-prism": {
+        "name": "ChromaticGlassPrism",
+        "description": "A real-time refractive 3D crystal that splits light into rainbow spectra based on cursor tilt.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei",
+          "maath"
+        ],
+        "files": [
+          "components/creative/chromatic-glass-prism.tsx"
+        ]
+      },
       "floating-3d-card": {
         "name": "Floating3DCard",
         "description": "WebGL fluid torus element wrapped in R3F Canvas.",
@@ -1646,6 +1697,36 @@
         "files": [
           "components/creative/magnetic-tooltip.tsx"
         ]
+      },
+      "cyber-speedometer": {
+        "name": "CyberSpeedometer",
+        "description": "High-precision automotive SVG gauge.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/cyber-speedometer.tsx"
+        ]
+      },
+      "animated-sankey": {
+        "name": "AnimatedSankey",
+        "description": "Fluid ribbon diagram with glowing data packets.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/animated-sankey.tsx"
+        ]
+      },
+      "activity-heatmap": {
+        "name": "ActivityHeatmap",
+        "description": "Interactive activity matrix heatmap with ripples.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/activity-heatmap.tsx"
+        ]
       }
     }
   },
@@ -2185,6 +2266,140 @@
         ],
         "files": [
           "components/creative/multi-step-island.tsx"
+        ]
+      }
+    }
+  },
+  "ai": {
+    "name": "AI & Generative",
+    "items": {
+      "ai-agent-flow": {
+        "name": "AIAgentFlow",
+        "description": "Interactive node-based canvas with animated bezier connector curves and pulsing packet flow.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/ai-agent-flow.tsx"
+        ]
+      },
+      "voice-agent-aura": {
+        "name": "VoiceAgentAura",
+        "description": "3D audio-reactive iridescent blob aura.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/voice-agent-aura.tsx"
+        ]
+      },
+      "reasoning-tree": {
+        "name": "ReasoningTree",
+        "description": "Animated branching tree component visualizing step-by-step LLM reasoning.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/reasoning-tree.tsx"
+        ]
+      },
+      "llm-compare-slider": {
+        "name": "LlmCompareSlider",
+        "description": "Split-screen comparison widget with token-by-token diff highlighting.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/llm-compare-slider.tsx"
+        ]
+      }
+    }
+  },
+  "physics": {
+    "name": "Physics & Micro-Interactions",
+    "items": {
+      "elastic-drawer": {
+        "name": "ElasticDrawer",
+        "description": "Elastic rubber-band drawer with physical resistance.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/elastic-drawer.tsx"
+        ]
+      },
+      "slot-machine-reel": {
+        "name": "SlotMachineReel",
+        "description": "Spinning casino-style slot machine reel for metrics.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/slot-machine-reel.tsx"
+        ]
+      },
+      "magnetic-orbit-menu": {
+        "name": "MagneticOrbitMenu",
+        "description": "Planetary orbit menu with magnetic pull.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/magnetic-orbit-menu.tsx"
+        ]
+      },
+      "paper-tear-reveal": {
+        "name": "PaperTearReveal",
+        "description": "Scratch-to-reveal gold foil canvas.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/paper-tear-reveal.tsx"
+        ]
+      }
+    }
+  },
+  "scrollytelling": {
+    "name": "Scrollytelling",
+    "items": {
+      "interactive-pipeline": {
+        "name": "InteractivePipeline",
+        "description": "Animated SVG roadmap illuminating on scroll.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/interactive-pipeline.tsx"
+        ]
+      },
+      "3d-book-flip": {
+        "name": "ThreeDBookFlip",
+        "description": "3D perspective book flip animation.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/3d-book-flip.tsx"
+        ]
+      },
+      "infinite-fractal-zoom": {
+        "name": "InfiniteFractalZoom",
+        "description": "Endless zoom sequence through gateways driven by scroll.",
+        "dependencies": [
+          "framer-motion"
+        ],
+        "files": [
+          "components/creative/infinite-fractal-zoom.tsx"
         ]
       }
     }
