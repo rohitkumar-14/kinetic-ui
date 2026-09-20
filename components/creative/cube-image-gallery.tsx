@@ -2,9 +2,8 @@
 
 import React, { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useTexture, Text, Environment } from "@react-three/drei";
+import { useTexture, Environment } from "@react-three/drei";
 import * as THREE from "three";
-import { motion } from "framer-motion-3d";
 import { cn } from "@/lib/utils";
 
 interface CubeImageGalleryProps {
@@ -22,7 +21,7 @@ const defaultImages = [
 ];
 
 function Cube({ images }: { images: string[] }) {
-  const meshRef = useRef<any>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
   
   // Load all 6 textures
   const textures = useTexture(images);
@@ -31,33 +30,34 @@ function Cube({ images }: { images: string[] }) {
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
 
-  // Rotation logic based on time
-  useFrame((state) => {
-    if (meshRef.current && !hovered) {
-      meshRef.current.rotation.x += 0.002;
-      meshRef.current.rotation.y += 0.003;
-    }
-    
-    // Slow down rotation if hovered
-    if (meshRef.current && hovered) {
-      meshRef.current.rotation.x += 0.0005;
-      meshRef.current.rotation.y += 0.0005;
+  // Target values for lerping
+  const targetScale = clicked ? 1.5 : 1;
+  const targetY = hovered ? 0.2 : 0;
+
+  // Rotation and scale logic
+  useFrame((state, delta) => {
+    if (meshRef.current) {
+      // Rotation
+      if (!hovered) {
+        meshRef.current.rotation.x += 0.002;
+        meshRef.current.rotation.y += 0.003;
+      } else {
+        meshRef.current.rotation.x += 0.0005;
+        meshRef.current.rotation.y += 0.0005;
+      }
+
+      // Smooth interpolation for scale and position
+      meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
+      meshRef.current.position.lerp(new THREE.Vector3(0, targetY, 0), 0.1);
     }
   });
 
   return (
-    // @ts-ignore - framer-motion-3d types are incompatible with R3F v9
-    <motion.mesh
+    <mesh
       ref={meshRef}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
       onClick={() => setClicked(!clicked)}
-      initial={{ scale: 0 }}
-      animate={{ 
-        scale: clicked ? 1.5 : 1,
-        y: hovered ? 0.2 : 0
-      }}
-      transition={{ type: "spring", stiffness: 200, damping: 20 }}
     >
       <boxGeometry args={[3, 3, 3]} />
       {textures.map((texture, idx) => (
@@ -69,7 +69,7 @@ function Cube({ images }: { images: string[] }) {
           metalness={0.8}
         />
       ))}
-    </motion.mesh>
+    </mesh>
   );
 }
 
