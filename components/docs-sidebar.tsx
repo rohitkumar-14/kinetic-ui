@@ -227,6 +227,7 @@ export const sidebarContent: SidebarGroup[] = [
         {
           title: "Mouse Interactions",
           items: [
+            { title: "Text Hover Image Reveal", href: "/docs/components/text-hover-image-reveal", icon: <Image className="w-3.5 h-3.5" />, keywords: "list hover image follow cursor reveal" },
             { title: "Cursor Follower", href: "/docs/components/cursor-follower", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Hover Image Trails", href: "/docs/components/hover-image-trails", icon: <Image className="w-3.5 h-3.5" /> },
             { title: "Diffusion Image Reveal", href: "/docs/components/diffusion-image-reveal", icon: <Image className="w-3.5 h-3.5" /> },
@@ -247,6 +248,8 @@ export const sidebarContent: SidebarGroup[] = [
         {
           title: "3D Components",
           items: [
+            { title: "Cube Image Gallery", href: "/docs/components/cube-image-gallery", icon: <Layers className="w-3.5 h-3.5" />, keywords: "3d cube gallery interactive rotation drag webgl" },
+            { title: "MacBook Scroll Reveal", href: "/docs/components/macbook-scroll-reveal", icon: <Layers className="w-3.5 h-3.5" />, keywords: "3d laptop computer mac apple scroll open" },
             { title: "Liquid Mercury Droplet", href: "/docs/components/liquid-mercury-droplet", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "3D Exploded View", href: "/docs/components/exploded-view-3d", icon: <Layers className="w-3.5 h-3.5" /> },
             { title: "Volumetric Light Beam", href: "/docs/components/volumetric-light-beam", icon: <Layers className="w-3.5 h-3.5" /> },

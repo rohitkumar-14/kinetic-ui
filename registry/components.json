@@ -2610,6 +2610,55 @@
         "files": [
           "components/creative/3d-book-flip.tsx"
         ]
+      },
+      "text-hover-image-reveal": {
+        "name": "TextHoverImageReveal",
+        "description": "Advanced TextHoverImageReveal component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/text-hover-image-reveal.tsx"
+        ]
+      },
+      "macbook-scroll-reveal": {
+        "name": "MacBookScrollReveal",
+        "description": "Advanced MacBookScrollReveal component.",
+        "dependencies": [
+          "framer-motion",
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei"
+        ],
+        "files": [
+          "components/creative/macbook-scroll-reveal.tsx"
+        ]
+      },
+      "liquid-image-distortion": {
+        "name": "LiquidImageDistortion",
+        "description": "Advanced LiquidImageDistortion component.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei"
+        ],
+        "files": [
+          "components/creative/liquid-image-distortion.tsx"
+        ]
+      },
+      "cube-image-gallery": {
+        "name": "CubeImageGallery",
+        "description": "Advanced CubeImageGallery component.",
+        "dependencies": [
+          "framer-motion-3d",
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei"
+        ],
+        "files": [
+          "components/creative/cube-image-gallery.tsx"
+        ]
       }
     }
   }
