@@ -46,6 +46,7 @@ function Cube({ images }: { images: string[] }) {
   });
 
   return (
+    // @ts-ignore - framer-motion-3d types are incompatible with R3F v9
     <motion.mesh
       ref={meshRef}
       onPointerOver={() => setHovered(true)}
