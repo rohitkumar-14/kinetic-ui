@@ -2403,5 +2403,214 @@
         ]
       }
     }
+  },
+  "creative": {
+    "name": "Creative & Advanced",
+    "items": {
+      "liquid-mercury-droplet": {
+        "name": "LiquidMercuryDroplet",
+        "description": "Advanced LiquidMercuryDroplet component.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei"
+        ],
+        "files": [
+          "components/creative/liquid-mercury-droplet.tsx"
+        ]
+      },
+      "exploded-view-3d": {
+        "name": "ExplodedView3D",
+        "description": "Advanced ExplodedView3D component.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei"
+        ],
+        "files": [
+          "components/creative/exploded-view-3d.tsx"
+        ]
+      },
+      "volumetric-light-beam": {
+        "name": "VolumetricLightBeam",
+        "description": "Advanced VolumetricLightBeam component.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei"
+        ],
+        "files": [
+          "components/creative/volumetric-light-beam.tsx"
+        ]
+      },
+      "chromatic-glass-prism": {
+        "name": "ChromaticGlassPrism",
+        "description": "Advanced ChromaticGlassPrism component.",
+        "dependencies": [
+          "three",
+          "@react-three/fiber",
+          "@react-three/drei",
+          "meshline"
+        ],
+        "files": [
+          "components/creative/chromatic-glass-prism.tsx"
+        ]
+      },
+      "ai-agent-flow": {
+        "name": "AIAgentFlow",
+        "description": "Advanced AIAgentFlow component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/ai-agent-flow.tsx"
+        ]
+      },
+      "voice-agent-aura": {
+        "name": "VoiceAgentAura",
+        "description": "Advanced VoiceAgentAura component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/voice-agent-aura.tsx"
+        ]
+      },
+      "reasoning-tree": {
+        "name": "ReasoningTree",
+        "description": "Advanced ReasoningTree component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/reasoning-tree.tsx"
+        ]
+      },
+      "llm-compare-slider": {
+        "name": "LLMCompareSlider",
+        "description": "Advanced LLMCompareSlider component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/llm-compare-slider.tsx"
+        ]
+      },
+      "elastic-drawer": {
+        "name": "ElasticDrawer",
+        "description": "Advanced ElasticDrawer component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/elastic-drawer.tsx"
+        ]
+      },
+      "paper-tear-reveal": {
+        "name": "PaperTearReveal",
+        "description": "Advanced PaperTearReveal component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/paper-tear-reveal.tsx"
+        ]
+      },
+      "slot-machine-reel": {
+        "name": "SlotMachineReel",
+        "description": "Advanced SlotMachineReel component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/slot-machine-reel.tsx"
+        ]
+      },
+      "animated-sankey": {
+        "name": "AnimatedSankey",
+        "description": "Advanced AnimatedSankey component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react",
+          "d3-sankey"
+        ],
+        "files": [
+          "components/creative/animated-sankey.tsx"
+        ]
+      },
+      "activity-heatmap": {
+        "name": "ActivityHeatmap",
+        "description": "Advanced ActivityHeatmap component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/activity-heatmap.tsx"
+        ]
+      },
+      "infinite-fractal-zoom": {
+        "name": "InfiniteFractalZoom",
+        "description": "Advanced InfiniteFractalZoom component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/infinite-fractal-zoom.tsx"
+        ]
+      },
+      "interactive-pipeline": {
+        "name": "InteractivePipeline",
+        "description": "Advanced InteractivePipeline component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/interactive-pipeline.tsx"
+        ]
+      },
+      "magnetic-orbit-menu": {
+        "name": "MagneticOrbitMenu",
+        "description": "Advanced MagneticOrbitMenu component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/magnetic-orbit-menu.tsx"
+        ]
+      },
+      "cyber-speedometer": {
+        "name": "CyberSpeedometer",
+        "description": "Advanced CyberSpeedometer component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/cyber-speedometer.tsx"
+        ]
+      },
+      "3d-book-flip": {
+        "name": "BookFlip3D",
+        "description": "Advanced BookFlip3D component.",
+        "dependencies": [
+          "framer-motion",
+          "lucide-react"
+        ],
+        "files": [
+          "components/creative/3d-book-flip.tsx"
+        ]
+      }
+    }
   }
 }

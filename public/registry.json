@@ -1343,7 +1343,7 @@
   "liquid-mercury-droplet": {
     "name": "liquid-mercury-droplet",
     "title": "LiquidMercuryDroplet",
-    "category": "3D Components",
+    "category": "Creative & Advanced",
     "dependencies": [
       "three",
       "@react-three/fiber",
@@ -1360,12 +1360,11 @@
   "exploded-view-3d": {
     "name": "exploded-view-3d",
     "title": "ExplodedView3D",
-    "category": "3D Components",
+    "category": "Creative & Advanced",
     "dependencies": [
       "three",
       "@react-three/fiber",
-      "@react-three/drei",
-      "framer-motion"
+      "@react-three/drei"
     ],
     "registryDependencies": [],
     "files": [
@@ -1378,12 +1377,11 @@
   "volumetric-light-beam": {
     "name": "volumetric-light-beam",
     "title": "VolumetricLightBeam",
-    "category": "3D Components",
+    "category": "Creative & Advanced",
     "dependencies": [
       "three",
       "@react-three/fiber",
-      "@react-three/drei",
-      "maath"
+      "@react-three/drei"
     ],
     "registryDependencies": [],
     "files": [
@@ -1396,12 +1394,12 @@
   "chromatic-glass-prism": {
     "name": "chromatic-glass-prism",
     "title": "ChromaticGlassPrism",
-    "category": "3D Components",
+    "category": "Creative & Advanced",
     "dependencies": [
       "three",
       "@react-three/fiber",
       "@react-three/drei",
-      "maath"
+      "meshline"
     ],
     "registryDependencies": [],
     "files": [
@@ -2300,9 +2298,10 @@
   "cyber-speedometer": {
     "name": "cyber-speedometer",
     "title": "CyberSpeedometer",
-    "category": "Data Display",
+    "category": "Creative & Advanced",
     "dependencies": [
-      "framer-motion"
+      "framer-motion",
+      "lucide-react"
     ],
     "registryDependencies": [],
     "files": [
@@ -2315,9 +2314,11 @@
   "animated-sankey": {
     "name": "animated-sankey",
     "title": "AnimatedSankey",
-    "category": "Data Display",
+    "category": "Creative & Advanced",
     "dependencies": [
-      "framer-motion"
+      "framer-motion",
+      "lucide-react",
+      "d3-sankey"
     ],
     "registryDependencies": [],
     "files": [
@@ -2330,9 +2331,10 @@
   "activity-heatmap": {
     "name": "activity-heatmap",
     "title": "ActivityHeatmap",
-    "category": "Data Display",
+    "category": "Creative & Advanced",
     "dependencies": [
-      "framer-motion"
+      "framer-motion",
+      "lucide-react"
     ],
     "registryDependencies": [],
     "files": [
@@ -3069,7 +3071,7 @@
   "ai-agent-flow": {
     "name": "ai-agent-flow",
     "title": "AIAgentFlow",
-    "category": "AI & Generative",
+    "category": "Creative & Advanced",
     "dependencies": [
       "framer-motion",
       "lucide-react"
@@ -3085,7 +3087,7 @@
   "voice-agent-aura": {
     "name": "voice-agent-aura",
     "title": "VoiceAgentAura",
-    "category": "AI & Generative",
+    "category": "Creative & Advanced",
     "dependencies": [
       "framer-motion",
       "lucide-react"
@@ -3101,7 +3103,7 @@
   "reasoning-tree": {
     "name": "reasoning-tree",
     "title": "ReasoningTree",
-    "category": "AI & Generative",
+    "category": "Creative & Advanced",
     "dependencies": [
       "framer-motion",
       "lucide-react"
@@ -3116,8 +3118,8 @@
   },
   "llm-compare-slider": {
     "name": "llm-compare-slider",
-    "title": "LlmCompareSlider",
-    "category": "AI & Generative",
+    "title": "LLMCompareSlider",
+    "category": "Creative & Advanced",
     "dependencies": [
       "framer-motion",
       "lucide-react"
@@ -3133,7 +3135,7 @@
   "elastic-drawer": {
     "name": "elastic-drawer",
     "title": "ElasticDrawer",
-    "category": "Physics & Micro-Interactions",
+    "category": "Creative & Advanced",
     "dependencies": [
       "framer-motion",
       "lucide-react"
@@ -3149,7 +3151,7 @@
   "slot-machine-reel": {
     "name": "slot-machine-reel",
     "title": "SlotMachineReel",
-    "category": "Physics & Micro-Interactions",
+    "category": "Creative & Advanced",
     "dependencies": [
       "framer-motion",
       "lucide-react"
@@ -3165,7 +3167,7 @@
   "magnetic-orbit-menu": {
     "name": "magnetic-orbit-menu",
     "title": "MagneticOrbitMenu",
-    "category": "Physics & Micro-Interactions",
+    "category": "Creative & Advanced",
     "dependencies": [
       "framer-motion",
       "lucide-react"
@@ -3181,8 +3183,9 @@
   "paper-tear-reveal": {
     "name": "paper-tear-reveal",
     "title": "PaperTearReveal",
-    "category": "Physics & Micro-Interactions",
+    "category": "Creative & Advanced",
     "dependencies": [
+      "framer-motion",
       "lucide-react"
     ],
     "registryDependencies": [],
@@ -3196,7 +3199,7 @@
   "interactive-pipeline": {
     "name": "interactive-pipeline",
     "title": "InteractivePipeline",
-    "category": "Scrollytelling",
+    "category": "Creative & Advanced",
     "dependencies": [
       "framer-motion",
       "lucide-react"
@@ -3211,8 +3214,8 @@
   },
   "3d-book-flip": {
     "name": "3d-book-flip",
-    "title": "ThreeDBookFlip",
-    "category": "Scrollytelling",
+    "title": "BookFlip3D",
+    "category": "Creative & Advanced",
     "dependencies": [
       "framer-motion",
       "lucide-react"
@@ -3228,9 +3231,10 @@
   "infinite-fractal-zoom": {
     "name": "infinite-fractal-zoom",
     "title": "InfiniteFractalZoom",
-    "category": "Scrollytelling",
+    "category": "Creative & Advanced",
     "dependencies": [
-      "framer-motion"
+      "framer-motion",
+      "lucide-react"
     ],
     "registryDependencies": [],
     "files": [
