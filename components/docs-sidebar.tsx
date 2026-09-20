@@ -65,6 +65,12 @@ export const sidebarContent: SidebarGroup[] = [
       label: "Components",
       sections: [
         {
+          title: "Overview",
+          items: [
+            { title: "Explore All", href: "/docs/components", icon: <Search className="w-3.5 h-3.5" />, keywords: "search find filter library grid preview" }
+          ]
+        },
+        {
           title: "Hero Components",
           items: [
             { title: "Hero Particles", href: "/docs/components/hero-particles", icon: <Sparkles className="w-3.5 h-3.5" /> },
