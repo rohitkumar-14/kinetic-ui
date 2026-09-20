@@ -22,7 +22,7 @@ const defaultImages = [
 ];
 
 function Cube({ images }: { images: string[] }) {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<any>(null);
   
   // Load all 6 textures
   const textures = useTexture(images);
