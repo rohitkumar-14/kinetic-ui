@@ -62,35 +62,6 @@ export const sidebarContent: SidebarGroup[] = [
       ]
     },
     {
-      label: "Blocks & Templates",
-      sections: [
-        {
-          title: "Marketing Sections",
-          items: [
-            { title: "Pricing Section", href: "/docs/components/pricing-section", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
-            { title: "Feature Section", href: "/docs/components/feature-section", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
-            { title: "Testimonials", href: "/docs/components/testimonials", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
-            { title: "Team Section", href: "/docs/components/team-section", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
-            { title: "CTA Section", href: "/docs/components/cta-section", icon: <LayoutGrid className="w-3.5 h-3.5" /> },
-            { title: "FAQ Section", href: "/docs/components/faq-section", icon: <LayoutGrid className="w-3.5 h-3.5" /> }
-          ]
-        }
-      ]
-    },
-    {
-      label: "Templates",
-      sections: [
-        {
-          title: "Full Page Templates",
-          items: [
-            { title: "SaaS Landing Page", href: "/templates/saas", icon: <Layout className="w-3.5 h-3.5" /> },
-            { title: "Creative Agency", href: "/templates/agency", icon: <Layout className="w-3.5 h-3.5" /> },
-            { title: "Web3 / Enterprise", href: "/templates/enterprise", icon: <Layout className="w-3.5 h-3.5" /> }
-          ]
-        }
-      ]
-    },
-    {
       label: "Components",
       sections: [
         {
@@ -546,7 +517,6 @@ export const sidebarContent: SidebarGroup[] = [
         {
           title: "Releases",
           items: [
-            { title: "Templates", href: "/docs/templates", icon: <Sparkles className="w-3.5 h-3.5" /> },
             { title: "Changelog", href: "/docs/changelog", icon: <GitBranch className="w-3.5 h-3.5" /> },
           ]
         }

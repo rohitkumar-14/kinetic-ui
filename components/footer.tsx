@@ -37,11 +37,7 @@ export function Footer() {
                          Components
                        </Link>
                      </li>
-                     <li>
-                       <Link href="/templates" className="hover:text-white transition-colors">
-                         Templates
-                       </Link>
-                     </li>
+
                      <li>
                        <Link href="/docs/animations" className="hover:text-white transition-colors">
                          Animations & Physics
