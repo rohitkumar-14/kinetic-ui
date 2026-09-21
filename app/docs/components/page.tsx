@@ -12,18 +12,23 @@ export default function ComponentsOverview() {
   // Flatten all items from sidebarContent
   const allComponents = useMemo(() => {
     const items: (SidebarItem & { category: string; group: string; searchableText: string })[] = [];
+    const seenHrefs = new Set<string>();
+    
     sidebarContent.forEach((group) => {
       // Skip "Getting Started" or "Releases"
       if (group.label === "Getting Started" || group.label === "Releases") return;
       
       group.sections.forEach((section) => {
         section.items.forEach((item) => {
-          items.push({
-            ...item,
-            category: section.title,
-            group: group.label,
-            searchableText: `${item.title} ${section.title} ${group.label} ${item.keywords || ""}`.toLowerCase(),
-          });
+          if (!seenHrefs.has(item.href)) {
+            seenHrefs.add(item.href);
+            items.push({
+              ...item,
+              category: section.title,
+              group: group.label,
+              searchableText: `${item.title} ${section.title} ${group.label} ${item.keywords || ""}`.toLowerCase(),
+            });
+          }
         });
       });
     });
