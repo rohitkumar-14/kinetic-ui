@@ -26,8 +26,8 @@ export function Navbar() {
 
   const isDocs = pathname.startsWith('/docs');
   
-  // Hide global navbar on specific template pages
-  if (pathname.startsWith('/templates/') && pathname !== '/templates') {
+  // Hide global navbar on specific template pages and previews
+  if ((pathname.startsWith('/templates/') && pathname !== '/templates') || pathname.startsWith('/preview/')) {
     return null;
   }
 

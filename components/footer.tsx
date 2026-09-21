@@ -9,7 +9,7 @@ export function Footer() {
   const pathname = usePathname();
 
   // Hide the global footer on docs pages and inside specific templates (which have their own footers)
-  if (pathname?.startsWith('/docs') || pathname?.startsWith('/templates/')) {
+  if (pathname?.startsWith('/docs') || pathname?.startsWith('/templates/') || pathname?.startsWith('/preview/')) {
     return null;
   }
 
