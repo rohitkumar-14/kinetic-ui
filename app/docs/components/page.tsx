@@ -65,6 +65,8 @@ export default function ComponentsOverview() {
       .map(x => x.item);
   }, [search, allComponents]);
 
+  const showPreviews = search.trim().length > 0 && filteredComponents.length <= 12;
+
   return (
     <div className="relative w-full min-h-screen py-10 px-4 sm:px-8 max-w-7xl mx-auto flex flex-col gap-10">
       
@@ -123,9 +125,24 @@ export default function ComponentsOverview() {
                     className="group block h-full bg-neutral-900/40 border border-white/5 hover:border-indigo-500/30 rounded-2xl p-5 hover:bg-neutral-800/50 transition-all duration-300"
                   >
                     <div className="flex flex-col h-full gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-neutral-300 group-hover:text-indigo-400 group-hover:scale-110 group-hover:bg-indigo-500/10 group-hover:border-indigo-500/20 transition-all duration-300 shadow-lg">
-                        {item.icon}
-                      </div>
+                      
+                      {showPreviews ? (
+                        <div className="w-full h-32 rounded-xl overflow-hidden bg-[#050505] relative border border-white/10 shadow-inner group-hover:border-indigo-500/40 transition-colors duration-300">
+                          {/* Invisible overlay to prevent iframe from capturing clicks/scrolls */}
+                          <div className="absolute inset-0 z-10 bg-transparent" />
+                          <iframe 
+                            src={`/preview/${item.href.split('/').pop()}`}
+                            className="w-[150%] h-[150%] origin-top-left scale-[0.666] border-0 pointer-events-none"
+                            tabIndex={-1}
+                            title={`${item.title} Preview`}
+                            loading="lazy"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-neutral-300 group-hover:text-indigo-400 group-hover:scale-110 group-hover:bg-indigo-500/10 group-hover:border-indigo-500/20 transition-all duration-300 shadow-lg">
+                          {item.icon}
+                        </div>
+                      )}
                       
                       <div className="flex-1 space-y-1">
                         <div className="flex items-center justify-between">
