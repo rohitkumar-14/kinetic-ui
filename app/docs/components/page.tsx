@@ -8,6 +8,7 @@ import { Search, ArrowRight, Sparkles } from "lucide-react";
 
 export default function ComponentsOverview() {
   const [search, setSearch] = useState("");
+  const [visibleCount, setVisibleCount] = useState(6);
 
   // Flatten all items from sidebarContent
   const allComponents = useMemo(() => {
@@ -65,7 +66,7 @@ export default function ComponentsOverview() {
       .map(x => x.item);
   }, [search, allComponents]);
 
-  const showPreviews = search.trim().length > 0 && filteredComponents.length <= 12;
+  const showPreviews = search.trim().length > 0;
 
   return (
     <div className="relative w-full min-h-screen py-10 px-4 sm:px-8 max-w-7xl mx-auto flex flex-col gap-10">
@@ -92,7 +93,10 @@ export default function ComponentsOverview() {
             className="w-full bg-neutral-900/50 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-lg text-white placeholder:text-neutral-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 shadow-xl transition-all"
             placeholder="e.g. glowing button, 3d carousel, sticky header..."
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setVisibleCount(6);
+            }}
           />
         </div>
       </div>
@@ -111,7 +115,7 @@ export default function ComponentsOverview() {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             <AnimatePresence>
-              {filteredComponents.map((item) => (
+              {filteredComponents.slice(0, visibleCount).map((item) => (
                 <motion.div
                   layout
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -171,6 +175,17 @@ export default function ComponentsOverview() {
               ))}
             </AnimatePresence>
           </motion.div>
+        )}
+
+        {filteredComponents.length > visibleCount && (
+          <div className="flex justify-center mt-10 w-full pb-10">
+            <button
+              onClick={() => setVisibleCount((v) => v + 6)}
+              className="px-6 py-3 rounded-xl bg-neutral-900 border border-white/10 text-white font-medium hover:bg-neutral-800 transition-colors flex items-center gap-2"
+            >
+              Load More Components <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
         )}
       </div>
 
