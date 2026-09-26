@@ -108,7 +108,7 @@ export default function ComponentsOverview() {
         ) : (
           <motion.div 
             layout
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             <AnimatePresence>
               {filteredComponents.map((item) => (
@@ -122,20 +122,21 @@ export default function ComponentsOverview() {
                 >
                   <Link 
                     href={item.href}
-                    className="group block h-full bg-neutral-900/40 border border-white/5 hover:border-indigo-500/30 rounded-2xl p-5 hover:bg-neutral-800/50 transition-all duration-300"
+                    className="group flex flex-col h-full bg-neutral-900/40 border border-white/5 hover:border-indigo-500/30 rounded-2xl p-5 hover:bg-neutral-800/50 transition-all duration-300 relative"
                   >
                     <div className="flex flex-col h-full gap-4">
                       
                       {showPreviews ? (
-                        <div className="w-full h-32 rounded-xl overflow-hidden bg-[#050505] relative border border-white/10 shadow-inner group-hover:border-indigo-500/40 transition-colors duration-300">
-                          {/* Invisible overlay to prevent iframe from capturing clicks/scrolls */}
-                          <div className="absolute inset-0 z-10 bg-transparent" />
+                        <div className="w-full h-40 rounded-xl overflow-hidden bg-[#050505] relative border border-white/10 shadow-inner group-hover:border-indigo-500/40 transition-colors duration-300">
+                          {/* Invisible overlay intercepts clicks so navigation works, but hides on hover so iframe can be interacted with */}
+                          <div className="absolute inset-0 z-10 bg-transparent group-hover:hidden" />
                           <iframe 
                             src={`/preview/${item.href.split('/').pop()}`}
-                            className="w-[150%] h-[150%] origin-top-left scale-[0.666] border-0 pointer-events-none"
+                            className="w-[150%] h-[150%] origin-top-left scale-[0.666] border-0 pointer-events-none group-hover:pointer-events-auto"
                             tabIndex={-1}
                             title={`${item.title} Preview`}
                             loading="lazy"
+                            scrolling="no"
                           />
                         </div>
                       ) : (
@@ -144,7 +145,8 @@ export default function ComponentsOverview() {
                         </div>
                       )}
                       
-                      <div className="flex-1 space-y-1">
+                      {/* Clickable area expansion for the text block so clicking the text definitely routes properly even if iframe hovered */}
+                      <div className="flex-1 space-y-1 relative z-20">
                         <div className="flex items-center justify-between">
                           <h3 className="font-semibold text-neutral-200 group-hover:text-white transition-colors">
                             {item.title}
@@ -160,7 +162,7 @@ export default function ComponentsOverview() {
                         </p>
                       </div>
 
-                      <div className="flex items-center text-xs font-semibold text-indigo-400/0 group-hover:text-indigo-400 transition-colors translate-y-2 group-hover:translate-y-0 duration-300">
+                      <div className="flex items-center text-xs font-semibold text-indigo-400/0 group-hover:text-indigo-400 transition-colors translate-y-2 group-hover:translate-y-0 duration-300 relative z-20">
                         View Component <ArrowRight className="w-3 h-3 ml-1" />
                       </div>
                     </div>
