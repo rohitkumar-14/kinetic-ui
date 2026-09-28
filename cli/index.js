@@ -634,7 +634,7 @@ program
       }
 
       if (deps.length > 0) {
-        execSync(`npm install ${deps.join(" ")}`, { stdio: "ignore" });
+        execSync(`npm install ${deps.join(" ")} --legacy-peer-deps`, { stdio: "ignore" });
         console.log(`${chalk.green("INSTALLED")} ${deps.join(", ")}`);
       }
 
@@ -879,7 +879,7 @@ program
             ),
           );
           try {
-            execSync(`npm install ${missingDeps.join(" ")}`, {
+            execSync(`npm install ${missingDeps.join(" ")} --legacy-peer-deps`, {
               stdio: "inherit",
             });
             console.log(chalk.green("Dependencies installed."));
@@ -1087,7 +1087,7 @@ program
             ),
           );
           try {
-            execSync(`npm install ${missingDeps.join(" ")}`, {
+            execSync(`npm install ${missingDeps.join(" ")} --legacy-peer-deps`, {
               stdio: "inherit",
             });
             console.log(chalk.green("Dependencies installed."));
