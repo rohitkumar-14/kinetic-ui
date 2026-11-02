@@ -200,14 +200,20 @@
 
 @media (min-width: 768px) {
   .docs-grid {
-    grid-template-columns: 240px minmax(0, 1fr);
+    grid-template-columns: 280px minmax(0, 1fr);
     gap: 0;
   }
 }
 
 @media (min-width: 1024px) {
   .docs-grid {
-    grid-template-columns: 240px minmax(0, 1fr) 220px;
+    grid-template-columns: 300px minmax(0, 1fr) 220px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .docs-grid {
+    grid-template-columns: 320px minmax(0, 1fr) 240px;
   }
 }
 
@@ -225,7 +231,7 @@
 .docs-sidebar {
   display: none;
   border-right: 1px solid var(--border);
-  padding: 1rem 0.5rem 2rem 1.5rem;
+  padding: 1rem 0.75rem 2rem 1.25rem;
 }
 @media (min-width: 768px) {
   .docs-sidebar { display: block; }

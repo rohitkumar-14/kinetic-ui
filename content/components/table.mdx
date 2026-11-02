@@ -1,0 +1,54 @@
+---
+title: Table
+description: A clean, responsive table component for structured records and data visualization.
+category: CRM & Dashboard
+subcategory: Data Display
+date: 2026-10-21
+---
+
+<ComponentPreview 
+  name="Table" 
+  componentName="Table"
+  sourceFile="components/ui/table.tsx"
+>
+  <TableDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="table" />
+
+## Usage
+
+```tsx
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+export function Invoices() {
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Invoice</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead>Amount</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableCell>INV001</TableCell>
+          <TableCell>Paid</TableCell>
+          <TableCell>$250.00</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  );
+}
+```

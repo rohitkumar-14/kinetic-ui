@@ -1,4 +1,13 @@
+import type { Metadata } from "next";
 import { DocsPager } from "@/components/docs-pager";
+
+export const metadata: Metadata = {
+  title: "Documentation & Motion Design System",
+  description: "Comprehensive documentation for Kinetic UI. Explore creative motion components, physics interactions, and copy-paste React & Tailwind architecture.",
+  alternates: {
+    canonical: "/docs",
+  },
+};
 
 export default function DocsPage() {
   return (

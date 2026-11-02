@@ -1,3 +1,4 @@
+﻿/// <reference types="@react-three/fiber" />
 "use client";
 
 import React, { useRef, useState, useCallback, useEffect, useMemo } from "react";
@@ -5,9 +6,9 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { cn } from "@/lib/utils";
 
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // GLSL Fragment Shader: Distorted Transition
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const vertexShader = /* glsl */ `
   varying vec2 vUv;
   void main() {
@@ -45,21 +46,21 @@ const fragmentShader = /* glsl */ `
     vec2 uv = vUv;
     float p = uProgress;
 
-    // ─── Chromatic Aberration (RGB Split) ───
+    // â”€â”€â”€ Chromatic Aberration (RGB Split) â”€â”€â”€
     // As progress increases, each color channel samples from a slightly offset UV.
     float aberrationStrength = uIntensity * p * (1.0 - p) * 4.0; // Peaks at p=0.5
     vec2 redOffset   = vec2(aberrationStrength * 0.02, 0.0);
     vec2 greenOffset = vec2(0.0, 0.0);
     vec2 blueOffset  = vec2(-aberrationStrength * 0.02, aberrationStrength * 0.01);
 
-    // ─── Liquid Noise Distortion ───
+    // â”€â”€â”€ Liquid Noise Distortion â”€â”€â”€
     float noiseVal = noise(uv * 8.0 + p * 3.0);
     vec2 distortion = vec2(
       noiseVal * aberrationStrength * 0.05,
       noiseVal * aberrationStrength * 0.03
     );
 
-    // ─── Wave Displacement ───
+    // â”€â”€â”€ Wave Displacement â”€â”€â”€
     float wave = sin(uv.y * 20.0 + p * 12.0) * aberrationStrength * 0.01;
     vec2 waveOffset = vec2(wave, 0.0);
 
@@ -78,7 +79,7 @@ const fragmentShader = /* glsl */ `
     float nextB = texture2D(uTextureNext, uvDistorted + blueOffset).b;
     vec4 colorNext = vec4(nextR, nextG, nextB, 1.0);
 
-    // ─── Dissolve Mask ───
+    // â”€â”€â”€ Dissolve Mask â”€â”€â”€
     // Use noise to create a non-linear transition boundary
     float dissolve = noise(uv * 5.0 + vec2(p * 2.0, 0.0));
     float mixFactor = smoothstep(p - 0.3, p + 0.3, dissolve);
@@ -90,9 +91,9 @@ const fragmentShader = /* glsl */ `
   }
 `;
 
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Internal Scene Component
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 interface TransitionPlaneProps {
   images: string[];
   currentIndex: number;
@@ -152,9 +153,9 @@ function TransitionPlane({ images, currentIndex, nextIndex, progress, isTransiti
   );
 }
 
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Public Component
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export interface WebGLGalleryProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Array of image URLs */
   images: string[];

@@ -1,0 +1,46 @@
+---
+title: Metric & KPI Cards
+description: Executive KPI stat cards for SaaS dashboards and CRM pipelines featuring trend indicators and sparkline mini-charts.
+category: CRM & Dashboard
+subcategory: Data Display
+date: 2026-10-21
+---
+
+<ComponentPreview 
+  name="Metric & KPI Cards" 
+  componentName="MetricCardGrid"
+  sourceFile="components/ui/metric-card.tsx"
+>
+  <MetricCardDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="metric-card" />
+
+## Usage
+
+```tsx
+import { MetricCard, MetricCardGrid } from "@/components/ui/metric-card";
+import { DollarSign } from "lucide-react";
+
+export function DashboardOverview() {
+  return (
+    <div className="w-full space-y-6">
+      {/* 4-Column Grid */}
+      <MetricCardGrid />
+
+      {/* Or Single Card */}
+      <MetricCard
+        title="Monthly Revenue"
+        value="$48,250"
+        change="+14.2%"
+        trend="up"
+        period="vs last month"
+        icon={<DollarSign className="w-4 h-4 text-emerald-400" />}
+        sparklineData={[20, 32, 28, 45, 52, 60, 68]}
+      />
+    </div>
+  );
+}
+```

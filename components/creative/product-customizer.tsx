@@ -1,3 +1,4 @@
+﻿/// <reference types="@react-three/fiber" />
 "use client";
 
 import React, { useRef, useState, useMemo } from "react";

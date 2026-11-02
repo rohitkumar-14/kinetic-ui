@@ -3,10 +3,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { usePreviewStore } from '@/hooks/use-preview-store';
-import { Settings2, Monitor, Tablet, Smartphone, Copy, Check, ExternalLink, Sliders, Terminal, FolderGit, RefreshCw } from 'lucide-react';
+import { Settings2, Monitor, Tablet, Smartphone, Copy, Check, ExternalLink, Sliders, Terminal, FolderGit, RefreshCw, Download, Code2, FileCode, Wand2, Palette, Database, Sparkles, X, Layers, Activity, Building2, ShoppingCart, Coins, Eye, CheckCircle2, TrendingUp, TrendingDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { PropsTable, PropDef } from '@/components/docs/props-table';
 import { PlaygroundContext } from './playground-context';
+import { getVanillaCodeBundle, downloadFile } from '@/lib/vanilla-snippets';
+import { DatasetType, StylePresetType, MOCK_DATASETS, STYLE_PRESETS, COLOR_ACCENTS } from '@/lib/mock-datasets';
 
 export interface PlaygroundControl {
   name: string;
@@ -108,30 +110,72 @@ function HighlightedCode({ code }: { code: string }) {
   );
 }
 
-function updateCodeProps(baseCode: string, componentName: string, params: Record<string, any>, defaults: Record<string, any>) {
-  if (!componentName) return baseCode;
-  const regex = new RegExp(`<(${componentName})([^>]*?)(\\/?>)`, 'g');
-  return baseCode.replace(regex, (match, p1, p2, p3) => {
-    const propsList: string[] = [];
+function updateCodeProps(
+  baseCode: string, 
+  componentName: string, 
+  params: Record<string, any>, 
+  defaults: Record<string, any>,
+  studioProps?: { stylePreset?: string; dataset?: string; accentColor?: string }
+) {
+  const targetTag = componentName || (baseCode.match(/<([A-Z][a-zA-Z0-9]*)/)?.[1] ?? '');
+  if (!targetTag) return baseCode;
+
+  const regex = new RegExp(`<(${targetTag})([^>]*?)(\\/?>)`, 'g');
+  return baseCode.replace(regex, (match, tag, existingProps, closing) => {
+    const propsMap = new Map<string, string>();
+
+    // Parse existing props if any
+    const propRegex = /([a-zA-Z0-9_-]+)(?:=(?:{([^}]+)}|"([^"]*)"))?/g;
+    let pMatch;
+    while ((pMatch = propRegex.exec(existingProps)) !== null) {
+      if (pMatch[1] && pMatch[1] !== tag) {
+        const val = pMatch[2] ? `{${pMatch[2]}}` : pMatch[3] !== undefined ? `"${pMatch[3]}"` : '';
+        propsMap.set(pMatch[1], val);
+      }
+    }
+
+    // Update with studio visual style props
+    if (studioProps?.stylePreset && studioProps.stylePreset !== 'glass') {
+      propsMap.set('variant', `"${studioProps.stylePreset}"`);
+    } else if (studioProps?.stylePreset === 'glass') {
+      propsMap.delete('variant');
+    }
+
+    // Update with studio dataset props
+    if (studioProps?.dataset && studioProps.dataset !== 'saas') {
+      propsMap.set('dataset', `"${studioProps.dataset}"`);
+    } else if (studioProps?.dataset === 'saas') {
+      propsMap.delete('dataset');
+    }
+
+    // Update with studio accent color
+    if (studioProps?.accentColor && studioProps.accentColor !== '#6366f1') {
+      propsMap.set('accentColor', `"${studioProps.accentColor}"`);
+    } else if (studioProps?.accentColor === '#6366f1') {
+      propsMap.delete('accentColor');
+    }
+
+    // Update with parameter overrides
     Object.entries(params).forEach(([key, val]) => {
-      if (val === undefined || val === null) return;
-      if (val === defaults[key]) return;
-      
+      if (val === undefined || val === null || val === defaults[key]) {
+        propsMap.delete(key);
+        return;
+      }
       if (typeof val === 'string') {
-        propsList.push(`${key}="${val}"`);
+        propsMap.set(key, `"${val}"`);
       } else if (typeof val === 'boolean') {
-        if (val) {
-          propsList.push(key);
-        } else {
-          propsList.push(`${key}={false}`);
-        }
+        propsMap.set(key, val ? '' : '{false}');
       } else {
-        propsList.push(`${key}={${val}}`);
+        propsMap.set(key, `{${val}}`);
       }
     });
-    
-    const propsStr = propsList.length > 0 ? ' ' + propsList.join(' ') : '';
-    return `<${p1}${propsStr}${p3.startsWith('/') ? ' /' : ''}>`;
+
+    const renderedProps = Array.from(propsMap.entries())
+      .map(([k, v]) => v ? `${k}=${v}` : k)
+      .join(' ');
+
+    const propsStr = renderedProps.length > 0 ? ' ' + renderedProps : '';
+    return `<${tag}${propsStr}${closing.startsWith('/') ? ' /' : ''}>`;
   });
 }
 
@@ -153,6 +197,11 @@ export function ComponentPreview({
   const { isPlaying, setIsPlaying, retrigger, theme, setTheme, speed, duration, scale: controlScale, color, setActiveVariant } = usePreviewStore();
   const [showControls, setShowControls] = useState(false);
   const [showPlayground, setShowPlayground] = useState(false);
+  const [showStudio, setShowStudio] = useState(false);
+  const [studioTab, setStudioTab] = useState<'styles' | 'data' | 'props'>('styles');
+  const [stylePreset, setStylePreset] = useState<StylePresetType>('glass');
+  const [dataset, setDataset] = useState<DatasetType>('saas');
+  const [accentColor, setAccentColor] = useState<string>('#6366f1');
   const [activeVariantIdx, setActiveVariantIdx] = useState(0);
   const [viewport, setViewport] = useState<ViewportMode>('desktop');
   const [customWidth, setCustomWidth] = useState<number>(800);
@@ -160,7 +209,11 @@ export function ComponentPreview({
   const [copied, setCopied] = useState(false);
   const [copiedSource, setCopiedSource] = useState(false);
   const [copiedCLI, setCopiedCLI] = useState(false);
-  const [activeTab, setActiveTab] = useState<'preview' | 'code' | 'install'>('preview');
+  const [copiedVanilla, setCopiedVanilla] = useState(false);
+  const [downloadedHtml, setDownloadedHtml] = useState(false);
+  const [downloadedTsx, setDownloadedTsx] = useState(false);
+  const [activeTab, setActiveTab] = useState<'preview' | 'code' | 'vanilla' | 'install'>('preview');
+  const [vanillaSubTab, setVanillaSubTab] = useState<'standalone' | 'html' | 'css' | 'js'>('standalone');
   const [refreshKey, setRefreshKey] = useState(0);
   
   const containerRef = useRef<HTMLDivElement>(null);
@@ -316,7 +369,7 @@ export function ComponentPreview({
     defaultsMap[c.name] = c.default;
   });
   const dynamicJSXCode = activeCode 
-    ? updateCodeProps(activeCode, componentName || '', params, defaultsMap)
+    ? updateCodeProps(activeCode, componentName || '', params, defaultsMap, { stylePreset, dataset, accentColor })
     : '';
 
   const handleCopy = () => {
@@ -338,6 +391,36 @@ export function ComponentPreview({
     navigator.clipboard.writeText(cliCommand);
     setCopiedCLI(true);
     setTimeout(() => setCopiedCLI(false), 2000);
+  };
+
+  const vanilla = getVanillaCodeBundle(slug || 'component', name, sourceCode, dynamicJSXCode, {
+    stylePreset,
+    dataset,
+    accentColor,
+  });
+
+  const handleDownloadHtml = () => {
+    downloadFile(`${slug || 'component'}.html`, vanilla.standaloneHtml, 'text/html;charset=utf-8');
+    setDownloadedHtml(true);
+    setTimeout(() => setDownloadedHtml(false), 2000);
+  };
+
+  const handleDownloadTsx = () => {
+    const codeToDownload = sourceCode || dynamicJSXCode || '// Kinetic UI Component';
+    downloadFile(`${slug || 'component'}.tsx`, codeToDownload, 'text/typescript;charset=utf-8');
+    setDownloadedTsx(true);
+    setTimeout(() => setDownloadedTsx(false), 2000);
+  };
+
+  const handleCopyVanilla = () => {
+    let contentToCopy = vanilla.standaloneHtml;
+    if (vanillaSubTab === 'html') contentToCopy = vanilla.html;
+    if (vanillaSubTab === 'css') contentToCopy = vanilla.css;
+    if (vanillaSubTab === 'js') contentToCopy = vanilla.js;
+    
+    navigator.clipboard.writeText(contentToCopy);
+    setCopiedVanilla(true);
+    setTimeout(() => setCopiedVanilla(false), 2000);
   };
 
   const handleParamChange = (name: string, value: any) => {
@@ -402,13 +485,45 @@ export function ComponentPreview({
             </button>
           </div>
 
+          {/* Interactive Studio Toggle */}
+          <button 
+            onClick={() => {
+              if (showStudio && studioTab === 'styles') {
+                setShowStudio(false);
+              } else {
+                setShowStudio(true);
+                setStudioTab('styles');
+              }
+            }}
+            className={cn(
+              "p-1.5 rounded-full transition-all flex items-center gap-1.5 px-3 text-xs font-semibold border cursor-pointer", 
+              showStudio && studioTab !== 'props'
+                ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-indigo-400 shadow-lg shadow-indigo-500/25 ring-1 ring-white/20' 
+                : 'hover:bg-muted text-zinc-300 border-white/10 hover:text-white'
+            )}
+            title="Interactive Studio - Live Styles & Data Customizer"
+          >
+            <Sparkles className={cn("h-3.5 w-3.5", showStudio && studioTab !== 'props' ? "text-amber-300" : "text-indigo-400")} />
+            <span>Studio</span>
+            {(stylePreset !== 'glass' || dataset !== 'saas') && (
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            )}
+          </button>
+
           {/* Interactive Playground Toggle */}
           {hasPlayground && (
             <button 
-              onClick={() => setShowPlayground(!showPlayground)}
+              onClick={() => {
+                if (showStudio && studioTab === 'props') {
+                  setShowStudio(false);
+                } else {
+                  setShowStudio(true);
+                  setStudioTab('props');
+                }
+              }}
               className={cn(
-                "p-1.5 rounded-full transition-colors flex items-center gap-1.5 px-3 text-xs font-semibold border border-white/5", 
-                showPlayground 
+                "p-1.5 rounded-full transition-colors flex items-center gap-1.5 px-3 text-xs font-semibold border border-white/5 cursor-pointer", 
+                showStudio && studioTab === 'props'
                   ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/25' 
                   : 'hover:bg-muted text-zinc-400 hover:text-white'
               )}
@@ -436,6 +551,15 @@ export function ComponentPreview({
             </button>
           )}
 
+          {/* Direct Download HTML in toolbar */}
+          <button 
+            onClick={handleDownloadHtml}
+            className="p-1.5 rounded-full hover:bg-emerald-500/10 text-muted-foreground hover:text-emerald-400 transition-colors"
+            title="Download Standalone Single-File HTML"
+          >
+            {downloadedHtml ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Download className="h-3.5 w-3.5" />}
+          </button>
+
           {/* Reload Animation */}
           <button 
             onClick={() => setRefreshKey(prev => prev + 1)}
@@ -462,13 +586,57 @@ export function ComponentPreview({
 
       <div className="grid grid-cols-1 gap-4">
         <div>
-          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'preview' | 'code' | 'install')} className="relative w-full">
-            <div className="flex items-center gap-3 mb-4">
-              <TabsList className="grid w-full grid-cols-3 max-w-[360px]">
-                <TabsTrigger value="preview">Preview</TabsTrigger>
-                <TabsTrigger value="code">Usage</TabsTrigger>
-                <TabsTrigger value="install">Installation</TabsTrigger>
+          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="relative w-full">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+              <TabsList className="flex flex-wrap sm:inline-flex items-center w-full sm:w-auto bg-zinc-900/90 p-1.5 border border-border/50 rounded-xl gap-1.5">
+                <TabsTrigger 
+                  value="preview" 
+                  className="text-xs px-3.5 py-2 data-[state=active]:px-5 transition-all"
+                >
+                  Preview
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="code" 
+                  className="text-xs px-3.5 py-2 data-[state=active]:px-5 transition-all"
+                >
+                  React (TSX)
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="vanilla" 
+                  className="text-xs flex items-center justify-center gap-1.5 px-4 py-2 data-[state=active]:px-7 transition-all"
+                >
+                  <span>HTML / CSS / JS</span>
+                  <span className="text-[9px] bg-emerald-500/20 text-emerald-300 font-semibold px-1.5 py-0.5 rounded">Pure</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="install" 
+                  className="text-xs px-4 py-2 data-[state=active]:px-7 transition-all"
+                >
+                  Install & Download
+                </TabsTrigger>
               </TabsList>
+
+              {/* Direct Quick Download Action Buttons */}
+              <div className="flex items-center gap-2 self-end sm:self-auto">
+                <button
+                  onClick={handleDownloadHtml}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 text-xs font-medium transition-all shadow-sm cursor-pointer"
+                  title="Download self-contained single HTML file (Zero build setup)"
+                >
+                  {downloadedHtml ? <Check className="w-3.5 h-3.5" /> : <Download className="w-3.5 h-3.5" />}
+                  <span>Download .html</span>
+                </button>
+                {sourceCode && (
+                  <button
+                    onClick={handleDownloadTsx}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-500/30 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 text-xs font-medium transition-all shadow-sm cursor-pointer"
+                    title="Download React TypeScript file"
+                  >
+                    {downloadedTsx ? <Check className="w-3.5 h-3.5" /> : <Download className="w-3.5 h-3.5" />}
+                    <span>Download .tsx</span>
+                  </button>
+                )}
+              </div>
             </div>
             
             <TabsContent 
@@ -476,7 +644,7 @@ export function ComponentPreview({
               className="relative outline-none"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-                <div className={cn("col-span-1 transition-all duration-300 rounded-xl border border-border/50 bg-[#050505] relative", showPlayground && hasPlayground ? 'lg:col-span-8' : 'lg:col-span-12')}>
+                <div className={cn("col-span-1 transition-all duration-300 rounded-xl border border-border/50 bg-[#050505] relative", showStudio ? 'lg:col-span-8' : 'lg:col-span-12')}>
                   {/* Dot grid background */}
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(128,128,128,0.15)_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none z-0 rounded-xl overflow-hidden" />
                   
@@ -504,8 +672,25 @@ export function ComponentPreview({
                         "p-6",
                         !isResponsiveMode && "md:p-8"
                       )}>
-                        <PlaygroundContext.Provider value={params}>
-                          {activeComponent}
+                        <PlaygroundContext.Provider value={{
+                          ...params,
+                          stylePreset,
+                          dataset,
+                          accentColor,
+                          datasetData: MOCK_DATASETS[dataset],
+                        }}>
+                          <div 
+                            className={cn(
+                              "w-full transition-all duration-300 rounded-xl",
+                              stylePreset === 'neon' && "p-4 sm:p-6 rounded-2xl bg-[#080811] ring-1 ring-indigo-500/30 shadow-[0_0_40px_rgba(99,102,241,0.2)]",
+                              stylePreset === 'glass' && "p-2 rounded-xl backdrop-blur-md bg-white/[0.015] border border-white/5",
+                              stylePreset === 'flat' && "p-2 rounded-xl bg-zinc-900/60 border border-zinc-800",
+                              stylePreset === 'borderless' && "p-0 bg-transparent border-0 shadow-none"
+                            )}
+                            style={{ '--accent-color': accentColor } as React.CSSProperties}
+                          >
+                            {activeComponent}
+                          </div>
                         </PlaygroundContext.Provider>
                       </div>
 
@@ -520,9 +705,17 @@ export function ComponentPreview({
                   </div>
                 </div>
 
-                {showPlayground && hasPlayground && (
+                {showStudio && (
                   <div className="col-span-1 lg:col-span-4">
-                    <PlaygroundPanel 
+                    <InteractiveStudioPanel 
+                      activeTab={studioTab}
+                      setActiveTab={setStudioTab}
+                      stylePreset={stylePreset}
+                      setStylePreset={setStylePreset}
+                      dataset={dataset}
+                      setDataset={setDataset}
+                      accentColor={accentColor}
+                      setAccentColor={setAccentColor}
                       controls={playgroundControls} 
                       values={params} 
                       onChange={handleParamChange} 
@@ -534,6 +727,7 @@ export function ComponentPreview({
                       }}
                       onCopyJSX={handleCopy}
                       copiedJSX={copied}
+                      onClose={() => setShowStudio(false)}
                     />
                   </div>
                 )}
@@ -563,7 +757,156 @@ export function ComponentPreview({
               )}
             </TabsContent>
 
-            <TabsContent value="install" className="relative outline-none space-y-6">
+            <TabsContent value="vanilla" className="relative outline-none space-y-6 px-1 sm:px-3">
+              <div className="flex flex-col space-y-4">
+                {/* Sub-navigation for Vanilla: Standalone HTML / HTML / CSS / JS */}
+                <div className="flex flex-wrap items-center justify-between gap-3 p-2 rounded-xl bg-zinc-950/60 border border-border/50">
+                  <div className="flex flex-wrap items-center gap-1.5 bg-zinc-900/80 p-1 rounded-lg border border-white/5">
+                    <button
+                      onClick={() => setVanillaSubTab('standalone')}
+                      className={cn(
+                        "px-3.5 py-1.5 text-xs font-medium rounded-md transition-all cursor-pointer",
+                        vanillaSubTab === 'standalone' 
+                          ? "bg-indigo-600 text-white shadow-sm px-5" 
+                          : "text-zinc-400 hover:text-white"
+                      )}
+                    >
+                      Standalone .html (Ready to Run)
+                    </button>
+                    <button
+                      onClick={() => setVanillaSubTab('html')}
+                      className={cn(
+                        "px-3.5 py-1.5 text-xs font-medium rounded-md transition-all cursor-pointer",
+                        vanillaSubTab === 'html' 
+                          ? "bg-indigo-600 text-white shadow-sm px-5" 
+                          : "text-zinc-400 hover:text-white"
+                      )}
+                    >
+                      HTML
+                    </button>
+                    <button
+                      onClick={() => setVanillaSubTab('css')}
+                      className={cn(
+                        "px-3.5 py-1.5 text-xs font-medium rounded-md transition-all cursor-pointer",
+                        vanillaSubTab === 'css' 
+                          ? "bg-indigo-600 text-white shadow-sm px-5" 
+                          : "text-zinc-400 hover:text-white"
+                      )}
+                    >
+                      CSS
+                    </button>
+                    <button
+                      onClick={() => setVanillaSubTab('js')}
+                      className={cn(
+                        "px-3.5 py-1.5 text-xs font-medium rounded-md transition-all cursor-pointer",
+                        vanillaSubTab === 'js' 
+                          ? "bg-indigo-600 text-white shadow-sm px-5" 
+                          : "text-zinc-400 hover:text-white"
+                      )}
+                    >
+                      JavaScript
+                    </button>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={handleCopyVanilla}
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs font-medium text-zinc-200 hover:text-white transition-colors cursor-pointer"
+                      title="Copy Code"
+                    >
+                      {copiedVanilla ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                      <span>{copiedVanilla ? "Copied!" : "Copy Snippet"}</span>
+                    </button>
+
+                    <button
+                      onClick={handleDownloadHtml}
+                      className="flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors shadow-sm cursor-pointer"
+                      title="Download full standalone HTML file"
+                    >
+                      {downloadedHtml ? <Check className="w-3.5 h-3.5" /> : <Download className="w-3.5 h-3.5" />}
+                      <span>Download .html</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Code Display */}
+                <div className="relative rounded-xl border border-border bg-[#121212] p-6 max-h-[550px] overflow-auto">
+                  <HighlightedCode 
+                    code={
+                      vanillaSubTab === 'standalone' ? vanilla.standaloneHtml :
+                      vanillaSubTab === 'html' ? vanilla.html :
+                      vanillaSubTab === 'css' ? vanilla.css :
+                      vanilla.js
+                    } 
+                  />
+                </div>
+
+                {/* Quick Integration Guide */}
+                <div className="p-5 rounded-xl border border-indigo-500/20 bg-indigo-500/5 space-y-3">
+                  <div className="flex items-center gap-2 text-indigo-400 text-xs font-semibold uppercase tracking-wider">
+                    <FileCode className="w-4 h-4" />
+                    <span>Quick Integration Guide (Zero-Build Setup)</span>
+                  </div>
+                  <p className="text-xs text-zinc-300 leading-relaxed font-light">
+                    <strong className="text-white">Option 1 (Instant Single File):</strong> Click <strong className="text-emerald-400">"Download .html"</strong> above. You'll get a self-contained HTML file with Tailwind CSS and fonts already embedded. You can double click it to open locally or embed it into Webflow, WordPress, Shopify, or any HTML project!
+                  </p>
+                  <p className="text-xs text-zinc-300 leading-relaxed font-light">
+                    <strong className="text-white">Option 2 (Direct Copy-Paste):</strong> Copy the HTML, CSS, and JS tabs directly into your existing project files. If using Tailwind classes, ensure you include Tailwind CDN (<code className="text-indigo-300 font-mono">&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</code>) in your document &lt;head&gt;.
+                  </p>
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="install" className="relative outline-none space-y-6 px-1 sm:px-3">
+              {/* Single File Download section */}
+              <div className="p-6 rounded-xl border border-border bg-zinc-950/45 space-y-4">
+                <div className="flex items-center gap-2">
+                  <Download className="w-4 h-4 text-emerald-400" />
+                  <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400">Single Downloadable File</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Standalone HTML Download Card */}
+                  <div className="p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/5 hover:border-emerald-500/50 transition-colors flex flex-col justify-between space-y-3">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <FileCode className="w-4 h-4 text-emerald-400" />
+                        <h4 className="text-sm font-semibold text-white">Standalone HTML (.html)</h4>
+                      </div>
+                      <p className="text-xs text-zinc-400 font-light leading-relaxed">
+                        Self-contained HTML with embedded styles & JS. Zero npm, no build step. Open directly in any browser!
+                      </p>
+                    </div>
+                    <button
+                      onClick={handleDownloadHtml}
+                      className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-black font-semibold text-xs transition-colors shadow-lg shadow-emerald-500/20 cursor-pointer"
+                    >
+                      {downloadedHtml ? <Check className="w-3.5 h-3.5" /> : <Download className="w-3.5 h-3.5" />}
+                      <span>{downloadedHtml ? "Downloaded!" : `Download ${slug || 'component'}.html`}</span>
+                    </button>
+                  </div>
+
+                  {/* React Component Download Card */}
+                  <div className="p-4 rounded-xl border border-indigo-500/30 bg-indigo-500/5 hover:border-indigo-500/50 transition-colors flex flex-col justify-between space-y-3">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <Code2 className="w-4 h-4 text-indigo-400" />
+                        <h4 className="text-sm font-semibold text-white">React TypeScript (.tsx)</h4>
+                      </div>
+                      <p className="text-xs text-zinc-400 font-light leading-relaxed">
+                        Single TSX component file with TypeScript types. Drop directly into your project's components directory.
+                      </p>
+                    </div>
+                    <button
+                      onClick={handleDownloadTsx}
+                      className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors shadow-lg shadow-indigo-500/20 cursor-pointer"
+                    >
+                      {downloadedTsx ? <Check className="w-3.5 h-3.5" /> : <Download className="w-3.5 h-3.5" />}
+                      <span>{downloadedTsx ? "Downloaded!" : `Download ${slug || 'component'}.tsx`}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
               {/* CLI command card */}
               <div className="p-6 rounded-xl border border-border bg-zinc-950/45 space-y-4">
                 <div className="flex items-center gap-2">
@@ -655,143 +998,380 @@ export function ComponentPreview({
   );
 }
 
-function PlaygroundPanel({ 
-  controls, 
-  values, 
+function InteractiveStudioPanel({
+  activeTab,
+  setActiveTab,
+  stylePreset,
+  setStylePreset,
+  dataset,
+  setDataset,
+  accentColor,
+  setAccentColor,
+  controls = [],
+  values = {},
   onChange,
   variants,
   activeVariantIdx,
   onVariantChange,
   onCopyJSX,
-  copiedJSX
-}: { 
-  controls: PlaygroundControl[]; 
-  values: Record<string, any>; 
-  onChange: (name: string, value: any) => void;
+  copiedJSX,
+  onClose,
+}: {
+  activeTab: 'styles' | 'data' | 'props';
+  setActiveTab: (tab: 'styles' | 'data' | 'props') => void;
+  stylePreset: StylePresetType;
+  setStylePreset: (val: StylePresetType) => void;
+  dataset: DatasetType;
+  setDataset: (val: DatasetType) => void;
+  accentColor: string;
+  setAccentColor: (val: string) => void;
+  controls?: PlaygroundControl[];
+  values?: Record<string, any>;
+  onChange?: (name: string, value: any) => void;
   variants?: ComponentVariant[];
   activeVariantIdx?: number;
   onVariantChange?: (idx: number) => void;
   onCopyJSX?: () => void;
   copiedJSX?: boolean;
+  onClose?: () => void;
 }) {
+  const hasProps = (controls && controls.length > 0) || (variants && variants.length > 0);
+  const activeDatasetDef = MOCK_DATASETS[dataset];
+
   return (
-    <div className="p-6 rounded-xl border border-border/50 bg-zinc-950/70 backdrop-blur-md space-y-6 h-full min-h-[400px]">
-      <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
-        <h4 className="font-semibold text-xs tracking-wider uppercase text-indigo-400">Live Parameters</h4>
-      </div>
-      <div className="space-y-5">
-        {variants && variants.length > 0 && onVariantChange && activeVariantIdx !== undefined && (
-          <div className="space-y-2 border-b border-white/10 pb-5 mb-5">
-            <div className="flex justify-between text-xs font-mono">
-              <span className="text-zinc-300">Variant</span>
+    <div className="p-5 rounded-xl border border-border/60 bg-zinc-950/85 backdrop-blur-xl flex flex-col justify-between h-full min-h-[460px] shadow-2xl shadow-black/60">
+      <div className="space-y-4">
+        {/* Panel Header */}
+        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center">
+              <Wand2 className="w-3.5 h-3.5 text-indigo-400" />
             </div>
-            <select
-              value={activeVariantIdx}
-              onChange={(e) => onVariantChange(parseInt(e.target.value))}
-              className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors"
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-xs tracking-wider uppercase text-white">Interactive Studio</span>
+              <span className="px-1.5 py-0.5 text-[9px] font-mono bg-emerald-500/20 text-emerald-400 rounded-full border border-emerald-500/30 font-semibold">LIVE</span>
+            </div>
+          </div>
+          {onClose && (
+            <button 
+              onClick={onClose}
+              className="p-1 rounded-md text-zinc-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              title="Close Panel"
             >
-              {variants.map((v, idx) => (
-                <option key={v.name} value={idx}>
-                  {v.name.charAt(0).toUpperCase() + v.name.slice(1)}
-                </option>
-              ))}
-            </select>
+              <X className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+
+        {/* Sub-Tabs Switcher */}
+        <div className="grid grid-cols-3 gap-1 bg-zinc-900/90 p-1 rounded-lg border border-white/5">
+          <button
+            onClick={() => setActiveTab('styles')}
+            className={cn(
+              "flex items-center justify-center gap-1.5 py-1.5 px-2 text-xs font-medium rounded-md transition-all cursor-pointer",
+              activeTab === 'styles'
+                ? "bg-indigo-600 text-white shadow-sm font-semibold"
+                : "text-zinc-400 hover:text-white"
+            )}
+          >
+            <Palette className="w-3 h-3" />
+            <span>Styles</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('data')}
+            className={cn(
+              "flex items-center justify-center gap-1.5 py-1.5 px-2 text-xs font-medium rounded-md transition-all cursor-pointer",
+              activeTab === 'data'
+                ? "bg-indigo-600 text-white shadow-sm font-semibold"
+                : "text-zinc-400 hover:text-white"
+            )}
+          >
+            <Database className="w-3 h-3" />
+            <span>Data</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('props')}
+            disabled={!hasProps}
+            className={cn(
+              "flex items-center justify-center gap-1.5 py-1.5 px-2 text-xs font-medium rounded-md transition-all",
+              !hasProps 
+                ? "opacity-35 cursor-not-allowed text-zinc-500" 
+                : activeTab === 'props'
+                  ? "bg-indigo-600 text-white shadow-sm font-semibold cursor-pointer"
+                  : "text-zinc-400 hover:text-white cursor-pointer"
+            )}
+            title={!hasProps ? "No custom props registered for this component" : "Component-specific Props"}
+          >
+            <Sliders className="w-3 h-3" />
+            <span>Props</span>
+          </button>
+        </div>
+
+        {/* Tab 1: Styles */}
+        {activeTab === 'styles' && (
+          <div className="space-y-4 pt-1">
+            <div className="space-y-2">
+              <label className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 flex items-center justify-between">
+                <span>Visual Style Preset</span>
+                <span className="text-indigo-400 font-semibold lowercase">.{stylePreset}</span>
+              </label>
+
+              <div className="grid grid-cols-2 gap-2">
+                {(['glass', 'neon', 'flat', 'borderless'] as StylePresetType[]).map((preset) => {
+                  const def = STYLE_PRESETS[preset];
+                  const isSelected = stylePreset === preset;
+                  return (
+                    <button
+                      key={preset}
+                      onClick={() => setStylePreset(preset)}
+                      className={cn(
+                        "p-2.5 rounded-lg border text-left transition-all cursor-pointer flex flex-col justify-between space-y-1 relative group",
+                        isSelected
+                          ? "bg-indigo-500/15 border-indigo-400 text-white shadow-md shadow-indigo-500/10 ring-1 ring-indigo-400/30"
+                          : "bg-zinc-900/60 border-white/5 text-zinc-400 hover:bg-zinc-900 hover:border-white/20 hover:text-zinc-200"
+                      )}
+                    >
+                      <div className="flex items-center justify-between w-full">
+                        <span className="text-xs font-semibold text-white">{def.label}</span>
+                        {isSelected && <Check className="w-3 h-3 text-indigo-400" />}
+                      </div>
+                      <span className="text-[10px] leading-tight text-zinc-400 line-clamp-2">{def.description}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Accent Color Picker */}
+            <div className="space-y-2 pt-2 border-t border-white/5">
+              <label className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 flex items-center justify-between">
+                <span>Color Accent</span>
+                <span className="font-mono text-xs" style={{ color: accentColor }}>{accentColor}</span>
+              </label>
+              
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  {COLOR_ACCENTS.map((c) => (
+                    <button
+                      key={c.id}
+                      onClick={() => setAccentColor(c.hex)}
+                      className={cn(
+                        "w-6 h-6 rounded-full border-2 transition-transform hover:scale-110 cursor-pointer shadow-sm",
+                        accentColor.toLowerCase() === c.hex.toLowerCase() ? "border-white scale-110 shadow-md ring-2 ring-white/30" : "border-transparent opacity-80 hover:opacity-100"
+                      )}
+                      style={{ backgroundColor: c.hex }}
+                      title={c.label}
+                    />
+                  ))}
+                </div>
+
+                <div className="relative w-7 h-7 rounded-full overflow-hidden border border-white/20 shadow-sm shrink-0">
+                  <input
+                    type="color"
+                    value={accentColor}
+                    onChange={(e) => setAccentColor(e.target.value)}
+                    className="absolute inset-[-10px] w-12 h-12 cursor-pointer"
+                    title="Choose custom hex color"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Live Style Preview Card */}
+            <div className={cn(
+              "p-3 rounded-lg border text-xs text-zinc-300 transition-all",
+              stylePreset === 'neon' ? "bg-zinc-950 border-indigo-500/40 shadow-[0_0_15px_rgba(99,102,241,0.2)]" :
+              stylePreset === 'glass' ? "backdrop-blur-md bg-white/[0.04] border-white/10" :
+              stylePreset === 'flat' ? "bg-zinc-900 border-zinc-800" :
+              "bg-transparent border-dashed border-white/10"
+            )}>
+              <div className="flex items-center gap-2 mb-1">
+                <Sparkles className="w-3.5 h-3.5" style={{ color: accentColor }} />
+                <span className="font-semibold text-white text-[11px]">Active Preset: {STYLE_PRESETS[stylePreset].label}</span>
+              </div>
+              <p className="text-[10px] text-zinc-400">
+                Injected into TSX as <code className="text-indigo-300 font-mono">variant="{stylePreset}"</code> and HTML classes.
+              </p>
+            </div>
           </div>
         )}
-        {controls.map((ctrl) => {
-          const val = values[ctrl.name] !== undefined ? values[ctrl.name] : ctrl.default;
-          
-          return (
-            <div key={ctrl.name} className="space-y-2">
-              <div className="flex justify-between text-xs font-mono">
-                <span className="text-zinc-300">{ctrl.label}</span>
-                {ctrl.type === 'number' && (
-                  <span className="text-indigo-400 font-semibold">{val}</span>
-                )}
+
+        {/* Tab 2: Data Generator */}
+        {activeTab === 'data' && (
+          <div className="space-y-4 pt-1">
+            <div className="space-y-2">
+              <label className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 flex items-center justify-between">
+                <span>Select Mock Dataset</span>
+                <span className="text-emerald-400 font-semibold">{activeDatasetDef.label}</span>
+              </label>
+
+              <div className="grid grid-cols-2 gap-2">
+                {([
+                  { id: 'saas', icon: Building2, label: 'B2B SaaS', desc: 'ARR, pipeline & churn' },
+                  { id: 'ecommerce', icon: ShoppingCart, label: 'E-Commerce', desc: 'GMV, orders & cart' },
+                  { id: 'crypto', icon: Coins, label: 'Crypto / Web3', desc: 'TVL, pools & gas' },
+                  { id: 'healthcare', icon: Activity, label: 'Healthcare', desc: 'Triage & clinical vitals' },
+                ] as const).map((ds) => {
+                  const Icon = ds.icon;
+                  const isSelected = dataset === ds.id;
+                  return (
+                    <button
+                      key={ds.id}
+                      onClick={() => setDataset(ds.id)}
+                      className={cn(
+                        "p-2.5 rounded-lg border text-left transition-all cursor-pointer flex flex-col justify-between space-y-1 relative group",
+                        isSelected
+                          ? "bg-emerald-500/15 border-emerald-400 text-white shadow-md shadow-emerald-500/10 ring-1 ring-emerald-400/30"
+                          : "bg-zinc-900/60 border-white/5 text-zinc-400 hover:bg-zinc-900 hover:border-white/20 hover:text-zinc-200"
+                      )}
+                    >
+                      <div className="flex items-center justify-between w-full">
+                        <div className="flex items-center gap-1.5">
+                          <Icon className={cn("w-3.5 h-3.5", isSelected ? "text-emerald-400" : "text-zinc-400")} />
+                          <span className="text-xs font-semibold text-white">{ds.label}</span>
+                        </div>
+                        {isSelected && <Check className="w-3 h-3 text-emerald-400" />}
+                      </div>
+                      <span className="text-[10px] leading-tight text-zinc-400">{ds.desc}</span>
+                    </button>
+                  );
+                })}
               </div>
+            </div>
+
+            {/* Live Dataset KPI Cards Preview */}
+            <div className="space-y-2 pt-2 border-t border-white/5">
+              <label className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">
+                Sample Metrics Preview ({activeDatasetDef.label})
+              </label>
               
-              {ctrl.type === 'select' && (
+              <div className="grid grid-cols-2 gap-2">
+                {activeDatasetDef.metrics.slice(0, 4).map((m, idx) => (
+                  <div key={idx} className="p-2 rounded-lg bg-zinc-900/80 border border-white/5 space-y-1">
+                    <span className="text-[10px] text-zinc-400 block truncate">{m.title}</span>
+                    <div className="flex items-baseline justify-between gap-1">
+                      <span className="text-xs font-bold text-white font-mono">{m.value}</span>
+                      <span className="text-[9px] font-mono text-emerald-400 flex items-center">
+                        <TrendingUp className="w-2.5 h-2.5 mr-0.5 inline" />
+                        {m.change}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <p className="text-[10px] text-zinc-400 leading-relaxed font-light">
+              Switching dataset dynamically hydrates tables, KPI cards, and sparklines with industry-specific schemas.
+            </p>
+          </div>
+        )}
+
+        {/* Tab 3: Props */}
+        {activeTab === 'props' && hasProps && (
+          <div className="space-y-4 pt-1 max-h-[360px] overflow-y-auto pr-1">
+            {variants && variants.length > 0 && onVariantChange && activeVariantIdx !== undefined && (
+              <div className="space-y-1.5 border-b border-white/10 pb-3">
+                <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">Preset Variant</span>
                 <select
-                  value={val}
-                  onChange={(e) => onChange(ctrl.name, e.target.value)}
-                  className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                  value={activeVariantIdx}
+                  onChange={(e) => onVariantChange(parseInt(e.target.value))}
+                  className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500 transition-colors"
                 >
-                  {ctrl.options?.map((opt) => (
-                    <option key={opt} value={opt}>
-                      {opt.charAt(0).toUpperCase() + opt.slice(1)}
+                  {variants.map((v, idx) => (
+                    <option key={v.name} value={idx}>
+                      {v.name.charAt(0).toUpperCase() + v.name.slice(1)}
                     </option>
                   ))}
                 </select>
-              )}
-              
-              {ctrl.type === 'number' && (
-                <input
-                  type="range"
-                  min={ctrl.min ?? 0}
-                  max={ctrl.max ?? 100}
-                  step={ctrl.step ?? 1}
-                  value={val}
-                  onChange={(e) => onChange(ctrl.name, parseFloat(e.target.value))}
-                  className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-indigo-500"
-                />
-              )}
-              
-              {ctrl.type === 'boolean' && (
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={!!val}
-                    onChange={(e) => onChange(ctrl.name, e.target.checked)}
-                    className="w-4 h-4 rounded border-white/10 bg-zinc-900 text-indigo-500 focus:ring-0 focus:ring-offset-0"
-                  />
-                  <span className="text-xs text-zinc-400 font-light">Enabled</span>
-                </label>
-              )}
+              </div>
+            )}
 
-              {ctrl.type === 'string' && (
-                <input
-                  type="text"
-                  value={val}
-                  onChange={(e) => onChange(ctrl.name, e.target.value)}
-                  className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors"
-                  placeholder={`Enter ${ctrl.label.toLowerCase()}...`}
-                />
-              )}
-              
-              {ctrl.type === 'color' && (
-                <div className="flex items-center gap-3">
-                  <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/20 shadow-sm shrink-0">
-                    <input
-                      type="color"
-                      value={val}
-                      onChange={(e) => onChange(ctrl.name, e.target.value)}
-                      className="absolute inset-[-10px] w-12 h-12 cursor-pointer"
-                    />
-                  </div>
-                  <input
-                    type="text"
-                    value={val}
-                    onChange={(e) => onChange(ctrl.name, e.target.value)}
-                    className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-1.5 text-sm font-mono text-white focus:outline-none focus:border-indigo-500 transition-colors uppercase"
-                  />
-                </div>
-              )}
-            </div>
-          );
-        })}
+            {controls && controls.length > 0 && onChange && (
+              <div className="space-y-3.5">
+                {controls.map((ctrl) => {
+                  const val = values[ctrl.name] !== undefined ? values[ctrl.name] : ctrl.default;
+                  return (
+                    <div key={ctrl.name} className="space-y-1.5">
+                      <div className="flex justify-between text-xs font-mono">
+                        <span className="text-zinc-300">{ctrl.label}</span>
+                        {ctrl.type === 'number' && (
+                          <span className="text-indigo-400 font-semibold">{val}</span>
+                        )}
+                      </div>
+
+                      {ctrl.type === 'select' && (
+                        <select
+                          value={val}
+                          onChange={(e) => onChange(ctrl.name, e.target.value)}
+                          className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                        >
+                          {ctrl.options?.map((opt) => (
+                            <option key={opt} value={opt}>
+                              {opt.charAt(0).toUpperCase() + opt.slice(1)}
+                            </option>
+                          ))}
+                        </select>
+                      )}
+
+                      {ctrl.type === 'number' && (
+                        <input
+                          type="range"
+                          min={ctrl.min ?? 0}
+                          max={ctrl.max ?? 100}
+                          step={ctrl.step ?? 1}
+                          value={val}
+                          onChange={(e) => onChange(ctrl.name, parseFloat(e.target.value))}
+                          className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                        />
+                      )}
+
+                      {ctrl.type === 'boolean' && (
+                        <label className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={!!val}
+                            onChange={(e) => onChange(ctrl.name, e.target.checked)}
+                            className="w-3.5 h-3.5 rounded border-white/10 bg-zinc-900 text-indigo-500 focus:ring-0"
+                          />
+                          <span className="text-xs text-zinc-400 font-light">Enabled</span>
+                        </label>
+                      )}
+
+                      {ctrl.type === 'string' && (
+                        <input
+                          type="text"
+                          value={val}
+                          onChange={(e) => onChange(ctrl.name, e.target.value)}
+                          className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                          placeholder={`Enter ${ctrl.label.toLowerCase()}...`}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
-      {onCopyJSX && (
-        <div className="pt-4 border-t border-white/10 mt-6">
+      {/* Footer Copy & Status */}
+      <div className="pt-3 border-t border-white/10 mt-4 space-y-2">
+        {onCopyJSX && (
           <button
             onClick={onCopyJSX}
-            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg text-sm font-medium transition-colors"
+            className="w-full flex items-center justify-center gap-2 py-2 px-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold transition-all shadow-md shadow-indigo-600/20 cursor-pointer"
           >
-            {copiedJSX ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-            {copiedJSX ? "Copied JSX!" : "Copy Tweaked Component"}
+            {copiedJSX ? <Check className="w-3.5 h-3.5 text-emerald-300" /> : <Copy className="w-3.5 h-3.5" />}
+            <span>{copiedJSX ? "Copied Customized JSX!" : "Copy Customized TSX"}</span>
           </button>
+        )}
+        <div className="flex items-center justify-center gap-1.5 text-[10px] text-zinc-400 font-mono">
+          <Code2 className="w-3 h-3 text-indigo-400" />
+          <span>React & Vanilla tabs sync live</span>
         </div>
-      )}
+      </div>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+﻿/// <reference types="@react-three/fiber" />
 'use client';
 
 import React, { useEffect, useRef, useMemo } from 'react';
@@ -35,7 +36,7 @@ const DEFAULT_MARKERS: GlobeMarker[] = [
   { location: [-33.8688, 151.2093], size: 0.05 },  // Sydney
   { location: [48.8566, 2.3522], size: 0.05 },     // Paris
   { location: [55.7558, 37.6173], size: 0.05 },    // Moscow
-  { location: [-23.5505, -46.6333], size: 0.05 },  // São Paulo
+  { location: [-23.5505, -46.6333], size: 0.05 },  // SÃ£o Paulo
   { location: [1.3521, 103.8198], size: 0.05 },    // Singapore
 ];
 

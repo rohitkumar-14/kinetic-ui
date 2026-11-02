@@ -1855,6 +1855,32 @@
           "button"
         ]
       },
+      "crm-table": {
+        "name": "CrmTable",
+        "description": "Full-featured CRM and dashboard customer management table with pipeline stages and deal tracking.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/crm-table.tsx"
+        ],
+        "registryDependencies": [
+          "badge",
+          "button",
+          "input",
+          "checkbox"
+        ]
+      },
+      "metric-card": {
+        "name": "MetricCard",
+        "description": "KPI metric and stat cards with trend badges and sparkline charts for CRM and dashboards.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          "components/ui/metric-card.tsx"
+        ]
+      },
       "data-table": {
         "name": "DataTable",
         "description": "Standard data-table UI component.",

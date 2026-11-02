@@ -1,3 +1,4 @@
+﻿/// <reference types="@react-three/fiber" />
 "use client";
 
 import React, { useRef, useMemo, useState, useEffect } from "react";
@@ -15,7 +16,7 @@ interface TunnelScrollProps extends React.HTMLAttributes<HTMLDivElement> {
   tunnelColor?: string;
 }
 
-// ─── THE TUNNEL MESH ───
+// â”€â”€â”€ THE TUNNEL MESH â”€â”€â”€
 function Tunnel({ length, color }: { length: number; color: string }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.MeshStandardMaterial>(null);
@@ -46,7 +47,7 @@ function Tunnel({ length, color }: { length: number; color: string }) {
   );
 }
 
-// ─── THE SCENE CAMERA CONTROLLER ───
+// â”€â”€â”€ THE SCENE CAMERA CONTROLLER â”€â”€â”€
 function SceneController({
   scrollYProgress,
   maxZ,
@@ -77,7 +78,7 @@ function SceneController({
   return null;
 }
 
-// ─── THE MAIN WRAPPER ───
+// â”€â”€â”€ THE MAIN WRAPPER â”€â”€â”€
 export function TunnelScroll({
   children,
   spacing = 30,

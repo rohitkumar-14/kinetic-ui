@@ -1,18 +1,23 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Terminal, Code, Package, Check, Play, ExternalLink } from 'lucide-react';
+import { Terminal, Code, Package, Check, Play, ExternalLink, Download, FileCode } from 'lucide-react';
+import { getVanillaCodeBundle, downloadFile } from '@/lib/vanilla-snippets';
 
 export function MicroActions({ 
   slug, 
-  dependencies 
+  dependencies,
+  title = 'Component'
 }: { 
-  slug: string, 
-  dependencies: string[] 
+  slug: string; 
+  dependencies: string[];
+  title?: string;
 }) {
   const [copiedCLI, setCopiedCLI] = useState(false);
   const [copiedImport, setCopiedImport] = useState(false);
   const [copiedDeps, setCopiedDeps] = useState(false);
+  const [copiedHtml, setCopiedHtml] = useState(false);
+  const [downloadedHtml, setDownloadedHtml] = useState(false);
 
   const handleCopy = (text: string, setter: (val: boolean) => void) => {
     navigator.clipboard.writeText(text);
@@ -24,37 +29,71 @@ export function MicroActions({
   const importCommand = `import { Component } from "@/components/creative/${slug}";`;
   const depsCommand = dependencies.length > 0 ? `npm i ${dependencies.join(' ')}` : '';
 
+  const handleDownloadHtml = () => {
+    const bundle = getVanillaCodeBundle(slug, title);
+    downloadFile(`${slug}.html`, bundle.standaloneHtml, 'text/html;charset=utf-8');
+    setDownloadedHtml(true);
+    setTimeout(() => setDownloadedHtml(false), 2000);
+  };
+
+  const handleCopyHtml = () => {
+    const bundle = getVanillaCodeBundle(slug, title);
+    handleCopy(bundle.standaloneHtml, setCopiedHtml);
+  };
+
   return (
-    <div className="flex flex-wrap items-center gap-3 mt-6 mb-8 border-y border-white/5 py-4">
-      <div className="flex items-center gap-2 pr-4 border-r border-white/10">
+    <div className="flex flex-wrap items-center gap-2.5 mt-6 mb-8 border-y border-white/5 py-4">
+      <div className="flex items-center gap-2 pr-3 border-r border-white/10">
         <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">Quick Actions</span>
       </div>
 
+      {/* CLI Command */}
       <button
         onClick={() => handleCopy(cliCommand, setCopiedCLI)}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white transition-colors group"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white transition-colors group cursor-pointer"
         title="Copy CLI Command"
       >
         {copiedCLI ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Terminal className="w-3.5 h-3.5 text-indigo-400 group-hover:text-indigo-300" />}
         <span>CLI</span>
       </button>
 
+      {/* React Import */}
       <button
         onClick={() => handleCopy(importCommand, setCopiedImport)}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white transition-colors group"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white transition-colors group cursor-pointer"
         title="Copy Import Statement"
       >
         {copiedImport ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Code className="w-3.5 h-3.5 text-sky-400 group-hover:text-sky-300" />}
-        <span>Import</span>
+        <span>React Import</span>
+      </button>
+
+      {/* Copy Standalone HTML */}
+      <button
+        onClick={handleCopyHtml}
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white transition-colors group cursor-pointer"
+        title="Copy Ready-to-use Standalone HTML code"
+      >
+        {copiedHtml ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <FileCode className="w-3.5 h-3.5 text-amber-400 group-hover:text-amber-300" />}
+        <span>Copy HTML</span>
+      </button>
+
+      {/* 1-Click Single File Download */}
+      <button
+        onClick={handleDownloadHtml}
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-xs font-medium text-emerald-400 hover:text-emerald-300 transition-colors group cursor-pointer shadow-sm"
+        title="Download Standalone Single HTML File (Zero installation needed)"
+      >
+        {downloadedHtml ? <Check className="w-3.5 h-3.5" /> : <Download className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />}
+        <span>Download .html</span>
       </button>
 
       {depsCommand && (
         <button
           onClick={() => handleCopy(depsCommand, setCopiedDeps)}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white transition-colors group"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white transition-colors group cursor-pointer"
           title="Copy Dependencies"
         >
-          {copiedDeps ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Package className="w-3.5 h-3.5 text-amber-400 group-hover:text-amber-300" />}
+          {copiedDeps ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Package className="w-3.5 h-3.5 text-purple-400 group-hover:text-purple-300" />}
           <span>Deps</span>
         </button>
       )}

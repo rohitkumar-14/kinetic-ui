@@ -1,0 +1,56 @@
+---
+title: Dropdown
+description: Displays a menu or list of actions triggered by a button for CRM action menus and navigation.
+category: Forms
+---
+
+Displays a contextual action menu to the user—such as actions, exports, filters, or settings—triggered by a button. Ideal for CRM row actions and dashboard menus.
+
+## Preview
+
+<ComponentPreview 
+  name="Dropdown" 
+  componentName="DropdownMenu"
+  sourceFile="components/ui/dropdown-menu.tsx"
+  propsData={[
+    {
+      name: "Inherits Props",
+      type: "Radix UI",
+      default: "—",
+      description: "Supports standard Radix UI Dropdown Menu primitives."
+    }
+  ]}
+  variants={[
+    {
+      name: "Default",
+      code: `import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
+
+export default function Example() {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">Actions</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>CRM Actions</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Edit Lead</DropdownMenuItem>
+        <DropdownMenuItem>Assign Agent</DropdownMenuItem>
+        <DropdownMenuItem>Export CSV</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}`
+    }
+  ]}
+>
+  <DropdownDemo />
+</ComponentPreview>

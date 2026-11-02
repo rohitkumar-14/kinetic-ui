@@ -1,0 +1,41 @@
+---
+title: Data Table
+description: Powerful, type-safe data table built on top of TanStack React Table with column sorting and pagination.
+category: CRM & Dashboard
+subcategory: Data Display
+date: 2026-10-21
+---
+
+<ComponentPreview 
+  name="Data Table" 
+  componentName="DataTable"
+  sourceFile="components/ui/data-table.tsx"
+>
+  <DataTableDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="data-table" />
+
+## Usage
+
+```tsx
+import { DataTable } from "@/components/ui/data-table";
+import { ColumnDef } from "@tanstack/react-table";
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+const columns: ColumnDef<User>[] = [
+  { accessorKey: "name", header: "Name" },
+  { accessorKey: "email", header: "Email" },
+];
+
+export function UserList({ users }: { users: User[] }) {
+  return <DataTable columns={columns} data={users} />;
+}
+```

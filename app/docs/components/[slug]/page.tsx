@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getComponentDocBySlug, getComponentSlugs } from '@/lib/mdx';
 import fs from 'fs';
@@ -198,6 +199,10 @@ import { LoaderDemo } from '@/components/creative/docs/loader-demo';
 import { HorizontalScrollDemo } from '@/components/creative/docs/horizontal-scroll-demo';
 import { BreadcrumbDemo } from '@/components/creative/docs/breadcrumb-demo';
 import { DropdownDemo } from '@/components/creative/docs/dropdown-demo';
+import { CrmTableDemo } from '@/components/creative/docs/crm-table-demo';
+import { MetricCardDemo } from '@/components/creative/docs/metric-card-demo';
+import { TableDemo } from '@/components/creative/docs/table-demo';
+import { DataTableDemo } from '@/components/creative/docs/data-table-demo';
 import { EmptyStateDemo } from '@/components/creative/docs/empty-state-demo';
 import { FilterDemo } from '@/components/creative/docs/filter-demo';
 import { PaginationDemo } from '@/components/creative/docs/pagination-demo';
@@ -415,6 +420,10 @@ const mdxComponents = {
   WebcamShaderPortalDemo,
   MultiplayerCursorEcosystemDemo,
   InfiniteZoomCanvasDemo,
+  CrmTableDemo,
+  MetricCardDemo,
+  TableDemo,
+  DataTableDemo,
   ComponentPreview,
   PropsTable,
   CliInstallCommand,
@@ -731,6 +740,62 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));
 }
 
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await props.params;
+  const doc = getComponentDocBySlug(slug);
+
+  if (!doc) {
+    return {
+      title: 'Component Not Found | Kinetic UI',
+    };
+  }
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kinetic-ui.netlify.app';
+  const pageUrl = `${siteUrl}/docs/components/${slug}`;
+  const title = `${doc.title} Component — React & Tailwind Motion`;
+  const description = `${doc.description} Copy-paste React component with interactive live preview, Framer Motion animations, and standalone HTML/CSS/JS export.`;
+
+  return {
+    title,
+    description,
+    keywords: [
+      doc.title,
+      `${doc.title} React`,
+      `${doc.title} Tailwind CSS`,
+      `${doc.title} animation`,
+      `${doc.category || 'creative'} UI component`,
+      'Kinetic UI component',
+      'copy paste components',
+      'interactive studio',
+    ],
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${doc.title} — Kinetic UI Component`,
+      description,
+      url: pageUrl,
+      type: 'article',
+      siteName: 'Kinetic UI',
+      images: [
+        {
+          url: '/logo.png',
+          width: 1200,
+          height: 630,
+          alt: `${doc.title} Component Preview`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${doc.title} — Kinetic UI Component`,
+      description,
+      images: ['/logo.png'],
+      creator: '@kineticui',
+    },
+  };
+}
+
 export default async function ComponentPage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params;
   const doc = getComponentDocBySlug(slug);
@@ -814,8 +879,81 @@ export default async function ComponentPage(props: { params: Promise<{ slug: str
     }
   };
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kinetic-ui.netlify.app';
+  const pageUrl = `${siteUrl}/docs/components/${slug}`;
+
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": `${doc.title} Component Documentation`,
+      "description": doc.description,
+      "url": pageUrl,
+      "mainEntityOfPage": pageUrl,
+      "author": {
+        "@type": "Organization",
+        "name": "Kinetic UI"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Kinetic UI",
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${siteUrl}/logo.png`
+        }
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": doc.title,
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web Browser",
+      "url": pageUrl,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": siteUrl
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Docs",
+          "item": `${siteUrl}/docs`
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": doc.category || "Components",
+          "item": `${siteUrl}/docs/components`
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": doc.title,
+          "item": pageUrl
+        }
+      ]
+    }
+  ];
+
   return (
     <div className="w-full">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="mb-10">
         <Link href="/docs" className="text-xs text-zinc-500 hover:text-white flex items-center gap-2 w-fit mb-8 transition-colors">
           <ArrowRight className="h-4 w-4 rotate-180" /> Back to Introduction
@@ -828,7 +966,7 @@ export default async function ComponentPage(props: { params: Promise<{ slug: str
         <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4 text-white">{doc.title}</h1>
         <p className="text-base text-zinc-400 font-light max-w-2xl leading-relaxed">{doc.description}</p>
         
-        <MicroActions slug={slug} dependencies={dependencies} />
+        <MicroActions slug={slug} dependencies={dependencies} title={doc.title} />
       </div>
 
       <DocsPageClient slug={slug} title={doc.title} category={doc.category}>

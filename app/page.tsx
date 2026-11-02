@@ -39,8 +39,26 @@ const faqs = [
 ];
 
 export default function Home() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
     <main className="flex-1 w-full overflow-x-clip bg-background text-foreground transition-colors duration-300 relative">
+      {/* Search Engine Optimization: Structured FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       {/* 1. Hero Section */}
       <GravityGridHero 
         variant="dots" 

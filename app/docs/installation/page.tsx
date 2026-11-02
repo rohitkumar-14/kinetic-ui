@@ -1,6 +1,15 @@
+import type { Metadata } from 'next';
 import { CodeBlock } from '@/components/code-block';
 import { DocsPager } from '@/components/docs-pager';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+export const metadata: Metadata = {
+  title: "Installation & CLI Quickstart",
+  description: "Learn how to install and configure Kinetic UI in Next.js, React, and Tailwind CSS. Initialize via the kinetic-ui-cli or copy-paste components with zero dependencies.",
+  alternates: {
+    canonical: "/docs/installation",
+  },
+};
 
 export default function InstallationPage() {
   const initCode = `npx kinetic-ui-cli@latest init`;

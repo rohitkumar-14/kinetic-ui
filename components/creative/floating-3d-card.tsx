@@ -1,3 +1,4 @@
+﻿/// <reference types="@react-three/fiber" />
 'use client';
 
 import React, { useRef, useState, useMemo } from 'react';
@@ -27,7 +28,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: Floating3DVariant;
 }
 
-// ─── Crystal Variant: Wireframe icosahedron with glass inner ──────────────────
+// â”€â”€â”€ Crystal Variant: Wireframe icosahedron with glass inner â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function CrystalScene({ color = '#818cf8', speed = 1, scale = 1 }: { color?: string; speed?: number; scale?: number }) {
   const outerRef = useRef<THREE.Mesh>(null);
   const innerRef = useRef<THREE.Mesh>(null);
@@ -72,7 +73,7 @@ function CrystalScene({ color = '#818cf8', speed = 1, scale = 1 }: { color?: str
   );
 }
 
-// ─── Nebula Variant: Distorted sphere with animated surface ───────────────────
+// â”€â”€â”€ Nebula Variant: Distorted sphere with animated surface â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function NebulaScene({ color = '#a855f7', speed = 1, scale = 1 }: { color?: string; speed?: number; scale?: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const distortRef = useRef(3);
@@ -105,7 +106,7 @@ function NebulaScene({ color = '#a855f7', speed = 1, scale = 1 }: { color?: stri
   );
 }
 
-// ─── Prism Variant: Rotating octahedron with refractive glass ─────────────────
+// â”€â”€â”€ Prism Variant: Rotating octahedron with refractive glass â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function PrismScene({ color = '#22d3ee', speed = 1, scale = 1 }: { color?: string; speed?: number; scale?: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const ringRef = useRef<THREE.Mesh>(null);
@@ -154,7 +155,7 @@ function PrismScene({ color = '#22d3ee', speed = 1, scale = 1 }: { color?: strin
   );
 }
 
-// ─── Plasma Variant: Organic blob with emissive glow ──────────────────────────
+// â”€â”€â”€ Plasma Variant: Organic blob with emissive glow â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function PlasmaScene({ color = '#f43f5e', speed = 1, scale = 1 }: { color?: string; speed?: number; scale?: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
@@ -185,7 +186,7 @@ function PlasmaScene({ color = '#f43f5e', speed = 1, scale = 1 }: { color?: stri
   );
 }
 
-// ─── Ring Variant: Torus knot with metallic finish ────────────────────────────
+// â”€â”€â”€ Ring Variant: Torus knot with metallic finish â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function RingScene({ color = '#f59e0b', speed = 1, scale = 1 }: { color?: string; speed?: number; scale?: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
@@ -214,7 +215,7 @@ function RingScene({ color = '#f59e0b', speed = 1, scale = 1 }: { color?: string
   );
 }
 
-// ─── Scene Wrapper ────────────────────────────────────────────────────────────
+// â”€â”€â”€ Scene Wrapper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function Scene({ variant = 'crystal', color, speed = 1, scale = 1 }: {
   variant?: Floating3DVariant;
   color?: string;
@@ -253,7 +254,7 @@ function Scene({ variant = 'crystal', color, speed = 1, scale = 1 }: {
   );
 }
 
-// ─── Main Floating3DCard Component ────────────────────────────────────────────
+// â”€â”€â”€ Main Floating3DCard Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export function Floating3DCard({
   children,
   className,

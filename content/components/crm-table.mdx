@@ -1,0 +1,41 @@
+---
+title: CRM Customer Table
+description: A complete CRM and dashboard customer management table featuring pipeline stages, deal values, search, stage filters, and bulk actions.
+category: CRM & Dashboard
+subcategory: Data Display
+date: 2026-10-21
+---
+
+<ComponentPreview 
+  name="CRM Customer Table" 
+  componentName="CrmTable"
+  sourceFile="components/ui/crm-table.tsx"
+>
+  <CrmTableDemo />
+</ComponentPreview>
+
+## Installation
+
+<CliInstallCommand name="crm-table" />
+
+## Usage
+
+```tsx
+import { CrmTable } from "@/components/ui/crm-table";
+
+export function DealsPage() {
+  return (
+    <div className="w-full max-w-6xl mx-auto py-8">
+      <CrmTable />
+    </div>
+  );
+}
+```
+
+## Features
+
+- **Pipeline Stages**: Visual colored badges for New Lead, Contacted, Qualified, Proposal, Won, and Churned.
+- **Search & Filter**: Real-time filtering by company name, contact name, or email.
+- **Deal Value Formatting**: Formatted USD deal values with monospace numerical alignment.
+- **Bulk Actions**: Row selection checkboxes with delete and export controls.
+- **Responsive**: Smooth horizontal scrolling with sticky-ready action column.

@@ -32,7 +32,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
               <span className="sr-only">Toggle Menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="p-0 pt-10 w-72" data-lenis-prevent>
+          <SheetContent side="left" className="p-0 pt-10 w-84 sm:w-96" data-lenis-prevent>
             <DocsSidebar />
           </SheetContent>
         </Sheet>

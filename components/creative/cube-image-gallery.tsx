@@ -1,3 +1,4 @@
+﻿/// <reference types="@react-three/fiber" />
 "use client";
 
 import React, { useRef, useState } from "react";
@@ -95,7 +96,7 @@ export function CubeImageGallery({ images = defaultImages, className }: CubeImag
       </Canvas>
       
       <div className="absolute bottom-6 left-0 right-0 text-center pointer-events-none">
-        <p className="text-white/50 text-sm tracking-widest uppercase">Click to expand • Drag to rotate</p>
+        <p className="text-white/50 text-sm tracking-widest uppercase">Click to expand â€¢ Drag to rotate</p>
       </div>
     </div>
   );

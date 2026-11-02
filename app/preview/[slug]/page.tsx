@@ -66,6 +66,10 @@ import { DragReorderDemo } from '@/components/creative/docs/drag-reorder-demo';
 import { DraggableCanvasDemo } from '@/components/creative/docs/draggable-canvas-demo';
 import { DraggableCarouselDemo } from '@/components/creative/docs/draggable-carousel-demo';
 import { DropdownDemo } from '@/components/creative/docs/dropdown-demo';
+import { CrmTableDemo } from '@/components/creative/docs/crm-table-demo';
+import { MetricCardDemo } from '@/components/creative/docs/metric-card-demo';
+import { TableDemo } from '@/components/creative/docs/table-demo';
+import { DataTableDemo } from '@/components/creative/docs/data-table-demo';
 import { DynamicIslandDemo } from '@/components/creative/docs/dynamic-island-demo';
 import ElasticGooeyMenuDemo from '@/components/creative/docs/elastic-gooey-menu-demo';
 import { ElasticSidebarDemo } from '@/components/creative/docs/elastic-sidebar-demo';
@@ -331,12 +335,14 @@ const mdxComponents: Record<string, any> = {
   'context-cursor': ContextCursorDemo,
   'cookie-consent': CookieConsentDemo,
   'cover-flow-carousel': CoverFlowCarouselDemo,
+  'crm-table': CrmTableDemo,
   'css-device-mockup': CssDeviceMockupDemo,
   'cta-section': CtaSectionDemo,
   'cursor-follower': CustomCursorDemo,
   'cursor-trail': CursorTrailDemo,
   'cyber-terminal': CyberTerminalDemo,
   'cylinder-marquee': CylinderMarqueeDemo,
+  'data-table': DataTableDemo,
   'desktop-window': DesktopWindowDemo,
   'destructible-ui': DestructibleUIDemo,
   'dialog': DialogDemo,
@@ -432,6 +438,7 @@ const mdxComponents: Record<string, any> = {
   'magnifying-glass': MagnifyingGlassDemo,
   'masonry-grid': MasonryGridDemo,
   'mega-menu': MegaMenuDemo,
+  'metric-card': MetricCardDemo,
   'mesh-gradient': MeshGradientDemo,
   'microphone-reactive-orb': MicrophoneReactiveOrbDemo,
   'minimap': MinimapDemo,
@@ -515,6 +522,7 @@ const mdxComponents: Record<string, any> = {
   'svg-shape-morph': SvgShapeMorphDemo,
   'swipeable-stack': SwipeableStackDemo,
   'switch': SwitchDemo,
+  'table': TableDemo,
   'tabs': TabsDemo,
   'terminal-footer': TerminalFooterDemo,
   'testimonial-carousel': TestimonialCarouselDemo,
